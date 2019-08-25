@@ -1,6 +1,7 @@
 const WatchlistService = require('../services/watchlist.service');
 
 class WatchlistController {
+    // ************************************************************
     // * CREATE NEW
     static async createWatchlist(request, response) {
         let title = request.body.title;
@@ -21,6 +22,7 @@ class WatchlistController {
         return response.status(201).json({ message, watchlistResponse });
     }
 
+    // ************************************************************
     // * FIND ALL WATCHLISTS
     static async findAllWatchlists(request, response) {
         let watchlists, message;
@@ -36,6 +38,7 @@ class WatchlistController {
 
     }
 
+    // ************************************************************
     // * GET ALL WATCHLISTS FOR A SPECIFIC USER
     static async findAllWatchlistsByAuthorId(request, response) {
         let authorId = request.body.authorId;
@@ -53,6 +56,7 @@ class WatchlistController {
 
     }
 
+    // ************************************************************
     // * UPDATE TITLE OR DESCRIPTION
     static async updateTitleOrDescription(request, response) {
         let watchlistId = request.body.watchlistId;
@@ -71,6 +75,7 @@ class WatchlistController {
         return response.status(202).json({ message, watchlistResponse });
     }
 
+    // ************************************************************
     // * LIKE
     static async likeWatchlist(request, response) {
         let watchlistId = request.body.watchlistId;
@@ -88,6 +93,7 @@ class WatchlistController {
         return response.status(201).json({ message, watchlistResponse });
     }
 
+    // ************************************************************
     // * DELETE
     static async deleteWatchlist(request, response) {
         let watchlistId = request.body.watchlistId;
@@ -104,6 +110,7 @@ class WatchlistController {
         return response.status(200).json({ message });
     }
 
+    // ************************************************************
     // * DELETE MOVIE FROM WATCHLIST
     static async deleteMovieFromWatchlist(request, response) {
         let watchlistId = request.body.watchlistId;

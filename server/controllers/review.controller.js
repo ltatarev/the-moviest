@@ -1,7 +1,8 @@
 const ReviewService = require('../services/review.service');
 
 class ReviewController {
-    // * CREATE
+    // ************************************************************
+    // * CREATE REVIEW
     static async createReview(request, response) {
         let title = request.body.title;
         let movie = request.body.movie;
@@ -22,6 +23,7 @@ class ReviewController {
         return response.status(202).json({ message, review });
     }
 
+    // ************************************************************
     // * FIND ALL REVIEWS
     static async findAllReviews(request, response) {
         let reviews, message;
@@ -37,6 +39,7 @@ class ReviewController {
 
     }
 
+    // ************************************************************
     // * FIND ALL REVIEWS FOR MOVIES
     static async findReviewByMovie(request, response) {
         let movieTitle = request.body.movieTitle;
@@ -54,6 +57,7 @@ class ReviewController {
 
     }
 
+    // ************************************************************
     // * FIND ALL REVIEWS WRITTEN BY AUTHOR
     static async findReviewsByAuthor(request, response) {
         let authorId = request.body.authorId;
@@ -71,6 +75,7 @@ class ReviewController {
 
     }
 
+    // ************************************************************
     // * UPDATE REVIEW
     static async updateReview(request, response) {
         let reviewId = request.body.reviewId;
@@ -89,8 +94,6 @@ class ReviewController {
         message = "Successfully updated watchlist!";
         return response.status(202).json({ message, watchlist });
     }
-
-
 
 }
 

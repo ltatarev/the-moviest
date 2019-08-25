@@ -3,6 +3,8 @@ const Watchlist = mongoose.model('Watchlist');
 const ObjectId = mongoose.Types.ObjectId;
 
 class WatchlistService {
+
+    // ************************************************************
     // * CREATE
     static async createWatchlist(title, description, movies, authorId) {
         let author_id = ObjectId(authorId.toString());
@@ -12,6 +14,7 @@ class WatchlistService {
         return watchlist;
     }
 
+    // ************************************************************
     // * GET ALL WATCHLISTS
     static async findAllWatchlists() {
         return await Watchlist.find()
@@ -19,6 +22,7 @@ class WatchlistService {
             .exec();
     }
 
+    // ************************************************************
     // * GET ALL WATCHLISTS FOR A SPECIFIC USER
     static async findAllWatchlistsByAuthorId(authorId) {
         let author_id = ObjectId(authorId.toString());
@@ -27,6 +31,7 @@ class WatchlistService {
             .exec();
     }
 
+    // ************************************************************
     // * UPDATE TITLE OR DESCRIPTION
     static async updateTitleOrDescription(_id, title, description) {
         let watchlist_id = ObjectId(_id.toString());
@@ -37,6 +42,7 @@ class WatchlistService {
         return watchlist;
     }
 
+    // ************************************************************
     // * LIKE
     static async likeWatchlist(_id) {
         let watchlist_id = ObjectId(_id.toString());
@@ -47,6 +53,7 @@ class WatchlistService {
         return watchlist;
     }
 
+    // ************************************************************
     // * DELETE WATCHLIST
     static async deleteWatchlist(_id) {
         let watchlist_id = ObjectId(_id.toString());
@@ -57,7 +64,8 @@ class WatchlistService {
         }).exec();
     }
 
-    // * DELETE A SINGLE MOVIE
+    // ************************************************************
+    // * DELETE A SINGLE MOVIE FROM WATCHLIST
     static async deleteMovieFromWatchlist(_id, movieId) {
         let watchlist_id = ObjectId(_id.toString());
 

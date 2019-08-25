@@ -1,6 +1,8 @@
 const UserService = require('../services/user.service');
 
 class UserController {
+
+    // ************************************************************
     // * REGISTER
     static async register(request, response) {
         let email = request.body.email;
@@ -20,6 +22,7 @@ class UserController {
         return response.status(201).json({ message, token });
     }
 
+    // ************************************************************
     // * LOGIN
     static async login(request, response) {
         let username = request.body.username;
@@ -48,7 +51,7 @@ class UserController {
         return response.status(202).json({ message, token });
     }
 
-
+    // ************************************************************
     // * CHANGE USERNAME
     static async updateUsername(request, response) {
         let username = request.body.username;
@@ -66,6 +69,7 @@ class UserController {
         return response.status(201).json({ message, user });
     }
 
+    // ************************************************************
     // * CHANGE AVATAR
     static async updateUsername(request, response) {
         let username = request.body.username;
@@ -83,6 +87,7 @@ class UserController {
         return response.status(201).json({ message, user });
     }
 
+    // ************************************************************
     // * CHANGE PASSWORD
     static async updatePassword(request, response) {
         let username = request.body.username;
@@ -102,6 +107,7 @@ class UserController {
         return response.status(201).json({ message, token });
     }
 
+    // ************************************************************
     // * GET AVATAR, BIO, CURRENTLY WATCHING, FAVORITES, WATCHLISTS
     static async getProfileData(request, response) {
         let username = request.body.username;
@@ -118,6 +124,7 @@ class UserController {
         return response.status(200).json({ userResponse });
     }
 
+    // ************************************************************
     // * CREATE OR UPDATE BIO
     static async createOrUpdateBio(request, response) {
         let username = request.body.username;
@@ -135,6 +142,7 @@ class UserController {
         return response.status(201).json({ message, bioResponse });
     }
 
+    // ************************************************************
     // * CREATE OR UPDATE CURRENTLY WATCHING
     static async createOrUpdateCurrentlyWatching(request, response) {
         let username = request.body.username;
@@ -152,6 +160,7 @@ class UserController {
         return response.status(201).json({ message, currentlyWatchingResponse });
     }
 
+    // ************************************************************
     // * CREATE OR UPDATE FAVORITES
     static async createOrUpdateFavorites(request, response) {
         let username = request.body.username;
@@ -169,7 +178,8 @@ class UserController {
         return response.status(201).json({ message, favoritesResponse });
     }
 
-
+    // ************************************************************
+    // * FIND ALL CURRENTLY WATCHING
     static async findAllCurrentlyWatching(request, response) {
         let movieTitle = request.body.movieTitle;
 
