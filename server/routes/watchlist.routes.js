@@ -3,24 +3,6 @@ let router = express.Router();
 
 const WatchlistController = require('../controllers/watchlist.controller');
 
-router.route("/createWatchlist")
-    .post(WatchlistController.createWatchlist);
-
-router.route("/updateTitleOrDescription")
-    .put(WatchlistController.updateTitleOrDescription);
-
-router.route("/addMovieToWatchlist")
-    .post(WatchlistController.addMovieToWatchlist);
-
-router.route("/likeWatchlist")
-    .post(WatchlistController.likeWatchlist);
-
-router.route("/deleteWatchlist")
-    .delete(WatchlistController.deleteWatchlist);
-
-router.route("/deleteMovieFromWatchlist")
-    .delete(WatchlistController.deleteMovieFromWatchlist);
-
 router.route("/findAllWatchlists")
     .get(WatchlistController.findAllWatchlists);
 
@@ -29,5 +11,25 @@ router.route("/findWatchlistsByAuthor")
 
 router.route("/findWatchlistsByName")
     .get(WatchlistController.findWatchlistsByName);
+
+router.route("/addMovieToWatchlist")
+    .post(WatchlistController.addMovieToWatchlist);
+
+router.route("/createWatchlist")
+    .post(WatchlistController.createWatchlist);
+
+router.route("/likeWatchlist")
+    .post(WatchlistController.likeWatchlist);
+
+router.route("/updateTitleOrDescription")
+    .put(WatchlistController.updateTitleOrDescription);
+
+router.route("/deleteWatchlist")
+    .delete(WatchlistController.deleteWatchlist);
+
+router.route("/deleteMovieFromWatchlist")
+    .delete(WatchlistController.deleteMovieFromWatchlist);
+
+
 
 module.exports = router;

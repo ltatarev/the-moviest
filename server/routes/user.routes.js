@@ -3,26 +3,11 @@ let router = express.Router();
 
 const UserController = require('../controllers/user.controller');
 
-router.route("/register")
-    .post(UserController.register);
-
-router.route("/login")
-    .post(UserController.login);
-
-router.route("/updateUsername")
-    .post(UserController.updateUsername);
-
-router.route("/updatePassword")
-    .post(UserController.updatePassword);
-
-router.route("/updateAvatar")
-    .post(UserController.updateAvatar);
+router.route("/findAllCurrentlyWatching")
+    .get(UserController.findAllCurrentlyWatching);
 
 router.route("/getProfileData")
     .get(UserController.getProfileData);
-
-router.route("/findAllCurrentlyWatching")
-    .get(UserController.findAllCurrentlyWatching);
 
 router.route("/createOrUpdateBio")
     .post(UserController.createOrUpdateBio);
@@ -32,5 +17,20 @@ router.route("/createOrUpdateCurrentlyWatching")
 
 router.route("/createOrUpdateFavorites")
     .post(UserController.createOrUpdateFavorites);
+
+router.route("/login")
+    .post(UserController.login);
+
+router.route("/register")
+    .post(UserController.register);
+
+router.route("/updateAvatar")
+    .post(UserController.updateAvatar);
+
+router.route("/updatePassword")
+    .post(UserController.updatePassword);
+
+router.route("/updateUsername")
+    .post(UserController.updateUsername);
 
 module.exports = router;

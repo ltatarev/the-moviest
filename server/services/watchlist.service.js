@@ -5,13 +5,28 @@ const ObjectId = mongoose.Types.ObjectId;
 class WatchlistService {
 
     // ************************************************************
-    // * CREATE
-    static async createWatchlist(title, description, authorId) {
-        let author_id = ObjectId(authorId.toString());
-        let watchlist = new Watchlist({ title, description, author_id });
+    // * FIND ALL WATCHLISTS
+    static async findAllWatchlists() {
+        return await Watchlist.find()
+            .populate('author_id', "username")
+            .exec();
+    }
 
-        await watchlist.save();
-        return watchlist;
+    // ************************************************************
+    // * FIND ALL WATCHLISTS FOR A SPECIFIC USER
+    static async findAllWatchlistsByAuthorId(authorId) {
+        let author_id = ObjectId(authorId.toString());
+        return await Watchlist.find({ "author_id": author_id })
+            .populate('author_id', "username")
+            .exec();
+    }
+
+    // ************************************************************
+    // * FIND ALL WATCHLISTS BY NAME
+    static async findWatchlistsByName(title) {
+        return await Watchlist.find({ title })
+            .populate('author_id', "username")
+            .exec();
     }
 
     // ************************************************************
@@ -22,28 +37,24 @@ class WatchlistService {
     }
 
     // ************************************************************
-    // * GET ALL WATCHLISTS
-    static async findAllWatchlists() {
-        return await Watchlist.find()
-            .populate('author_id', "username")
-            .exec();
-    }
-
-    // ************************************************************
-    // * GET ALL WATCHLISTS FOR A SPECIFIC USER
-    static async findAllWatchlistsByAuthorId(authorId) {
+    // * CREATE NEW WATCHLIST
+    static async createWatchlist(title, description, authorId) {
         let author_id = ObjectId(authorId.toString());
-        return await Watchlist.find({ "author_id": author_id })
-            .populate('author_id', "username")
-            .exec();
+        let watchlist = new Watchlist({ title, description, author_id });
+
+        await watchlist.save();
+        return watchlist;
     }
 
     // ************************************************************
-    // * GET ALL WATCHLISTS BY NAME
-    static async findWatchlistsByName(title) {
-        return await Watchlist.find({ title })
-            .populate('author_id', "username")
-            .exec();
+    // * LIKE WATCHLIST
+    static async likeWatchlist(_id) {
+        let watchlist_id = ObjectId(_id.toString());
+
+        let watchlist = await Watchlist.findByIdAndUpdate({ _id }, { $inc: { likes: 1 } }, { new: true, fields: "likes" }).exec();;
+
+        await watchlist.save();
+        return watchlist;
     }
 
     // ************************************************************
@@ -52,17 +63,6 @@ class WatchlistService {
         let watchlist_id = ObjectId(_id.toString());
 
         let watchlist = await Watchlist.findByIdAndUpdate({ _id: watchlist_id }, { title, description }, { new: true, upsert: true }).exec();
-
-        await watchlist.save();
-        return watchlist;
-    }
-
-    // ************************************************************
-    // * LIKE
-    static async likeWatchlist(_id) {
-        let watchlist_id = ObjectId(_id.toString());
-
-        let watchlist = await Watchlist.findByIdAndUpdate({ _id }, { $inc: { likes: 1 } }, { new: true, fields: "likes" }).exec();;
 
         await watchlist.save();
         return watchlist;

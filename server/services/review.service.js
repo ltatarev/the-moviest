@@ -3,19 +3,20 @@ const Review = mongoose.model('Review');
 const ObjectId = mongoose.Types.ObjectId;
 
 class ReviewService {
-    // ************************************************************
-    // * CREATE REVIEW
-    static async createReview(title, movie, rating, reviewText, authorId) {
-        let author_id = ObjectId(authorId.toString());
-        let review = new Review({ title, movie, rating, reviewText, author_id });
-        await review.save();
-        return review;
-    }
 
     // ************************************************************
     // * FIND ALL REVIEWS
     static async findAllReviews() {
         return await Review.find().populate('author_id', "username").exec();
+    }
+
+    // ************************************************************
+    // * FIND ALL REVIEWS WRITTEN BY AUTHOR
+    static async findReviewsByAuthor(authorId) {
+        let author_id = ObjectId(authorId.toString());
+        return await Review.find({ "author_id": author_id })
+            .populate('author_id', "username")
+            .exec();
     }
 
     // * FIND ALL REVIEWS FOR MOVIES
@@ -27,12 +28,12 @@ class ReviewService {
     }
 
     // ************************************************************
-    // * FIND ALL REVIEWS WRITTEN BY AUTHOR
-    static async findReviewsByAuthor(authorId) {
+    // * CREATE REVIEW
+    static async createReview(title, movie, rating, reviewText, authorId) {
         let author_id = ObjectId(authorId.toString());
-        return await Review.find({ "author_id": author_id })
-            .populate('author_id', "username")
-            .exec();
+        let review = new Review({ title, movie, rating, reviewText, author_id });
+        await review.save();
+        return review;
     }
 
     // ************************************************************

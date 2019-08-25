@@ -3,108 +3,21 @@ const UserService = require('../services/user.service');
 class UserController {
 
     // ************************************************************
-    // * REGISTER
-    static async register(request, response) {
-        let email = request.body.email;
-        let username = request.body.username;
-        let password = request.body.password;
-        let user, message, token;
+    // * FIND ALL CURRENTLY WATCHING
+    static async findAllCurrentlyWatching(request, response) {
+        let movieTitle = request.body.movieTitle;
+
+        let users, message;
 
         try {
-            user = await UserService.createUser(username, email, password);
-        } catch (err) {
-            console.log(err);
-            return response.status(500).json(err);
-        }
-
-        message = "Successfully registered!";
-        token = user.generateJWT();
-        return response.status(201).json({ message, token });
-    }
-
-    // ************************************************************
-    // * LOGIN
-    static async login(request, response) {
-        let username = request.body.username;
-        let password = request.body.password;
-
-        let user, token, message;
-
-        try {
-            user = await UserService.findUserByUsername(username);
+            users = await UserService.findAllCurrentlyWatching(movieTitle);
         } catch (err) {
             return response.status(500).json(err);
         }
 
-        if (!user) {
-            message = "Incorrect email or password";
-            return response.status(404).json({ message });
-        }
+        message = "Successfully found all users!";
+        return response.status(200).json({ message, users });
 
-        if (!user.validPassword(password)) {
-            message = "Incorrect email or password";
-            return response.status(403).json({ message });
-        }
-
-        token = user.generateJWT();
-        message = "Successfully logged in!";
-        return response.status(202).json({ message, token });
-    }
-
-    // ************************************************************
-    // * CHANGE USERNAME
-    static async updateUsername(request, response) {
-        let username = request.body.username;
-        let newUsername = request.body.newUsername;
-
-        let user, message;
-
-        try {
-            user = await UserService.updateUsername(username, newUsername);
-        } catch (err) {
-            return response.status(500).json(err);
-        }
-
-        message = "Successfully changed username!";
-        return response.status(201).json({ message, user });
-    }
-
-    // ************************************************************
-    // * CHANGE AVATAR
-    static async updateAvatar(request, response) {
-        let username = request.body.username;
-        let avatarURL = request.body.avatarURL;
-
-        let user, message;
-
-        try {
-            user = await UserService.updateAvatar(username, avatarURL);
-        } catch (err) {
-            return response.status(500).json(err);
-        }
-
-        message = "Successfully changed avatar!";
-        return response.status(201).json({ message, user });
-    }
-
-    // ************************************************************
-    // * CHANGE PASSWORD
-    static async updatePassword(request, response) {
-        let username = request.body.username;
-        let password = request.body.password;
-
-        let user, message, token;
-
-        try {
-            user = await UserService.updatePassword(username, password);
-        } catch (err) {
-            console.log(err);
-            return response.status(500).json(err);
-        }
-
-        message = "Successfully changed password!";
-        token = user.generateJWT();
-        return response.status(201).json({ message, token });
     }
 
     // ************************************************************
@@ -179,22 +92,110 @@ class UserController {
     }
 
     // ************************************************************
-    // * FIND ALL CURRENTLY WATCHING
-    static async findAllCurrentlyWatching(request, response) {
-        let movieTitle = request.body.movieTitle;
+    // * LOGIN
+    static async login(request, response) {
+        let username = request.body.username;
+        let password = request.body.password;
 
-        let users, message;
+        let user, token, message;
 
         try {
-            users = await UserService.findAllCurrentlyWatching(movieTitle);
+            user = await UserService.findUserByUsername(username);
         } catch (err) {
             return response.status(500).json(err);
         }
 
-        message = "Successfully found all users!";
-        return response.status(200).json({ message, users });
+        if (!user) {
+            message = "Incorrect email or password";
+            return response.status(404).json({ message });
+        }
 
+        if (!user.validPassword(password)) {
+            message = "Incorrect email or password";
+            return response.status(403).json({ message });
+        }
+
+        token = user.generateJWT();
+        message = "Successfully logged in!";
+        return response.status(202).json({ message, token });
     }
+
+    // ************************************************************
+    // * REGISTER
+    static async register(request, response) {
+        let email = request.body.email;
+        let username = request.body.username;
+        let password = request.body.password;
+        let user, message, token;
+
+        try {
+            user = await UserService.createUser(username, email, password);
+        } catch (err) {
+            console.log(err);
+            return response.status(500).json(err);
+        }
+
+        message = "Successfully registered!";
+        token = user.generateJWT();
+        return response.status(201).json({ message, token });
+    }
+
+    // ************************************************************
+    // * UPDATE AVATAR
+    static async updateAvatar(request, response) {
+        let username = request.body.username;
+        let avatarURL = request.body.avatarURL;
+
+        let user, message;
+
+        try {
+            user = await UserService.updateAvatar(username, avatarURL);
+        } catch (err) {
+            return response.status(500).json(err);
+        }
+
+        message = "Successfully changed avatar!";
+        return response.status(201).json({ message, user });
+    }
+
+    // ************************************************************
+    // * UPDATE PASSWORD
+    static async updatePassword(request, response) {
+        let username = request.body.username;
+        let password = request.body.password;
+
+        let user, message, token;
+
+        try {
+            user = await UserService.updatePassword(username, password);
+        } catch (err) {
+            console.log(err);
+            return response.status(500).json(err);
+        }
+
+        message = "Successfully changed password!";
+        token = user.generateJWT();
+        return response.status(201).json({ message, token });
+    }
+
+    // ************************************************************
+    // * UPDATE USERNAME
+    static async updateUsername(request, response) {
+        let username = request.body.username;
+        let newUsername = request.body.newUsername;
+
+        let user, message;
+
+        try {
+            user = await UserService.updateUsername(username, newUsername);
+        } catch (err) {
+            return response.status(500).json(err);
+        }
+
+        message = "Successfully changed username!";
+        return response.status(201).json({ message, user });
+    }
+
 }
 
 module.exports = UserController;

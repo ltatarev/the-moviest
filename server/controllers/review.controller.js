@@ -1,27 +1,6 @@
 const ReviewService = require('../services/review.service');
 
 class ReviewController {
-    // ************************************************************
-    // * CREATE REVIEW
-    static async createReview(request, response) {
-        let title = request.body.title;
-        let movie = request.body.movie;
-        let rating = request.body.rating;
-        let reviewText = request.body.reviewText;
-        let authorId = request.body.authorId;
-
-        let review, message;
-
-        try {
-            review = await ReviewService.createReview(title, movie, rating, reviewText, authorId);
-        } catch (err) {
-            console.log(err);
-            return response.status(500).json(err);
-        }
-
-        message = "Successfully created review!";
-        return response.status(202).json({ message, review });
-    }
 
     // ************************************************************
     // * FIND ALL REVIEWS
@@ -30,6 +9,24 @@ class ReviewController {
 
         try {
             reviews = await ReviewService.findAllReviews();
+        } catch (err) {
+            return response.status(500).json(err);
+        }
+
+        message = "Successfully retrieved reviews!";
+        return response.status(202).json({ message, reviews });
+
+    }
+
+    // ************************************************************
+    // * FIND ALL REVIEWS WRITTEN BY AUTHOR
+    static async findReviewsByAuthor(request, response) {
+        let authorId = request.body.authorId;
+
+        let reviews, message;
+
+        try {
+            reviews = await ReviewService.findReviewsByAuthor(authorId);
         } catch (err) {
             return response.status(500).json(err);
         }
@@ -58,21 +55,25 @@ class ReviewController {
     }
 
     // ************************************************************
-    // * FIND ALL REVIEWS WRITTEN BY AUTHOR
-    static async findReviewsByAuthor(request, response) {
+    // * CREATE REVIEW
+    static async createReview(request, response) {
+        let title = request.body.title;
+        let movie = request.body.movie;
+        let rating = request.body.rating;
+        let reviewText = request.body.reviewText;
         let authorId = request.body.authorId;
 
-        let reviews, message;
+        let review, message;
 
         try {
-            reviews = await ReviewService.findReviewsByAuthor(authorId);
+            review = await ReviewService.createReview(title, movie, rating, reviewText, authorId);
         } catch (err) {
+            console.log(err);
             return response.status(500).json(err);
         }
 
-        message = "Successfully retrieved reviews!";
-        return response.status(202).json({ message, reviews });
-
+        message = "Successfully created review!";
+        return response.status(202).json({ message, review });
     }
 
     // ************************************************************
