@@ -22,15 +22,22 @@ class UserService {
     }
 
     static async updateAvatar(username, avatarURL) {
-        return await User.findOneAndUpdate({ username, avatarURL }).exec();
+        return await User.findOneAndUpdate({ username }, { avatarURL }).exec();
     }
 
     static async findUserByUsername(username) {
         return await User.findOne({ username }).exec();
     }
 
+    static async findAllCurrentlyWatching(movieTitle) {
+        return await User.find({ currentlyWatching: movieTitle }, { username: true, avatarURL: true }).exec();
+    }
+
     static async getProfileData(username) {
-        return await User.findOne({ username }, { hash: false, salt: false, email: false, __v: false, createdAt: false, updatedAt: false }).exec();
+        return await User.findOne({ username }, { hash: false, salt: false, email: false, __v: false, createdAt: false, updatedAt: false })
+            .populate("reviews")
+            .populate("watchlists")
+            .exec();
     }
 
     static async createOrUpdateBio(username, bio) {

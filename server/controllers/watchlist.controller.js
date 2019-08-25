@@ -21,6 +21,38 @@ class WatchlistController {
         return response.status(201).json({ message, watchlistResponse });
     }
 
+    // * FIND ALL WATCHLISTS
+    static async findAllWatchlists(request, response) {
+        let watchlists, message;
+
+        try {
+            watchlists = await WatchlistService.findAllWatchlists();
+        } catch (err) {
+            return response.status(500).json(err);
+        }
+
+        message = "Successfully retrieved watchlists!";
+        return response.status(202).json({ message, watchlists });
+
+    }
+
+    // * GET ALL WATCHLISTS FOR A SPECIFIC USER
+    static async findAllWatchlistsByAuthorId(request, response) {
+        let authorId = request.body.authorId;
+
+        let watchlists, message;
+
+        try {
+            reviews = await WatchlistService.findAllWatchlists(authorId);
+        } catch (err) {
+            return response.status(500).json(err);
+        }
+
+        message = "Successfully retrieved watchlists!";
+        return response.status(202).json({ message, watchlists });
+
+    }
+
     // * UPDATE TITLE OR DESCRIPTION
     static async updateTitleOrDescription(request, response) {
         let watchlistId = request.body.watchlistId;

@@ -18,4 +18,10 @@ router.route("/deleteWatchlist")
 router.route("/deleteMovieFromWatchlist")
     .delete(WatchlistController.deleteMovieFromWatchlist);
 
+router.route("/findAllWatchlists")
+    .get(WatchlistController.findAllWatchlists);
+
+router.route("/findAllWatchlistsByAuthorId")
+    .get(WatchlistController.findAllWatchlistsByAuthorId);
+
 module.exports = router;

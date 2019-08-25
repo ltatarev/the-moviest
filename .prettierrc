@@ -2,15 +2,14 @@
     "useTabs": false,
     "printWidth": 80,
     "tabWidth": 4,
-    "singleQuote": true,
     "trailingComma": "all",
     "parser": "babel",
+    "singleQuote": true,
     "semi": false,
     "overrides": [{
         "files": "*.js*",
         "options": {
-            "trailingComma": "all",
-            "singleQuote": true
+            "trailingComma": "all"
         }
     }]
 }

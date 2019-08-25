@@ -22,7 +22,7 @@ const userSchema = new mongoose.Schema({
     },
     hash: String,
     salt: String,
-    avatarURL: { type: String, default: "015-clapperboard.png" },
+    avatarURL: { type: String, default: "001.png" },
     bio: { type: String, default: "Say something about yourself" },
     currentlyWatching: { type: String, default: "Not watching anything 😔" },
     favorites: {
@@ -30,16 +30,14 @@ const userSchema = new mongoose.Schema({
         tvShow: String,
         actor: String,
         genre: String
-    },
-    reviews: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Review' }],
-    watchlists: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Watchlist' }]
+    }
 }, { timestamps: true });
 
-
-// Requiring methods
+// plugin methods
 userSchema.plugin(methods);
 
-// plugin for unique validation
+
+// plugin unique validation
 userSchema.plugin(mongooseUniqueValidator);
 
 var User = mongoose.model('User', userSchema, "User");

@@ -66,6 +66,23 @@ class UserController {
         return response.status(201).json({ message, user });
     }
 
+    // * CHANGE AVATAR
+    static async updateUsername(request, response) {
+        let username = request.body.username;
+        let avatarURL = request.body.avatarURL;
+
+        let user, message;
+
+        try {
+            user = await UserService.updateAvatar(username, avatarURL);
+        } catch (err) {
+            return response.status(500).json(err);
+        }
+
+        message = "Successfully changed avatar!";
+        return response.status(201).json({ message, user });
+    }
+
     // * CHANGE PASSWORD
     static async updatePassword(request, response) {
         let username = request.body.username;
@@ -150,6 +167,23 @@ class UserController {
 
         message = "Successfully updated favorites!";
         return response.status(201).json({ message, favoritesResponse });
+    }
+
+
+    static async findAllCurrentlyWatching(request, response) {
+        let movieTitle = request.body.movieTitle;
+
+        let users, message;
+
+        try {
+            users = await UserService.findAllCurrentlyWatching(movieTitle);
+        } catch (err) {
+            return response.status(500).json(err);
+        }
+
+        message = "Successfully found all users!";
+        return response.status(200).json({ message, users });
+
     }
 }
 

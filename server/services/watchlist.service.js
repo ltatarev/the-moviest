@@ -1,7 +1,5 @@
 const mongoose = require('mongoose');
 const Watchlist = mongoose.model('Watchlist');
-
-const User = mongoose.model('User');
 const ObjectId = mongoose.Types.ObjectId;
 
 class WatchlistService {
@@ -10,13 +8,23 @@ class WatchlistService {
         let author_id = ObjectId(authorId.toString());
         let watchlist = new Watchlist({ title, description, movies, author_id });
 
-        // * FIXME: POPULATE
-        await Watchlist.findById({ _id: watchlist._id })
-            .populate('author_id', "username")
-            .exec();
-
         await watchlist.save();
         return watchlist;
+    }
+
+    // * GET ALL WATCHLISTS
+    static async findAllWatchlists() {
+        return await Watchlist.find()
+            .populate('author_id', "username")
+            .exec();
+    }
+
+    // * GET ALL WATCHLISTS FOR A SPECIFIC USER
+    static async findAllWatchlistsByAuthorId(authorId) {
+        let author_id = ObjectId(authorId.toString());
+        return await Watchlist.find({ "author_id": author_id })
+            .populate('author_id', "username")
+            .exec();
     }
 
     // * UPDATE TITLE OR DESCRIPTION

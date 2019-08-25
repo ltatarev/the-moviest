@@ -12,4 +12,11 @@ router.route("/findReviewByMovie")
 router.route("/updateReview")
     .put(ReviewController.updateReview);
 
+router.route("/findReviewsByAuthor")
+    .get(ReviewController.findReviewsByAuthor);
+
+router.route("/findAllReviews")
+    .get(ReviewController.findAllReviews);
+
+
 module.exports = router;

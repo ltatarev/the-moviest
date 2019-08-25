@@ -18,6 +18,9 @@ router.route("/updatePassword")
 router.route("/getProfileData")
     .get(UserController.getProfileData);
 
+router.route("/findAllCurrentlyWatching")
+    .get(UserController.findAllCurrentlyWatching);
+
 router.route("/createOrUpdateBio")
     .post(UserController.createOrUpdateBio);
 
