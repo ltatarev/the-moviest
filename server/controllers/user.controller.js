@@ -71,7 +71,7 @@ class UserController {
 
     // ************************************************************
     // * CHANGE AVATAR
-    static async updateUsername(request, response) {
+    static async updateAvatar(request, response) {
         let username = request.body.username;
         let avatarURL = request.body.avatarURL;
 

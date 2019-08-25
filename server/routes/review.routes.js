@@ -18,5 +18,7 @@ router.route("/findReviewsByAuthor")
 router.route("/findAllReviews")
     .get(ReviewController.findAllReviews);
 
+router.route("/deleteReview")
+    .delete(ReviewController.deleteReview);
 
 module.exports = router;

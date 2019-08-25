@@ -95,6 +95,23 @@ class ReviewController {
         return response.status(202).json({ message, watchlist });
     }
 
+    // ************************************************************
+    // * DELETE REVIEW
+    static async deleteReview(request, response) {
+        let reviewId = request.body.reviewId;
+
+        let review, message;
+
+        try {
+            review = await ReviewService.deleteReview(reviewId);
+        } catch (err) {
+            return response.status(500).json(err);
+        }
+
+        message = "Successfully deleted review!";
+        return response.status(202).json({ message, review });
+    }
+
 }
 
 module.exports = ReviewController;

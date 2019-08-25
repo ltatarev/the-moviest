@@ -42,9 +42,11 @@ class ReviewService {
     }
 
     // ************************************************************
+    // * DELETE REVIEW
     static async deleteReview(review_id) {
         return await Review.findOneAndDelete({ _id: review_id });
     }
+
 }
 
 module.exports = ReviewService;

@@ -6,12 +6,19 @@ class WatchlistService {
 
     // ************************************************************
     // * CREATE
-    static async createWatchlist(title, description, movies, authorId) {
+    static async createWatchlist(title, description, authorId) {
         let author_id = ObjectId(authorId.toString());
-        let watchlist = new Watchlist({ title, description, movies, author_id });
+        let watchlist = new Watchlist({ title, description, author_id });
 
         await watchlist.save();
         return watchlist;
+    }
+
+    // ************************************************************
+    // * ADD MOVIE TO WATCHLIST
+    static async addMovieToWatchlist(watchlistId, movieId, movieTitle, moviePosterPath) {
+        let watchlist_id = ObjectId(watchlistId.toString());
+        return await Watchlist.findByIdAndUpdate({ "_id": watchlist_id }, { movieId, movieTitle, moviePosterPath }, { new: true, upsert: true }).exec();
     }
 
     // ************************************************************
@@ -27,6 +34,14 @@ class WatchlistService {
     static async findAllWatchlistsByAuthorId(authorId) {
         let author_id = ObjectId(authorId.toString());
         return await Watchlist.find({ "author_id": author_id })
+            .populate('author_id', "username")
+            .exec();
+    }
+
+    // ************************************************************
+    // * GET ALL WATCHLISTS BY NAME
+    static async findWatchlistsByName(title) {
+        return await Watchlist.find({ title })
             .populate('author_id', "username")
             .exec();
     }

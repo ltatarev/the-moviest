@@ -15,6 +15,9 @@ router.route("/updateUsername")
 router.route("/updatePassword")
     .post(UserController.updatePassword);
 
+router.route("/updateAvatar")
+    .post(UserController.updateAvatar);
+
 router.route("/getProfileData")
     .get(UserController.getProfileData);
 

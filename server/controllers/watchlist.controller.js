@@ -6,13 +6,12 @@ class WatchlistController {
     static async createWatchlist(request, response) {
         let title = request.body.title;
         let description = request.body.description;
-        let movies = request.body.movies;
         let authorId = request.body.authorId;
 
         let watchlistResponse, message;
 
         try {
-            watchlistResponse = await WatchlistService.createWatchlist(title, description, movies, authorId);
+            watchlistResponse = await WatchlistService.createWatchlist(title, description, authorId);
         } catch (err) {
             console.log(err);
             return response.status(500).json(err);
@@ -21,6 +20,23 @@ class WatchlistController {
         message = "Successfully added watchlist!";
         return response.status(201).json({ message, watchlistResponse });
     }
+
+    // ************************************************************
+    // * ADD MOVIE TO WATCHLIST
+    static async addMovieToWatchlist(request, response) {
+        let { watchlistId, movieId, movieTitle, moviePosterPath } = request.body;
+        let watchlist, message;
+
+        try {
+            watchlist = await WatchlistService.addMovieToWatchlist(watchlistId, movieId, movieTitle, moviePosterPath);
+        } catch (err) {
+            return response.status(500).json(err);
+        }
+
+        message = "Successfully retrieved watchlists!";
+        return response.status(202).json({ message, watchlist });
+    }
+
 
     // ************************************************************
     // * FIND ALL WATCHLISTS
@@ -46,7 +62,25 @@ class WatchlistController {
         let watchlists, message;
 
         try {
-            reviews = await WatchlistService.findAllWatchlists(authorId);
+            watchlists = await WatchlistService.findAllWatchlists(authorId);
+        } catch (err) {
+            return response.status(500).json(err);
+        }
+
+        message = "Successfully retrieved watchlists!";
+        return response.status(202).json({ message, watchlists });
+
+    }
+
+    // ************************************************************
+    // * GET ALL WATCHLISTS BY NAME
+    static async findWatchlistsByName(request, response) {
+        let title = request.body.title;
+
+        let watchlists, message;
+
+        try {
+            watchlists = await WatchlistService.findWatchlistsByName(title);
         } catch (err) {
             return response.status(500).json(err);
         }

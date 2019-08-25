@@ -9,6 +9,9 @@ router.route("/createWatchlist")
 router.route("/updateTitleOrDescription")
     .put(WatchlistController.updateTitleOrDescription);
 
+router.route("/addMovieToWatchlist")
+    .post(WatchlistController.addMovieToWatchlist);
+
 router.route("/likeWatchlist")
     .post(WatchlistController.likeWatchlist);
 
@@ -21,7 +24,10 @@ router.route("/deleteMovieFromWatchlist")
 router.route("/findAllWatchlists")
     .get(WatchlistController.findAllWatchlists);
 
-router.route("/findAllWatchlistsByAuthorId")
+router.route("/findWatchlistsByAuthor")
     .get(WatchlistController.findAllWatchlistsByAuthorId);
+
+router.route("/findWatchlistsByName")
+    .get(WatchlistController.findWatchlistsByName);
 
 module.exports = router;
