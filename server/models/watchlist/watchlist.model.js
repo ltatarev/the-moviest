@@ -6,18 +6,19 @@ const watchlistSchema = new mongoose.Schema({
         type: String,
         required: true,
         minlength: 3,
-        maxlength: 15
+        maxlength: 45
     },
     description: {
         type: String,
+        default: "",
         maxlength: 50
     },
     movies: [{
-        movieId: { type: Number, unique: true },
+        movieId: { type: Number },
         movieTitle: String,
         moviePosterPath: String
     }],
-    author: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
+    author_id: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
     likes: { type: Number, min: 0 }
 }, { timestamps: true });
 

@@ -6,19 +6,19 @@ class WatchlistController {
         let title = request.body.title;
         let description = request.body.description;
         let movies = request.body.movies;
-        let authodId = request.body.authorId;
+        let authorId = request.body.authorId;
 
-        let watchlist, message;
+        let watchlistResponse, message;
 
         try {
-            watchlist = await WatchlistService.createWatchlist(title, description, movies, authorId);
+            watchlistResponse = await WatchlistService.createWatchlist(title, description, movies, authorId);
         } catch (err) {
             console.log(err);
             return response.status(500).json(err);
         }
 
         message = "Successfully added watchlist!";
-        return response.status(202).json({ message, watchlist });
+        return response.status(201).json({ message, watchlistResponse });
     }
 
     // * UPDATE TITLE OR DESCRIPTION
@@ -27,50 +27,49 @@ class WatchlistController {
         let title = request.body.title;
         let description = request.body.description;
 
-        let watchlist, message;
+        let watchlistResponse, message;
 
         try {
-            watchlist = await WatchlistService.updateTitleOrDescription(watchlistId, title, description);
+            watchlistResponse = await WatchlistService.updateTitleOrDescription(watchlistId, title, description);
         } catch (err) {
             return response.status(500).json(err);
         }
 
         message = "Successfully updated watchlist!";
-        return response.status(202).json({ message, watchlist });
+        return response.status(202).json({ message, watchlistResponse });
     }
 
     // * LIKE
     static async likeWatchlist(request, response) {
         let watchlistId = request.body.watchlistId;
 
-        let watchlist, message;
+        let watchlistResponse, message;
 
         try {
-            watchlist = await WatchlistService.likeWatchlist(watchlistId);
+            watchlistResponse = await WatchlistService.likeWatchlist(watchlistId);
         } catch (err) {
             console.log(err);
             return response.status(500).json(err);
         }
 
         message = "Successfully liked watchlist!";
-        return response.status(201).json({ message, watchlist });
+        return response.status(201).json({ message, watchlistResponse });
     }
 
     // * DELETE
     static async deleteWatchlist(request, response) {
         let watchlistId = request.body.watchlistId;
 
-        let watchlist, message;
+        let message;
 
         try {
-            await WatchlistService.deleteWatchlist(watchlistId);
+            message = await WatchlistService.deleteWatchlist(watchlistId);
         } catch (err) {
             console.log(err);
             return response.status(500).json(err);
         }
 
-        message = "Successfully deleted watchlist!";
-        return response.status(201).json({ message, watchlist });
+        return response.status(200).json({ message });
     }
 
     // * DELETE MOVIE FROM WATCHLIST
@@ -78,17 +77,16 @@ class WatchlistController {
         let watchlistId = request.body.watchlistId;
         let movieId = request.body.movieId;
 
-        let watchlist, message;
+        let message;
 
         try {
-            await WatchlistService.deleteMovieFromWatchlist(watchlistId, movieId);
+            message = await WatchlistService.deleteMovieFromWatchlist(watchlistId, movieId);
         } catch (err) {
             console.log(err);
             return response.status(500).json(err);
         }
 
-        message = "Successfully deleted watchlist!";
-        return response.status(201).json({ message, watchlist });
+        return response.status(200).json({ message });
     }
 
 }

@@ -1,7 +1,4 @@
-const mongoose = require('mongoose');
-const Review = mongoose.model('Review');
-const User = mongoose.model('User');
-
+const ReviewService = require('../services/review.service');
 
 class ReviewController {
     static async createReview(request, response) {
@@ -9,7 +6,7 @@ class ReviewController {
         let movie = request.body.movie;
         let rating = request.body.rating;
         let reviewText = request.body.reviewText;
-        let authodId = request.body.authorId;
+        let authorId = request.body.authorId;
 
         let review, message;
 
@@ -36,8 +33,7 @@ class ReviewController {
         }
 
         message = "Successfully retrieved reviews!";
-        return response.status(202).json({ message, watchlist });
-
+        return response.status(202).json({ message, reviews });
 
     }
 
