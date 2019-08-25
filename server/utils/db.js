@@ -5,6 +5,8 @@ mongoose.Promise = global.Promise;
 
 mongoose.set('debug', true);
 mongoose.set('useCreateIndex', true);
+mongoose.set('useNewUrlParser', true);
+mongoose.set('useFindAndModify', false);
 
 mongoose.connect(dbUri, { useNewUrlParser: true }).catch(function(reason) {
     console.log('Unable to connect to the mongodb instance. Error: ', reason);

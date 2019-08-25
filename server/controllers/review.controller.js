@@ -1,0 +1,66 @@
+const mongoose = require('mongoose');
+const Review = mongoose.model('Review');
+const User = mongoose.model('User');
+
+
+class ReviewController {
+    static async createReview(request, response) {
+        let title = request.body.title;
+        let movie = request.body.movie;
+        let rating = request.body.rating;
+        let reviewText = request.body.reviewText;
+        let authodId = request.body.authorId;
+
+        let review, message;
+
+        try {
+            review = await ReviewService.createReview(title, movie, rating, reviewText, authorId);
+        } catch (err) {
+            console.log(err);
+            return response.status(500).json(err);
+        }
+
+        message = "Successfully created review!";
+        return response.status(202).json({ message, review });
+    }
+
+    static async findReviewByMovie(request, response) {
+        let movieTitle = request.body.movieTitle;
+
+        let reviews, message;
+
+        try {
+            reviews = await ReviewService.findReviewByMovie(movieTitle);
+        } catch (err) {
+            return response.status(500).json(err);
+        }
+
+        message = "Successfully retrieved reviews!";
+        return response.status(202).json({ message, watchlist });
+
+
+    }
+
+    static async updateReview(request, response) {
+        let reviewId = request.body.reviewId;
+        let title = request.body.title;
+        let rating = request.body.rating;
+        let reviewText = request.body.reviewText;
+
+        let watchlist, message;
+
+        try {
+            watchlist = await ReviewService.updateReview(reviewId, title, rating, reviewText);
+        } catch (err) {
+            return response.status(500).json(err);
+        }
+
+        message = "Successfully updated watchlist!";
+        return response.status(202).json({ message, watchlist });
+    }
+
+
+
+}
+
+module.exports = ReviewController;

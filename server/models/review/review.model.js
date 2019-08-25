@@ -7,6 +7,10 @@ const reviewSchema = new mongoose.Schema({
         minlength: 3,
         maxlength: 15
     },
+    movie: [{
+        movieId: { type: Number, unique: true },
+        movieTitle: String
+    }],
     rating: {
         type: Number,
         min: 1,
@@ -17,9 +21,12 @@ const reviewSchema = new mongoose.Schema({
         type: String,
         maxlength: 400
     },
-    author: [{ type: Schema.ObjectId, ref: 'User' }],
+    author: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
     likes: { type: Number, min: 0 }
 }, { timestamps: true });
 
 
-mongoose.model("Review", reviewSchema);
+var Review = mongoose.model('Review', reviewSchema, 'Review');
+
+// make this available to our users in our applications
+module.exports = Review;

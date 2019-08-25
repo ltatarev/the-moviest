@@ -21,11 +21,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, config.root)));
 
 const routes = require('./routes');
-app.use('/api/', routes);
-
-app.use('**', function(req, res) {
-    res.sendFile(path.join(__dirname, './client/index.html'));
-});
+app.use('/api', routes);
 
 app.listen(server_port, server_host, function() {
     console.log('Listening on port %d', server_port);
