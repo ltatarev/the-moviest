@@ -1,6 +1,12 @@
 <div class="fluid-container" id="background">
-    <div class="nav ml-auto">
-        <a class="btn ml-auto">Login</a>
-        <a class="btn">Register</a>
+    <div class="nav p-5 mb-5 animated fadeIn">
+        <a [routerLink]="['/login']" class="ml-auto cool-link" id="login">LOGIN</a>
+        <a [routerLink]="['/register']" id="register">REGISTER</a>
+    </div>
+
+    <div class="row pl-5 pt-5 m-0">
+        <div class="col pt-5 mt-5">
+            <img class="w-50 mt-5 pt-5 noselect animated tada" src="../../../assets/img/logo.png" alt="The Moviest ">
+        </div>
     </div>
 </div>

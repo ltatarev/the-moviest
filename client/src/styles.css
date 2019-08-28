@@ -1,2 +1,10 @@
 /* font-family: 'Roboto Slab', serif;
-font-family: 'Montserrat', sans-serif; */
+font-family: 'Montserrat', sans-serif; +
+e63e56
+493fb5
+*/
+
+::selection {
+    background-color: #e63e56;
+    color: #ffd4f6;      
+}
