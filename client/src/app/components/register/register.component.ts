@@ -22,9 +22,16 @@ export class RegisterComponent implements OnInit {
   ngOnInit() {
     $('.email').on("change keyup paste",
       function () {
+<<<<<<< Updated upstream
         if ($(this).val()) {
           var testEmail = /^[A-Z0-9._%+-]+@([A-Z0-9-]+\.)+[A-Z]{2,4}$/i;
           if (testEmail.test($(this).val())){
+=======
+        let email = $('.email').val()
+        if (email) {
+          const testEmail = /^[A-Z0-9._%+-]+@([A-Z0-9-]+\.)+[A-Z]{2,4}$/i;
+          if (testEmail.test(email)){
+>>>>>>> Stashed changes
             $('.icon-paper-plane').addClass("next");}
         } else {
           $('.icon-paper-plane').removeClass("next");
@@ -48,7 +55,11 @@ export class RegisterComponent implements OnInit {
     $('.username').on("change keyup paste",
       function () {
         let val = $('.username').val();
+<<<<<<< Updated upstream
         if (val&&(val.length>2)) {
+=======
+        if (val && s(val.length > 2)) {
+>>>>>>> Stashed changes
           $('.icon-lock').addClass("next");
         } else {
           $('.icon-lock').removeClass("next");
