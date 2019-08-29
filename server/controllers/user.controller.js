@@ -126,8 +126,10 @@ class UserController {
         let email = request.body.email;
         let username = request.body.username;
         let password = request.body.password;
+        console.log(email);
         let user, message, token;
 
+        // TODO: check if username or email already exist
         try {
             user = await UserService.createUser(username, email, password);
         } catch (err) {

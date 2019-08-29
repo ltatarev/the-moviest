@@ -2,24 +2,39 @@
 <div class="back animated fadeIn"></div>
 <div class="registration-form">
   <header>
-    <h1>Sign In</h1>
+    <h1>🎥 Sign In</h1>
     <p>Enter your information</p>
   </header>
-  <form  class="animated fadeInUp">
-    <div class="input-section email-section">
-      <input class="email" type="email" placeholder="ENTER YOUR E-MAIL HERE" autocomplete="off"/>
-      <div class="animated-button"><span class="icon-paper-plane"><i class="fa fa-envelope-o"></i></span><span class="next-button email"><i class="fa fa-arrow-up"></i></span></div>
+
+  <form  [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="animated fadeInUp">
+    
+  <!-- U S E R N A M E -->
+  <div class="input-section username-section">
+      <input class="username" formControlName="username" type="text" required placeholder="ENTER YOUR USERNAME" />
+   <!-- animated button -->
+     <div class="animated-button">
+      <span [ngClass]="{'icon-lock':true,'next':loginForm.get('username').valid}"><i class="fa fa-laptop"></i></span>
+      <span class="next-button username"><i class="fa fa-arrow-up"></i></span>
     </div>
-    <div class="input-section password-section folded">
-      <input class="password" type="password" placeholder="ENTER YOUR PASSWORD HERE"/>
-      <div class="animated-button"><span class="icon-lock"><i class="fa fa-lock"></i></span><span class="next-button password"><i class="fa fa-arrow-up"></i></span></div>
-    </div>
-    <div class="input-section repeat-password-section folded">
-      <input class="repeat-password" type="password" placeholder="REPEAT YOUR PASSWORD HERE"/>
-      <div class="animated-button"><span class="icon-repeat-lock"><i class="fa fa-lock"></i></span><span class="next-button repeat-password"><i class="fa fa-paper-plane"></i></span></div>
+      </div>
+
+
+  <!-- P A S S W O R D -->
+  <div class="input-section password-section folded">
+      <input class="password" formControlName="password" type="password" required placeholder="ENTER YOUR PASSWORD" />
+    
+    <!-- animated button -->
+    <div class="animated-button">
+    <span [ngClass]="{'icon-repeat-lock':true,'next':loginForm.get('password').valid}"><i class="fa fa-lock"></i></span>
+
+    <!-- s u b m i t -->
+        <span class="next-button password">
+          <button type="submit" class="btn btn-link" [disabled]="loginForm.invalid"><i class="fa fa-paper-plane"></i></button>
+        </span>
+        </div>
     </div>
     <div class="success"> 
-      <p>ACCOUNT CREATED</p>
+      <p>LOGGING IN...</p>
     </div>
   </form>
 </div>
