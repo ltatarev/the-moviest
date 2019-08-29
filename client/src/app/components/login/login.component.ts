@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { FormGroup, FormControl, FormBuilder, Validators } from "@angular/forms";
+import { UserService } from 'src/app/services/user.service';
+
 import * as $ from 'jquery';
 
 
@@ -9,74 +12,37 @@ import * as $ from 'jquery';
 })
 export class LoginComponent implements OnInit {
 
-  constructor() { }
+  // Form
+  private loginForm: FormGroup;
+
+  constructor(private fb: FormBuilder, private userService: UserService) {
+    this.loginForm = this.fb.group({
+      username: this.fb.control([], [Validators.required, Validators.maxLength(15), Validators.minLength(3)]),
+      password: this.fb.control([], [Validators.required, Validators.minLength(3)]),
+    });
+  }
 
   ngOnInit() {
-    $('.email').on("change keyup paste",
-  function(){
-    if($(this).val()){
-      $('.icon-paper-plane').addClass("next");
-    } else {
-      $('.icon-paper-plane').removeClass("next");
-    }
-  }
-);
+    // * Manipulating CSS classes with jQuery
+    $('.next-button.username').click(
+      function () {
+        $('.username-section').addClass("fold-up");
+        $('.password-section').removeClass("folded");
+      }
+    );
 
-$('.next-button').hover(
-  function(){
-    $(this).css('cursor', 'pointer');
+    $('.next-button.password').click(
+      function () {
+        $('.repeat-password-section').addClass("fold-up");
+        $('.success').css("marginTop", 0);
+      }
+    );
   }
-);
 
-$('.next-button.email').click(
-  function(){
-    console.log("Something");
-    $('.email-section').addClass("fold-up");
-    $('.password-section').removeClass("folded");
+  onSubmit() {
+    let value: any = this.loginForm.value;
+    this.userService.login(value).subscribe();
   }
-);
 
-$('.password').on("change keyup paste",
-  function(){
-    if($(this).val()){
-      $('.icon-lock').addClass("next");
-    } else {
-      $('.icon-lock').removeClass("next");
-    }
-  }
-);
-
-$('.next-button').hover(
-  function(){
-    $(this).css('cursor', 'pointer');
-  }
-);
-
-$('.next-button.password').click(
-  function(){
-    console.log("Something");
-    $('.password-section').addClass("fold-up");
-    $('.repeat-password-section').removeClass("folded");
-  }
-);
-
-$('.repeat-password').on("change keyup paste",
-  function(){
-    if($(this).val()){
-      $('.icon-repeat-lock').addClass("next");
-    } else {
-      $('.icon-repeat-lock').removeClass("next");
-    }
-  }
-);
-
-$('.next-button.repeat-password').click(
-  function(){
-    console.log("Something");
-    $('.repeat-password-section').addClass("fold-up");
-    $('.success').css("marginTop", 0);
-  }
-);
-  }
 
 }

@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, FormBuilder, Validators } from "@angular/forms";
+import { UserService } from 'src/app/services/user.service';
+import * as $ from 'jquery';
 
 @Component({
   selector: 'app-register',
@@ -11,33 +13,16 @@ export class RegisterComponent implements OnInit {
   // Form
   private registerForm: FormGroup;
 
-  constructor(private fb: FormBuilder) { 
+  constructor(private fb: FormBuilder, private userService: UserService) { 
     this.registerForm = this.fb.group({   
       email: this.fb.control([], [Validators.required, Validators.email]),
       username: this.fb.control([], [Validators.required, Validators.maxLength(15), Validators.minLength(3)]),
-      password: this.fb.control([], Validators.required),
+      password: this.fb.control([], [Validators.required, Validators.minLength(3)]),
     });
    }
 
   ngOnInit() {
-    $('.email').on("change keyup paste",
-      function () {
-        if ($(this).val()) {
-          var testEmail = /^[A-Z0-9._%+-]+@([A-Z0-9-]+\.)+[A-Z]{2,4}$/i;
-          if (testEmail.test($(this).val())){
-            $('.icon-paper-plane').addClass("next");}
-        } else {
-          $('.icon-paper-plane').removeClass("next");
-        }
-      }
-    );
-
-    $('.next-button').hover(
-      function () {
-        $(this).css('cursor', 'pointer');
-      }
-    );
-
+    // * Manipulating CSS classes with jQuery
     $('.next-button.email').click(
       function () {
         $('.email-section').addClass("fold-up");
@@ -45,37 +30,10 @@ export class RegisterComponent implements OnInit {
       }
     );
 
-    $('.username').on("change keyup paste",
-      function () {
-        let val = $('.username').val();
-        if (val&&(val.length>2)) {
-          $('.icon-lock').addClass("next");
-        } else {
-          $('.icon-lock').removeClass("next");
-        }
-      }
-    );
-
-    $('.next-button').hover(
-      function () {
-        $(this).css('cursor', 'pointer');
-      }
-    );
-
     $('.next-button.username').click(
       function () {
         $('.username-section').addClass("fold-up");
         $('.password-section').removeClass("folded");
-      }
-    );
-
-    $('.password').on("change keyup paste",
-      function () {
-        if ($(this).val()) {
-          $('.icon-repeat-lock').addClass("next");
-        } else {
-          $('.icon-repeat-lock').removeClass("next");
-        }
       }
     );
 
@@ -88,8 +46,8 @@ export class RegisterComponent implements OnInit {
   }
 
   onSubmit() {
-    let formValue = this.registerForm.value;
-    console.log(formValue)
+    let value: any = this.registerForm.value;
+    this.userService.register(value).subscribe();
   }
 
 }
