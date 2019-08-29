@@ -22,7 +22,7 @@ const userSchema = new mongoose.Schema({
     },
     hash: String,
     salt: String,
-    avatarURL: { type: String, default: "001.png" },
+    avatarURL: { type: String, default: "../../../assets/img/avatars/01.png" },
     bio: { type: String, default: "Say something about yourself" },
     currentlyWatching: { type: String, default: "Not watching anything 😔" },
     favorites: {

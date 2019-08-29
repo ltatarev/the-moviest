@@ -19,6 +19,7 @@ module.exports = function(userSchema) {
 
         return jwt.sign({
             _id: this._id,
+            avatarURL: this.avatarURL,
             exp: Math.trunc(expiry.getTime() / 1000)
         }, secret);
     };

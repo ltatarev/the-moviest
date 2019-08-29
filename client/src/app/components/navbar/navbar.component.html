@@ -1,0 +1,37 @@
+<!-- NAVBAR -->
+<nav class="navbar navbar-expand-lg align-text-bottom ml-5 mr-5 p-5">
+    <a class="navbar-brand">
+        <img src="../../../assets/img/logo.png" alt="The Moviest" height="100">
+    </a>
+
+    <button class="navbar-toggler btn btn-outline-light" type="button" (click)="toggleNavbar()">
+        <span class="navbar-toggler-icon"><i class="fas fa-bars pt-1"></i></span>
+    </button>
+
+
+    <div class="collapse navbar-collapse show align-text-bottom" [ngClass]="{ 'show': navbarOpen }">
+        <ul class="navbar-nav ml-auto align-text-bottom">
+            <li class="nav-item align-text-bottom">
+                <a class="nav-link align-text-bottom" href="#">Discover</a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link" href="#">Reviews</a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link" href="#">Watchlists</a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link" href="#"><i class="fas fa-search"></i></a>
+            </li>
+
+            <li class="nav-items">
+                <a class="nav-link " href="#">
+                    <img [src]="profileAvatar" style="position:relative;top:-20px" height="50">
+                </a>
+            </li>
+        </ul>
+    </div>
+</nav>

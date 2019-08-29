@@ -42,6 +42,7 @@ export class UserService {
       let payload = Token.parse(token);
       delete payload['exp'];
       delete payload['iat'];
+      console.log(payload);
       return payload;
     }  
   }
@@ -62,7 +63,6 @@ export class UserService {
   }
 
   register(user: User): Observable<any> {
-    console.log(user)
     return this.http.post<any>(this.userUrl+ "/register", user)
               .pipe(
                 tap(

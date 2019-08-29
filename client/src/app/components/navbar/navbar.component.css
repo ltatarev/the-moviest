@@ -1,0 +1,23 @@
+
+li {
+    padding-left: 40px;
+    padding-right: 40px;
+  }
+  
+  li a {
+      padding: 40px;
+      color:white;
+      font-weight: bold;
+      letter-spacing: 5px;
+      font-size: 17px;  
+    }
+  
+  ul { visibility: hidden; }
+  
+  ul > * { visibility: visible; }
+  
+  ul > * { transition: opacity 150ms linear 100ms, transform 150ms ease-in-out 100ms; }
+  
+  ul:hover > * { opacity: 0.4; transform: scale(0.9); filter:blur(1px);}
+  
+  ul > *:hover { letter-spacing: 7px; opacity: 1; transform: scale(1.2); transition-delay: 0ms, 0ms; filter:blur(0px);}
