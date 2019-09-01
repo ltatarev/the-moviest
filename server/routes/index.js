@@ -10,11 +10,4 @@ router.use('/review', reviewRoutes);
 const watchlistRoutes = require('./watchlist.routes');
 router.use('/watchlist', watchlistRoutes);
 
-/* const movieRoutes = require('./movie.routes');
-router.use('/movie', movieRoutes);
-
-const tvRoutes = require('./tv.routes');
-router.use('/tv', tvRoutes);
- */
-
 module.exports = router;

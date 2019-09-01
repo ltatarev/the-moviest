@@ -12,7 +12,7 @@ export class NavbarComponent implements OnInit {
 
   constructor(private userService: UserService) { }
 
-  profileAvatar:any;
+  public profileAvatar:any;
 
   ngOnInit() {
     this.profileAvatar = this.getCoverLink();

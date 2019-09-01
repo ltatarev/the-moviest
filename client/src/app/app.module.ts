@@ -12,6 +12,8 @@ import { HomeComponent } from './components/home/home.component';
 
 import { ModalModule } from 'ngx-bootstrap';
 import { NavbarComponent } from './components/navbar/navbar.component';
+import { CarouselModule } from 'ngx-bootstrap/carousel';
+import { FooterComponent } from './components/footer/footer.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +22,8 @@ import { NavbarComponent } from './components/navbar/navbar.component';
     LoginComponent,
     RegisterComponent,
     HomeComponent,
-    NavbarComponent
+    NavbarComponent,
+    FooterComponent
   ],
   imports: [
     AppRoutingModule,
@@ -29,6 +32,7 @@ import { NavbarComponent } from './components/navbar/navbar.component';
     ReactiveFormsModule,
     FormsModule,
     ModalModule.forRoot(),
+    CarouselModule.forRoot()
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -1,5 +1,7 @@
 const mongoose = require('mongoose');
-const dbUri = require('../config/config').dbUri;
+
+require('dotenv').config()
+const dbUri = process.env.DB_URI
 
 mongoose.Promise = global.Promise;
 

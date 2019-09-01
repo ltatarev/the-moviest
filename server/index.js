@@ -3,6 +3,8 @@ var bodyParser = require('body-parser');
 var path = require('path')
 const morgan = require('morgan');
 
+require('dotenv').config()
+
 const config = require('./config/config');
 
 var server_port = process.env.PORT || config.port;

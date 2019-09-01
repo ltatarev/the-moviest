@@ -21,3 +21,5 @@ li {
   ul:hover > * { opacity: 0.4; transform: scale(0.9); filter:blur(1px);}
   
   ul > *:hover { letter-spacing: 7px; opacity: 1; transform: scale(1.2); transition-delay: 0ms, 0ms; filter:blur(0px);}
+
+  

@@ -42,7 +42,6 @@ export class UserService {
       let payload = Token.parse(token);
       delete payload['exp'];
       delete payload['iat'];
-      console.log(payload);
       return payload;
     }  
   }
