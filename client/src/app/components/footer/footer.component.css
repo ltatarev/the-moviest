@@ -3,4 +3,14 @@ footer {
     height: 125px;
     color: white;
     padding: 50px;
+
+    position: absolute;
+    bottom: auto;
+    bottom: 0;
+
+    width: 100%;
+
+    font-family: 'Montserrat', sans-serif;
+    font-size: 30px;
+    text-transform: uppercase;
 }

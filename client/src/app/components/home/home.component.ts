@@ -3,6 +3,7 @@ import { CarouselConfig } from 'ngx-bootstrap/carousel';
 import { MovieService } from 'src/app/services/movie.service'
 import { Observable, BehaviorSubject } from 'rxjs';
 import { TvService } from 'src/app/services/tv.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-home',
@@ -19,7 +20,7 @@ export class HomeComponent implements OnInit {
   public topThreeTv:any;
   public topFiveTv:any;
 
-  constructor(private movieService: MovieService, private tvService: TvService) {
+  constructor(private movieService: MovieService, private tvService: TvService, private router:Router) {
    }
 
 
@@ -84,8 +85,7 @@ export class HomeComponent implements OnInit {
   }
 
   goToMovie(id) {
-   console.log(id)
-    // this.router.navigate(['movie',response.projectId]);
+ this.router.navigate(['movie',id]);
   }
 
 }

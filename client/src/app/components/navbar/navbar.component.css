@@ -1,7 +1,15 @@
+* {
+  z-index: 1500;
+}
 
 li {
     padding-left: 40px;
     padding-right: 40px;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 30px;
+    text-transform: uppercase;
+  
+    
   }
   
   li a {
@@ -60,7 +68,7 @@ li {
   transition: all 400ms;
   cursor: pointer;
 }
-.dropdown-content a:hover {background-color: #ddd; transition: all 400ms; border: 2px solid rgba(255, 0, 0, 0); border-radius: 20px;}
+.dropdown-content a:hover {background-color: #ddd; font-weight: bold; color:mediumslateblue; transition: all 400ms; border: 2px solid rgba(255, 0, 0, 0); border-radius: 20px;}
 
 .dropdown:hover .dropdown-content {display: block; border-radius: 20px;}
 

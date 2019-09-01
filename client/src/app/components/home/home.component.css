@@ -1,15 +1,16 @@
 .back {
     background-image: url("../../../assets/img/bg/13.jpg");
+    background-attachment: fixed;
     background-size: cover;
-    position: absolute;
-    width: 100%;
+    position: relative;
     height: 100%;
-    overflow: auto;
+    overflow: hidden;
     font-family: 'Montserrat', sans-serif;
     font-size: 30px;
     text-transform: uppercase;
-    justify-content: center;
-    align-items: center;
+    padding-bottom: 125px;
+    min-height: 100vh; /* will cover the 100% of viewport */
+    padding-bottom: 125px;
 }
 
 .title {
