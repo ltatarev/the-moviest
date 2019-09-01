@@ -3,6 +3,7 @@ import { FormGroup, FormControl, FormBuilder, Validators } from "@angular/forms"
 import { UserService } from 'src/app/services/user.service';
 
 import * as $ from 'jquery';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -42,6 +43,7 @@ export class LoginComponent implements OnInit {
   onSubmit() {
     let value: any = this.loginForm.value;
     this.userService.login(value).subscribe();
+    this.loginForm.reset;
   }
 
 

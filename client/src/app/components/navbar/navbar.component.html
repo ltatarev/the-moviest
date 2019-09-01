@@ -12,24 +12,33 @@
     <div class="collapse navbar-collapse show align-text-bottom" [ngClass]="{ 'show': navbarOpen }">
         <ul class="navbar-nav ml-auto align-text-bottom">
             <li class="nav-item align-text-bottom">
-                <a class="nav-link align-text-bottom" href="#">Discover</a>
+                <a class="nav-link align-text-bottom" [routerLink]="['/discover']">Discover</a>
             </li>
 
             <li class="nav-item">
-                <a class="nav-link" href="#">Reviews</a>
+                <a class="nav-link" [routerLink]="['/reviews']">Reviews</a>
             </li>
 
             <li class="nav-item">
-                <a class="nav-link" href="#">Watchlists</a>
+                <a class="nav-link" [routerLink]="['/watchlists']">Watchlists</a>
             </li>
 
             <li class="nav-item">
-                <a class="nav-link" href="#"><i class="fas fa-search"></i></a>
+                <a class="nav-link" [routerLink]="['/search']"><i class="fas fa-search"></i></a>
             </li>
 
             <li class="nav-items">
-                <a class="nav-link " href="#">
-                    <img [src]="profileAvatar" style="position:relative;top:-20px" height="50">
+                <a class="nav-link">
+                    <div class="dropdown">
+                        <button class="dropbtn"> <img [src]="profileAvatar" style="position:relative;top:-20px"
+                                height="50"></button>
+                        <div class="dropdown-content">
+                            <a [routerLink]="['/profile']">Profile</a>
+                            <a [routerLink]="['/settings']">Settings</a>
+
+                            <a id='logout' (click)="logOut()">Log out</a>
+                        </div>
+                    </div>
                 </a>
             </li>
         </ul>

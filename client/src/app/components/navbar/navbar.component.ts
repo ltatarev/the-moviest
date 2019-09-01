@@ -22,11 +22,13 @@ export class NavbarComponent implements OnInit {
    return this.userService.user.value.avatarURL;
   }
     
-
   navbarOpen = false;
 
   toggleNavbar() {
     this.navbarOpen = !this.navbarOpen;
   }
 
+  logOut() {
+    return this.userService.logOut();
+  }
 }

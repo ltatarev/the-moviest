@@ -7,7 +7,9 @@
     <!-- T R E N D I N G N O W  -->
     <div class="row">
       <div class="title">
-        <p class="ml-5 pl-5"> 🎬 TRENDING NOW</p>
+        <p class="ml-5 pl-5">
+          <img style="opacity: 1; filter: alpha(opacity=100); " src="../../../assets//img/video-camera.png" height="80">
+          <!-- 🎬 --> TRENDING NOW</p>
       </div>
     </div>
 
@@ -18,7 +20,7 @@
             <img [src]="three.poster" alt="first slide"
               style="display: block; height: 600px; width: 100%; object-fit: cover;">
             <div class="carousel-caption d-none d-md-block">
-              <h3>{{three.title}}</h3>
+              <h3><a (click)='goToMovie(three.id)'>{{three.title}}</a></h3>
               <p class="lead">{{three.overview}}</p>
             </div>
           </slide>
@@ -27,20 +29,28 @@
     </div>
 
     <div class="container-fluid" id="airingOnTv">
-      <div class="row p-2 m-5 h-50">
-        <div class="col d-flex p-1" *ngFor='let five of topFive'>
-          <div class="card text-center mx-auto">
-            <img [src]="five.poster" class="card-img-top" alt="..." height="400" style="object-fit: cover;">
+      <div class="row p-1 m-5">
+        <div class="col d-flex" *ngFor='let five of topFive'>
+          <div class="card" style="height: 570px;">
+            <a class="c-preview">
+              <img [src]="five.poster" class="card-img-top c-preview__img" alt="..." height="300"
+                style="object-fit: cover;">
+            </a>
             <div class="card-body">
-              <h5 class="card-title">{{five.title}}</h5>
-              <div class="align-middle my-auto">
+              <div class="row p-1">
+                <h5 class="card-title">{{five.title}}</h5>
+
                 <p class="card-text lead">{{five.overview}}</p>
-                <button class="learn-more ">
-                  <div class="circle">
-                    <span class="icon arrow"></span>
-                  </div>
-                  <p class="button-text">Learn More</p>
-                </button>
+                <div class="ml-2 pl-2">
+                    <a (click)='goToMovie(five.id)'>
+                  <button class="learn-more">
+                    <div class="circle">
+                      <span class="icon arrow"></span>
+                    </div>
+                    <p class="button-text">Learn More</p>
+                  </button>
+                    </a>
+                </div>
               </div>
             </div>
           </div>
@@ -54,7 +64,11 @@
 
       <div class="row">
         <div class="titleRight w-100">
-          AIRING ON TV 📺
+          AIRING ON TV
+          <!-- 📺 -->
+          <img style="opacity: 1; filter: alpha(opacity=100); padding: 10px;" src="../../../assets/img/tv.png"
+            height="80">
+
         </div>
       </div>
 
@@ -65,7 +79,7 @@
               <img [src]="three.poster" alt="first slide"
                 style="display: block; height: 600px; width: 100%; object-fit: cover;">
               <div class="carousel-caption d-none d-md-block">
-                <h3>{{three.name}}</h3>
+                <h3><a (click)='goToMovie(three.id)'>{{three.name}}</a></h3>
                 <p class="lead">{{three.overview}}</p>
               </div>
             </slide>
@@ -73,23 +87,31 @@
         </div>
       </div>
 
-  
-  </div>
-  <div class="container-fluid" id="airingOnTv">
-      <div class="row p-2 m-5 h-50">
-        <div class="col d-flex p-1" *ngFor='let five of topFiveTv'>
-          <div class="card text-center mx-auto">
-            <img [src]="five.poster" class="card-img-top" alt="..." height="400" style="object-fit: cover;">
+
+    </div>
+    <div class="container-fluid" id="airingOnTv">
+      <div class="row p-2 m-5">
+        <div class="col d-flex" *ngFor='let five of topFiveTv'>
+          <div class="card" style="height: 570px;">
+            <a class="c-preview">
+              <img [src]="five.poster" class="card-img-top c-preview__img " alt="..." height="300"
+                style="object-fit: cover;">
+            </a>
             <div class="card-body">
-              <h5 class="card-title">{{five.title}}</h5>
-              <div class="align-middle my-auto">
-                <p class="card-text lead">{{five.overview}}</p>
-                <button class="learn-more ">
-                  <div class="circle">
-                    <span class="icon arrow"></span>
-                  </div>
-                  <p class="button-text">Learn More</p>
-                </button>
+              <div class="row p-2">
+                <h5 class="card-title">{{five.name}}</h5>
+                <p class="card-text lead" style="overflow:hidden;">{{five.overview}}</p>
+                <div class="ml-2 pl-2">
+                  <a (click)='goToMovie(five.id)'>
+                    <button class="learn-more">
+                      <div class="circle">
+                        <span class="icon arrow"></span>
+                      </div>
+                      <p class="button-text">
+                        Learn more</p>
+                    </button>
+                  </a>
+                </div>
               </div>
             </div>
           </div>
@@ -97,6 +119,6 @@
       </div>
     </div>
 
-</div>
+  </div>
 
-<app-footer></app-footer>
+  <app-footer></app-footer>
