@@ -57,7 +57,9 @@ export class UserService {
     return (response: any): Observable<T> => {
       console.log(response.error.errmsg, response.statusText);
       alert("Error has occured. Please try again.")
+      this.router.navigate(['welcome']);
       return of(result as T);
+
     }
   }
 
@@ -87,8 +89,8 @@ export class UserService {
               )
   }
 
-  logout() {
-    this.router.navigate(['/login']);
+  logOut() {
+    this.router.navigate(['/welcome']);
     this.loggedIn.next(false);
     this.user.next(null);
     Token.remove();

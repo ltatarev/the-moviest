@@ -28,8 +28,18 @@ export class TvService {
 
   weeklyTrendingTv() {
     let url = "https://api.themoviedb.org/3/trending/tv/week?api_key=b5efa85196e4919222c431b10c08ef77";
-    return this.http.get<any>(url);
+    return this.http.get<any>(url)
+    .pipe(
+      catchError(this.handleError<any>('tv')
+      ));
   }
 
+  discoverTV(){
+    let url = "https://api.themoviedb.org/3/discover/tv?api_key=b5efa85196e4919222c431b10c08ef77&language=en-US&sort_by=popularity.desc&first_air_date_year=2016&page=1&timezone=America%2FNew_York&include_null_first_air_dates=false&with_original_language=en";
+    return this.http.get<any>(url)
+    .pipe(
+      catchError(this.handleError<any>('tv')
+      ));
+  }
 
 }

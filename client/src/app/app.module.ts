@@ -14,6 +14,13 @@ import { ModalModule } from 'ngx-bootstrap';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { CarouselModule } from 'ngx-bootstrap/carousel';
 import { FooterComponent } from './components/footer/footer.component';
+import { DiscoverComponent } from './components/discover/discover.component';
+import { MovieComponent } from './components/movie/movie.component';
+import { ReviewsComponent } from './components/reviews/reviews.component';
+import { WatchlistsComponent } from './components/watchlists/watchlists.component';
+import { SearchComponent } from './components/search/search.component';
+import { ProfileComponent } from './components/profile/profile.component';
+import { SettingsComponent } from './components/settings/settings.component';
 
 @NgModule({
   declarations: [
@@ -23,7 +30,14 @@ import { FooterComponent } from './components/footer/footer.component';
     RegisterComponent,
     HomeComponent,
     NavbarComponent,
-    FooterComponent
+    FooterComponent,
+    DiscoverComponent,
+    MovieComponent,
+    ReviewsComponent,
+    WatchlistsComponent,
+    SearchComponent,
+    ProfileComponent,
+    SettingsComponent
   ],
   imports: [
     AppRoutingModule,
