@@ -3,6 +3,19 @@
     <div class="container m-auto bg-dark">
     
         <!-- update avatar form -->
+        <button type="button" class="btn btn-primary" (click)="openModal(template)">Update avatar</button>
+ 
+        <ng-template #template>
+          <div class="modal-header">
+            <h4 class="modal-title pull-left">Update avatar</h4>
+            <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <!-- update avatar pics -->
+          </div>
+        </ng-template>
         
         <!-- update username form -->
         
