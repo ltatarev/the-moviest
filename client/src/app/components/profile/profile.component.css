@@ -35,15 +35,8 @@
   font-weight:800;
   color:#eee;
 }
-
-.isVerified {
-  fill: #eee;
-  margin:5px;
-}
-
 .card-body {
   color:#eee;
-  margin-top:1.5em;
 }
 .avatar {
   border-radius:50%;
@@ -51,6 +44,7 @@
   transform: scale(0.95);
   transition:all .5s;
   cursor:pointer;
+  padding: 0;
 }
 .avatar:hover {
   transform: scale(1);
@@ -59,26 +53,46 @@
 .profilePic {
   text-align:center;
 }
-.isOnline {
-  text-align:center;
-  color:#eee;
-}
 .profileInfo {
-  margin-top:1em;
   font-weight:200;
-  font-size:12px;
+  font-size:10px;
   color:#eee;
-  text-align:center;
+  text-align: center;
+  padding: 0px;
 }
 .profileInfo p {
-border: 1px solid white;
-border-radius: 25px;
+  margin: 3px;
+  padding: 1px;
+  overflow: hidden;
+   word-wrap: break-word;
+  display: inline-flex;
+}
+.title {
+  font-weight: bold;
+  font-style: italic;
+  letter-spacing: 2px;
+}
+hr {
+  padding: 0;
+  margin: 4px;
 }
 .actions {
   background:transparent;
   border:0;
   color:#fff;
   display:inline-flex;
+}
+.border {
+  border: 2px solid gainsboro;
+  border-radius: 25px;
+  text-align: center;
+  padding: 4px !important;
+  opacity: 0.8;
+}
+.border:hover{
+  font-weight: bold;
+  opacity: 1;
+  transition: 50ms all;
 }
 .actionFirst, .actionSecond {
   width:50%;
