@@ -1,1 +1,14 @@
-<p>movie works!</p>
+<div class="back">
+    <app-navbar></app-navbar>
+    <div class="container-fluid">
+        <h1 class='display-1'>{{movie.original_title}}</h1>
+        <h1 class='display-1'>{{movie.tagline}}</h1>
+        <p>{{movie.overview}}</p>
+
+
+        <img [src]='movie.poster_path' style="object-fit: cover; width: 600px;">
+
+    </div>
+
+    <app-footer></app-footer>
+</div>

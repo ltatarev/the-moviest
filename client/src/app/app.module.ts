@@ -21,6 +21,7 @@ import { WatchlistsComponent } from './components/watchlists/watchlists.componen
 import { SearchComponent } from './components/search/search.component';
 import { ProfileComponent } from './components/profile/profile.component';
 import { SettingsComponent } from './components/settings/settings.component';
+import { TvComponent } from './components/tv/tv.component';
 
 @NgModule({
   declarations: [
@@ -37,7 +38,8 @@ import { SettingsComponent } from './components/settings/settings.component';
     WatchlistsComponent,
     SearchComponent,
     ProfileComponent,
-    SettingsComponent
+    SettingsComponent,
+    TvComponent
   ],
   imports: [
     AppRoutingModule,

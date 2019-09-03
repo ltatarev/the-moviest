@@ -18,17 +18,18 @@ import { SearchComponent } from './components/search/search.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'welcome', pathMatch: 'full' },
-  { path: 'welcome', component: WelcomeComponent},
-  { path: 'login', component: LoginComponent},
-  { path: 'register', component: RegisterComponent},
-  { path: 'home', component: HomeComponent, canActivate: [AuthGuard]},
-  { path: 'discover', component: DiscoverComponent, canActivate: [AuthGuard]},
-  { path: 'movie/:id', component: MovieComponent, canActivate: [AuthGuard]},
-  { path: 'reviews', component: ReviewsComponent, canActivate: [AuthGuard]},
-  { path: 'watchlists', component: WatchlistsComponent, canActivate: [AuthGuard]},
-  { path: 'search', component: SearchComponent, canActivate: [AuthGuard]},
-  { path: 'profile/:id', component: ProfileComponent, canActivate: [AuthGuard]},
-  { path: 'settings', component: SettingsComponent, canActivate: [AuthGuard]},
+  { path: 'welcome', component: WelcomeComponent },
+  { path: 'login', component: LoginComponent },
+  { path: 'register', component: RegisterComponent },
+  { path: 'home', component: HomeComponent, canActivate: [AuthGuard] },
+  { path: 'discover', component: DiscoverComponent, canActivate: [AuthGuard] },
+  { path: 'movie/:id', component: MovieComponent, canActivate: [AuthGuard] },
+  { path: 'reviews', component: ReviewsComponent, canActivate: [AuthGuard] },
+  { path: 'watchlists', component: WatchlistsComponent, canActivate: [AuthGuard] },
+  { path: 'search', component: SearchComponent, canActivate: [AuthGuard] },
+  { path: 'profile', redirectTo: 'profile/' },
+  { path: 'profile/:id', component: ProfileComponent, canActivate: [AuthGuard] },
+  { path: 'settings', component: SettingsComponent, canActivate: [AuthGuard] },
   { path: '**', redirectTo: 'welcome' }
 ];
 

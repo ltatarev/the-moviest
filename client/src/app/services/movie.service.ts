@@ -34,11 +34,19 @@ export class MovieService {
 
 
   moviesInTheathers() {
-    let url = "https://api.themoviedb.org/3/discover/movie?primary_release_date.gte=2019-01-01&primary_release_date.lte=2018-11-20";
+    let url = "https://api.themoviedb.org/3/discover/movie?primary_release_date.gte=2019-01-01";
     return this.http.get<any>(url)
       .pipe(
         catchError(this.handleError<any>('movies')
         ))
+  }
+
+  getMovieById(id){
+    let url = 'https://api.themoviedb.org/3/movie/'+id.toString()+'?api_key=b5efa85196e4919222c431b10c08ef77&language=en-US'
+    return this.http.get<any>(url)
+    .pipe(
+      catchError(this.handleError<any>('movies')
+      ))
   }
 
 }

@@ -32,6 +32,7 @@ export class HomeComponent implements OnInit {
     () => { this.parseMovies(this.movies) 
     });   
 
+
     this.tvService.weeklyTrendingTv().subscribe((res : any[]) => {
       this.tv = res;
     },
@@ -79,13 +80,12 @@ export class HomeComponent implements OnInit {
 
   parseTv(tv){
     let {results} = tv;
-    console.log(results);
     this.topThreeTv = [this.getBackdrop(results[0]),this.getBackdrop(results[1]),this.getBackdrop(results[2])];
     this.topFiveTv =  [this.getPoster(results[3]),this.getPoster(results[4]),this.getPoster(results[5]),this.getPoster(results[6]),this.getPoster(results[7])];
   }
 
   goToMovie(id) {
- this.router.navigate(['movie',id]);
+    this.router.navigate(['movie',id]);
   }
 
 }
