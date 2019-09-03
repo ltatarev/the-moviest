@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+// import tv & movie service
 
 @Component({
   selector: 'app-discover',
@@ -7,9 +8,23 @@ import { Component, OnInit } from '@angular/core';
 })
 export class DiscoverComponent implements OnInit {
 
-  constructor() { }
+  public tv: any;
+  public movie: any;
+    
+  constructor(private tvService: TvService, private movieService:MovieService) { }
 
   ngOnInit() {
+     // simulate 2 requests - TV & movie service
+    forkJoin(
+      this.tvService.discoverTV(),
+      this.movieService.moviesInTheathers()
+    )
+    .subscribe(([res1, res2]) => {
+      this.tv = res1;
+      this.movie = res2;
+    });    
   }
+    
+    
 
 }
