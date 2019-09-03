@@ -9,15 +9,24 @@
         <img class="avatar" src="https://avatars1.githubusercontent.com/u/8537504?s=400&amp;v=4" alt="Username">
       </div>
       <div class="profileInfo">
-        <p>Currently watching: {{currentlyWatching}}</p>
+       📼<p class="title">CURRENTLY WATCHING</p>
+        <p>{{currentlyWatching}}</p>
+        <hr/>
+          <p class="title">FAVORITES</p>
+        <div><p class="border">📽️ {{favMovie}}</p>
+        <p class="border">📺 {{favShow}}</p>
+          <p class="border">👨‍🎤{{favActor}}</p>
+          <p class="border">🍿{{favGenre}}</p></div>
       </div>
     </div>
     <div class="card-footer actions">
       <div class="actionFirst">
-        Reviews
+        <i class="fas fa-highlighter"></i>
+        <p class="title">Reviews</p>
       </div>
       <div class="actionSecond">
-       Watchlists
+        <i class="fas fa-clipboard-list"></i>
+        <p class="title">Watchlists</p>
       </div>
     </div>
   </div>
