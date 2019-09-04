@@ -16,6 +16,7 @@ export class SettingsComponent implements OnInit {
   }
 
     shuffleAvatar(currentId){
+        // currentId = avatarUrl.split("/") - last
     // function assigns new avatar id, different than current one
     let newId = this.randomInt();
         if (newId===currentId){
