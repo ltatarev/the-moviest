@@ -1,113 +1,112 @@
 .main {
-  width: 100%;
-  height: 100%;
-  position: absolute;
-  top: 0;
-  left: 0;
-  overflow: auto;
-  background-image: url("../../../assets/img/bg/12.jpg");
-  background-attachment: fixed;
-  background-size: cover;
+    width: 100%;
+    min-height: 100vh; /* will cover the 100% of viewport */
+    padding-bottom: 125px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-image: url("../../../assets/img/bg/12.jpg");
+    background-attachment: fixed;
+    background-size: cover;
 }
 .profile {
-  background-image: url("../../../assets/img/profile-bg.jpg");
-  background-attachment: fixed;
-  background-position: top;
-  background-repeat: no-repeat;
-  background-size: cover;
-  background-color:#444;
-  width: 250px;
-  height: 450px;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  margin: -200px 0 0 -125px;
-  border:none;
-  border-radius: 20px;
-  box-shadow: 0 37.125px 70px -12.125px rgba(0,0,0,0.2);
-  transition:all .3s;
+    background-image: url("../../../assets/img/profile-bg.jpg");
+    background-attachment: fixed;
+    background-position: top;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-color: #444;
+    width: 250px;
+    height: 450px;
+    position: relative;
+    bottom: 20px;
+    border: none;
+    border-radius: 20px;
+    box-shadow: 0 37.125px 70px -12.125px rgba(0, 0, 0, 0.2);
+    transition: all 0.3s;
 }
 .profileName {
-  background:transparent;
-  border:0;
-  text-align:center;
-  padding-top: 15px;
-  font-style: italic;
-  font-size:26px;
-  font-weight:800;
-  color:#eee;
+    background: transparent;
+    border: 0;
+    text-align: center;
+    padding-top: 15px;
+    font-style: italic;
+    font-size: 26px;
+    font-weight: 800;
+    color: #eee;
 }
 .card-body {
-  color:#eee;
-  padding: 15px;
+    color: #eee;
+    padding: 15px;
 }
 .avatar {
-  max-width:128px;
-  transform: scale(0.95);
-  transition:all .5s;
-  padding: 0;
+    max-width: 128px;
+    transform: scale(0.95);
+    transition: all 0.5s;
+    padding: 0;
 }
 .avatar:hover {
-  transform: scale(1.25);
-  box-shadow: 0 37.125px 70px -12.125px rgba(0,0,0,0.2);
+    transform: scale(1.25);
+    box-shadow: 0 37.125px 70px -12.125px rgba(0, 0, 0, 0.2);
 }
 .profilePic {
-  text-align:center;
+    text-align: center;
 }
 .profileInfo {
-  font-weight:200;
-  font-size:10px;
-  color:#eee;
-  text-align: center;
-  padding: 0px;
+    font-weight: 200;
+    font-size: 10px;
+    color: #eee;
+    text-align: center;
+    padding: 0px;
 }
 .profileInfo p {
-  margin: 3px;
-  padding: 1px;
-  overflow: hidden;
-   word-wrap: break-word;
-  display: inline-flex;
+    margin: 3px;
+    padding: 1px;
+    overflow: hidden;
+    word-wrap: break-word;
+    display: inline-flex;
 }
 .title {
-  font-weight: bold;
-  font-style: italic;
-  letter-spacing: 2px;
+    font-weight: bold;
+    font-style: italic;
+    letter-spacing: 2px;
 }
 hr {
-  padding: 0;
-  margin: 4px;
+    padding: 0;
+    margin: 4px;
 }
 .actions {
-  background:transparent;
-  border:0;
-  color:#fff;
-  display:inline-flex;
+    background: transparent;
+    border: 0;
+    color: #fff;
+    display: inline-flex;
 }
 .border {
-  background-color: #eee;
-  color: black;
-  border: 2px solid gainsboro;
-  border-radius: 25px;
-  text-align: center;
-  padding: 4px !important;
-  opacity: 0.8;
+    background-color: #eee;
+    color: black;
+    border: 2px solid gainsboro;
+    border-radius: 25px;
+    text-align: center;
+    padding: 4px !important;
+    opacity: 0.8;
 }
-.border:hover{
-  font-weight: bold;
-  opacity: 1;
-  cursor: pointer;
-  transition: 50ms all;
+.border:hover {
+    font-weight: bold;
+    opacity: 1;
+    cursor: pointer;
+    transition: 50ms all;
 }
-.actionFirst, .actionSecond {
-  width:50%;
-  text-align:center;
-  fill:#ddd;
-  transform: scale(0.8);
-  transition:all .3s;
-  cursor:pointer;
+.actionFirst,
+.actionSecond {
+    width: 50%;
+    text-align: center;
+    fill: #ddd;
+    transform: scale(0.8);
+    transition: all 0.3s;
+    cursor: pointer;
 }
-.actionFirst:hover, .actionSecond:hover {
-  transform: scale(1);
-  fill:#fff;
-  
+.actionFirst:hover,
+.actionSecond:hover {
+    transform: scale(1);
+    fill: #fff;
 }

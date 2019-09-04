@@ -1,10 +1,8 @@
-
 * {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
-
 
 .back {
     background-image: url("../../../assets/img/bg/13.jpg");
@@ -18,7 +16,7 @@
 
 .container {
     width: 300px;
-    height: 100px;
+    height: 50px;
 }
 .container .search {
     position: absolute;
@@ -50,7 +48,7 @@
     height: 2px;
     background: white;
     transform: rotate(45deg);
-    transition: all .5s;
+    transition: all 0.5s;
 }
 .container .search::after {
     content: "";
@@ -64,10 +62,10 @@
     height: 25px;
     border-radius: 50%;
     border: 2px solid white;
-    transition: all .5s;
+    transition: all 0.5s;
 }
-.container  input[type="text"] {
-    font-family: 'Inconsolata', monospace;
+.container input[type="text"] {
+    font-family: "Inconsolata", monospace;
     position: absolute;
     margin: auto;
     top: 0;
@@ -90,25 +88,25 @@
     font-weight: bolder;
     letter-spacing: 0.1em;
 }
-.container  input[type="text"]:hover {
+.container input[type="text"]:hover {
     cursor: pointer;
 }
-.container  input[type="text"]:focus {
+.container input[type="text"]:focus {
     width: 300px;
     opacity: 1;
     cursor: text;
 }
-.container  input[type="text"]:focus ~ .search {
+.container input[type="text"]:focus ~ .search {
     right: -250px;
     background: #151515;
     z-index: 6;
 }
-.container  input[type="text"]:focus ~ .search::before {
+.container input[type="text"]:focus ~ .search::before {
     top: 0;
     left: 0;
     width: 25px;
 }
-.container  input[type="text"]:focus ~ .search::after {
+.container input[type="text"]:focus ~ .search::after {
     top: 0;
     left: 0;
     width: 25px;
@@ -118,19 +116,18 @@
     border-radius: 0%;
     transform: rotate(-45deg);
 }
-.container  input[type="text"]::placeholder {
+.container input[type="text"]::placeholder {
     color: white;
     opacity: 0.5;
     font-weight: bolder;
 }
-
 
 /* =============================================
 * RADIO BUTTONS
 =============================================== */
 
 #radios label {
-	cursor: pointer;
+    cursor: pointer;
     position: relative;
     margin: auto;
     width: 100px;
@@ -141,68 +138,65 @@
 }
 
 input[type="radio"] {
-	opacity: 0; /* hidden but still tabable */
-    position: absolute; 
+    opacity: 0; /* hidden but still tabable */
+    position: absolute;
     height: 20px;
 }
 
 input[type="radio"] + span {
-	color: #B3CEFB;
+    color: #b3cefb;
     border-radius: 100%;
-	padding: 15px;
-	transition: all 0.4s;
+    padding: 15px;
+    transition: all 0.4s;
+    text-align: center;
     -webkit-transition: all 0.4s;
-    
 }
 
 input[type="radio"]:checked + span {
-	color: #D9E7FD;
+    color: #d9e7fd;
     background-color: crimson;
     border-radius: 50%;
-    box-shadow:
-        inset 0 0 50px rgba(194, 0, 39, 0.397),      /* inner white */
-        inset 20px 0 80px crimson,   /* inner left magenta short */
-        inset -20px 0 80px rgb(0, 119, 255),  /* inner right cyan short */
-        inset 20px 0 300px crimson,  /* inner left magenta broad */
-        inset -20px 0 300px rgb(0, 119, 255), /* inner right cyan broad */
-        0 0 50px rgb(221, 58, 85),            /* outer white */
-        -10px 0 80px crimson,        /* outer left magenta */
-        10px 0 80px rgb(0, 0, 0);         /* outer right cyan */
-  
+    box-shadow: inset 0 0 50px rgba(194, 0, 39, 0.397),
+        /* inner white */ inset 20px 0 80px crimson,
+        /* inner left magenta short */ inset -20px 0 80px rgb(0, 119, 255),
+        /* inner right cyan short */ inset 20px 0 300px crimson,
+        /* inner left magenta broad */ inset -20px 0 300px rgb(0, 119, 255),
+        /* inner right cyan broad */ 0 0 50px rgb(221, 58, 85),
+        /* outer white */ -10px 0 80px crimson,
+        /* outer left magenta */ 10px 0 80px rgb(0, 0, 0); /* outer right cyan */
 }
 
 input[type="radio"]:focus + span {
-	color: #fff;
+    color: #fff;
 }
 
 /* ================ TOOLTIPS ================= */
 
 #radios label:hover::before {
-	content: attr(for);
-	font-family: Roboto, -apple-system, sans-serif;
-	text-transform: capitalize;
+    content: attr(for);
+    font-family: Roboto, -apple-system, sans-serif;
+    text-transform: capitalize;
     font-size: 11px;
     width: 100px;
-	position: absolute;
+    position: absolute;
     top: 170%;
     left: 3px;
-	opacity: 0.75;
-	background-color: #323232;
-	color: #fff;	
-	padding: 5px;
-	border-radius: 5px;
-     display: block;
-     text-transform: uppercase;
+    opacity: 0.75;
+    background-color: #323232;
+    color: #fff;
+    padding: 5px;
+    border-radius: 5px;
+    display: block;
+    text-transform: uppercase;
 }
 
 #radios {
     position: relative;
-    top:100px;
+    top: 100px;
     width: 600px;
 }
 
 button {
-    font-family: 'Montserrat', sans-serif;
+    font-family: "Montserrat", sans-serif;
     font-weight: bold;
 }
-

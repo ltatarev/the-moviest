@@ -1,140 +1,140 @@
-    #background {
-        width: 100%;
-        height: 100vh;
-        overflow: hidden;
-        background: fixed;
-        position: relative;
-        background-position: center center;
-        background-size: cover;
-        background-repeat: no-repeat;
-        animation: slideBg 10s infinite 2s;
-        background-image: url('../../../assets/img/bg/1.jpg');
+#background {
+    width: 100%;
+    height: 100vh;
+    overflow: auto;
+    background: fixed;
+    position: relative;
+    background-position: center center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    animation: slideBg 10s infinite 2s;
+    background-image: url("../../../assets/img/bg/1.jpg");
+}
+
+@keyframes slideBg {
+    0% {
+        background-image: url("../../../assets/img/bg/1.jpg");
     }
-    
-    @keyframes slideBg {
-        0% {
-            background-image: url('../../../assets/img/bg/1.jpg');
-        }
-        30% {
-            background-image: url('../../../assets/img/bg/3.jpg');
-        }
-        60% {
-            background-image: url('../../../assets/img/bg/4.jpg');
-        }
-        100% {
-            background-image: url('../../../assets/img/bg/1.jpg');
-        }
+    30% {
+        background-image: url("../../../assets/img/bg/3.jpg");
     }
-    
-    .nav {
-        padding-top: 50px;
-        padding-left: 60px;
+    60% {
+        background-image: url("../../../assets/img/bg/4.jpg");
     }
-    
-    #login {
-        padding: 10px;
-        font-weight: bold;
-        color: white;
-        letter-spacing: 5px;
+    100% {
+        background-image: url("../../../assets/img/bg/1.jpg");
     }
-    
-    #register {
-        border: 2px solid white;
-        border-radius: 50px;
-        padding: 10px;
-        font-weight: bold;
-        color: white;
-        font-family: 'Montserrat', sans-serif;
-        letter-spacing: 5px;
-        margin-left: 70px;
+}
+
+.nav {
+    padding-top: 50px;
+    padding-left: 60px;
+}
+
+#login {
+    padding: 10px;
+    font-weight: bold;
+    color: white;
+    letter-spacing: 5px;
+}
+
+#register {
+    border: 2px solid white;
+    border-radius: 50px;
+    padding: 10px;
+    font-weight: bold;
+    color: white;
+    font-family: "Montserrat", sans-serif;
+    letter-spacing: 5px;
+    margin-left: 70px;
+    -webkit-box-shadow: 6px 6px 0px 0px rgba(230, 62, 66, 1);
+    -moz-box-shadow: 6px 6px 0px 0px rgba(230, 62, 66, 1);
+    box-shadow: 6px 6px 0px 0px rgba(230, 62, 66, 1);
+    animation-name: slideBoxShadowIn;
+    animation-duration: 300ms;
+    animation-timing-function: ease-out;
+}
+
+#register:hover {
+    background: rgba(230, 62, 66, 1);
+    animation-name: slideBoxShadowOut;
+    animation-duration: 300ms;
+    font-family: "Montserrat", sans-serif;
+    animation-timing-function: ease-in;
+    -webkit-box-shadow: none;
+    -moz-box-shadow: none;
+    box-shadow: none;
+}
+
+@keyframes slideBoxShadowOut {
+    0% {
+        background: rgba(230, 62, 66, 0);
         -webkit-box-shadow: 6px 6px 0px 0px rgba(230, 62, 66, 1);
         -moz-box-shadow: 6px 6px 0px 0px rgba(230, 62, 66, 1);
         box-shadow: 6px 6px 0px 0px rgba(230, 62, 66, 1);
-        animation-name:  slideBoxShadowIn;
-        animation-duration: 300ms;
-        animation-timing-function: ease-out;
     }
-    
-    #register:hover {
+    50% {
+        background: rgba(230, 62, 66, 0.4);
+        -webkit-box-shadow: 2px 2px 0px 0px rgba(230, 62, 66, 0.5);
+        -moz-box-shadow: 2px 2px 0px 0px rgba(230, 62, 66, 0.5);
+        box-shadow: 2px 2px 0px 0px rgba(230, 62, 66, 0.5);
+    }
+    100% {
         background: rgba(230, 62, 66, 1);
-        animation-name: slideBoxShadowOut;
-        animation-duration: 300ms;
-        font-family: 'Montserrat', sans-serif;
-        animation-timing-function: ease-in;
         -webkit-box-shadow: none;
         -moz-box-shadow: none;
         box-shadow: none;
     }
-    
-    @keyframes slideBoxShadowOut {
-        0% {
-            background: rgba(230, 62, 66, 0);
-            -webkit-box-shadow: 6px 6px 0px 0px rgba(230, 62, 66, 1);
-            -moz-box-shadow: 6px 6px 0px 0px rgba(230, 62, 66, 1);
-            box-shadow: 6px 6px 0px 0px rgba(230, 62, 66, 1);
-        }
-        50% {
-            background: rgba(230, 62, 66, 0.4);
-            -webkit-box-shadow: 2px 2px 0px 0px rgba(230, 62, 66, 0.5);
-            -moz-box-shadow: 2px 2px 0px 0px rgba(230, 62, 66, 0.5);
-            box-shadow: 2px 2px 0px 0px rgba(230, 62, 66, 0.5);
-        }
-        100% {
-            background: rgba(230, 62, 66, 1);
-            -webkit-box-shadow: none;
-            -moz-box-shadow: none;
-            box-shadow: none;
-        }
+}
+
+@keyframes slideBoxShadowIn {
+    0% {
+        -webkit-box-shadow: none;
+        -moz-box-shadow: none;
+        box-shadow: none;
     }
-    
-    @keyframes slideBoxShadowIn {
-        0% {
-            -webkit-box-shadow: none;
-            -moz-box-shadow: none;
-            box-shadow: none;
-        }
-        50% {
-            -webkit-box-shadow: 2px 2px 0px 0px rgba(230, 62, 66, 0.5);
-            -moz-box-shadow: 2px 2px 0px 0px rgba(230, 62, 66, 0.5);
-            box-shadow: 2px 2px 0px 0px rgba(230, 62, 66, 0.5);
-        }
-        100% {
-            -webkit-box-shadow: 6px 6px 0px 0px rgba(230, 62, 66, 1);
-            -moz-box-shadow: 6px 6px 0px 0px rgba(230, 62, 66, 1);
-            box-shadow: 6px 6px 0px 0px rgba(230, 62, 66, 1);
-        }
+    50% {
+        -webkit-box-shadow: 2px 2px 0px 0px rgba(230, 62, 66, 0.5);
+        -moz-box-shadow: 2px 2px 0px 0px rgba(230, 62, 66, 0.5);
+        box-shadow: 2px 2px 0px 0px rgba(230, 62, 66, 0.5);
     }
-    
-    a:hover{
-        text-decoration: none;
+    100% {
+        -webkit-box-shadow: 6px 6px 0px 0px rgba(230, 62, 66, 1);
+        -moz-box-shadow: 6px 6px 0px 0px rgba(230, 62, 66, 1);
+        box-shadow: 6px 6px 0px 0px rgba(230, 62, 66, 1);
     }
-    
-    .cool-link {
-        display: inline-block;
-        color: #000;
-        text-decoration: none;
-    }
-    
-    .cool-link::after {
-        content: '';
-        display: block;
-        width: 0;
-        height: 2px;
-        background: rgb(255, 255, 255);
-        transition: width .3s;
-    }
-    
-    .cool-link:hover::after {
-        width: 100%;
-        transition: width .3s;
-    }
-    
-    .noselect {
-        -webkit-touch-callout: none; /* iOS Safari */
-          -webkit-user-select: none; /* Safari */
-           -khtml-user-select: none; /* Konqueror HTML */
-             -moz-user-select: none; /* Firefox */
-              -ms-user-select: none; /* Internet Explorer/Edge */
-                  user-select: none; /* Non-prefixed version, currently
+}
+
+a:hover {
+    text-decoration: none;
+}
+
+.cool-link {
+    display: inline-block;
+    color: #000;
+    text-decoration: none;
+}
+
+.cool-link::after {
+    content: "";
+    display: block;
+    width: 0;
+    height: 2px;
+    background: rgb(255, 255, 255);
+    transition: width 0.3s;
+}
+
+.cool-link:hover::after {
+    width: 100%;
+    transition: width 0.3s;
+}
+
+.noselect {
+    -webkit-touch-callout: none; /* iOS Safari */
+    -webkit-user-select: none; /* Safari */
+    -khtml-user-select: none; /* Konqueror HTML */
+    -moz-user-select: none; /* Firefox */
+    -ms-user-select: none; /* Internet Explorer/Edge */
+    user-select: none; /* Non-prefixed version, currently
                                         supported by Chrome and Opera */
-      }
+}

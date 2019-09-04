@@ -1,37 +1,44 @@
-<div class="container-fluid main animated fadeIn">
-  <app-navbar></app-navbar>
-  <div class="card profile">
-    <div class="card-header profileName">
-      {{user.username}}
+<div class="container-fluid pl-0 pr-0 main animated fadeIn">
+    <app-navbar></app-navbar>
+    <div class="card profile m-auto">
+        <div class="card-header profileName">
+            {{ user.username }}
+        </div>
+        <div class="card-body profileBody">
+            <div class="profilePic">
+                <img
+                    class="avatar"
+                    *ngIf="user.avatarURL"
+                    [src]="user.avatarURL"
+                    alt="Username"
+                />
+            </div>
+            <div class="profileInfo">
+                <p class="bio">{{ user.bio }}</p>
+                <hr />
+                📼
+                <p class="title">CURRENTLY WATCHING</p>
+                <p>{{ user.currentlyWatching }}</p>
+                <hr />
+                <p class="title">FAVORITES</p>
+                <div>
+                    <p class="border">📽️ {{ user.favorites.movie }}</p>
+                    <p class="border">📺 {{ user.favorites.tvShow }}</p>
+                    <p class="border">👨‍🎤{{ user.favorites.actor }}</p>
+                    <p class="border">🍿{{ user.favorites.genre }}</p>
+                </div>
+            </div>
+        </div>
+        <div class="card-footer actions">
+            <div class="actionFirst">
+                <i class="fas fa-highlighter"></i>
+                <p class="title">Reviews</p>
+            </div>
+            <div class="actionSecond">
+                <i class="fas fa-clipboard-list"></i>
+                <p class="title">Watchlists</p>
+            </div>
+        </div>
     </div>
-    <div class="card-body profileBody">
-      <div class="profilePic">
-        <img class="avatar" *ngIf="user.avatarURL" [src]="user.avatarURL" alt="Username">
-      </div>
-      <div class="profileInfo">
-        <p class="bio">{{user.bio}}</p>
-        <hr/>
-       📼<p class="title">CURRENTLY WATCHING</p>
-        <p>{{user.currentlyWatching}}</p>
-        <hr/>
-          <p class="title">FAVORITES</p>
-        <div><p class="border">📽️ {{user.favorites.movie}}</p>
-        <p class="border">📺 {{user.favorites.tvShow}}</p>
-          <p class="border">👨‍🎤{{user.favorites.actor}}</p>
-          <p class="border">🍿{{user.favorites.genre}}</p></div>
-      </div>
-    </div>
-    <div class="card-footer actions">
-      <div class="actionFirst">
-        <i class="fas fa-highlighter"></i>
-        <p class="title">Reviews</p>
-      </div>
-      <div class="actionSecond">
-        <i class="fas fa-clipboard-list"></i>
-        <p class="title">Watchlists</p>
-      </div>
-    </div>
-  </div>
-  
+    <app-footer></app-footer>
 </div>
-<app-footer></app-footer>
