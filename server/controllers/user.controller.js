@@ -23,18 +23,18 @@ class UserController {
     // ************************************************************
     // * GET AVATAR, BIO, CURRENTLY WATCHING, FAVORITES, WATCHLISTS
     static async getProfileData(request, response) {
-        let username = request.body.username;
+        let userId = request.query.id;
 
-        let userResponse, message;
+        let user, message;
 
         try {
-            userResponse = await UserService.getProfileData(username);
+            user = await UserService.getProfileData(userId);
         } catch (err) {
             return response.status(500).json(err);
         }
 
         message = "Successfully recieved user data!";
-        return response.status(200).json({ userResponse });
+        return response.status(200).json({ user });
     }
 
     // ************************************************************
@@ -126,7 +126,6 @@ class UserController {
         let email = request.body.email;
         let username = request.body.username;
         let password = request.body.password;
-        console.log(email);
         let user, message, token;
 
         // TODO: check if username or email already exist

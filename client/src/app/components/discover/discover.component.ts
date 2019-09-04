@@ -10,19 +10,19 @@ export class DiscoverComponent implements OnInit {
 
   public tv: any;
   public movie: any;
-    
-  constructor(private tvService: TvService, private movieService:MovieService) { }
+    //private tvService: TvService, private movieService:MovieService
+  constructor() { }
 
   ngOnInit() {
      // simulate 2 requests - TV & movie service
-    forkJoin(
+/*     forkJoin(
       this.tvService.discoverTV(),
       this.movieService.moviesInTheathers()
     )
     .subscribe(([res1, res2]) => {
       this.tv = res1;
       this.movie = res2;
-    });    
+    });     */
   }
     
     

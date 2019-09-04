@@ -23,13 +23,13 @@ const userSchema = new mongoose.Schema({
     hash: String,
     salt: String,
     avatarURL: { type: String, default: "../../../assets/img/avatars/01.png" },
-    bio: { type: String, default: "Say something about yourself" },
+    bio: { type: String, default: "" },
     currentlyWatching: { type: String, default: "Not watching anything 😔" },
     favorites: {
-        movie: String,
-        tvShow: String,
-        actor: String,
-        genre: String
+        movie: { type: String, default: "" },
+        tvShow: { type: String, default: "" },
+        actor: { type: String, default: "" },
+        genre: { type: String, default: "" }
     }
 }, { timestamps: true });
 

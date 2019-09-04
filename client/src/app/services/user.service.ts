@@ -4,7 +4,7 @@ import { BehaviorSubject, from, Observable } from 'rxjs';
 import { User } from '../classes/user';
 import { Token } from '../classes/token';
 
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 
 import { tap, catchError } from 'rxjs/operators';
 import { Router } from '@angular/router';
@@ -86,6 +86,14 @@ export class UserService {
                   }
                 ),
                 catchError(this.handleError<any>('login', user))
+              )
+  }
+
+  getProfileData(id:any): Observable<any> {
+    let params = new HttpParams().set('id', id);
+    return this.http.get<any>(this.userUrl + "/getProfileData", {params})
+              .pipe(
+                catchError(this.handleError<any>('getProfileData'))
               )
   }
 

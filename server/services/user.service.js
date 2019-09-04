@@ -1,5 +1,6 @@
 const mongoose = require('mongoose').set('debug', true);
 const User = mongoose.model('User');
+const ObjectId = mongoose.Types.ObjectId;
 
 class UserService {
     // ************************************************************
@@ -44,10 +45,9 @@ class UserService {
 
     // ************************************************************
     // * GET PROFILE DATA
-    static async getProfileData(username) {
-        return await User.findOne({ username }, { hash: false, salt: false, email: false, __v: false, createdAt: false, updatedAt: false })
-            .populate("reviews")
-            .populate("watchlists")
+    static async getProfileData(userId) {
+        let id = ObjectId(userId.toString());
+        return await User.findById( id, { hash: false, salt: false, email: false, __v: false, createdAt: false, updatedAt: false })
             .exec();
     }
 

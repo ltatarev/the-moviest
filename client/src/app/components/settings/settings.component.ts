@@ -19,7 +19,7 @@ export class SettingsComponent implements OnInit {
     // function assigns new avatar id, different than current one
     let newId = this.randomInt();
         if (newId===currentId){
-        shuffleAvatar(currentId)
+        this.shuffleAvatar(currentId)
         }
         else {
             return newId < 10 ? "0"+newId.toString() : newId.toString();
