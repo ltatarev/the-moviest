@@ -1,23 +1,36 @@
 .back {
-    background-image: url("../../../assets/img/bg/11.jpg");
+    background-image: url("../../../assets/img/bg/13.jpg");
     background-attachment: fixed;
     background-size: cover;
+    position: relative;
     height: 100%;
     overflow: auto;
     font-family: "Montserrat", sans-serif;
     font-size: 30px;
-    text-transform: uppercase;
-    width: 100%;
+    padding-bottom: 125px;
+    min-height: 100vh; 
+    margin: 0;
 }
 
 .container {
     display: flex;
-
-    min-height: 100vh;
     box-sizing: border-box;
+    padding: 20px;
+    width: 100%;
+}
+
+h1 {
+    font-style: italic;
+}
+
+h1 > img {
+    width: 90px;
+    height: 90px;
     padding: 10px;
-    padding-bottom: 125px;
-    height: 100%;
+}
+
+.bg {
+    background-color: rgba(143, 106, 132, 0.075);
 }
 
 .box {
@@ -25,6 +38,7 @@
     overflow: hidden;
     transition: 0.5s;
     margin: 0 2%;
+    height: 450px;
     border-radius: 10px;
     box-shadow: 0 20px 30px rgba(0, 0, 0, 0.1);
     line-height: 0;

@@ -11,14 +11,6 @@ import { User } from 'src/app/classes/user';
 export class ProfileComponent implements OnInit {
 
   public user:Observable<User>;
-  public profileAvatar:String;
-  public currentlyWatching:any;
-  public username:String;
-  public bio:String;
-  public favMovie:String;
-  public favShow:String;
-  public favActor:String;
-  public favGenre:String;
 
   constructor(private userService: UserService) { }
 

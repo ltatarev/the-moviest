@@ -30,7 +30,7 @@
             <li class="nav-items">
                 <a class="nav-link">
                     <div class="dropdown">
-                        <button class="dropbtn"> <img [src]="profileAvatar" style="position:relative;top:-20px"
+                        <button class="dropbtn"> <img [src]="profileAvatar ? profileAvatar : ''" style="position:relative;top:-20px"
                                 height="50"></button>
                         <div class="dropdown-content">
                             <a [routerLink]="['/profile']">Profile</a>
