@@ -177,12 +177,15 @@
                     id="updateGenre"
                     placeholder="Update favorite genre"
                 />
-                <button class="btn btn-outline-success" type="button">
+                <button
+                    class="btn btn-outline-success"
+                    type="button"
+                    [disabled]="!favoritesForm.valid"
+                >
                     Submit
                 </button>
             </div>
         </form>
     </div>
-    <div class="h-25"></div>
     <app-footer></app-footer>
 </div>
