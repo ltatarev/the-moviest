@@ -2,29 +2,25 @@
     <app-navbar></app-navbar>
     <div class="card profile m-auto">
         <div class="card-header profileName">
-            {{ user.username  }}
+            {{ username }}
         </div>
         <div class="card-body profileBody">
             <div class="profilePic">
-                <img
-                    class="avatar"
-                    [src]="user.avatarURL ? user.avatarURL : ''"
-                    alt="Username"
-                />
+                <img class="avatar" [src]="avatarURL ? avatarURL : ''" alt="Username" />
             </div>
             <div class="profileInfo">
-                <p class="bio">{{ user.bio }}</p>
+                <p class="bio">{{ bio }}</p>
                 <hr />
                 📼
                 <p class="title">CURRENTLY WATCHING</p>
-                <p>{{ user.currentlyWatching }}</p>
+                <p>{{ currentlyWatching }}</p>
                 <hr />
                 <p class="title">FAVORITES</p>
                 <div>
-                    <p class="border">📽️ {{ user.favorites.movie }}</p>
-                    <p class="border">📺 {{ user.favorites.tvShow }}</p>
-                    <p class="border">👨‍🎤 {{ user.favorites.actor }}</p>
-                    <p class="border">🍿 {{ user.favorites.genre }}</p>
+                    <p class="border">📽️ {{ favorites.movie }}</p>
+                    <p class="border">📺 {{ favorites.tvShow }}</p>
+                    <p class="border">👨‍🎤 {{ favorites.actor }}</p>
+                    <p class="border">🍿 {{ favorites.genre }}</p>
                 </div>
             </div>
         </div>
