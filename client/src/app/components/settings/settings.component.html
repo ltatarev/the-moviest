@@ -1,94 +1,188 @@
 <div class="back">
-    
-    <div class="container m-auto bg-light">
-    
-        <!-- update avatar form -->
-        <img [src]="avatarURL" (click)="shuffleAvatar"/>
-        
+    <app-navbar></app-navbar>
+    <h1 class="display-4 p text-center text-light">Update your profile</h1>
+    <div class="container p-3 m-3 w-75 rounded m-auto bg-light">
+        <!-- update avatar form 
+        <img [src]="avatarURL" (click)="(shuffleAvatar)" /> -->
+
         <!-- update username form -->
-        <form [formGroup]="usernameForm" (ngSubmit)="updateUsername()" class="animated fadeInDown" #usernameForm="ngForm">
-        <div class="input-group">
-            <div class="input-group-prepend">
-                <div class="input-group-text">🤠</div>
+        <form
+            [formGroup]="usernameForm"
+            (ngSubmit)="updateUsername()"
+            class="animated fadeInDown"
+        >
+            <div class="input-group">
+                <div class="input-group-prepend">
+                    <div class="input-group-text">🤠</div>
+                </div>
+                <input
+                    type="text"
+                    class="form-control"
+                    formControlName="username"
+                    id="updateUsername"
+                    placeholder="Update username"
+                />
+                <div class="input-group-append">
+                    <button
+                        class="btn btn-outline-success"
+                        type="button"
+                        [disabled]="!usernameForm.valid"
+                    >
+                        Submit
+                    </button>
+                </div>
             </div>
-        <input type="text" class="form-control" formControlName="username" id="updateUsername" placeholder="Update username">
-  <div class="input-group-append">
-    <button class="btn btn-outline-success" type="button" [disabled]="!usernameForm.valid">Submit</button>
-  </div>
-        </div>
         </form>
-        
+        <hr />
         <!-- update password form -->
-         <form [formGroup]="passwordForm" (ngSubmit)="updatePassword()" class="animated fadeInDown" #passwordForm="ngForm">
-                <div class="input-group">
-            <div class="input-group-prepend">
-                <div class="input-group-text">🔒</div>
+        <form
+            [formGroup]="passwordForm"
+            (ngSubmit)="updatePassword()"
+            class="animated fadeInDown"
+        >
+            <div class="input-group">
+                <div class="input-group-prepend">
+                    <div class="input-group-text">🔒</div>
+                </div>
+                <input
+                    type="password"
+                    class="form-control"
+                    id="updatePassword"
+                    placeholder="Update password"
+                />
+                <div class="input-group-append">
+                    <button
+                        class="btn btn-outline-success"
+                        type="button"
+                        [disabled]="!passwordForm.valid"
+                    >
+                        Submit
+                    </button>
+                </div>
             </div>
-        <input type="password" class="form-control" id="updatePassword" placeholder="Update password">
-                      <div class="input-group-append">
-    <button class="btn btn-outline-success" type="button" [disabled]="!passwordForm.valid">Submit</button>
-  </div>
-        </div>
-             </form>
-        
+        </form>
+        <hr />
         <!-- update bio, how much chars is max?? -->
-           <form [formGroup]="bioForm" (ngSubmit)="updateBio()" class="animated fadeInDown" #bioForm="ngForm">
-                        <div class="input-group">
-            <div class="input-group-prepend">
-                <div class="input-group-text">🏞️</div>
+        <form
+            [formGroup]="bioForm"
+            (ngSubmit)="updateBio()"
+            class="animated fadeInDown"
+        >
+            <div class="input-group">
+                <div class="input-group-prepend">
+                    <div class="input-group-text">🏞️</div>
+                </div>
+                <input
+                    type="text"
+                    class="form-control"
+                    formControlName="bio"
+                    id="updateBio"
+                    placeholder="Update bio"
+                />
+                <div class="input-group-append">
+                    <button
+                        class="btn btn-outline-success"
+                        type="button"
+                        [disabled]="!bioForm.valid"
+                    >
+                        Submit
+                    </button>
+                </div>
             </div>
-        <input type="text" class="form-control" id="updateBio" placeholder="Update bio">
-                              <div class="input-group-append">
-    <button class="btn btn-outline-success" type="button" [disabled]="!bioForm.valid">Submit</button>
-  </div>
-        </div>
-               </form>
-        
+        </form>
+        <hr />
         <!-- update currently watching -->
-           <form [formGroup]="currWatchingForm" (ngSubmit)="updateCurrentlyWatching()" class="animated fadeInDown" #currWatchingForm="ngForm">
-                                <div class="input-group">
-            <div class="input-group-prepend">
-                <div class="input-group-text">📼</div>
+        <form
+            [formGroup]="currWatchingForm"
+            (ngSubmit)="updateCurrentlyWatching()"
+            class="animated fadeInDown"
+        >
+            <div class="input-group">
+                <div class="input-group-prepend">
+                    <div class="input-group-text">📼</div>
+                </div>
+                <input
+                    type="text"
+                    class="form-control"
+                    formControlName="currentlyWatching"
+                    id="updateCurrentlyWatching"
+                    placeholder="Update currently watching"
+                />
+                <div class="input-group-append">
+                    <button
+                        class="btn btn-outline-success"
+                        type="button"
+                        [disabled]="!currWatchingForm.valid"
+                    >
+                        Submit
+                    </button>
+                </div>
             </div>
-        <input type="text" class="form-control" id="updateCurrentlyWatching" placeholder="Update currently watching">
-                                      <div class="input-group-append">
-    <button class="btn btn-outline-success" type="button" [disabled]="!currWatchingForm.valid">Submit</button>
-  </div>
-        </div>
-                </form>
-        
+        </form>
+        <hr />
         <!-- update favorites -->
         <!-- update movie -->
-        <form [formGroup]="favoritesForm" (ngSubmit)="updateFavorites()" class="animated fadeInDown" #favoritesForm="ngForm">
-                                        <div class="input-group">
-            <div class="input-group-prepend">
-                <div class="input-group-text">📽️</div>
+        <form
+            [formGroup]="favoritesForm"
+            (ngSubmit)="updateFavorites()"
+            class="animated fadeInDown"
+        >
+            <div class="input-group">
+                <div class="input-group-prepend">
+                    <div class="input-group-text">📽️</div>
+                </div>
+                <input
+                    type="text"
+                    class="form-control"
+                    formControlName="movie"
+                    id="updateMovie"
+                    placeholder="Update favorite movie"
+                />
             </div>
-        <input type="text" class="form-control" id="updateMovie" placeholder="Update favorite movie">
-        </div>
-        <!-- update tv show -->
-                                        <div class="input-group">
-            <div class="input-group-prepend">
-                <div class="input-group-text">📺</div>
+            <!-- update tv show -->
+            <div class="input-group">
+                <div class="input-group-prepend">
+                    <div class="input-group-text">📺</div>
+                </div>
+                <input
+                    type="text"
+                    class="form-control"
+                    formControlName="tvShow"
+                    id="updateTvShow"
+                    placeholder="Update favorite tv show"
+                />
             </div>
-        <input type="text" class="form-control" id="updateMovie" placeholder="Update favorite movie">
-        </div>
-        <!-- update actor -->
-                                        <div class="input-group">
-            <div class="input-group-prepend">
-                <div class="input-group-text">👨‍🎤</div>
+            <!-- update actor -->
+            <div class="input-group">
+                <div class="input-group-prepend">
+                    <div class="input-group-text">👨‍🎤</div>
+                </div>
+                <input
+                    type="text"
+                    class="form-control"
+                    formControlName="actor"
+                    id="updateActor"
+                    placeholder="Update favorite actor/actress"
+                />
             </div>
-        <input type="text" class="form-control" id="updateActor" placeholder="Update favorite actor/actress">
-        </div>
-        <!-- update genre -->
-                                        <div class="input-group">
-            <div class="input-group-prepend">
-                <div class="input-group-text">🍿</div>
+            <!-- update genre -->
+            <div class="input-group">
+                <div class="input-group-prepend">
+                    <div class="input-group-text">🍿</div>
+                </div>
+                <input
+                    type="text"
+                    class="form-control"
+                    formControlName="genre"
+                    id="updateGenre"
+                    placeholder="Update favorite genre"
+                />
+                <button class="btn btn-outline-success" type="button">
+                    Submit
+                </button>
             </div>
-        <input type="text" class="form-control" id="updateGenre" placeholder="Update favorite genre">
-        </div>
-              <button class="btn btn-outline-success" type="button">Submit</button>
-    </form>
+        </form>
     </div>
-    
+    <div class="h-25"></div>
+    <app-footer></app-footer>
 </div>
