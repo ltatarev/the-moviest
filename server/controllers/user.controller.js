@@ -1,202 +1,205 @@
-const UserService = require('../services/user.service');
+const UserService = require("../services/user.service");
 
 class UserController {
+  // ************************************************************
+  // * FIND ALL CURRENTLY WATCHING
+  static async findAllCurrentlyWatching(request, response) {
+    let movieTitle = request.body.movieTitle;
 
-    // ************************************************************
-    // * FIND ALL CURRENTLY WATCHING
-    static async findAllCurrentlyWatching(request, response) {
-        let movieTitle = request.body.movieTitle;
+    let users, message;
 
-        let users, message;
-
-        try {
-            users = await UserService.findAllCurrentlyWatching(movieTitle);
-        } catch (err) {
-            return response.status(500).json(err);
-        }
-
-        message = "Successfully found all users!";
-        return response.status(200).json({ message, users });
-
+    try {
+      users = await UserService.findAllCurrentlyWatching(movieTitle);
+    } catch (err) {
+      return response.status(500).json(err);
     }
 
-    // ************************************************************
-    // * GET AVATAR, BIO, CURRENTLY WATCHING, FAVORITES, WATCHLISTS
-    static async getProfileData(request, response) {
-        let userId = request.query.id;
+    message = "Successfully found all users!";
+    return response.status(200).json({ message, users });
+  }
 
-        let user, message;
+  // ************************************************************
+  // * GET AVATAR, BIO, CURRENTLY WATCHING, FAVORITES, WATCHLISTS
+  static async getProfileData(request, response) {
+    let userId = request.query.id;
 
-        try {
-            user = await UserService.getProfileData(userId);
-        } catch (err) {
-            return response.status(500).json(err);
-        }
+    let user, message;
 
-        message = "Successfully recieved user data!";
-        return response.status(200).json({ user });
+    try {
+      user = await UserService.getProfileData(userId);
+    } catch (err) {
+      return response.status(500).json(err);
     }
 
-    // ************************************************************
-    // * CREATE OR UPDATE BIO
-    static async createOrUpdateBio(request, response) {
-        let username = request.body.username;
-        let bio = request.body.bio;
+    message = "Successfully recieved user data!";
+    return response.status(200).json({ user });
+  }
 
-        let bioResponse, message;
+  // ************************************************************
+  // * CREATE OR UPDATE BIO
+  static async createOrUpdateBio(request, response) {
+    let userId = request.body.id;
+    let bio = request.body.bio;
 
-        try {
-            bioResponse = await UserService.createOrUpdateBio(username, bio);
-        } catch (err) {
-            return response.status(500).json(err);
-        }
+    let bioResponse, message;
 
-        message = "Successfully updated bio!";
-        return response.status(201).json({ message, bioResponse });
+    try {
+      bioResponse = await UserService.createOrUpdateBio(userId, bio);
+    } catch (err) {
+      return response.status(500).json(err);
     }
 
-    // ************************************************************
-    // * CREATE OR UPDATE CURRENTLY WATCHING
-    static async createOrUpdateCurrentlyWatching(request, response) {
-        let username = request.body.username;
-        let currentlyWatching = request.body.currentlyWatching;
+    message = "Successfully updated bio!";
+    return response.status(201).json({ message, bioResponse });
+  }
 
-        let currentlyWatchingResponse, message;
+  // ************************************************************
+  // * CREATE OR UPDATE CURRENTLY WATCHING
+  static async createOrUpdateCurrentlyWatching(request, response) {
+    let userId = request.body.id;
+    let currentlyWatching = request.body.currentlyWatching;
 
-        try {
-            currentlyWatchingResponse = await UserService.createOrUpdateCurrentlyWatching(username, currentlyWatching);
-        } catch (err) {
-            return response.status(500).json(err);
-        }
+    let currentlyWatchingResponse, message;
 
-        message = "Successfully logged in!";
-        return response.status(201).json({ message, currentlyWatchingResponse });
+    try {
+      currentlyWatchingResponse = await UserService.createOrUpdateCurrentlyWatching(
+        userId,
+        currentlyWatching
+      );
+    } catch (err) {
+      return response.status(500).json(err);
     }
 
-    // ************************************************************
-    // * CREATE OR UPDATE FAVORITES
-    static async createOrUpdateFavorites(request, response) {
-        let username = request.body.username;
-        let { movie, tvShow, actor, genre } = request.body.favorites;
+    message = "Successfully logged in!";
+    return response.status(201).json({ message, currentlyWatchingResponse });
+  }
 
-        let favoritesResponse, message;
+  // ************************************************************
+  // * CREATE OR UPDATE FAVORITES
+  static async createOrUpdateFavorites(request, response) {
+    let userId = request.body.userId;
+    let favorites = request.body.favorites;
 
-        try {
-            favoritesResponse = await UserService.createOrUpdateFavorites(username, movie, tvShow, actor, genre);
-        } catch (err) {
-            return response.status(500).json(err);
-        }
+    let favoritesResponse, message;
 
-        message = "Successfully updated favorites!";
-        return response.status(201).json({ message, favoritesResponse });
+    try {
+      favoritesResponse = await UserService.createOrUpdateFavorites(
+        userId,
+        favorites
+      );
+    } catch (err) {
+      return response.status(500).json(err);
     }
 
-    // ************************************************************
-    // * LOGIN
-    static async login(request, response) {
-        let username = request.body.username;
-        let password = request.body.password;
+    message = "Successfully updated favorites!";
+    return response.status(201).json({ message, favoritesResponse });
+  }
 
-        let user, token, message;
+  // ************************************************************
+  // * LOGIN
+  static async login(request, response) {
+    let username = request.body.username;
+    let password = request.body.password;
 
-        try {
-            user = await UserService.findUserByUsername(username);
-        } catch (err) {
-            return response.status(500).json(err);
-        }
+    let user, token, message;
 
-        if (!user) {
-            message = "Incorrect email or password";
-            return response.status(404).json({ message });
-        }
-
-        if (!user.validPassword(password)) {
-            message = "Incorrect email or password";
-            return response.status(403).json({ message });
-        }
-
-        token = user.generateJWT();
-        message = "Successfully logged in!";
-        return response.status(202).json({ message, token });
+    try {
+      user = await UserService.findUserByUsername(username);
+    } catch (err) {
+      return response.status(500).json(err);
     }
 
-    // ************************************************************
-    // * REGISTER
-    static async register(request, response) {
-        let email = request.body.email;
-        let username = request.body.username;
-        let password = request.body.password;
-        let user, message, token;
-
-        // TODO: check if username or email already exist
-        try {
-            user = await UserService.createUser(username, email, password);
-        } catch (err) {
-            console.log(err);
-            return response.status(500).json(err);
-        }
-
-        message = "Successfully registered!";
-        token = user.generateJWT();
-        return response.status(201).json({ message, token });
+    if (!user) {
+      message = "Incorrect email or password";
+      return response.status(404).json({ message });
     }
 
-    // ************************************************************
-    // * UPDATE AVATAR
-    static async updateAvatar(request, response) {
-        let username = request.body.username;
-        let avatarURL = request.body.avatarURL;
-
-        let user, message;
-
-        try {
-            user = await UserService.updateAvatar(username, avatarURL);
-        } catch (err) {
-            return response.status(500).json(err);
-        }
-
-        message = "Successfully changed avatar!";
-        return response.status(201).json({ message, user });
+    if (!user.validPassword(password)) {
+      message = "Incorrect email or password";
+      return response.status(403).json({ message });
     }
 
-    // ************************************************************
-    // * UPDATE PASSWORD
-    static async updatePassword(request, response) {
-        let username = request.body.username;
-        let password = request.body.password;
+    token = user.generateJWT();
+    message = "Successfully logged in!";
+    return response.status(202).json({ message, token });
+  }
 
-        let user, message, token;
+  // ************************************************************
+  // * REGISTER
+  static async register(request, response) {
+    let email = request.body.email;
+    let username = request.body.username;
+    let password = request.body.password;
+    let user, message, token;
 
-        try {
-            user = await UserService.updatePassword(username, password);
-        } catch (err) {
-            console.log(err);
-            return response.status(500).json(err);
-        }
-
-        message = "Successfully changed password!";
-        token = user.generateJWT();
-        return response.status(201).json({ message, token });
+    // TODO: check if username or email already exist
+    try {
+      user = await UserService.createUser(username, email, password);
+    } catch (err) {
+      console.log(err);
+      return response.status(500).json(err);
     }
 
-    // ************************************************************
-    // * UPDATE USERNAME
-    static async updateUsername(request, response) {
-        let username = request.body.username;
-        let newUsername = request.body.newUsername;
+    message = "Successfully registered!";
+    token = user.generateJWT();
+    return response.status(201).json({ message, token });
+  }
 
-        let user, message;
+  // ************************************************************
+  // * UPDATE AVATAR
+  static async updateAvatar(request, response) {
+    let username = request.body.username;
+    let avatarURL = request.body.avatarURL;
 
-        try {
-            user = await UserService.updateUsername(username, newUsername);
-        } catch (err) {
-            return response.status(500).json(err);
-        }
+    let user, message;
 
-        message = "Successfully changed username!";
-        return response.status(201).json({ message, user });
+    try {
+      user = await UserService.updateAvatar(username, avatarURL);
+    } catch (err) {
+      return response.status(500).json(err);
     }
 
+    message = "Successfully changed avatar!";
+    return response.status(201).json({ message, user });
+  }
+
+  // ************************************************************
+  // * UPDATE PASSWORD
+  static async updatePassword(request, response) {
+    let userId = request.body.id;
+    let password = request.body.password;
+
+    let user, message, token;
+
+    try {
+      user = await UserService.updatePassword(userId, password);
+    } catch (err) {
+      console.log(err);
+      return response.status(500).json(err);
+    }
+
+    message = "Successfully changed password!";
+    token = user.generateJWT();
+    return response.status(201).json({ message, token });
+  }
+
+  // ************************************************************
+  // * UPDATE USERNAME
+  static async updateUsername(request, response) {
+    let userId = request.body.id;
+    let username = request.body.username;
+
+    let user, message;
+
+    try {
+      user = await UserService.updateUsername(userId, username);
+    } catch (err) {
+      return response.status(500).json(err);
+    }
+
+    message = "Successfully changed username!";
+    return response.status(201).json({ message, user });
+  }
 }
 
 module.exports = UserController;

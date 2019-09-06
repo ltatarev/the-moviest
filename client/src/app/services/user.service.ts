@@ -1,113 +1,143 @@
-import { Injectable } from '@angular/core';
-import { BehaviorSubject, from, Observable } from 'rxjs';
+import { Injectable } from "@angular/core";
+import { BehaviorSubject, from, Observable } from "rxjs";
 
-import { User } from '../classes/user';
-import { Token } from '../classes/token';
+import { User } from "../classes/user";
+import { Token } from "../classes/token";
 
-import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from "@angular/common/http";
 
-import { tap, catchError } from 'rxjs/operators';
-import { Router } from '@angular/router';
+import { tap, catchError } from "rxjs/operators";
+import { Router } from "@angular/router";
 
-import { of } from 'rxjs';
+import { of } from "rxjs";
 
 @Injectable({
-  providedIn: 'root'
+    providedIn: "root"
 })
 export class UserService {
+    private userUrl = "/api/user";
 
-  private userUrl = '/api/user';
+    public loggedIn: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(
+        false
+    );
+    public user: BehaviorSubject<User> = new BehaviorSubject<User>(null);
 
-  public loggedIn: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
-  public user: BehaviorSubject<User> = new BehaviorSubject<User>(null);
-
-  constructor(private http: HttpClient, private router: Router) {
-    if(this.isLoggedIn()) {
-      this.loggedIn.next(true);
-      this.user.next(this.credentials());
+    constructor(private http: HttpClient, private router: Router) {
+        if (this.isLoggedIn()) {
+            this.loggedIn.next(true);
+            this.user.next(this.credentials());
+        }
     }
-  }
-  
-  isLoggedIn() {
-    let token = Token.get();
-    if (token) {
-      let payload = Token.parse(token);
-      return payload.exp > Date.now() / 1000;
-    } else return false;
-  }
 
-  credentials(): any {
-    if (this.isLoggedIn()) {
-      let token = Token.get();
-      let payload = Token.parse(token);
-      delete payload['exp'];
-      delete payload['iat'];
-      return payload;
-    }  
-  }
-
-  saveToken(token: string) {
-    Token.save(token);
-    this.loggedIn.next(this.isLoggedIn());
-    this.user.next(this.credentials());
-  }
-
-
-  private handleError<T>(operation: string = "operation", result?: T) {
-    return (response: any): Observable<T> => {
-      console.log(response.error.errmsg, response.statusText);
-      alert("Error has occured. Please try again.")
-      this.router.navigate(['welcome']);
-      return of(result as T);
-
+    isLoggedIn() {
+        let token = Token.get();
+        if (token) {
+            let payload = Token.parse(token);
+            return payload.exp > Date.now() / 1000;
+        } else return false;
     }
-  }
 
-  register(user: User): Observable<any> {
-    return this.http.post<any>(this.userUrl+ "/register", user)
-              .pipe(
-                tap(
-                  (response: { token: string, message: string }) => {
-                    this.saveToken(response.token);
-                    this.router.navigate(['home']);
-                  }
-                ),
-                catchError(this.handleError<any>('register', user))
-              )
-  }
-  
-  login(user: User): Observable<any> {
-    return this.http.post<any>(this.userUrl + "/login", user)
-              .pipe(
-                tap(
-                  (response: { token: string, message: string }) => {
-                    this.saveToken(response.token);
-                    this.router.navigate(['home']);
-                  }
-                ),
-                catchError(this.handleError<any>('login', user))
-              )
-  }
+    credentials(): any {
+        if (this.isLoggedIn()) {
+            let token = Token.get();
+            let payload = Token.parse(token);
+            delete payload["exp"];
+            delete payload["iat"];
+            return payload;
+        }
+    }
 
-  getProfileData(id:any): Observable<any> {
-    let params = new HttpParams().set('id', id);
-    return this.http.get<any>(this.userUrl + "/getProfileData", {params})
-              .pipe(
-                catchError(this.handleError<any>('getProfileData'))
-              )
-  }
+    saveToken(token: string) {
+        Token.save(token);
+        this.loggedIn.next(this.isLoggedIn());
+        this.user.next(this.credentials());
+    }
 
-  logOut() {
-    this.router.navigate(['/welcome']);
-    this.loggedIn.next(false);
-    this.user.next(null);
-    Token.remove();
-  }
+    private handleError<T>(operation: string = "operation", result?: T) {
+        return (response: any): Observable<T> => {
+            console.log(response.error.errmsg, response.statusText);
+            alert("Error has occured. Please try again.");
+            this.router.navigate(["welcome"]);
+            return of(result as T);
+        };
+    }
 
-  authHeaders() {
-    return new HttpHeaders({
-      'Authorization': `Bearer ${Token.get() ? Token.get() : ""}`
-    });
-  }
+    register(user: User): Observable<any> {
+        return this.http.post<any>(this.userUrl + "/register", user).pipe(
+            tap((response: { token: string; message: string }) => {
+                this.saveToken(response.token);
+                this.router.navigate(["home"]);
+            }),
+            catchError(this.handleError<any>("register", user))
+        );
+    }
 
+    login(user: User): Observable<any> {
+        return this.http.post<any>(this.userUrl + "/login", user).pipe(
+            tap((response: { token: string; message: string }) => {
+                this.saveToken(response.token);
+                this.router.navigate(["home"]);
+            }),
+            catchError(this.handleError<any>("login", user))
+        );
+    }
+
+    getProfileData(id: any): Observable<any> {
+        let params = new HttpParams().set("id", id);
+        return this.http
+            .get<any>(this.userUrl + "/getProfileData", { params })
+            .pipe(catchError(this.handleError<any>("getProfileData")));
+    }
+
+    updateUsername(username: any): Observable<any> {
+        const user = { id: this.user.value._id, username };
+        return this.http
+            .post<any>(this.userUrl + "/updateUsername", user)
+            .pipe(catchError(this.handleError<any>("updateUsername")));
+    }
+
+    updatePassword(password: any): Observable<any> {
+        const user = { id: this.user.value._id, password };
+        return this.http
+            .post<any>(this.userUrl + "/updatePassword", user)
+            .pipe(catchError(this.handleError<any>("updatePassword")));
+    }
+
+    updateBio(bio: any): Observable<any> {
+        const user = { id: this.user.value._id, bio };
+        return this.http
+            .post<any>(this.userUrl + "/createOrUpdateBio", user)
+            .pipe(catchError(this.handleError<any>("createOrUpdateBio")));
+    }
+
+    updateCurrentlyWatching(currentlyWatching: any): Observable<any> {
+        const user = { id: this.user.value._id, currentlyWatching };
+        return this.http
+            .post<any>(this.userUrl + "/createOrUpdateCurrentlyWatching", user)
+            .pipe(
+                catchError(
+                    this.handleError<any>("createOrUpdateCurrentlyWatching")
+                )
+            );
+    }
+
+    updateFavorites(favorites: any): Observable<any> {
+        const user = { id: this.user.value._id, favorites };
+        return this.http
+            .post<any>(this.userUrl + "/createOrUpdateFavorites", user)
+            .pipe(catchError(this.handleError<any>("createOrUpdateFavorites")));
+    }
+
+    logOut() {
+        this.router.navigate(["/welcome"]);
+        this.loggedIn.next(false);
+        this.user.next(null);
+        Token.remove();
+    }
+
+    authHeaders() {
+        return new HttpHeaders({
+            Authorization: `Bearer ${Token.get() ? Token.get() : ""}`
+        });
+    }
 }
