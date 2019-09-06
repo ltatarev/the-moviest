@@ -6,14 +6,18 @@
         </div>
         <div class="card-body profileBody">
             <div class="profilePic">
-                <img class="avatar" [src]="avatarURL ? avatarURL : ''" alt="Username" />
+                <img
+                    class="avatar"
+                    [src]="avatarURL ? avatarURL : ''"
+                    alt="Username"
+                />
             </div>
             <div class="profileInfo">
                 <p class="bio">{{ bio }}</p>
                 <hr />
                 📼
                 <p class="title">CURRENTLY WATCHING</p>
-                <p>{{ currentlyWatching }}</p>
+                <p class="font-weight-bold">{{ currentlyWatching }}</p>
                 <hr />
                 <p class="title">FAVORITES</p>
                 <div>
