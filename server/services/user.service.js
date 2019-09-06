@@ -39,9 +39,15 @@ class UserService {
   // *  CREATE OR UPDATE FAVORITES
   static async createOrUpdateFavorites(userId, favorites) {
     let id = ObjectId(userId.toString());
+    let { movie, tvShow, actor, genre } = favorites;
     return await User.findByIdAndUpdate(
       id,
-      { favorites },
+      {
+        "favorites.movie": movie,
+        "favorites.tvShow": tvShow,
+        "favorites.genre": genre,
+        "favorites.actor": actor
+      },
       { upsert: true, fields: "favorites", returnOriginal: false }
     ).exec();
   }

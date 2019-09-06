@@ -77,9 +77,10 @@ class UserController {
   // ************************************************************
   // * CREATE OR UPDATE FAVORITES
   static async createOrUpdateFavorites(request, response) {
-    let userId = request.body.userId;
+    let userId = request.body.id;
     let favorites = request.body.favorites;
 
+    console.log(favorites);
     let favoritesResponse, message;
 
     try {
