@@ -1,49 +1,29 @@
 <div class="back">
     <app-navbar></app-navbar>
-    <div class="bg">
-<h1 class="display-4 pl-5 ml-5 text-light text-left"><img src="../../../assets/img/ticket.png"> Movies in theathers</h1>
-   <div class="container">
-        <div class="box">
-            <img src="https://source.unsplash.com/1000x800" />
-            <span>CSS</span>
+    <div class="bg animated fadeIn">
+        <h1 class="display-4 pl-5 ml-5 text-light text-left"><img src="../../../assets/img/ticket.png"> Movies in
+            theathers</h1>
+        <div class="container">
+            <div class="box" *ngFor="let movie of movies">
+                <a [routerLink]="['/movie', movie.id]">
+                    <img src="{{movie.poster_path}}"/>
+                    <span>{{movie.original_title}}</span>
+                </a>
+            </div>
         </div>
-        <div class="box">
-            <img src="https://source.unsplash.com/1000x802" />
-            <span>Image</span>
-        </div>
-        <div class="box">
-            <img src="https://source.unsplash.com/1000x804" />
-            <span>Hover</span>
-        </div>
-        <div class="box">
-            <img src="https://source.unsplash.com/1000x806" />
-            <span>Effect</span>
-        </div>
-    </div>  </div>
-  
-    <h1 class="display-4 pr-5 mr-5 text-light text-right">Popular on TV 
+    </div>
+
+    <h1 class="display-4 pr-5 mr-5 text-light text-right">Popular on TV
         <img src="../../../assets/img/tvflix.png">
     </h1>
-    <div class="container">
-        <div class="box">
-            <img src="https://source.unsplash.com/1000x800" />
-            <span>CSS</span>
+    <div class="container  animated fadeIn">
+        <div class="box" *ngFor="let tvs of tv">
+            <a [routerLink]="['/tv', tvs.id]">
+                <img src="{{tvs.poster_path}}"/>
+                <span>{{tvs.original_name}}</span>
+            </a>
         </div>
-        <div class="box">
-            <img src="https://source.unsplash.com/1000x802" />
-            <span>Image</span>
-        </div>
-        <div class="box">
-            <img src="https://source.unsplash.com/1000x804" />
-            <span>Hover</span>
-        </div>
-        <div class="box">
-            <img src="https://source.unsplash.com/1000x806" />
-            <span>Effect</span>
-        </div>
-  
-</div>
+    </div>
 
     <app-footer></app-footer>
 </div>
-

@@ -1,9 +1,9 @@
-<div class="back">
+<div class="back animated fadeIn">
     <app-navbar></app-navbar>
     <div class="container-fluid text-light">
         <div class="row p-4">
             <div class="col-4 offset-2">
-                <img [src]="movie.poster_path" style="width: 100%; " />
+                <img src="{{ movie?.poster_path}}" style="width: 100%; " />
             </div>
             <div class="col-5 pr-5">
                 <h1 class="display-3">{{ movie.original_title }}</h1>

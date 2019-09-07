@@ -19,6 +19,7 @@ export class MovieComponent implements OnInit {
   ngOnInit() {
     // get movieId from url
     this.movieId = this.route.snapshot.url[1].path;
+    this.movie = {genres:[]};
 
     this.movieService.getMovieById(this.movieId).subscribe((res : any[]) => {
       this.movie = res;
@@ -30,7 +31,6 @@ export class MovieComponent implements OnInit {
   }
 
   parseMovie(movie){
-    console.log(movie)
     movie.backdrop_path = 'https://image.tmdb.org/t/p/original' + movie.backdrop_path;
     movie.poster_path = 'https://image.tmdb.org/t/p/original' + movie.poster_path
     return movie;

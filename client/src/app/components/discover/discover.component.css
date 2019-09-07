@@ -44,7 +44,7 @@ h1 > img {
     line-height: 0;
 }
 
-.box > img {
+.box > a > img {
     width: 200%;
     height: calc(100% - 10vh);
     -o-object-fit: cover;
@@ -52,12 +52,13 @@ h1 > img {
     transition: 0.5s;
 }
 
-.box > span {
-    font-size: 3.8vh;
+.box > a > span {
+    font-size: 17px;
+    padding-top: 20px;
     display: block;
     text-align: center;
     height: 10vh;
-    line-height: 2.6;
+    line-height: 1.5;
     color: white;
     background-color: rgba(95, 73, 197, 0.404);
 }
@@ -66,7 +67,7 @@ h1 > img {
     flex: 1 1 30%;
 }
 
-.box:hover > img {
+.box:hover > a > img{
     width: 100%;
     height: 100%;
 }

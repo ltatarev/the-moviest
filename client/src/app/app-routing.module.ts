@@ -14,6 +14,7 @@ import { WatchlistsComponent } from "./components/watchlists/watchlists.componen
 import { ProfileComponent } from "./components/profile/profile.component";
 import { SettingsComponent } from "./components/settings/settings.component";
 import { SearchComponent } from "./components/search/search.component";
+import { TvComponent } from './components/tv/tv.component';
 
 const routes: Routes = [
     { path: "", redirectTo: "welcome", pathMatch: "full" },
@@ -27,6 +28,7 @@ const routes: Routes = [
         canActivate: [AuthGuard]
     },
     { path: "movie/:id", component: MovieComponent, canActivate: [AuthGuard] },
+    { path: "tv/:id", component: TvComponent, canActivate: [AuthGuard] },
     { path: "reviews", component: ReviewsComponent, canActivate: [AuthGuard] },
     {
         path: "watchlists",
@@ -49,7 +51,9 @@ const routes: Routes = [
 ];
 
 @NgModule({
-    imports: [RouterModule.forRoot(routes)],
+    imports: [RouterModule.forRoot(routes, {
+        onSameUrlNavigation: 'reload'
+    })],
     exports: [RouterModule]
 })
-export class AppRoutingModule {}
+export class AppRoutingModule { }

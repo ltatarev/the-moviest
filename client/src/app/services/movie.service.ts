@@ -34,7 +34,7 @@ export class MovieService {
 
 
   moviesInTheathers() {
-    let url = "https://api.themoviedb.org/3/discover/movie?primary_release_date.gte=2019-01-01";
+    let url = "https://api.themoviedb.org/3/discover/movie?api_key=b5efa85196e4919222c431b10c08ef77&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=1&primary_release_year=2019";
     return this.http.get<any>(url)
       .pipe(
         catchError(this.handleError<any>('movies')

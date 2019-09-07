@@ -94,3 +94,7 @@ ul > *:hover {
     display: block;
     border-radius: 20px;
 }
+
+nav {
+    animation-delay: 10ms;
+  }

@@ -42,4 +42,12 @@ export class TvService {
       ));
   }
 
+  getTvById(id){
+    let url = 'https://api.themoviedb.org/3/tv/'+id.toString()+'?api_key=b5efa85196e4919222c431b10c08ef77&language=en-US'
+    return this.http.get<any>(url)
+    .pipe(
+      catchError(this.handleError<any>('tv')
+      ))
+  }
+
 }

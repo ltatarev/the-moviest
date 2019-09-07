@@ -149,13 +149,13 @@ class UserController {
   // ************************************************************
   // * UPDATE AVATAR
   static async updateAvatar(request, response) {
-    let username = request.body.username;
+    let userId = request.body.id;
     let avatarURL = request.body.avatarURL;
 
     let user, message;
 
     try {
-      user = await UserService.updateAvatar(username, avatarURL);
+      user = await UserService.updateAvatar(userId, avatarURL);
     } catch (err) {
       return response.status(500).json(err);
     }

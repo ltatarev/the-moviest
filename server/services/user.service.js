@@ -83,8 +83,9 @@ class UserService {
 
   // ************************************************************
   // * UPDATE AVATAR
-  static async updateAvatar(username, avatarURL) {
-    return await User.findOneAndUpdate({ username }, { avatarURL }).exec();
+  static async updateAvatar(userId, avatarURL) {
+    let id = ObjectId(userId.toString());
+    return await User.findByIdAndUpdate( id, { avatarURL },{ returnOriginal: false }).exec();
   }
 
   // ************************************************************

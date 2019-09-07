@@ -1,1 +1,32 @@
-<p>tv works!</p>
+<div class="back animated fadeIn">
+    <app-navbar></app-navbar>
+    <div class="container-fluid text-light">
+        <div class="row p-4">
+            <div class="col-4 offset-2">
+                <img src="{{ tv?.poster_path}}" style="width: 100%; " />
+            </div>
+            <div class="col-5 pr-5">
+                <h1 class="display-3">{{ tv.original_name }}</h1>
+                <h4
+                    class="font-italic bg-light text-dark"
+                    style="font-family: 'Roboto Slab', serif;"
+                >
+                    {{ tv.tagline }}
+                </h4>
+                <p>{{ tv.overview }}</p>
+                <hr />
+                <div>
+                    Genres:
+                    <p
+                        *ngFor="let genre of tv.genres"
+                        style="display: inline; padding: 7px;"
+                    >
+                        {{ genre.name }}
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <app-footer></app-footer>
+</div>

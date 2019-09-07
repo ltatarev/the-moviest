@@ -4,6 +4,7 @@ import { MovieService } from 'src/app/services/movie.service'
 import { Observable, BehaviorSubject } from 'rxjs';
 import { TvService } from 'src/app/services/tv.service';
 import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-home',
@@ -20,7 +21,7 @@ export class HomeComponent implements OnInit {
   public topThreeTv:any;
   public topFiveTv:any;
 
-  constructor(private movieService: MovieService, private tvService: TvService, private router:Router) {
+  constructor(private movieService: MovieService, private tvService: TvService, private router:Router, private toastr:ToastrService) {
    }
 
 
@@ -40,7 +41,6 @@ export class HomeComponent implements OnInit {
     () => { this.parseTv(this.tv) 
     });  
   }
-
 
   parseMovies(movies){
     let {results} = movies;
@@ -86,6 +86,10 @@ export class HomeComponent implements OnInit {
 
   goToMovie(id) {
     this.router.navigate(['movie',id]);
+  }
+
+  goToTv(id) {
+    this.router.navigate(['tv',id]);
   }
 
 }

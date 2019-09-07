@@ -2,8 +2,10 @@
     <app-navbar></app-navbar>
     <h1 class="display-4 p text-center text-light">Update your profile</h1>
     <div class="container p-3 m-3 w-75 rounded m-auto bg-light">
-        <!-- update avatar form 
-        <img [src]="avatarURL" (click)="(shuffleAvatar)" /> -->
+        <!-- update avatar form -->
+        <div class="text-center m-auto pb-3">
+        <img class="m-auto" src="{{ avatarURL }}" height="50" (click)="shuffleAvatar()" /> 
+    </div>
 
         <!-- update username form -->
         <form

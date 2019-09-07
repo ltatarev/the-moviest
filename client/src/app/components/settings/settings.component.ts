@@ -2,7 +2,6 @@ import { Component, OnInit } from "@angular/core";
 import { Router } from "@angular/router";
 import { UserService } from "src/app/services/user.service";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
-import { BehaviorSubject } from "rxjs";
 
 @Component({
     selector: "app-settings",
@@ -15,13 +14,13 @@ export class SettingsComponent implements OnInit {
     public bioForm: FormGroup;
     public currWatchingForm: FormGroup;
     public favoritesForm: FormGroup;
+    public avatarURL: String;
 
     public currentProfile$: any;
 
     public user: any;
 
     constructor(
-        private router: Router,
         private userService: UserService,
         private fb: FormBuilder
     ) {
@@ -69,7 +68,7 @@ export class SettingsComponent implements OnInit {
         });
     }
 
-    ngOnInit() {}
+    ngOnInit() { }
 
     getProfileData() {
         this.userService
@@ -85,6 +84,7 @@ export class SettingsComponent implements OnInit {
 
     fillFormInitialValues(res) {
         this.user = res.user;
+        this.avatarURL = this.user.avatarURL;
         // * Fill forms initial value with existing values from DB
         this.usernameForm.controls["username"].setValue(this.user.username);
         this.bioForm.controls["bio"].setValue(this.user.bio);
@@ -132,14 +132,24 @@ export class SettingsComponent implements OnInit {
         this.userService.updateFavorites(favorites).subscribe();
     }
 
-    shuffleAvatar(currentId) {
-        // currentId = avatarUrl.split("/") - last
+    updateAvatar(id) {
+        let avatarURL = "../../../assets/img/avatars/" + id + ".png";
+        this.userService.updateAvatar(avatarURL).subscribe((res: any) => {
+            this.avatarURL = res.user.avatarURL;
+        },
+            err => console.error(err));
+    }
+
+
+    shuffleAvatar() {
         // function assigns new avatar id, different than current one
+        let currentId = parseInt(this.avatarURL.split("/")[6].split(".")[0]);
         let newId = this.randomInt();
         if (newId === currentId) {
-            this.shuffleAvatar(currentId);
+            this.shuffleAvatar();
         } else {
-            return newId < 10 ? "0" + newId.toString() : newId.toString();
+            let id = newId < 10 ? "0" + newId.toString() : newId.toString();
+            this.updateAvatar(id);
         }
     }
 

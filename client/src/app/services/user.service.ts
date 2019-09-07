@@ -4,10 +4,12 @@ import { BehaviorSubject, from, Observable } from "rxjs";
 import { User } from "../classes/user";
 import { Token } from "../classes/token";
 
-import { HttpClient, HttpHeaders, HttpParams } from "@angular/common/http";
+import { HttpClient, HttpHeaders, HttpParams, HttpInterceptor } from "@angular/common/http";
 
 import { tap, catchError } from "rxjs/operators";
 import { Router } from "@angular/router";
+
+import { ToastrService } from 'ngx-toastr';
 
 import { of } from "rxjs";
 
@@ -22,7 +24,7 @@ export class UserService {
     );
     public user: BehaviorSubject<User> = new BehaviorSubject<User>(null);
 
-    constructor(private http: HttpClient, private router: Router) {
+    constructor(private http: HttpClient, private router: Router, public toasterService: ToastrService) {
         if (this.isLoggedIn()) {
             this.loggedIn.next(true);
             this.user.next(this.credentials());
@@ -53,10 +55,14 @@ export class UserService {
         this.user.next(this.credentials());
     }
 
+    showToastrSuccess(message){
+        return this.toasterService.success(message,"Success!",{closeButton:true}); 
+    }
+
     private handleError<T>(operation: string = "operation", result?: T) {
         return (response: any): Observable<T> => {
             console.log(response.error.errmsg, response.statusText);
-            alert("Error has occured. Please try again.");
+            this.toasterService.error(response.error.errmsg, response.error.title, { positionClass: 'toast-bottom-center' });
             this.router.navigate(["welcome"]);
             return of(result as T);
         };
@@ -93,28 +99,40 @@ export class UserService {
         const user = { id: this.user.value._id, username };
         return this.http
             .post<any>(this.userUrl + "/updateUsername", user)
-            .pipe(catchError(this.handleError<any>("updateUsername")));
+            .pipe(tap((response) => {
+                this.showToastrSuccess(response.message);
+            }),
+                catchError(this.handleError<any>("updateUsername")));
     }
 
     updatePassword(password: any): Observable<any> {
         const user = { id: this.user.value._id, password };
         return this.http
             .post<any>(this.userUrl + "/updatePassword", user)
-            .pipe(catchError(this.handleError<any>("updatePassword")));
+            .pipe(tap((response) => {
+                this.showToastrSuccess(response.message);
+            }),
+               catchError(this.handleError<any>("updatePassword")));
     }
 
     updateBio(bio: any): Observable<any> {
         const user = { id: this.user.value._id, bio };
         return this.http
             .post<any>(this.userUrl + "/createOrUpdateBio", user)
-            .pipe(catchError(this.handleError<any>("createOrUpdateBio")));
+            .pipe(tap((response) => {
+                this.showToastrSuccess(response.message);
+            }),
+               catchError(this.handleError<any>("createOrUpdateBio")));
     }
 
     updateCurrentlyWatching(currentlyWatching: any): Observable<any> {
         const user = { id: this.user.value._id, currentlyWatching };
         return this.http
             .post<any>(this.userUrl + "/createOrUpdateCurrentlyWatching", user)
-            .pipe(
+            .pipe(tap((response) => {
+                this.showToastrSuccess(response.message);
+            }),
+               
                 catchError(
                     this.handleError<any>("createOrUpdateCurrentlyWatching")
                 )
@@ -125,7 +143,20 @@ export class UserService {
         const user = { id: this.user.value._id, favorites };
         return this.http
             .post<any>(this.userUrl + "/createOrUpdateFavorites", user)
-            .pipe(catchError(this.handleError<any>("createOrUpdateFavorites")));
+            .pipe(tap((response) => {
+                this.showToastrSuccess(response.message);
+            }),
+               catchError(this.handleError<any>("createOrUpdateFavorites")));
+    }
+
+    updateAvatar(avatarURL: any): Observable<any> {
+        const user = { id: this.user.value._id, avatarURL };
+        return this.http
+            .post<any>(this.userUrl + "/updateAvatar", user)
+            .pipe(tap((response) => {
+                this.showToastrSuccess(response.message);
+            }),
+               catchError(this.handleError<any>("updateAvatar")));
     }
 
     logOut() {

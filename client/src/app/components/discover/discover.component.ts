@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-// import tv & movie service
+import { TvService } from "../../services/tv.service"
+import { MovieService } from "../../services/movie.service"
+import { forkJoin, fromEventPattern } from "rxjs"
 
 @Component({
   selector: 'app-discover',
@@ -9,22 +11,33 @@ import { Component, OnInit } from '@angular/core';
 export class DiscoverComponent implements OnInit {
 
   public tv: any;
-  public movie: any;
-    //private tvService: TvService, private movieService:MovieService
-  constructor() { }
+  public movies: any;
+
+  constructor(private tvService: TvService, private movieService: MovieService) { }
 
   ngOnInit() {
-     // simulate 2 requests - TV & movie service
-/*     forkJoin(
-      this.tvService.discoverTV(),
-      this.movieService.moviesInTheathers()
+    // simulate 2 requests - TV & movie service
+    forkJoin(
+      this.movieService.moviesInTheathers(),
+      this.tvService.discoverTV()
     )
-    .subscribe(([res1, res2]) => {
-      this.tv = res1;
-      this.movie = res2;
-    });     */
+      .subscribe(([resMovie, resTv]) => {
+        this.parseTv(resTv);
+        this.parseMovie(resMovie);
+      });
   }
-    
-    
+
+  parseTv(tv:any){
+    this.tv=tv.results.slice(0,4);
+    this.tv.map(tvs => tvs.poster_path = "https://image.tmdb.org/t/p/original"+tvs.poster_path)
+  
+    }
+
+  parseMovie(movies:any){
+    this.movies=movies.results.slice(0,4);
+    this.movies.map(movie => movie.poster_path = "https://image.tmdb.org/t/p/original"+movie.poster_path)
+  }
+
+
 
 }

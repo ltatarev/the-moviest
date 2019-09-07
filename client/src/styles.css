@@ -28,3 +28,25 @@ e63e56
 ::-webkit-scrollbar-thumb:window-inactive {
     background: rgba(255, 255, 255, 0.8);
 }
+
+/* TOASTR BUGFIX */
+#toast-container > div {
+    opacity: 1;
+  }
+  .toast {
+    font-size: initial !important;
+    border: initial !important;
+    backdrop-filter: blur(0) !important;
+  }
+  .toast-success {
+    background-color: #51A351 !important;
+  }
+  .toast-error {
+    background-color: #BD362F !important;
+  }
+  .toast-info {
+    background-color: #2F96B4 !important;
+  }
+  .toast-warning {
+    background-color: #F89406 !important;
+  }
