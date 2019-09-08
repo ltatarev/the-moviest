@@ -20,10 +20,7 @@ export class SettingsComponent implements OnInit {
 
     public user: any;
 
-    constructor(
-        private userService: UserService,
-        private fb: FormBuilder
-    ) {
+    constructor(private userService: UserService, private fb: FormBuilder) {
         this.getProfileData();
         // * F O R M S
         // * username
@@ -68,7 +65,7 @@ export class SettingsComponent implements OnInit {
         });
     }
 
-    ngOnInit() { }
+    ngOnInit() {}
 
     getProfileData() {
         this.userService
@@ -134,12 +131,13 @@ export class SettingsComponent implements OnInit {
 
     updateAvatar(id) {
         let avatarURL = "../../../assets/img/avatars/" + id + ".png";
-        this.userService.updateAvatar(avatarURL).subscribe((res: any) => {
-            this.avatarURL = res.user.avatarURL;
-        },
-            err => console.error(err));
+        this.userService.updateAvatar(avatarURL).subscribe(
+            (res: any) => {
+                this.avatarURL = res.user.avatarURL;
+            },
+            err => console.error(err)
+        );
     }
-
 
     shuffleAvatar() {
         // function assigns new avatar id, different than current one
