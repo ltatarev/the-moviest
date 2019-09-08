@@ -49,4 +49,12 @@ export class MovieService {
       ))
   }
 
+  searchByName(query){
+    let url = "https://api.themoviedb.org/3/search/movie?api_key=b5efa85196e4919222c431b10c08ef77&language=en-US&query="+query.toString()+"&page=1&include_adult=false";
+    return this.http.get<any>(url)
+    .pipe(
+      catchError(this.handleError<any>('tv')
+      ))
+  }
+
 }

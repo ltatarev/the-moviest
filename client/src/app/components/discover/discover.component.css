@@ -19,6 +19,23 @@
     width: 100%;
 }
 
+
+i {
+    position: relative;
+    top: 40%;
+    color: whitesmoke;
+}
+
+i:hover {
+cursor: pointer;
+color: rgb(72, 121, 255);
+text-shadow:0px 0px 25px #9a6bf3;
+-moz-transition: all 0.1s ease-in;
+-o-transition: all 0.1s ease-in;
+-webkit-transition: all 0.1s ease-in;
+transition: all 0.1s ease-in;
+}
+
 h1 {
     font-style: italic;
 }
