@@ -17,8 +17,8 @@
                     <p>{{ tv.overview }}</p>
                     <hr>
                     <h3 style="display: inline; padding: 7px;"> Genres:</h3>
-                    <p *ngFor="let genre of tv.genres"  class="font-italic" style="display: inline; padding: 7px;">
-                        {{ genre.name }}
+                    <p *ngFor="let genre of tv.genres" style="display: inline; padding: 7px;">
+                        {{ genreEmojis[genre.name] }} {{ genre.name }}
                     </p>
                 </div>
             </div>

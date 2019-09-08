@@ -12,6 +12,32 @@ export class MovieComponent implements OnInit {
   public movieId: string;
   public movie: any;
 
+  protected genreEmojis = {
+    "Action": "🚗",
+    "Adventure":"🗺️",
+    "Action & Adventure":"🗺️",
+    "Animation":"🤖",
+    "Comedy":"😂",
+    "Crime":"🦹",
+    "Documentary":"👨‍💼",
+    "Drama":"🎭",
+    "Family":"👪",
+    "Fantasy":"🧝",
+    "History":"🏛️",
+    "Horror": "🧟",
+    "Kids":"🕹️",
+    "Music":"🎶",
+    "Mystery":"🕵️",
+    "Romance":"💞",
+    "Sci-Fi & Fantasy":"🧝",
+    "Science Fiction":"🦸",
+    "TV Movie":"🎥",
+    "Thriller":"🔪",
+    "War":"⚔️",
+    "War & Politics":"⚔️",
+    "Western":"🤠"
+  }
+
   constructor(    
     private movieService: MovieService,
     private route: ActivatedRoute) { }
