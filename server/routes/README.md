@@ -6,6 +6,7 @@
 |route           |method    |params                   |
 |----------------|----------|-----------------------------|
 |/findAllCurrentlyWatching|`GET`    |movieTitle|
+|/findUserByUsername|`GET`    |username|
 |/getProfileData |`GET`     |username|
 |/createOrUpdateBio|`POST`    |username, bio|
 |/createOrUpdateCurrentlyWatching|`POST`    |username, currentlyWatching|
