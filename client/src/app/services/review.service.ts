@@ -27,7 +27,6 @@ export class ReviewService {
                 response.error.message,
                 "Error has occured. Please try again."
             );
-            this.router.navigate(["welcome"]);
             return of(result as T);
         };
     }
@@ -56,8 +55,36 @@ export class ReviewService {
                         return;
                     }
                     this.showToastrSuccess(response.message);
+                    // TODO: OPEN SEARCH RESULT COMPONENT
                     console.log(response.reviews);
                 })
             );
+    }
+
+    findAllReviews(): Observable<any> {
+        return this.http
+            .get<any>(this.reviewUrl + "/findAllReviews")
+            .pipe(catchError(this.handleError<any>("findAllReviews")));
+    }
+
+    createReview(review: any): Observable<any> {
+        // title, movie, rating, reviewText, authorId
+        return this.http
+            .post<any>(this.reviewUrl + "/createReview", review)
+            .pipe(catchError(this.handleError<any>("createReview")));
+    }
+
+    updateReview(review: any): Observable<any> {
+        // reviewId, title, rating, reviewText
+        return this.http
+            .put<any>(this.reviewUrl + "/updateReview", review)
+            .pipe(catchError(this.handleError<any>("updateReview")));
+    }
+
+    deleteReview(reviewId: any): Observable<any> {
+        // reviewId
+        return this.http
+            .delete<any>(this.reviewUrl + "/deleteReview", reviewId)
+            .pipe(catchError(this.handleError<any>("deleteReview")));
     }
 }

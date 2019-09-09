@@ -30,12 +30,12 @@ const routes: Routes = [
     { path: "movie/:id", component: MovieComponent, canActivate: [AuthGuard] },
     { path: "tv/:id", component: TvComponent, canActivate: [AuthGuard] },
     {
-        path: "review/:id",
+        path: "review",
         component: ReviewsComponent,
         canActivate: [AuthGuard]
     },
     {
-        path: "watchlist/:id",
+        path: "watchlist",
         component: WatchlistsComponent,
         canActivate: [AuthGuard]
     },

@@ -5,7 +5,10 @@
             <div class="product__photo">
                 <div class="photo-container">
                     <div class="photo-main">
-                        <img src="{{ movie?.poster_path}}" style="width: 100%; " />
+                        <img
+                            src="{{ movie?.poster_path }}"
+                            style="width: 100%; "
+                        />
                     </div>
                 </div>
             </div>
@@ -14,13 +17,16 @@
                     <span>{{ movie.original_title }}</span>
                 </div>
                 <div class="title font-italic pt-3">
-                        <h1> {{ movie.tagline }}</h1>
-                    </div>
+                    <h1>{{ movie.tagline }}</h1>
+                </div>
                 <div class="description">
-                        <p>{{ movie.overview }}</p>
-                       <hr>
-                    <h3  style="display: inline; padding: 7px;"> Genres:</h3>
-                    <p *ngFor="let genre of movie.genres" style="display: inline; padding: 7px;">
+                    <p>{{ movie.overview }}</p>
+                    <hr />
+                    <h3 style="display: inline; padding: 7px;">Genres:</h3>
+                    <p
+                        *ngFor="let genre of movie.genres"
+                        style="display: inline; padding: 7px;"
+                    >
                         {{ genreEmojis[genre.name] }} {{ genre.name }}
                     </p>
                 </div>

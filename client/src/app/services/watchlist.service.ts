@@ -61,4 +61,64 @@ export class WatchlistService {
                 })
             );
     }
+
+    findAllWatchlists(): Observable<any> {
+        return this.http
+            .get<any>(this.watchlistUrl + "/findAllWatchlists")
+            .pipe(catchError(this.handleError<any>("findAllWatchlists")));
+    }
+
+    createWatchlist(watchlist: any): Observable<any> {
+        // title, description, authorId
+        return this.http
+            .post<any>(this.watchlistUrl + "/createWatchlist", watchlist)
+            .pipe(catchError(this.handleError<any>("createWatchlist")));
+    }
+
+    addMovieToWatchlist(watchlist: any): Observable<any> {
+        // watchlistId, movieId, movieTitle,moviePosterPath
+        return this.http
+            .post<any>(this.watchlistUrl + "/addMovieToWatchlist", watchlist)
+            .pipe(catchError(this.handleError<any>("addMovieToWatchlist")));
+    }
+
+    likeWatchlist(watchlistId: any): Observable<any> {
+        // watchlistId
+        return this.http
+            .post<any>(this.watchlistUrl + "/likeWatchlist", watchlistId)
+            .pipe(catchError(this.handleError<any>("likeWatchlist")));
+    }
+
+    updateTitleOrDescription(watchlist: any): Observable<any> {
+        // watchlistId,title,description
+        return this.http
+            .put<any>(
+                this.watchlistUrl + "/updateTitleOrDescription",
+                watchlist
+            )
+            .pipe(
+                catchError(this.handleError<any>("updateTitleOrDescription"))
+            );
+    }
+
+    deleteWatchlist(watchlistId: any): Observable<any> {
+        // watchlistId
+        return this.http
+            .delete<any>(this.watchlistUrl + "/deleteWatchlist", watchlistId)
+            .pipe(catchError(this.handleError<any>("deleteWatchlist")));
+    }
+
+    deleteMovieFromWatchlist(watchlistId: any, movieId: any): Observable<any> {
+        // watchlistId, movieId
+        let params = new HttpParams()
+            .set("watchlistId", watchlistId)
+            .set("movieId", movieId);
+        return this.http
+            .delete<any>(this.watchlistUrl + "/deleteMovieFromWatchlist", {
+                params
+            })
+            .pipe(
+                catchError(this.handleError<any>("deleteMovieFromWatchlist"))
+            );
+    }
 }

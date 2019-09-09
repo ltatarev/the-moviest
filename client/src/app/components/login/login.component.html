@@ -1,40 +1,73 @@
-
 <div class="back animated fadeIn"></div>
 <div class="registration-form">
-  <header>
-    <h1>🎥 Sign In</h1>
-    <p>Enter your information</p>
-  </header>
+    <header>
+        <h1>🎥 Sign In</h1>
+        <p>Enter your information</p>
+    </header>
 
-  <form  [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="animated fadeInUp">
-    
-  <!-- U S E R N A M E -->
-  <div class="input-section username-section">
-      <input class="username" formControlName="username" type="text" required placeholder="ENTER YOUR USERNAME" />
-   <!-- animated button -->
-     <div class="animated-button">
-      <span [ngClass]="{'icon-lock':true,'next':loginForm.get('username').valid}"><i class="fa fa-laptop"></i></span>
-      <span class="next-button username"><i class="fa fa-arrow-up"></i></span>
-    </div>
-      </div>
-
-
-  <!-- P A S S W O R D -->
-  <div class="input-section password-section folded">
-      <input class="password" formControlName="password" type="password" required placeholder="ENTER YOUR PASSWORD" />
-    
-    <!-- animated button -->
-    <div class="animated-button">
-    <span [ngClass]="{'icon-repeat-lock':true,'next':loginForm.get('password').valid}"><i class="fa fa-lock"></i></span>
-
-    <!-- s u b m i t -->
-        <span class="next-button password">
-          <button type="submit" class="btn btn-link" [disabled]="loginForm.invalid"><i class="fa fa-paper-plane"></i></button>
-        </span>
+    <form
+        [formGroup]="loginForm"
+        (ngSubmit)="onSubmit()"
+        class="animated fadeInUp"
+    >
+        <!-- U S E R N A M E -->
+        <div class="input-section username-section">
+            <input
+                class="username"
+                formControlName="username"
+                type="text"
+                required
+                placeholder="ENTER YOUR USERNAME"
+            />
+            <!-- animated button -->
+            <div class="animated-button">
+                <span
+                    [ngClass]="{
+                        'icon-lock': true,
+                        next: loginForm.get('username').valid
+                    }"
+                    ><i class="fa fa-laptop"></i
+                ></span>
+                <span class="next-button username"
+                    ><i class="fa fa-arrow-up"></i
+                ></span>
+            </div>
         </div>
-    </div>
-    <div class="success"> 
-      <p>LOGGING IN...</p>
-    </div>
-  </form>
+
+        <!-- P A S S W O R D -->
+        <div class="input-section password-section folded">
+            <input
+                class="password"
+                formControlName="password"
+                type="password"
+                required
+                placeholder="ENTER YOUR PASSWORD"
+            />
+
+            <!-- animated button -->
+            <div class="animated-button">
+                <span
+                    [ngClass]="{
+                        'icon-repeat-lock': true,
+                        next: loginForm.get('password').valid
+                    }"
+                    ><i class="fa fa-lock"></i
+                ></span>
+
+                <!-- s u b m i t -->
+                <span class="next-button password">
+                    <button
+                        type="submit"
+                        class="btn btn-link"
+                        [disabled]="loginForm.invalid"
+                    >
+                        <i class="fa fa-paper-plane"></i>
+                    </button>
+                </span>
+            </div>
+        </div>
+        <div class="success">
+            <p>LOGGING IN...</p>
+        </div>
+    </form>
 </div>
