@@ -24,7 +24,7 @@ class WatchlistController {
     let watchlists, message;
 
     try {
-      watchlists = await WatchlistService.findAllWatchlists(authorId);
+      watchlists = await WatchlistService.findAllWatchlistsByAuthorId(authorId);
     } catch (err) {
       return response.status(500).json(err);
     }

@@ -69,5 +69,5 @@
 .container .box:hover .title,
 .container .box:hover .desc {
     color: white;
-    transition: 0.3s all ease-in-out;
+    transition: 0.2s all ease-in-out;
 }

@@ -27,9 +27,13 @@ export class WatchlistsComponent implements OnInit {
         let currentUserId = this.userService.user.value._id;
 
         this.activatedRoute.params.subscribe(params => {
-            this.id = params.id;
-            this.isOwner = this.id === currentUserId;
-            this.getWatchlists(this.id);
+            if (params.id) {
+                this.id = params.id;
+                this.isOwner = this.id === currentUserId;
+                this.getWatchlists(this.id);
+            } else {
+                this.getAllWatchlists();
+            }
         });
 
         this.watchlistForm = this.fb.group({
@@ -43,13 +47,18 @@ export class WatchlistsComponent implements OnInit {
 
     ngOnInit() {}
 
-    private getWatchlists(id) {
+    private getWatchlists(id: any) {
         return this.watchlistService
             .findWatchlistsByAuthor(id)
             .subscribe(res => {
-                console.log(res);
                 this.watchlists = res.watchlists;
             });
+    }
+
+    private getAllWatchlists() {
+        return this.watchlistService.findAllWatchlists().subscribe(res => {
+            this.watchlists = res.watchlists;
+        });
     }
 
     public createWatchlist() {
@@ -65,5 +74,10 @@ export class WatchlistsComponent implements OnInit {
         this.watchlistService.createWatchlist(watchlist).subscribe();
         this.watchlistForm.reset();
         this.writingWatchlist = false;
+        // TODO: fetch watchlists after submitting
+        // socket?
+        if (this.id) {
+            this.getWatchlists(this.id);
+        } else this.getAllWatchlists();
     }
 }
