@@ -65,9 +65,10 @@
     background: linear-gradient(130deg, #503bff 0%, #8293ff 100%);
     box-shadow: none;
 }
-.container .box:hover .icon,
-.container .box:hover .title,
-.container .box:hover .desc {
+
+.container .box:hover .boxContent .title,
+.container .box:hover .boxContent .icon,
+.container .box:hover .boxContent .desc {
     color: white;
-    transition: 0.2s all ease-in-out;
+    transition: 1s all;
 }

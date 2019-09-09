@@ -4,7 +4,7 @@ footer {
     background-position: center;
     display: inline-block;
     height: 145px;
-    min-width: 100vw;
+    min-width: 100%;
     overflow: auto;
     padding: 40px;
     padding-top: 30px;
