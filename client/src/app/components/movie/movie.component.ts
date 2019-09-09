@@ -62,7 +62,11 @@ export class MovieComponent implements OnInit {
         movie.backdrop_path =
             "https://image.tmdb.org/t/p/original" + movie.backdrop_path;
         movie.poster_path =
-            "https://image.tmdb.org/t/p/original" + movie.poster_path;
+            "https://image.tmdb.org/t/p/w500" + movie.poster_path;
         return movie;
     }
+
+    writeReview() {}
+
+    addToWatchlist() {}
 }

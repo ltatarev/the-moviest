@@ -16,6 +16,7 @@
 .container {
     display: grid;
     grid-template-rows: 1fr;
+    padding-bottom: 70px;
 }
 
 h3 {
@@ -26,6 +27,27 @@ img {
     max-width: 100%;
     -webkit-filter: drop-shadow(1px 1px 3px #a6a6a6);
     filter: drop-shadow(1px 1px 3px #a6a6a6);
+}
+
+.btnPink {
+    border-radius: 10px;
+    background: linear-gradient(
+            to left,
+            rgba(190, 117, 174, 0.795) 30%,
+            rgba(133, 124, 219, 0.795) 100%
+        )
+        left bottom rgba(255, 255, 255, 0) no-repeat;
+    transition: 0.5s all;
+    padding: 7px;
+    color: white;
+}
+
+.btnPink:hover {
+    background: none;
+    border: 1px solid palevioletred;
+    border-radius: 10px;
+    color: palevioletred;
+    transition: 0.5s all;
 }
 
 /* ----- Product Section ----- */

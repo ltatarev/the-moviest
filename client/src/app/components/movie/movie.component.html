@@ -29,6 +29,22 @@
                     >
                         {{ genreEmojis[genre.name] }} {{ genre.name }}
                     </p>
+                    <div class="pt-4">
+                        <button
+                            class="btn btn-outline-success btn-sm m-1 p-2"
+                            (click)="addToWatchlist()"
+                        >
+                            <i class="fas fa-highlighter p-1"></i> Add to
+                            watchlist
+                        </button>
+                        <button
+                            class="btn btnPink btn-sm m-1"
+                            (click)="writeReview()"
+                        >
+                            <i class="fas fa-clipboard-list p-1"></i> Write a
+                            review
+                        </button>
+                    </div>
                 </div>
             </div>
         </section>

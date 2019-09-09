@@ -1,6 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import { TvService } from "src/app/services/tv.service";
 import { ActivatedRoute } from "@angular/router";
+import { ReviewService } from "src/app/services/review.service";
 
 @Component({
     selector: "app-tv",
@@ -37,7 +38,11 @@ export class TvComponent implements OnInit {
         Western: "🤠"
     };
 
-    constructor(private tvService: TvService, private route: ActivatedRoute) {}
+    constructor(
+        private tvService: TvService,
+        private reviewService: ReviewService,
+        private route: ActivatedRoute
+    ) {}
 
     ngOnInit() {
         // get tvId from url
@@ -58,7 +63,11 @@ export class TvComponent implements OnInit {
     parseTv(tv) {
         tv.backdrop_path =
             "https://image.tmdb.org/t/p/original" + tv.backdrop_path;
-        tv.poster_path = "https://image.tmdb.org/t/p/original" + tv.poster_path;
+        tv.poster_path = "https://image.tmdb.org/t/p/w500" + tv.poster_path;
         return tv;
     }
+
+    writeReview() {}
+
+    addToWatchlist() {}
 }
