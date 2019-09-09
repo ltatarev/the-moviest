@@ -1,118 +1,124 @@
-const ReviewService = require('../services/review.service');
+const ReviewService = require("../services/review.service");
 
 class ReviewController {
+  // ************************************************************
+  // * FIND ALL REVIEWS
+  static async findAllReviews(request, response) {
+    let reviews, message;
 
-    // ************************************************************
-    // * FIND ALL REVIEWS
-    static async findAllReviews(request, response) {
-        let reviews, message;
-
-        try {
-            reviews = await ReviewService.findAllReviews();
-        } catch (err) {
-            return response.status(500).json(err);
-        }
-
-        message = "Successfully retrieved reviews!";
-        return response.status(202).json({ message, reviews });
-
+    try {
+      reviews = await ReviewService.findAllReviews();
+    } catch (err) {
+      return response.status(500).json(err);
     }
 
-    // ************************************************************
-    // * FIND ALL REVIEWS WRITTEN BY AUTHOR
-    static async findReviewsByAuthor(request, response) {
-        let authorId = request.body.authorId;
+    message = "Successfully retrieved reviews!";
+    return response.status(202).json({ message, reviews });
+  }
 
-        let reviews, message;
+  // ************************************************************
+  // * FIND ALL REVIEWS WRITTEN BY AUTHOR
+  static async findReviewsByAuthor(request, response) {
+    let authorId = request.query.id;
 
-        try {
-            reviews = await ReviewService.findReviewsByAuthor(authorId);
-        } catch (err) {
-            return response.status(500).json(err);
-        }
+    let reviews, message;
 
-        message = "Successfully retrieved reviews!";
-        return response.status(202).json({ message, reviews });
-
+    try {
+      reviews = await ReviewService.findReviewsByAuthor(authorId);
+    } catch (err) {
+      return response.status(500).json(err);
     }
 
-    // ************************************************************
-    // * FIND ALL REVIEWS FOR MOVIES
-    static async findReviewByMovie(request, response) {
-        let movieTitle = request.body.movieTitle;
+    message = "Successfully retrieved reviews!";
+    return response.status(202).json({ message, reviews });
+  }
 
-        let reviews, message;
+  // ************************************************************
+  // * FIND ALL REVIEWS FOR MOVIES
+  static async findReviewByMovie(request, response) {
+    let movieTitle = request.query.movieTitle;
 
-        try {
-            reviews = await ReviewService.findReviewByMovie(movieTitle);
-        } catch (err) {
-            return response.status(500).json(err);
-        }
+    let reviews, message;
 
-        message = "Successfully retrieved reviews!";
-        return response.status(202).json({ message, reviews });
-
+    try {
+      reviews = await ReviewService.findReviewByMovie(movieTitle);
+    } catch (err) {
+      return response.status(500).json(err);
     }
 
-    // ************************************************************
-    // * CREATE REVIEW
-    static async createReview(request, response) {
-        let title = request.body.title;
-        let movie = request.body.movie;
-        let rating = request.body.rating;
-        let reviewText = request.body.reviewText;
-        let authorId = request.body.authorId;
+    message = "Successfully retrieved reviews!";
+    return response.status(202).json({ message, reviews });
+  }
 
-        let review, message;
+  // ************************************************************
+  // * CREATE REVIEW
+  static async createReview(request, response) {
+    let title = request.body.title;
+    let movie = request.body.movie;
+    let rating = request.body.rating;
+    let reviewText = request.body.reviewText;
+    let authorId = request.body.authorId;
 
-        try {
-            review = await ReviewService.createReview(title, movie, rating, reviewText, authorId);
-        } catch (err) {
-            console.log(err);
-            return response.status(500).json(err);
-        }
+    let review, message;
 
-        message = "Successfully created review!";
-        return response.status(202).json({ message, review });
+    try {
+      review = await ReviewService.createReview(
+        title,
+        movie,
+        rating,
+        reviewText,
+        authorId
+      );
+    } catch (err) {
+      console.log(err);
+      return response.status(500).json(err);
     }
 
-    // ************************************************************
-    // * UPDATE REVIEW
-    static async updateReview(request, response) {
-        let reviewId = request.body.reviewId;
-        let title = request.body.title;
-        let rating = request.body.rating;
-        let reviewText = request.body.reviewText;
+    message = "Successfully created review!";
+    return response.status(202).json({ message, review });
+  }
 
-        let watchlist, message;
+  // ************************************************************
+  // * UPDATE REVIEW
+  static async updateReview(request, response) {
+    let reviewId = request.body.reviewId;
+    let title = request.body.title;
+    let rating = request.body.rating;
+    let reviewText = request.body.reviewText;
 
-        try {
-            watchlist = await ReviewService.updateReview(reviewId, title, rating, reviewText);
-        } catch (err) {
-            return response.status(500).json(err);
-        }
+    let watchlist, message;
 
-        message = "Successfully updated watchlist!";
-        return response.status(202).json({ message, watchlist });
+    try {
+      watchlist = await ReviewService.updateReview(
+        reviewId,
+        title,
+        rating,
+        reviewText
+      );
+    } catch (err) {
+      return response.status(500).json(err);
     }
 
-    // ************************************************************
-    // * DELETE REVIEW
-    static async deleteReview(request, response) {
-        let reviewId = request.body.reviewId;
+    message = "Successfully updated watchlist!";
+    return response.status(202).json({ message, watchlist });
+  }
 
-        let review, message;
+  // ************************************************************
+  // * DELETE REVIEW
+  static async deleteReview(request, response) {
+    let reviewId = request.body.reviewId;
 
-        try {
-            review = await ReviewService.deleteReview(reviewId);
-        } catch (err) {
-            return response.status(500).json(err);
-        }
+    let review, message;
 
-        message = "Successfully deleted review!";
-        return response.status(202).json({ message, review });
+    try {
+      review = await ReviewService.deleteReview(reviewId);
+    } catch (err) {
+      return response.status(500).json(err);
     }
 
+    message = "Successfully deleted review!";
+    return response.status(202).json({ message, review });
+  }
 }
 
 module.exports = ReviewController;

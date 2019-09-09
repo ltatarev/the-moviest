@@ -2,6 +2,9 @@ import { Component, OnInit } from "@angular/core";
 import { UserService } from "../../services/user.service";
 import { Observable } from "rxjs";
 import { User } from "src/app/classes/user";
+import { ReviewService } from "../../services/review.service";
+import { WatchlistService } from "../../services/watchlist.service";
+import { Router } from "@angular/router";
 
 @Component({
     selector: "app-profile",
@@ -15,8 +18,11 @@ export class ProfileComponent implements OnInit {
     public avatarURL: any;
     public currentlyWatching: any;
     public favorites: any;
+    public userId: any;
 
-    constructor(private userService: UserService) {}
+    constructor(private userService: UserService, private router: Router) {
+        this.userId = this.userService.user.value._id;
+    }
 
     ngOnInit() {
         this.favorites = { movie: "", tvShow: "", actor: "", genre: "" };
@@ -40,6 +46,14 @@ export class ProfileComponent implements OnInit {
     }
 
     private getProfileData() {
-        return this.userService.getProfileData(this.userService.user.value._id);
+        return this.userService.getProfileData(this.userId);
+    }
+
+    public getWatchlists() {
+        this.router.navigate(["watchlist", this.userId]);
+    }
+
+    public getReviews() {
+        this.router.navigate(["review", this.userId]);
     }
 }

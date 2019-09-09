@@ -3,6 +3,9 @@ import { FormGroup, FormBuilder, Validators } from "@angular/forms";
 
 import { MovieService } from "../../services/movie.service";
 import { TvService } from "../../services/tv.service";
+import { UserService } from "src/app/services/user.service";
+import { ReviewService } from "src/app/services/review.service";
+import { WatchlistService } from "src/app/services/watchlist.service";
 
 @Component({
     selector: "app-search",
@@ -15,7 +18,10 @@ export class SearchComponent implements OnInit {
     constructor(
         private fb: FormBuilder,
         private movieService: MovieService,
-        private tvService: TvService
+        private tvService: TvService,
+        private userService: UserService,
+        private reviewService: ReviewService,
+        private watchlistService: WatchlistService
     ) {
         this.searchForm = this.fb.group({
             search: this.fb.control([], Validators.required),
@@ -33,10 +39,10 @@ export class SearchComponent implements OnInit {
                 console.log(1);
                 break;
             case "review":
-                console.log(1);
+                this.reviewService.findReviewByMovie(value.search).subscribe();
                 break;
             case "profile":
-                console.log(1);
+                this.userService.findUserByUsername(value.search).subscribe();
                 break;
             case "tvShow":
                 this.tvService
