@@ -45,7 +45,7 @@ export class ReviewsComponent implements OnInit {
 
     private getAllReviews() {
         return this.reviewService.findAllReviews().subscribe(res => {
-            console.log(res.message);
+            console.log(res);
             this.reviews = res.reviews;
         });
     }

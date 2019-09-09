@@ -15,6 +15,7 @@ import { LoginComponent } from "./components/login/login.component";
 import { RegisterComponent } from "./components/register/register.component";
 import { HomeComponent } from "./components/home/home.component";
 
+import { RatingModule } from "ngx-bootstrap/rating";
 import { ModalModule } from "ngx-bootstrap";
 import { NavbarComponent } from "./components/navbar/navbar.component";
 import { CarouselModule } from "ngx-bootstrap/carousel";
@@ -54,6 +55,7 @@ import { TvComponent } from "./components/tv/tv.component";
         FormsModule,
         ModalModule.forRoot(),
         CarouselModule.forRoot(),
+        RatingModule.forRoot(),
         CommonModule,
         BrowserAnimationsModule,
         ToastrModule.forRoot({

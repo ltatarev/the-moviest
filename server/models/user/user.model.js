@@ -18,8 +18,7 @@ const userSchema = new mongoose.Schema(
       type: String,
       minlength: 6,
       required: [true, "E-mail required"],
-      unique: true,
-      index: true
+      unique: true
     },
     hash: String,
     salt: String,

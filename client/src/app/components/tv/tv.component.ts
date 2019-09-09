@@ -2,6 +2,7 @@ import { Component, OnInit } from "@angular/core";
 import { TvService } from "src/app/services/tv.service";
 import { ActivatedRoute } from "@angular/router";
 import { ReviewService } from "src/app/services/review.service";
+import { FormGroup, FormBuilder, Validators } from "@angular/forms";
 
 @Component({
     selector: "app-tv",
@@ -11,6 +12,10 @@ import { ReviewService } from "src/app/services/review.service";
 export class TvComponent implements OnInit {
     public tvId: string;
     public tv: any;
+
+    public writingReview: boolean = false;
+
+    public reviewForm: FormGroup;
 
     protected genreEmojis = {
         Action: "🚗",
@@ -41,8 +46,22 @@ export class TvComponent implements OnInit {
     constructor(
         private tvService: TvService,
         private reviewService: ReviewService,
-        private route: ActivatedRoute
-    ) {}
+        private route: ActivatedRoute,
+        private fb: FormBuilder
+    ) {
+        this.reviewForm = this.fb.group({
+            title: this.fb.control("", [
+                Validators.required,
+                Validators.minLength(3)
+            ]),
+            rating: this.fb.control("", [
+                Validators.required,
+                Validators.min(1),
+                Validators.max(5)
+            ]),
+            reviewText: this.fb.control("")
+        });
+    }
 
     ngOnInit() {
         // get tvId from url
@@ -67,7 +86,26 @@ export class TvComponent implements OnInit {
         return tv;
     }
 
-    writeReview() {}
+    writeReview() {
+        this.writingReview = true;
+    }
+
+    closeReview() {
+        this.writingReview = false;
+    }
+
+    submitReview() {
+        let review = {
+            ...this.reviewForm.value,
+            movie: {
+                movieId: this.tvId,
+                movieTitle: this.tv.original_title
+            }
+        };
+        this.reviewService.createReview(review).subscribe();
+        this.reviewForm.reset();
+        this.writingReview = false;
+    }
 
     addToWatchlist() {}
 }

@@ -8,6 +8,7 @@ import { tap, catchError } from "rxjs/operators";
 import { of } from "rxjs";
 import { Router } from "@angular/router";
 import { ToastrService } from "ngx-toastr";
+import { UserService } from "./user.service";
 
 @Injectable({
     providedIn: "root"
@@ -18,7 +19,8 @@ export class ReviewService {
     constructor(
         private http: HttpClient,
         private router: Router,
-        private toasterService: ToastrService
+        private toasterService: ToastrService,
+        private userService: UserService
     ) {}
 
     private handleError<T>(operation: string = "operation", result?: T) {
@@ -67,11 +69,16 @@ export class ReviewService {
             .pipe(catchError(this.handleError<any>("findAllReviews")));
     }
 
-    createReview(review: any): Observable<any> {
+    createReview(submittedReview: any): Observable<any> {
         // title, movie, rating, reviewText, authorId
+        let authorId = this.userService.user.value._id;
+        let review = { ...submittedReview, authorId };
         return this.http
             .post<any>(this.reviewUrl + "/createReview", review)
-            .pipe(catchError(this.handleError<any>("createReview")));
+            .pipe(
+                tap(res => this.showToastrSuccess(res.message)),
+                catchError(this.handleError<any>("createReview"))
+            );
     }
 
     updateReview(review: any): Observable<any> {

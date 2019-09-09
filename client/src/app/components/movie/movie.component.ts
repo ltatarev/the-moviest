@@ -1,6 +1,8 @@
 import { Component, OnInit } from "@angular/core";
 import { MovieService } from "src/app/services/movie.service";
 import { ActivatedRoute } from "@angular/router";
+import { FormBuilder, FormGroup, Validators } from "@angular/forms";
+import { ReviewService } from "src/app/services/review.service";
 
 @Component({
     selector: "app-movie",
@@ -10,6 +12,10 @@ import { ActivatedRoute } from "@angular/router";
 export class MovieComponent implements OnInit {
     public movieId: string;
     public movie: any;
+
+    public writingReview: boolean = false;
+
+    public reviewForm: FormGroup;
 
     protected genreEmojis = {
         Action: "🚗",
@@ -39,8 +45,23 @@ export class MovieComponent implements OnInit {
 
     constructor(
         private movieService: MovieService,
-        private route: ActivatedRoute
-    ) {}
+        private reviewService: ReviewService,
+        private route: ActivatedRoute,
+        private fb: FormBuilder
+    ) {
+        this.reviewForm = this.fb.group({
+            title: this.fb.control("", [
+                Validators.required,
+                Validators.minLength(3)
+            ]),
+            rating: this.fb.control("", [
+                Validators.required,
+                Validators.min(1),
+                Validators.max(5)
+            ]),
+            reviewText: this.fb.control("")
+        });
+    }
 
     ngOnInit() {
         // get movieId from url
@@ -56,6 +77,8 @@ export class MovieComponent implements OnInit {
                 this.parseMovie(this.movie);
             }
         );
+        this.reviewForm.reset;
+        this.writingReview = false;
     }
 
     parseMovie(movie) {
@@ -66,7 +89,26 @@ export class MovieComponent implements OnInit {
         return movie;
     }
 
-    writeReview() {}
+    writeReview() {
+        this.writingReview = true;
+    }
+
+    closeReview() {
+        this.writingReview = false;
+    }
+
+    submitReview() {
+        let review = {
+            ...this.reviewForm.value,
+            movie: {
+                movieId: this.movieId,
+                movieTitle: this.movie.original_title
+            }
+        };
+        this.reviewService.createReview(review).subscribe();
+        this.reviewForm.reset();
+        this.writingReview = false;
+    }
 
     addToWatchlist() {}
 }

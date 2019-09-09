@@ -53,11 +53,7 @@ class ReviewController {
   // ************************************************************
   // * CREATE REVIEW
   static async createReview(request, response) {
-    let title = request.body.title;
-    let movie = request.body.movie;
-    let rating = request.body.rating;
-    let reviewText = request.body.reviewText;
-    let authorId = request.body.authorId;
+    let { title, movie, rating, reviewText, authorId } = request.body;
 
     let review, message;
 
