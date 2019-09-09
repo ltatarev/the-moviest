@@ -30,17 +30,28 @@ const routes: Routes = [
     { path: "movie/:id", component: MovieComponent, canActivate: [AuthGuard] },
     { path: "tv/:id", component: TvComponent, canActivate: [AuthGuard] },
     {
-        path: "review",
+        path: "reviews",
+        component: ReviewsComponent,
+        canActivate: [AuthGuard],
+        data: { routeName: "allReviews" }
+    },
+    {
+        path: "reviews/:id",
         component: ReviewsComponent,
         canActivate: [AuthGuard]
     },
     {
-        path: "watchlist",
+        path: "watchlists",
+        component: WatchlistsComponent,
+        canActivate: [AuthGuard],
+        data: { routeName: "allWatchlists" }
+    },
+    {
+        path: "watchlists/:id",
         component: WatchlistsComponent,
         canActivate: [AuthGuard]
     },
     { path: "search", component: SearchComponent, canActivate: [AuthGuard] },
-    { path: "profile", redirectTo: "profile/" },
     {
         path: "profile/:id",
         component: ProfileComponent,
