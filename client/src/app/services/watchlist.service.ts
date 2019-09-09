@@ -44,4 +44,21 @@ export class WatchlistService {
             .get<any>(this.watchlistUrl + "/findWatchlistsByAuthor", { params })
             .pipe(catchError(this.handleError<any>("findWatchlistsByAuthor")));
     }
+
+    findWatchlistsByName(name: any): Observable<any> {
+        let params = new HttpParams().set("title", name);
+        return this.http
+            .get<any>(this.watchlistUrl + "/findWatchlistsByName", { params })
+            .pipe(
+                tap(response => {
+                    if (!response.watchlists.length) {
+                        this.toasterService.error("No reviews found!");
+                        return;
+                    }
+                    this.showToastrSuccess(response.message);
+                    // TODO: OPEN SEARCH RESULT COMPONENT
+                    console.log(response);
+                })
+            );
+    }
 }

@@ -36,7 +36,7 @@ class WatchlistController {
   // ************************************************************
   // * FIND ALL WATCHLISTS BY NAME
   static async findWatchlistsByName(request, response) {
-    let title = request.body.title;
+    let title = request.query.title;
 
     let watchlists, message;
 

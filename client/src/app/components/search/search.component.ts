@@ -36,7 +36,9 @@ export class SearchComponent implements OnInit {
 
         switch (value.type) {
             case "watchlist":
-                console.log(1);
+                this.watchlistService
+                    .findWatchlistsByName(value.search)
+                    .subscribe();
                 break;
             case "review":
                 this.reviewService.findReviewByMovie(value.search).subscribe();
@@ -45,14 +47,10 @@ export class SearchComponent implements OnInit {
                 this.userService.findUserByUsername(value.search).subscribe();
                 break;
             case "tvShow":
-                this.tvService
-                    .searchByName(value.search)
-                    .subscribe(res => console.log(res));
+                this.tvService.searchByName(value.search).subscribe();
                 break;
             case "movie":
-                this.movieService
-                    .searchByName(value.search)
-                    .subscribe(res => console.log(res));
+                this.movieService.searchByName(value.search).subscribe();
                 break;
         }
     }
