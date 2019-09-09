@@ -11,8 +11,8 @@ import { UserService } from "src/app/services/user.service";
 export class ReviewsComponent implements OnInit {
     public id: any;
     public reviews: any;
-    // boolean for displayin "delete/update review"
-    public isOwner: boolean;
+    // boolean for displaying "delete/update review"
+    public isOwner: boolean = false;
 
     constructor(
         private userService: UserService,
@@ -22,17 +22,30 @@ export class ReviewsComponent implements OnInit {
         let currentUserId = this.userService.user.value._id;
 
         this.activatedRoute.params.subscribe(params => {
-            this.id = params.id;
-            this.isOwner = this.id === currentUserId;
-            this.getReviews(this.id);
+            if (params.id) {
+                // if there is an id, find only reviews for that id
+                this.id = params.id;
+                this.isOwner = this.id === currentUserId;
+                this.getReviewsByAuthor(this.id);
+            } else {
+                // else show all reviews
+                this.getAllReviews();
+            }
         });
     }
 
     ngOnInit() {}
 
-    private getReviews(id) {
+    private getReviewsByAuthor(id) {
         return this.reviewService.findReviewsByAuthor(id).subscribe(res => {
             console.log(res.message);
+            this.reviews = res.reviews;
+        });
+    }
+
+    private getAllReviews() {
+        return this.reviewService.findAllReviews().subscribe(res => {
+            console.log(res);
             this.reviews = res.reviews;
         });
     }

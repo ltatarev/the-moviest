@@ -69,7 +69,8 @@ export class HomeComponent implements OnInit {
 
     getPoster(movie) {
         movie.overview = this.getOverview(movie);
-        movie.poster = "https://image.tmdb.org/t/p/w342" + movie.poster_path;
+        movie.poster =
+            "https://image.tmdb.org/t/p/original" + movie.poster_path;
         return movie;
     }
 

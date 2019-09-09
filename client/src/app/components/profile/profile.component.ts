@@ -50,10 +50,10 @@ export class ProfileComponent implements OnInit {
     }
 
     public getWatchlists() {
-        this.router.navigate(["watchlist", this.userId]);
+        this.router.navigate(["watchlists", this.userId]);
     }
 
     public getReviews() {
-        this.router.navigate(["review", this.userId]);
+        this.router.navigate(["reviews", this.userId]);
     }
 }

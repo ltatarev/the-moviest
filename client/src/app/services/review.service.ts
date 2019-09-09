@@ -8,6 +8,7 @@ import { tap, catchError } from "rxjs/operators";
 import { of } from "rxjs";
 import { Router } from "@angular/router";
 import { ToastrService } from "ngx-toastr";
+import { UserService } from "./user.service";
 
 @Injectable({
     providedIn: "root"
@@ -18,7 +19,8 @@ export class ReviewService {
     constructor(
         private http: HttpClient,
         private router: Router,
-        private toasterService: ToastrService
+        private toasterService: ToastrService,
+        private userService: UserService
     ) {}
 
     private handleError<T>(operation: string = "operation", result?: T) {
@@ -27,7 +29,6 @@ export class ReviewService {
                 response.error.message,
                 "Error has occured. Please try again."
             );
-            this.router.navigate(["welcome"]);
             return of(result as T);
         };
     }
@@ -56,8 +57,41 @@ export class ReviewService {
                         return;
                     }
                     this.showToastrSuccess(response.message);
+                    // TODO: OPEN SEARCH RESULT COMPONENT
                     console.log(response.reviews);
                 })
             );
+    }
+
+    findAllReviews(): Observable<any> {
+        return this.http
+            .get<any>(this.reviewUrl + "/findAllReviews")
+            .pipe(catchError(this.handleError<any>("findAllReviews")));
+    }
+
+    createReview(submittedReview: any): Observable<any> {
+        // title, movie, rating, reviewText, authorId
+        let authorId = this.userService.user.value._id;
+        let review = { ...submittedReview, authorId };
+        return this.http
+            .post<any>(this.reviewUrl + "/createReview", review)
+            .pipe(
+                tap(res => this.showToastrSuccess(res.message)),
+                catchError(this.handleError<any>("createReview"))
+            );
+    }
+
+    updateReview(review: any): Observable<any> {
+        // reviewId, title, rating, reviewText
+        return this.http
+            .put<any>(this.reviewUrl + "/updateReview", review)
+            .pipe(catchError(this.handleError<any>("updateReview")));
+    }
+
+    deleteReview(reviewId: any): Observable<any> {
+        // reviewId
+        return this.http
+            .delete<any>(this.reviewUrl + "/deleteReview", reviewId)
+            .pipe(catchError(this.handleError<any>("deleteReview")));
     }
 }

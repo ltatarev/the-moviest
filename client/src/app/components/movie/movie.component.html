@@ -1,11 +1,17 @@
-<div class="back animated fadeIn">
+<div class="back">
     <app-navbar></app-navbar>
-    <div class="container mb-5 text-dark">
+    <div
+        class="container mb-5 text-dark animated fadeInUp"
+        *ngIf="!writingReview"
+    >
         <section class="product">
             <div class="product__photo">
                 <div class="photo-container">
                     <div class="photo-main">
-                        <img src="{{ movie?.poster_path}}" style="width: 100%; " />
+                        <img
+                            src="{{ movie?.poster_path }}"
+                            style="width: 100%; "
+                        />
                     </div>
                 </div>
             </div>
@@ -14,18 +20,106 @@
                     <span>{{ movie.original_title }}</span>
                 </div>
                 <div class="title font-italic pt-3">
-                        <h1> {{ movie.tagline }}</h1>
-                    </div>
+                    <h1>{{ movie.tagline }}</h1>
+                </div>
                 <div class="description">
-                        <p>{{ movie.overview }}</p>
-                       <hr>
-                    <h3  style="display: inline; padding: 7px;"> Genres:</h3>
-                    <p *ngFor="let genre of movie.genres" style="display: inline; padding: 7px;">
+                    <p>{{ movie.overview }}</p>
+                    <hr />
+                    <h3 style="display: inline; padding: 7px;">Genres:</h3>
+                    <p
+                        *ngFor="let genre of movie.genres"
+                        style="display: inline; padding: 7px;"
+                    >
                         {{ genreEmojis[genre.name] }} {{ genre.name }}
                     </p>
+                    <div class="pt-4">
+                        <button
+                            class="btn btn-outline-success btn-sm m-1 p-2"
+                            (click)="addToWatchlist()"
+                        >
+                            <i class="fas fa-highlighter p-1"></i> Add to
+                            watchlist
+                        </button>
+                        <button
+                            class="btn btnPink btn-sm m-1"
+                            (click)="writeReview()"
+                        >
+                            <i class="fas fa-clipboard-list p-1"></i> Write a
+                            review
+                        </button>
+                    </div>
                 </div>
             </div>
         </section>
     </div>
+
+    <!-- R E V I E W  -->
+    <div
+        class="text-center container mb-5 bg-light p-5 rounded animated fadeInUp"
+        *ngIf="writingReview"
+    >
+        <button
+            class="btn btn-outline-danger btn-sm ml-auto"
+            (click)="closeReview()"
+        >
+            <i class="fas fa-times" style="cursor:pointer;"></i>
+        </button>
+        <h6 class="display-4">Write a review</h6>
+        <!-- R E V I E W F O R M -->
+        <form
+            [formGroup]="reviewForm"
+            (ngSubmit)="submitReview()"
+            class="animated fadeInDown"
+        >
+            <!-- T E M P L A T E  -->
+            <ng-template #t let-i="index" let-v="value">
+                <button
+                    type="button"
+                    class="btn btn-sm btn{{ i < v ? 'Pink' : '-default' }}"
+                    style="border-radius: 10px; transition: all 0.1s;"
+                >
+                    {{ i < v ? "&#9733;" : "&#9734;" }}
+                </button>
+            </ng-template>
+            <!-- R A T I N G  -->
+            <div class="p-3">
+                <rating
+                    [max]="5"
+                    formControlName="rating"
+                    [customTemplate]="t"
+                    style="font-size: 20px;"
+                ></rating>
+            </div>
+            <div class="input-group pb-3">
+                <input
+                    type="text"
+                    class="form-control"
+                    formControlName="title"
+                    id="title"
+                    placeholder="Review title"
+                />
+            </div>
+            <div class="form-group">
+                <textarea
+                    class="form-control rounded-0"
+                    formControlName="reviewText"
+                    placeholder="Review text..."
+                    rows="3"
+                ></textarea>
+            </div>
+            <!-- S U B M I T  -->
+            <div class="p-2 ml-auto">
+                <button
+                    class="btn btn-outline-success"
+                    type="submit"
+                    [disabled]="!reviewForm.valid"
+                >
+                    Submit
+                </button>
+            </div>
+        </form>
+        <hr />
+    </div>
+
     <app-footer></app-footer>
 </div>
