@@ -2,6 +2,22 @@ const UserService = require("../services/user.service");
 
 class UserController {
   // ************************************************************
+  // * FIND USER BY USERNAME
+  static async findUserByUsername(request, response) {
+    let username = request.query.username;
+
+    let user, message;
+
+    try {
+      user = await UserService.findUserByUsername(username);
+    } catch (err) {
+      return response.status(500).json(err);
+    }
+
+    message = "Successfully found user!";
+    return response.status(200).json({ message, user });
+  }
+  // ************************************************************
   // * FIND ALL CURRENTLY WATCHING
   static async findAllCurrentlyWatching(request, response) {
     let movieTitle = request.body.movieTitle;
