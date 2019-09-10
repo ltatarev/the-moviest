@@ -1,1 +1,79 @@
-<p>watchlists works!</p>
+<div class="back animated fadeIn">
+    <app-navbar></app-navbar>
+    <div *ngIf="!writingWatchlist">
+        <div class="text-right mr-5 mb-5 animated fadeIn">
+            <button
+                type="button"
+                class="btn btn-success"
+                (click)="createWatchlist()"
+            >
+                <i class="fas fa-plus p-1"></i> Create new watchlist
+            </button>
+        </div>
+        <div class="container animated fadeInUp">
+            <div class="box" *ngFor="let watchlist of watchlists">
+                <div class="boxContent">
+                    <i class="fas fa-tv icon"></i>
+                    <h1 class="title">{{ watchlist.title }}</h1>
+                    <p class="desc">
+                       <strong>{{ watchlist.author_id.username }}</strong>
+                        <br />
+                        <em>{{ watchlist.description }}</em>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- W A T C H L I S T  -->
+    <div
+        class="m-5 p-5 bg-light rounded animated fadeInUp"
+        *ngIf="writingWatchlist"
+    >
+        <button
+            class="btn btn-outline-danger btn-sm"
+            style="float: right"
+            (click)="closeWatchlist()"
+        >
+            <i class="fas fa-times" style="cursor:pointer;"></i>
+        </button>
+        <h6 class="display-4">Create new watchlist</h6>
+        <!-- R E V I E W F O R M -->
+        <form
+            [formGroup]="watchlistForm"
+            (ngSubmit)="submitWatchlist()"
+            class="animated fadeInDown"
+        >
+            <div class="input-group pb-3">
+                <input
+                    type="text"
+                    class="form-control"
+                    formControlName="title"
+                    id="title"
+                    placeholder="Watchlist title"
+                />
+            </div>
+            <div class="form-group">
+                <textarea
+                    class="form-control rounded-0"
+                    formControlName="description"
+                    placeholder="Watchlist description..."
+                    rows="3"
+                ></textarea>
+            </div>
+            <!-- S U B M I T  -->
+            <div class="p-2 ml-auto">
+                <button
+                    class="btn btn-outline-success"
+                    type="submit"
+                    [disabled]="!watchlistForm.valid"
+                >
+                    Submit
+                </button>
+            </div>
+        </form>
+        <hr />
+    </div>
+
+    <app-footer></app-footer>
+</div>

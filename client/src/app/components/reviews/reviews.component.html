@@ -1,1 +1,16 @@
-<p>reviews works!</p>
+<div class="back animated fadeIn">
+    <app-navbar></app-navbar>
+    <div class="container">
+        <div class="box" *ngFor="let review of reviews">
+            <div class="boxContent">
+                <i class="fas fa-film icon"></i>
+                <h1 class="title">{{review.title}}</h1>
+                <h3 class="movie">{{review.movie.movieTitle}}</h3>
+                <p class="desc font-italic">
+                    {{review.author_id.username}}
+                </p>
+            </div>
+        </div>
+    </div>
+    <app-footer></app-footer>
+</div>

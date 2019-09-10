@@ -1,167 +1,178 @@
-const WatchlistService = require('../services/watchlist.service');
+const WatchlistService = require("../services/watchlist.service");
 
 class WatchlistController {
+  // ************************************************************
+  // * FIND ALL WATCHLISTS
+  static async findAllWatchlists(request, response) {
+    let watchlists, message;
 
-    // ************************************************************
-    // * FIND ALL WATCHLISTS
-    static async findAllWatchlists(request, response) {
-        let watchlists, message;
-
-        try {
-            watchlists = await WatchlistService.findAllWatchlists();
-        } catch (err) {
-            return response.status(500).json(err);
-        }
-
-        message = "Successfully retrieved watchlists!";
-        return response.status(202).json({ message, watchlists });
-
+    try {
+      watchlists = await WatchlistService.findAllWatchlists();
+    } catch (err) {
+      return response.status(500).json(err);
     }
 
-    // ************************************************************
-    // * FIND ALL WATCHLISTS FOR A SPECIFIC USER
-    static async findAllWatchlistsByAuthorId(request, response) {
-        let authorId = request.body.authorId;
+    message = "Successfully retrieved watchlists!";
+    return response.status(202).json({ message, watchlists });
+  }
 
-        let watchlists, message;
+  // ************************************************************
+  // * FIND ALL WATCHLISTS FOR A SPECIFIC USER
+  static async findAllWatchlistsByAuthorId(request, response) {
+    let authorId = request.query.id;
 
-        try {
-            watchlists = await WatchlistService.findAllWatchlists(authorId);
-        } catch (err) {
-            return response.status(500).json(err);
-        }
+    let watchlists, message;
 
-        message = "Successfully retrieved watchlists!";
-        return response.status(202).json({ message, watchlists });
-
+    try {
+      watchlists = await WatchlistService.findAllWatchlistsByAuthorId(authorId);
+    } catch (err) {
+      return response.status(500).json(err);
     }
 
-    // ************************************************************
-    // * FIND ALL WATCHLISTS BY NAME
-    static async findWatchlistsByName(request, response) {
-        let title = request.body.title;
+    message = "Successfully retrieved watchlists!";
+    return response.status(202).json({ message, watchlists });
+  }
 
-        let watchlists, message;
+  // ************************************************************
+  // * FIND ALL WATCHLISTS BY NAME
+  static async findWatchlistsByName(request, response) {
+    let title = request.query.title;
 
-        try {
-            watchlists = await WatchlistService.findWatchlistsByName(title);
-        } catch (err) {
-            return response.status(500).json(err);
-        }
+    let watchlists, message;
 
-        message = "Successfully retrieved watchlists!";
-        return response.status(202).json({ message, watchlists });
-
+    try {
+      watchlists = await WatchlistService.findWatchlistsByName(title);
+    } catch (err) {
+      return response.status(500).json(err);
     }
 
-    // ************************************************************
-    // * ADD MOVIE TO WATCHLIST
-    static async addMovieToWatchlist(request, response) {
-        let { watchlistId, movieId, movieTitle, moviePosterPath } = request.body;
-        let watchlist, message;
+    message = "Successfully retrieved watchlists!";
+    return response.status(202).json({ message, watchlists });
+  }
 
-        try {
-            watchlist = await WatchlistService.addMovieToWatchlist(watchlistId, movieId, movieTitle, moviePosterPath);
-        } catch (err) {
-            return response.status(500).json(err);
-        }
+  // ************************************************************
+  // * ADD MOVIE TO WATCHLIST
+  static async addMovieToWatchlist(request, response) {
+    let { watchlistId, movieId, movieTitle, moviePosterPath } = request.body;
+    let watchlist, message;
 
-        message = "Successfully retrieved watchlists!";
-        return response.status(202).json({ message, watchlist });
+    try {
+      watchlist = await WatchlistService.addMovieToWatchlist(
+        watchlistId,
+        movieId,
+        movieTitle,
+        moviePosterPath
+      );
+    } catch (err) {
+      return response.status(500).json(err);
     }
 
-    // ************************************************************
-    // * CREATE NEW WATCHLIST
-    static async createWatchlist(request, response) {
-        let title = request.body.title;
-        let description = request.body.description;
-        let authorId = request.body.authorId;
+    message = "Successfully retrieved watchlists!";
+    return response.status(202).json({ message, watchlist });
+  }
 
-        let watchlistResponse, message;
+  // ************************************************************
+  // * CREATE NEW WATCHLIST
+  static async createWatchlist(request, response) {
+    let title = request.body.title;
+    let description = request.body.description;
+    let authorId = request.body.authorId;
 
-        try {
-            watchlistResponse = await WatchlistService.createWatchlist(title, description, authorId);
-        } catch (err) {
-            console.log(err);
-            return response.status(500).json(err);
-        }
+    let watchlistResponse, message;
 
-        message = "Successfully added watchlist!";
-        return response.status(201).json({ message, watchlistResponse });
+    try {
+      watchlistResponse = await WatchlistService.createWatchlist(
+        title,
+        description,
+        authorId
+      );
+    } catch (err) {
+      console.log(err);
+      return response.status(500).json(err);
     }
 
-    // ************************************************************
-    // * LIKE WATCHLIST
-    static async likeWatchlist(request, response) {
-        let watchlistId = request.body.watchlistId;
+    message = "Successfully added watchlist!";
+    return response.status(201).json({ message, watchlistResponse });
+  }
 
-        let watchlistResponse, message;
+  // ************************************************************
+  // * LIKE WATCHLIST
+  static async likeWatchlist(request, response) {
+    let watchlistId = request.body.watchlistId;
 
-        try {
-            watchlistResponse = await WatchlistService.likeWatchlist(watchlistId);
-        } catch (err) {
-            console.log(err);
-            return response.status(500).json(err);
-        }
+    let watchlistResponse, message;
 
-        message = "Successfully liked watchlist!";
-        return response.status(201).json({ message, watchlistResponse });
+    try {
+      watchlistResponse = await WatchlistService.likeWatchlist(watchlistId);
+    } catch (err) {
+      console.log(err);
+      return response.status(500).json(err);
     }
 
-    // ************************************************************
-    // * UPDATE TITLE OR DESCRIPTION
-    static async updateTitleOrDescription(request, response) {
-        let watchlistId = request.body.watchlistId;
-        let title = request.body.title;
-        let description = request.body.description;
+    message = "Successfully liked watchlist!";
+    return response.status(201).json({ message, watchlistResponse });
+  }
 
-        let watchlistResponse, message;
+  // ************************************************************
+  // * UPDATE TITLE OR DESCRIPTION
+  static async updateTitleOrDescription(request, response) {
+    let watchlistId = request.body.watchlistId;
+    let title = request.body.title;
+    let description = request.body.description;
 
-        try {
-            watchlistResponse = await WatchlistService.updateTitleOrDescription(watchlistId, title, description);
-        } catch (err) {
-            return response.status(500).json(err);
-        }
+    let watchlistResponse, message;
 
-        message = "Successfully updated watchlist!";
-        return response.status(202).json({ message, watchlistResponse });
+    try {
+      watchlistResponse = await WatchlistService.updateTitleOrDescription(
+        watchlistId,
+        title,
+        description
+      );
+    } catch (err) {
+      return response.status(500).json(err);
     }
 
-    // ************************************************************
-    // * DELETE WATCHLIST
-    static async deleteWatchlist(request, response) {
-        let watchlistId = request.body.watchlistId;
+    message = "Successfully updated watchlist!";
+    return response.status(202).json({ message, watchlistResponse });
+  }
 
-        let message;
+  // ************************************************************
+  // * DELETE WATCHLIST
+  static async deleteWatchlist(request, response) {
+    let watchlistId = request.body.watchlistId;
 
-        try {
-            message = await WatchlistService.deleteWatchlist(watchlistId);
-        } catch (err) {
-            console.log(err);
-            return response.status(500).json(err);
-        }
+    let message;
 
-        return response.status(200).json({ message });
+    try {
+      message = await WatchlistService.deleteWatchlist(watchlistId);
+    } catch (err) {
+      console.log(err);
+      return response.status(500).json(err);
     }
 
-    // ************************************************************
-    // * DELETE MOVIE FROM WATCHLIST
-    static async deleteMovieFromWatchlist(request, response) {
-        let watchlistId = request.body.watchlistId;
-        let movieId = request.body.movieId;
+    return response.status(200).json({ message });
+  }
 
-        let message;
+  // ************************************************************
+  // * DELETE MOVIE FROM WATCHLIST
+  static async deleteMovieFromWatchlist(request, response) {
+    let watchlistId = request.body.watchlistId;
+    let movieId = request.body.movieId;
 
-        try {
-            message = await WatchlistService.deleteMovieFromWatchlist(watchlistId, movieId);
-        } catch (err) {
-            console.log(err);
-            return response.status(500).json(err);
-        }
+    let message;
 
-        return response.status(200).json({ message });
+    try {
+      message = await WatchlistService.deleteMovieFromWatchlist(
+        watchlistId,
+        movieId
+      );
+    } catch (err) {
+      console.log(err);
+      return response.status(500).json(err);
     }
 
+    return response.status(200).json({ message });
+  }
 }
 
 module.exports = WatchlistController;

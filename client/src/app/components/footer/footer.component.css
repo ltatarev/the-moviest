@@ -3,9 +3,11 @@ footer {
     background-attachment: fixed;
     background-position: center;
     display: inline-block;
-    height: 125px;
-    width: 100%;
-    padding: 50px;
+    height: 145px;
+    min-width: 100%;
+    overflow: auto;
+    padding: 40px;
+    padding-top: 30px;
     position: absolute;
     bottom: 0;
     font-family: "Montserrat", sans-serif;

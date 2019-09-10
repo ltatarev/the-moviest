@@ -3,6 +3,8 @@ let router = express.Router();
 
 const UserController = require("../controllers/user.controller");
 
+router.route("/findUserByUsername").get(UserController.findUserByUsername);
+
 router
   .route("/findAllCurrentlyWatching")
   .get(UserController.findAllCurrentlyWatching);

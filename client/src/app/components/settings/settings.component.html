@@ -4,14 +4,19 @@
     <div class="container p-3 m-3 w-75 rounded m-auto bg-light">
         <!-- update avatar form -->
         <div class="text-center m-auto pb-3">
-        <img class="m-auto" src="{{ avatarURL }}" height="50" (click)="shuffleAvatar()" /> 
-    </div>
+            <img
+                class="m-auto"
+                src="{{ avatarURL }}"
+                height="50"
+                (click)="shuffleAvatar()"
+            />
+        </div>
 
         <!-- update username form -->
         <form
             [formGroup]="usernameForm"
             (ngSubmit)="updateUsername()"
-            class="animated fadeInDown"
+            class="animated fadeInDown p-1"
         >
             <div class="input-group">
                 <div class="input-group-prepend">
@@ -40,7 +45,7 @@
         <form
             [formGroup]="passwordForm"
             (ngSubmit)="updatePassword()"
-            class="animated fadeInDown"
+            class="animated fadeInDown p-1"
         >
             <div class="input-group">
                 <div class="input-group-prepend">
@@ -63,13 +68,22 @@
                     </button>
                 </div>
             </div>
+            <p
+                class="text-danger"
+                *ngIf="
+                    passwordForm.invalid &&
+                    (passwordForm.touched || passwordForm.dirty)
+                "
+            >
+                Password should be between 3 and 15 characters long.
+            </p>
         </form>
         <hr />
         <!-- update bio, how much chars is max?? -->
         <form
             [formGroup]="bioForm"
             (ngSubmit)="updateBio()"
-            class="animated fadeInDown"
+            class="animated fadeInDown p-1"
         >
             <div class="input-group">
                 <div class="input-group-prepend">
@@ -92,13 +106,19 @@
                     </button>
                 </div>
             </div>
+            <p
+                class="text-danger"
+                *ngIf="bioForm.invalid && (bioForm.touched || bioForm.dirty)"
+            >
+                Bio should be max. 250 characters long.
+            </p>
         </form>
         <hr />
         <!-- update currently watching -->
         <form
             [formGroup]="currWatchingForm"
             (ngSubmit)="updateCurrentlyWatching()"
-            class="animated fadeInDown"
+            class="animated fadeInDown p-1"
         >
             <div class="input-group">
                 <div class="input-group-prepend">
@@ -128,7 +148,7 @@
         <form
             [formGroup]="favoritesForm"
             (ngSubmit)="updateFavorites()"
-            class="animated fadeInDown"
+            class="animated fadeInDown p-1"
         >
             <div class="input-group">
                 <div class="input-group-prepend">

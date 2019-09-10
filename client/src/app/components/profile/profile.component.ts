@@ -2,6 +2,9 @@ import { Component, OnInit } from "@angular/core";
 import { UserService } from "../../services/user.service";
 import { Observable } from "rxjs";
 import { User } from "src/app/classes/user";
+import { ReviewService } from "../../services/review.service";
+import { WatchlistService } from "../../services/watchlist.service";
+import { Router, ActivatedRoute } from "@angular/router";
 
 @Component({
     selector: "app-profile",
@@ -15,20 +18,42 @@ export class ProfileComponent implements OnInit {
     public avatarURL: any;
     public currentlyWatching: any;
     public favorites: any;
+    public userId: any;
 
-    constructor(private userService: UserService) {}
+    constructor(
+        private userService: UserService,
+        private router: Router,
+        private activatedRoute: ActivatedRoute
+    ) {
+        this.userId = this.userService.user.value._id;
+    }
 
     ngOnInit() {
         this.favorites = { movie: "", tvShow: "", actor: "", genre: "" };
-        this.getProfileData().subscribe(
-            (res: any) => {
-                this.user = res.user;
-            },
-            err => console.error(err),
-            () => {
-                this.fillProfile(this.user);
+
+        this.activatedRoute.params.subscribe(params => {
+            if (params.id) {
+                this.getProfileData(params.id).subscribe(
+                    (res: any) => {
+                        this.user = res.user;
+                    },
+                    err => console.error(err),
+                    () => {
+                        this.fillProfile(this.user);
+                    }
+                );
+            } else {
+                this.getProfileData(this.userId).subscribe(
+                    (res: any) => {
+                        this.user = res.user;
+                    },
+                    err => console.error(err),
+                    () => {
+                        this.fillProfile(this.user);
+                    }
+                );
             }
-        );
+        });
     }
 
     private fillProfile(user) {
@@ -39,7 +64,15 @@ export class ProfileComponent implements OnInit {
         this.favorites = user.favorites;
     }
 
-    private getProfileData() {
-        return this.userService.getProfileData(this.userService.user.value._id);
+    private getProfileData(id) {
+        return this.userService.getProfileData(id);
+    }
+
+    public getWatchlists() {
+        this.router.navigate(["watchlists", this.userId]);
+    }
+
+    public getReviews() {
+        this.router.navigate(["reviews", this.userId]);
     }
 }
