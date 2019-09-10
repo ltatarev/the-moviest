@@ -18,13 +18,13 @@ app.use(morgan("tiny"));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-app.use(express.static(path.join(__dirname, "../client/dist/the-moviest/")));
+app.use(express.static(path.join(__dirname, "../client/dist/")));
 
 const routes = require("./routes");
 app.use("/api/", routes);
 
 app.use("**", function(req, res) {
-  res.sendFile(path.join(__dirname, "../client/dist/the-moviest/index.html"));
+  res.sendFile(path.join(__dirname, "../client/dist/index.html"));
 });
 
 app.listen(server_port, server_host, function() {
