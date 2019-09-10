@@ -36,6 +36,7 @@ export class TvComponent implements OnInit {
         Romance: "💞",
         "Sci-Fi & Fantasy": "🧝",
         "Science Fiction": "🦸",
+        Soap: "💞",
         "TV Movie": "🎥",
         Thriller: "🔪",
         War: "⚔️",

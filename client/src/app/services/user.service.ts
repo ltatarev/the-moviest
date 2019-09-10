@@ -67,10 +67,10 @@ export class UserService {
 
     private handleError<T>(operation: string = "operation", result?: T) {
         return (response: any): Observable<T> => {
-            this.toasterService.error(
-                "Error has occured. Please try again."
-            );
-            // this.router.navigate(["welcome"]);
+            this.toasterService.error("Error has occured. Please try again.");
+            if (operation === "register" || operation === "login") {
+                this.router.navigate(["welcome"]);
+            }
             return of(result as T);
         };
     }
