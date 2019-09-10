@@ -18,7 +18,11 @@ export class ProfileComponent implements OnInit {
     public avatarURL: any;
     public currentlyWatching: any;
     public favorites: any;
+
+    // userId is currently logged in user
     public userId: any;
+    // id is user id (got through search or idk)
+    public id : any;
 
     constructor(
         private userService: UserService,
@@ -36,6 +40,7 @@ export class ProfileComponent implements OnInit {
                 this.getProfileData(params.id).subscribe(
                     (res: any) => {
                         this.user = res.user;
+                        this.id = params.id;
                     },
                     err => console.error(err),
                     () => {
@@ -69,10 +74,10 @@ export class ProfileComponent implements OnInit {
     }
 
     public getWatchlists() {
-        this.router.navigate(["watchlists", this.userId]);
+        this.router.navigate(["watchlists", this.id]);
     }
 
     public getReviews() {
-        this.router.navigate(["reviews", this.userId]);
+        this.router.navigate(["reviews", this.id]);
     }
 }

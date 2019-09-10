@@ -151,7 +151,7 @@ module.exports = "<div class=\"back animated fadeIn\">\r\n    <app-navbar></app-
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div id=\"back\">\r\n    <h1>Search results</h1>\r\n    <div class=\"card\">\r\n        <div class=\"card-title\">Title</div>\r\n        <div class=\"card-subtitle\">Subtitle</div>\r\n        <div class=\"card-body\">\r\n            This is some text within a card body.\r\n        </div>\r\n    </div>\r\n</div>\r\n"
+module.exports = "<div class=\"back\">\r\n    <app-navbar></app-navbar>\r\n    <div class=\"container\">\r\n        <h1 class=\"text-light display-4\">Search results</h1>\r\n        <h2 class=\"font-weight-bold font-italic text-light\" style=\"border-bottom: 2px solid salmon;\">{{title}}</h2>\r\n        <div class=\"div\" *ngFor=\"let data of displayData\">\r\n        <div class=\"card m-4 p-3\">\r\n            <div class=\"row\">\r\n                <div class=\"col-2\" *ngIf=\"data.img\">\r\n                    <img [src]=\"data.img\">\r\n                </div>\r\n                <div class=\"col\">\r\n                    <div class=\"card-title\">{{data.title}}</div>\r\n                    <div class=\"card-subtitle\">{{data.subtitle}}</div>\r\n                    <div class=\"card-body\">\r\n                        {{data.body}}\r\n                    </div>\r\n                </div>\r\n            </div>\r\n        </div>\r\n    </div>\r\n    </div>\r\n    <app-footer></app-footer>\r\n</div>\r\n"
 
 /***/ }),
 
@@ -184,7 +184,7 @@ module.exports = "<div class=\"back\">\r\n    <app-navbar></app-navbar>\r\n    <
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"back\">\r\n    <app-navbar></app-navbar>\r\n    <div\r\n        class=\"container mb-5 text-dark animated fadeInUp\"\r\n        *ngIf=\"!writingReview\"\r\n    >\r\n        <section class=\"product\">\r\n            <div class=\"product__photo\">\r\n                <div class=\"photo-container\">\r\n                    <div class=\"photo-main\">\r\n                        <img\r\n                            src=\"{{ tv?.poster_path }}\"\r\n                            style=\"width: 100%; \"\r\n                        />\r\n                    </div>\r\n                </div>\r\n            </div>\r\n            <div class=\"product__info\">\r\n                <div class=\"price\">\r\n                    <span>{{ tv.original_name }}</span>\r\n                </div>\r\n                <div class=\"description\">\r\n                    <p>{{ tv.overview }}</p>\r\n                    <hr />\r\n                    <h3 style=\"display: inline; padding: 7px;\">Genres:</h3>\r\n                    <p\r\n                        *ngFor=\"let genre of tv.genres\"\r\n                        style=\"display: inline; padding: 7px;\"\r\n                    >\r\n                        {{ genreEmojis[genre.name] }} {{ genre.name }}\r\n                    </p>\r\n                    <div class=\"pt-4\">\r\n                        <button\r\n                            class=\"btn btn-outline-success btn-sm m-1 p-2\"\r\n                            (click)=\"addToWatchlist()\"\r\n                        >\r\n                            <i class=\"fas fa-highlighter p-1\"></i> Add to\r\n                            watchlist\r\n                        </button>\r\n                        <button\r\n                            class=\"btn btnPink btn-sm m-1\"\r\n                            (click)=\"writeReview()\"\r\n                        >\r\n                            <i class=\"fas fa-clipboard-list p-1\"></i> Write a\r\n                            review\r\n                        </button>\r\n                    </div>\r\n                </div>\r\n            </div>\r\n        </section>\r\n    </div>\r\n\r\n    <!-- R E V I E W  -->\r\n    <div\r\n        class=\"text-center container mb-5 bg-light p-5 rounded animated fadeInUp\"\r\n        *ngIf=\"writingReview\"\r\n    >\r\n        <button\r\n            class=\"btn btn-outline-danger btn-sm ml-auto\"\r\n            (click)=\"closeReview()\"\r\n        >\r\n            <i class=\"fas fa-times\" style=\"cursor:pointer;\"></i>\r\n        </button>\r\n        <h6 class=\"display-4\">Write a review</h6>\r\n        <!-- R E V I E W F O R M -->\r\n        <form\r\n            [formGroup]=\"reviewForm\"\r\n            (ngSubmit)=\"submitReview()\"\r\n            class=\"animated fadeInDown\"\r\n        >\r\n            <!-- T E M P L A T E  -->\r\n            <ng-template #t let-i=\"index\" let-v=\"value\">\r\n                <button\r\n                    type=\"button\"\r\n                    class=\"btn btn-sm btn{{ i < v ? 'Pink' : '-default' }}\"\r\n                    style=\"border-radius: 10px; transition: all 0.1s;\"\r\n                >\r\n                    {{ i < v ? \"&#9733;\" : \"&#9734;\" }}\r\n                </button>\r\n            </ng-template>\r\n            <!-- R A T I N G  -->\r\n            <div class=\"p-3\">\r\n                <rating\r\n                    [max]=\"5\"\r\n                    formControlName=\"rating\"\r\n                    [customTemplate]=\"t\"\r\n                    style=\"font-size: 20px;\"\r\n                ></rating>\r\n            </div>\r\n            <div class=\"input-group pb-3\">\r\n                <input\r\n                    type=\"text\"\r\n                    class=\"form-control\"\r\n                    formControlName=\"title\"\r\n                    id=\"title\"\r\n                    placeholder=\"Review title\"\r\n                />\r\n            </div>\r\n            <div class=\"form-group\">\r\n                <textarea\r\n                    class=\"form-control rounded-0\"\r\n                    formControlName=\"reviewText\"\r\n                    placeholder=\"Review text...\"\r\n                    rows=\"3\"\r\n                ></textarea>\r\n            </div>\r\n            <!-- S U B M I T  -->\r\n            <div class=\"p-2 ml-auto\">\r\n                <button\r\n                    class=\"btn btn-outline-success\"\r\n                    type=\"submit\"\r\n                    [disabled]=\"!reviewForm.valid\"\r\n                >\r\n                    Submit\r\n                </button>\r\n            </div>\r\n        </form>\r\n        <hr />\r\n    </div>\r\n\r\n    <app-footer></app-footer>\r\n</div>\r\n"
+module.exports = "<div class=\"back\">\r\n    <app-navbar></app-navbar>\r\n    <div\r\n        class=\"container mb-5 text-dark animated fadeInUp\"\r\n        *ngIf=\"!writingReview\"\r\n    >\r\n        <section class=\"product\">\r\n            <div class=\"product__photo\">\r\n                <div class=\"photo-container\">\r\n                    <div class=\"photo-main\">\r\n                        <img\r\n                            src=\"{{ tv?.poster_path }}\"\r\n                            style=\"width: 100%; \"\r\n                        />\r\n                    </div>\r\n                </div>\r\n            </div>\r\n            <div class=\"product__info\">\r\n                <div class=\"price\">\r\n                    <span>{{ tv.original_name }}</span>\r\n                </div>\r\n                <div class=\"description\">\r\n                    <p>{{ tv.overview }}</p>\r\n                    <hr />\r\n                    <h3 style=\"display: inline; padding: 7px;\">Genres:</h3>\r\n                    <p\r\n                        *ngFor=\"let genre of tv.genres\"\r\n                        style=\"display: inline; padding: 7px;\"\r\n                    >\r\n                        {{ genreEmojis[genre.name] }} {{ genre.name }}\r\n                    </p>\r\n                    <div class=\"pt-4\">\r\n                        <button\r\n                            class=\"btn btn-outline-success btn-sm m-1 p-2\"\r\n                            (click)=\"addToWatchlist()\"\r\n                        >\r\n                            <i class=\"fas fa-highlighter p-1\"></i> Add to\r\n                            watchlist\r\n                        </button>\r\n                        <button\r\n                            class=\"btn btnPink btn-sm m-1\"\r\n                            (click)=\"writeReview()\"\r\n                        >\r\n                            <i class=\"fas fa-clipboard-list p-1\"></i> Write a\r\n                            review\r\n                        </button>\r\n                    </div>\r\n                </div>\r\n            </div>\r\n        </section>\r\n    </div>\r\n\r\n    <!-- R E V I E W  -->\r\n    <div\r\n        class=\"text-center container mb-5 bg-light p-5 rounded animated fadeInUp\"\r\n        *ngIf=\"writingReview\"\r\n    >\r\n        <button\r\n            class=\"btn btn-outline-danger btn-sm ml-auto\"\r\n            (click)=\"closeReview()\"\r\n        >\r\n            <i class=\"fas fa-times\" style=\"cursor:pointer;\"></i>\r\n        </button>\r\n        <h6 class=\"display-4\">Write a review</h6>\r\n        <!-- R E V I E W F O R M -->\r\n        <form\r\n            [formGroup]=\"reviewForm\"\r\n            (ngSubmit)=\"submitReview()\"\r\n            class=\"animated fadeInDown\"\r\n        >\r\n            <!-- T E M P L A T E  -->\r\n            <ng-template #t let-i=\"index\" let-v=\"value\">\r\n                <button\r\n                    type=\"button\"\r\n                    class=\"btn btn-sm btn{{ i < v ? 'Pink' : '-default'}} p-2\"\r\n                    style=\"border-radius: 10px; transition: all 0.1s;\"\r\n                >\r\n                    {{ i < v ? \"&#9733;\" : \"&#9734;\" }}\r\n                </button>\r\n            </ng-template>\r\n            <!-- R A T I N G  -->\r\n            <div class=\"p-3\">\r\n                <rating\r\n                    [max]=\"5\"\r\n                    formControlName=\"rating\"\r\n                    [customTemplate]=\"t\"\r\n                    style=\"font-size: 20px;\"\r\n                ></rating>\r\n            </div>\r\n            <div class=\"input-group pb-3\">\r\n                <input\r\n                    type=\"text\"\r\n                    class=\"form-control\"\r\n                    formControlName=\"title\"\r\n                    id=\"title\"\r\n                    placeholder=\"Review title\"\r\n                />\r\n            </div>\r\n            <div class=\"form-group\">\r\n                <textarea\r\n                    class=\"form-control rounded-0\"\r\n                    formControlName=\"reviewText\"\r\n                    placeholder=\"Review text...\"\r\n                    rows=\"3\"\r\n                ></textarea>\r\n            </div>\r\n            <!-- S U B M I T  -->\r\n            <div class=\"p-2 ml-auto\">\r\n                <button\r\n                    class=\"btn btn-outline-success\"\r\n                    type=\"submit\"\r\n                    [disabled]=\"!reviewForm.valid\"\r\n                >\r\n                    Submit\r\n                </button>\r\n            </div>\r\n        </form>\r\n        <hr />\r\n    </div>\r\n\r\n    <app-footer></app-footer>\r\n</div>\r\n"
 
 /***/ }),
 
@@ -236,6 +236,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_settings_settings_component__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./components/settings/settings.component */ "./src/app/components/settings/settings.component.ts");
 /* harmony import */ var _components_search_search_component__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./components/search/search.component */ "./src/app/components/search/search.component.ts");
 /* harmony import */ var _components_tv_tv_component__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ./components/tv/tv.component */ "./src/app/components/tv/tv.component.ts");
+/* harmony import */ var _components_search_result_search_result_component__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ./components/search-result/search-result.component */ "./src/app/components/search-result/search-result.component.ts");
+
 
 
 
@@ -288,6 +290,7 @@ const routes = [
         canActivate: [_guards_auth_guard__WEBPACK_IMPORTED_MODULE_3__["AuthGuard"]]
     },
     { path: "search", component: _components_search_search_component__WEBPACK_IMPORTED_MODULE_14__["SearchComponent"], canActivate: [_guards_auth_guard__WEBPACK_IMPORTED_MODULE_3__["AuthGuard"]] },
+    { path: "searchResult", component: _components_search_result_search_result_component__WEBPACK_IMPORTED_MODULE_16__["SearchResultComponent"], canActivate: [_guards_auth_guard__WEBPACK_IMPORTED_MODULE_3__["AuthGuard"]] },
     {
         path: "profile/:id",
         component: _components_profile_profile_component__WEBPACK_IMPORTED_MODULE_12__["ProfileComponent"],
@@ -1154,6 +1157,7 @@ let ProfileComponent = class ProfileComponent {
             if (params.id) {
                 this.getProfileData(params.id).subscribe((res) => {
                     this.user = res.user;
+                    this.id = params.id;
                 }, err => console.error(err), () => {
                     this.fillProfile(this.user);
                 });
@@ -1178,10 +1182,10 @@ let ProfileComponent = class ProfileComponent {
         return this.userService.getProfileData(id);
     }
     getWatchlists() {
-        this.router.navigate(["watchlists", this.userId]);
+        this.router.navigate(["watchlists", this.id]);
     }
     getReviews() {
-        this.router.navigate(["reviews", this.userId]);
+        this.router.navigate(["reviews", this.id]);
     }
 };
 ProfileComponent.ctorParameters = () => [
@@ -1379,7 +1383,7 @@ ReviewsComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = ".back {\r\n    background-image: url('13.jpg');\r\n    background-attachment: fixed;\r\n    background-size: cover;\r\n    position: relative;\r\n    height: 100%;\r\n    overflow: auto;\r\n    font-family: \"Montserrat\", sans-serif;\r\n    font-size: 30px;\r\n    padding-bottom: 155px;\r\n    min-height: 100vh;\r\n    min-width: 100vw;\r\n    margin: 0;\r\n    width: 100%;\r\n}\r\n\r\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvY29tcG9uZW50cy9zZWFyY2gtcmVzdWx0L3NlYXJjaC1yZXN1bHQuY29tcG9uZW50LmNzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQTtJQUNJLCtCQUFzRDtJQUN0RCw0QkFBNEI7SUFDNUIsc0JBQXNCO0lBQ3RCLGtCQUFrQjtJQUNsQixZQUFZO0lBQ1osY0FBYztJQUNkLHFDQUFxQztJQUNyQyxlQUFlO0lBQ2YscUJBQXFCO0lBQ3JCLGlCQUFpQjtJQUNqQixnQkFBZ0I7SUFDaEIsU0FBUztJQUNULFdBQVc7QUFDZiIsImZpbGUiOiJzcmMvYXBwL2NvbXBvbmVudHMvc2VhcmNoLXJlc3VsdC9zZWFyY2gtcmVzdWx0LmNvbXBvbmVudC5jc3MiLCJzb3VyY2VzQ29udGVudCI6WyIuYmFjayB7XHJcbiAgICBiYWNrZ3JvdW5kLWltYWdlOiB1cmwoXCIuLi8uLi8uLi9hc3NldHMvaW1nL2JnLzEzLmpwZ1wiKTtcclxuICAgIGJhY2tncm91bmQtYXR0YWNobWVudDogZml4ZWQ7XHJcbiAgICBiYWNrZ3JvdW5kLXNpemU6IGNvdmVyO1xyXG4gICAgcG9zaXRpb246IHJlbGF0aXZlO1xyXG4gICAgaGVpZ2h0OiAxMDAlO1xyXG4gICAgb3ZlcmZsb3c6IGF1dG87XHJcbiAgICBmb250LWZhbWlseTogXCJNb250c2VycmF0XCIsIHNhbnMtc2VyaWY7XHJcbiAgICBmb250LXNpemU6IDMwcHg7XHJcbiAgICBwYWRkaW5nLWJvdHRvbTogMTU1cHg7XHJcbiAgICBtaW4taGVpZ2h0OiAxMDB2aDtcclxuICAgIG1pbi13aWR0aDogMTAwdnc7XHJcbiAgICBtYXJnaW46IDA7XHJcbiAgICB3aWR0aDogMTAwJTtcclxufVxyXG4iXX0= */"
+module.exports = ".back {\r\n    background-image: url('14.jpg');\r\n    background-attachment: fixed;\r\n    background-size: cover;\r\n    position: relative;\r\n    height: 100%;\r\n    overflow: hidden;\r\n    font-family: \"Montserrat\", sans-serif;\r\n    font-size: 30px;\r\n    padding-bottom: 125px;\r\n    min-height: 100vh;\r\n    padding-bottom: 155px;\r\n    min-width: 100vw;\r\n    width: 100%;\r\n}\r\n\r\n.card-title {\r\n    font-weight: bold;\r\n    font-size: 21px;\r\n}\r\n\r\n.card-subtitle{\r\n    font-style: italic;\r\n    font-size: 18px;\r\n    border-bottom: 2px solid palevioletred;\r\n}\r\n\r\n.card-body {\r\n    font-size: 13px;\r\n}\r\n\r\nimg {\r\n    -o-object-fit: scale-down;\r\n       object-fit: scale-down;\r\n    max-width: 100%;\r\n}\r\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvY29tcG9uZW50cy9zZWFyY2gtcmVzdWx0L3NlYXJjaC1yZXN1bHQuY29tcG9uZW50LmNzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQTtJQUNJLCtCQUFzRDtJQUN0RCw0QkFBNEI7SUFDNUIsc0JBQXNCO0lBQ3RCLGtCQUFrQjtJQUNsQixZQUFZO0lBQ1osZ0JBQWdCO0lBQ2hCLHFDQUFxQztJQUNyQyxlQUFlO0lBQ2YscUJBQXFCO0lBQ3JCLGlCQUFpQjtJQUNqQixxQkFBcUI7SUFDckIsZ0JBQWdCO0lBQ2hCLFdBQVc7QUFDZjs7QUFFQTtJQUNJLGlCQUFpQjtJQUNqQixlQUFlO0FBQ25COztBQUVBO0lBQ0ksa0JBQWtCO0lBQ2xCLGVBQWU7SUFDZixzQ0FBc0M7QUFDMUM7O0FBRUE7SUFDSSxlQUFlO0FBQ25COztBQUVBO0lBQ0kseUJBQXNCO09BQXRCLHNCQUFzQjtJQUN0QixlQUFlO0FBQ25CIiwiZmlsZSI6InNyYy9hcHAvY29tcG9uZW50cy9zZWFyY2gtcmVzdWx0L3NlYXJjaC1yZXN1bHQuY29tcG9uZW50LmNzcyIsInNvdXJjZXNDb250ZW50IjpbIi5iYWNrIHtcclxuICAgIGJhY2tncm91bmQtaW1hZ2U6IHVybChcIi4uLy4uLy4uL2Fzc2V0cy9pbWcvYmcvMTQuanBnXCIpO1xyXG4gICAgYmFja2dyb3VuZC1hdHRhY2htZW50OiBmaXhlZDtcclxuICAgIGJhY2tncm91bmQtc2l6ZTogY292ZXI7XHJcbiAgICBwb3NpdGlvbjogcmVsYXRpdmU7XHJcbiAgICBoZWlnaHQ6IDEwMCU7XHJcbiAgICBvdmVyZmxvdzogaGlkZGVuO1xyXG4gICAgZm9udC1mYW1pbHk6IFwiTW9udHNlcnJhdFwiLCBzYW5zLXNlcmlmO1xyXG4gICAgZm9udC1zaXplOiAzMHB4O1xyXG4gICAgcGFkZGluZy1ib3R0b206IDEyNXB4O1xyXG4gICAgbWluLWhlaWdodDogMTAwdmg7XHJcbiAgICBwYWRkaW5nLWJvdHRvbTogMTU1cHg7XHJcbiAgICBtaW4td2lkdGg6IDEwMHZ3O1xyXG4gICAgd2lkdGg6IDEwMCU7XHJcbn1cclxuXHJcbi5jYXJkLXRpdGxlIHtcclxuICAgIGZvbnQtd2VpZ2h0OiBib2xkO1xyXG4gICAgZm9udC1zaXplOiAyMXB4O1xyXG59XHJcblxyXG4uY2FyZC1zdWJ0aXRsZXtcclxuICAgIGZvbnQtc3R5bGU6IGl0YWxpYztcclxuICAgIGZvbnQtc2l6ZTogMThweDtcclxuICAgIGJvcmRlci1ib3R0b206IDJweCBzb2xpZCBwYWxldmlvbGV0cmVkO1xyXG59XHJcblxyXG4uY2FyZC1ib2R5IHtcclxuICAgIGZvbnQtc2l6ZTogMTNweDtcclxufVxyXG5cclxuaW1nIHtcclxuICAgIG9iamVjdC1maXQ6IHNjYWxlLWRvd247XHJcbiAgICBtYXgtd2lkdGg6IDEwMCU7XHJcbn0iXX0= */"
 
 /***/ }),
 
@@ -1395,20 +1399,77 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SearchResultComponent", function() { return SearchResultComponent; });
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm2015/core.js");
+/* harmony import */ var src_app_services_data_provider_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! src/app/services/data-provider.service */ "./src/app/services/data-provider.service.ts");
+
 
 
 let SearchResultComponent = class SearchResultComponent {
-    // TODO: display movie,tv,reviews,watchlist search results
-    constructor() { }
+    constructor(dataProvider) {
+        this.dataProvider = dataProvider;
+        this.displayData = [];
+        this.data = this.dataProvider.data;
+        switch (this.data.type) {
+            case "reviews":
+                this.parseReview(this.data.reviews);
+                this.title = "Reviews for: " + this.data.reviews[0].movie.movieTitle;
+                break;
+            case "watchlist":
+                this.parseWatchlist(this.data.watchlists);
+                this.title = "Watchlists";
+                break;
+            case "tvShow":
+                this.parseTv(this.data.res.results);
+                this.title = "TV shows";
+                break;
+            case "movie":
+                this.parseMovie(this.data.res.results);
+                this.title = "Movies";
+                break;
+        }
+    }
     ngOnInit() { }
+    parseReview(data) {
+        for (let review of data) {
+            this.displayData.push({ title: review.title, subtitle: review.rating.toString() + "/5", body: review.reviewText });
+        }
+        this.dataProvider.removeData();
+    }
+    parseWatchlist(data) {
+        for (let watchlist of data) {
+            let movieTitles = JSON.stringify(watchlist.movies.map(movie => movie.movieTitle)).replace("[", "").replace("]", "");
+            this.displayData.push({ title: watchlist.title, subtitle: watchlist.description, body: movieTitles, img: data.movies ? data.movies[0].moviePosterPath : "" });
+        }
+        this.dataProvider.removeData();
+    }
+    parseTv(data) {
+        for (let tv of data) {
+            if (!tv.overview || !tv.vote_average || !tv.poster_path) {
+                continue;
+            }
+            this.displayData.push({ title: tv.original_name, subtitle: tv.vote_average + "/10", body: tv.overview, img: tv.poster_path ? "https://image.tmdb.org/t/p/w500/" + tv.poster_path : "" });
+        }
+        this.dataProvider.removeData();
+    }
+    parseMovie(data) {
+        for (let movie of data) {
+            if (!movie.overview || !movie.vote_average || !movie.poster_path) {
+                continue;
+            }
+            this.displayData.push({ title: movie.original_title, subtitle: movie.vote_average + "/10", body: movie.overview, img: movie.poster_path ? "https://image.tmdb.org/t/p/w500/" + movie.poster_path : "" });
+        }
+        this.dataProvider.removeData();
+    }
 };
+SearchResultComponent.ctorParameters = () => [
+    { type: src_app_services_data_provider_service__WEBPACK_IMPORTED_MODULE_2__["DataProviderService"] }
+];
 SearchResultComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
     Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
         selector: "app-search-result",
         template: __webpack_require__(/*! raw-loader!./search-result.component.html */ "./node_modules/raw-loader/index.js!./src/app/components/search-result/search-result.component.html"),
         styles: [__webpack_require__(/*! ./search-result.component.css */ "./src/app/components/search-result/search-result.component.css")]
     }),
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [])
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [src_app_services_data_provider_service__WEBPACK_IMPORTED_MODULE_2__["DataProviderService"]])
 ], SearchResultComponent);
 
 
@@ -1444,6 +1505,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var src_app_services_user_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! src/app/services/user.service */ "./src/app/services/user.service.ts");
 /* harmony import */ var src_app_services_review_service__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! src/app/services/review.service */ "./src/app/services/review.service.ts");
 /* harmony import */ var src_app_services_watchlist_service__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! src/app/services/watchlist.service */ "./src/app/services/watchlist.service.ts");
+/* harmony import */ var src_app_services_data_provider_service__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! src/app/services/data-provider.service */ "./src/app/services/data-provider.service.ts");
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm2015/router.js");
+
+
 
 
 
@@ -1453,13 +1518,15 @@ __webpack_require__.r(__webpack_exports__);
 
 
 let SearchComponent = class SearchComponent {
-    constructor(fb, movieService, tvService, userService, reviewService, watchlistService) {
+    constructor(fb, movieService, tvService, userService, reviewService, watchlistService, dataProviderService, router) {
         this.fb = fb;
         this.movieService = movieService;
         this.tvService = tvService;
         this.userService = userService;
         this.reviewService = reviewService;
         this.watchlistService = watchlistService;
+        this.dataProviderService = dataProviderService;
+        this.router = router;
         this.searchForm = this.fb.group({
             search: this.fb.control([], _angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].required),
             type: this.fb.control([], _angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].required)
@@ -1472,19 +1539,29 @@ let SearchComponent = class SearchComponent {
             case "watchlist":
                 this.watchlistService
                     .findWatchlistsByName(value.search)
-                    .subscribe();
+                    .subscribe(res => {
+                    this.dataProviderService.setData({ watchlists: res.watchlists, type: "watchlist" });
+                });
                 break;
             case "review":
-                this.reviewService.findReviewByMovie(value.search).subscribe();
+                this.reviewService.findReviewByMovie(value.search).subscribe(res => {
+                    this.dataProviderService.setData({ reviews: res.reviews, type: "reviews" });
+                });
                 break;
             case "profile":
                 this.userService.findUserByUsername(value.search).subscribe();
                 break;
             case "tvShow":
-                this.tvService.searchByName(value.search).subscribe();
+                this.tvService.searchByName(value.search).subscribe(res => {
+                    this.dataProviderService.setData({ res, type: "tvShow" });
+                    this.router.navigate(["searchResult"]);
+                });
                 break;
             case "movie":
-                this.movieService.searchByName(value.search).subscribe();
+                this.movieService.searchByName(value.search).subscribe(res => {
+                    this.dataProviderService.setData({ res, type: "movie" });
+                    this.router.navigate(["searchResult"]);
+                });
                 break;
         }
     }
@@ -1495,7 +1572,9 @@ SearchComponent.ctorParameters = () => [
     { type: _services_tv_service__WEBPACK_IMPORTED_MODULE_4__["TvService"] },
     { type: src_app_services_user_service__WEBPACK_IMPORTED_MODULE_5__["UserService"] },
     { type: src_app_services_review_service__WEBPACK_IMPORTED_MODULE_6__["ReviewService"] },
-    { type: src_app_services_watchlist_service__WEBPACK_IMPORTED_MODULE_7__["WatchlistService"] }
+    { type: src_app_services_watchlist_service__WEBPACK_IMPORTED_MODULE_7__["WatchlistService"] },
+    { type: src_app_services_data_provider_service__WEBPACK_IMPORTED_MODULE_8__["DataProviderService"] },
+    { type: _angular_router__WEBPACK_IMPORTED_MODULE_9__["Router"] }
 ];
 SearchComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
     Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
@@ -1508,7 +1587,9 @@ SearchComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         _services_tv_service__WEBPACK_IMPORTED_MODULE_4__["TvService"],
         src_app_services_user_service__WEBPACK_IMPORTED_MODULE_5__["UserService"],
         src_app_services_review_service__WEBPACK_IMPORTED_MODULE_6__["ReviewService"],
-        src_app_services_watchlist_service__WEBPACK_IMPORTED_MODULE_7__["WatchlistService"]])
+        src_app_services_watchlist_service__WEBPACK_IMPORTED_MODULE_7__["WatchlistService"],
+        src_app_services_data_provider_service__WEBPACK_IMPORTED_MODULE_8__["DataProviderService"],
+        _angular_router__WEBPACK_IMPORTED_MODULE_9__["Router"]])
 ], SearchComponent);
 
 
@@ -1924,7 +2005,7 @@ WatchlistsComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "#background {\r\n    position: fixed;\r\n    top: 0;\r\n    left: 0;\r\n    right: 0;\r\n    bottom: 0;\r\n    /*     max-width: 100%;\r\n    max-height: 100%;\r\n    min-width: 100vw;\r\n    background-position: right center;\r\n    background-size: cover;\r\n    animation: slideBg 10s infinite 1s;*/\r\n    background-image: url('1.jpg');   \r\n    margin: 0 auto;\r\n    height: 100%;\r\n    width: 100%;\r\n    font-family: \"Montserrat\", sans-serif;\r\n    overflow: hidden;\r\n    position: absolute;\r\n    top: 0;\r\n    -o-object-fit: cover;\r\n       object-fit: cover;\r\n    max-width: 100vw;\r\n    max-height: 100vh;\r\n    z-index: -1000;\r\n}\r\n\r\n@-webkit-keyframes slideBg {\r\n    0% {\r\n        background-image: url('1.jpg');\r\n    }\r\n    30% {\r\n        background-image: url('3.jpg');\r\n    }\r\n    60% {\r\n        background-image: url('4.jpg');\r\n    }\r\n    100% {\r\n        background-image: url('1.jpg');\r\n    }\r\n}\r\n\r\n@keyframes slideBg {\r\n    0% {\r\n        background-image: url('1.jpg');\r\n    }\r\n    30% {\r\n        background-image: url('3.jpg');\r\n    }\r\n    60% {\r\n        background-image: url('4.jpg');\r\n    }\r\n    100% {\r\n        background-image: url('1.jpg');\r\n    }\r\n}\r\n\r\n.fluid-container {\r\n    height: 100%;\r\n    width: 100%;\r\n}\r\n\r\n.nav {\r\n    padding-top: 50px;\r\n    padding-left: 60px;\r\n}\r\n\r\n#login {\r\n    padding: 10px;\r\n    font-weight: bold;\r\n    color: white;\r\n    letter-spacing: 5px;\r\n}\r\n\r\n#register {\r\n    border: 2px solid white;\r\n    border-radius: 50px;\r\n    padding: 10px;\r\n    font-weight: bold;\r\n    color: white;\r\n    font-family: \"Montserrat\", sans-serif;\r\n    letter-spacing: 5px;\r\n    margin-left: 70px;\r\n    box-shadow: 6px 6px 0px 0px rgba(230, 62, 66, 1);\r\n    -webkit-animation-name: slideBoxShadowIn;\r\n            animation-name: slideBoxShadowIn;\r\n    -webkit-animation-duration: 300ms;\r\n            animation-duration: 300ms;\r\n    -webkit-animation-timing-function: ease-out;\r\n            animation-timing-function: ease-out;\r\n}\r\n\r\n#register:hover {\r\n    background: rgba(230, 62, 66, 1);\r\n    -webkit-animation-name: slideBoxShadowOut;\r\n            animation-name: slideBoxShadowOut;\r\n    -webkit-animation-duration: 300ms;\r\n            animation-duration: 300ms;\r\n    font-family: \"Montserrat\", sans-serif;\r\n    -webkit-animation-timing-function: ease-in;\r\n            animation-timing-function: ease-in;\r\n    box-shadow: none;\r\n}\r\n\r\n@-webkit-keyframes slideBoxShadowOut {\r\n    0% {\r\n        background: rgba(230, 62, 66, 0);\r\n        box-shadow: 6px 6px 0px 0px rgba(230, 62, 66, 1);\r\n    }\r\n    50% {\r\n        background: rgba(230, 62, 66, 0.4);\r\n        box-shadow: 2px 2px 0px 0px rgba(230, 62, 66, 0.5);\r\n    }\r\n    100% {\r\n        background: rgba(230, 62, 66, 1);\r\n        box-shadow: none;\r\n    }\r\n}\r\n\r\n@keyframes slideBoxShadowOut {\r\n    0% {\r\n        background: rgba(230, 62, 66, 0);\r\n        box-shadow: 6px 6px 0px 0px rgba(230, 62, 66, 1);\r\n    }\r\n    50% {\r\n        background: rgba(230, 62, 66, 0.4);\r\n        box-shadow: 2px 2px 0px 0px rgba(230, 62, 66, 0.5);\r\n    }\r\n    100% {\r\n        background: rgba(230, 62, 66, 1);\r\n        box-shadow: none;\r\n    }\r\n}\r\n\r\n@-webkit-keyframes slideBoxShadowIn {\r\n    0% {\r\n        box-shadow: none;\r\n    }\r\n    50% {\r\n        box-shadow: 2px 2px 0px 0px rgba(230, 62, 66, 0.5);\r\n    }\r\n    100% {\r\n        box-shadow: 6px 6px 0px 0px rgba(230, 62, 66, 1);\r\n    }\r\n}\r\n\r\n@keyframes slideBoxShadowIn {\r\n    0% {\r\n        box-shadow: none;\r\n    }\r\n    50% {\r\n        box-shadow: 2px 2px 0px 0px rgba(230, 62, 66, 0.5);\r\n    }\r\n    100% {\r\n        box-shadow: 6px 6px 0px 0px rgba(230, 62, 66, 1);\r\n    }\r\n}\r\n\r\na:hover {\r\n    text-decoration: none;\r\n}\r\n\r\n.cool-link {\r\n    display: inline-block;\r\n    color: white;\r\n    text-decoration: none;\r\n}\r\n\r\n.cool-link::after {\r\n    content: \"\";\r\n    display: block;\r\n    width: 0;\r\n    height: 2px;\r\n    background: rgb(255, 255, 255);\r\n    transition: width 0.3s;\r\n}\r\n\r\n.cool-link:hover::after {\r\n    width: 100%;\r\n    transition: width 0.3s;\r\n}\r\n\r\n.noselect {\r\n    -webkit-touch-callout: none; /* iOS Safari */\r\n    -webkit-user-select: none; /* Safari */ /* Konqueror HTML */\r\n    -moz-user-select: none; /* Firefox */\r\n    -ms-user-select: none; /* Internet Explorer/Edge */\r\n    user-select: none; /* Non-prefixed version, currently\r\n                                        supported by Chrome and Opera */\r\n}\r\n\r\nimg {\r\n    max-width: 600px;\r\n}\r\n\r\np.cool-link:hover {\r\n    cursor: pointer;\r\n}\r\n\r\n#learnMore {\r\n    position: absolute;\r\n    bottom: 0;\r\n    right: 0;\r\n    top: 50%;\r\n    left:0;\r\n    background-color: white;\r\n    border-radius: 20px;\r\n}\r\n\r\n#learnMore.lead {\r\n    border-radius: 25px;\r\n    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);\r\n}\r\n\r\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvY29tcG9uZW50cy93ZWxjb21lL3dlbGNvbWUuY29tcG9uZW50LmNzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQTtJQUNJLGVBQWU7SUFDZixNQUFNO0lBQ04sT0FBTztJQUNQLFFBQVE7SUFDUixTQUFTO0lBQ1Q7Ozs7O3dDQUtvQztJQUNwQyw4QkFBcUQ7SUFDckQsY0FBYztJQUNkLFlBQVk7SUFDWixXQUFXO0lBQ1gscUNBQXFDO0lBQ3JDLGdCQUFnQjtJQUNoQixrQkFBa0I7SUFDbEIsTUFBTTtJQUNOLG9CQUFpQjtPQUFqQixpQkFBaUI7SUFDakIsZ0JBQWdCO0lBQ2hCLGlCQUFpQjtJQUNqQixjQUFjO0FBQ2xCOztBQUVBO0lBQ0k7UUFDSSw4QkFBcUQ7SUFDekQ7SUFDQTtRQUNJLDhCQUFxRDtJQUN6RDtJQUNBO1FBQ0ksOEJBQXFEO0lBQ3pEO0lBQ0E7UUFDSSw4QkFBcUQ7SUFDekQ7QUFDSjs7QUFiQTtJQUNJO1FBQ0ksOEJBQXFEO0lBQ3pEO0lBQ0E7UUFDSSw4QkFBcUQ7SUFDekQ7SUFDQTtRQUNJLDhCQUFxRDtJQUN6RDtJQUNBO1FBQ0ksOEJBQXFEO0lBQ3pEO0FBQ0o7O0FBRUE7SUFDSSxZQUFZO0lBQ1osV0FBVztBQUNmOztBQUVBO0lBQ0ksaUJBQWlCO0lBQ2pCLGtCQUFrQjtBQUN0Qjs7QUFFQTtJQUNJLGFBQWE7SUFDYixpQkFBaUI7SUFDakIsWUFBWTtJQUNaLG1CQUFtQjtBQUN2Qjs7QUFFQTtJQUNJLHVCQUF1QjtJQUN2QixtQkFBbUI7SUFDbkIsYUFBYTtJQUNiLGlCQUFpQjtJQUNqQixZQUFZO0lBQ1oscUNBQXFDO0lBQ3JDLG1CQUFtQjtJQUNuQixpQkFBaUI7SUFHakIsZ0RBQWdEO0lBQ2hELHdDQUFnQztZQUFoQyxnQ0FBZ0M7SUFDaEMsaUNBQXlCO1lBQXpCLHlCQUF5QjtJQUN6QiwyQ0FBbUM7WUFBbkMsbUNBQW1DO0FBQ3ZDOztBQUVBO0lBQ0ksZ0NBQWdDO0lBQ2hDLHlDQUFpQztZQUFqQyxpQ0FBaUM7SUFDakMsaUNBQXlCO1lBQXpCLHlCQUF5QjtJQUN6QixxQ0FBcUM7SUFDckMsMENBQWtDO1lBQWxDLGtDQUFrQztJQUdsQyxnQkFBZ0I7QUFDcEI7O0FBRUE7SUFDSTtRQUNJLGdDQUFnQztRQUdoQyxnREFBZ0Q7SUFDcEQ7SUFDQTtRQUNJLGtDQUFrQztRQUdsQyxrREFBa0Q7SUFDdEQ7SUFDQTtRQUNJLGdDQUFnQztRQUdoQyxnQkFBZ0I7SUFDcEI7QUFDSjs7QUFuQkE7SUFDSTtRQUNJLGdDQUFnQztRQUdoQyxnREFBZ0Q7SUFDcEQ7SUFDQTtRQUNJLGtDQUFrQztRQUdsQyxrREFBa0Q7SUFDdEQ7SUFDQTtRQUNJLGdDQUFnQztRQUdoQyxnQkFBZ0I7SUFDcEI7QUFDSjs7QUFFQTtJQUNJO1FBR0ksZ0JBQWdCO0lBQ3BCO0lBQ0E7UUFHSSxrREFBa0Q7SUFDdEQ7SUFDQTtRQUdJLGdEQUFnRDtJQUNwRDtBQUNKOztBQWhCQTtJQUNJO1FBR0ksZ0JBQWdCO0lBQ3BCO0lBQ0E7UUFHSSxrREFBa0Q7SUFDdEQ7SUFDQTtRQUdJLGdEQUFnRDtJQUNwRDtBQUNKOztBQUVBO0lBQ0kscUJBQXFCO0FBQ3pCOztBQUVBO0lBQ0kscUJBQXFCO0lBQ3JCLFlBQVk7SUFDWixxQkFBcUI7QUFDekI7O0FBRUE7SUFDSSxXQUFXO0lBQ1gsY0FBYztJQUNkLFFBQVE7SUFDUixXQUFXO0lBQ1gsOEJBQThCO0lBQzlCLHNCQUFzQjtBQUMxQjs7QUFFQTtJQUNJLFdBQVc7SUFDWCxzQkFBc0I7QUFDMUI7O0FBRUE7SUFDSSwyQkFBMkIsRUFBRSxlQUFlO0lBQzVDLHlCQUF5QixFQUFFLFdBQVcsRUFDWixtQkFBbUI7SUFDN0Msc0JBQXNCLEVBQUUsWUFBWTtJQUNwQyxxQkFBcUIsRUFBRSwyQkFBMkI7SUFDbEQsaUJBQWlCLEVBQUU7dUVBQ2dEO0FBQ3ZFOztBQUVBO0lBQ0ksZ0JBQWdCO0FBQ3BCOztBQUVBO0lBQ0ksZUFBZTtBQUNuQjs7QUFFQTtJQUNJLGtCQUFrQjtJQUNsQixTQUFTO0lBQ1QsUUFBUTtJQUNSLFFBQVE7SUFDUixNQUFNO0lBQ04sdUJBQXVCO0lBQ3ZCLG1CQUFtQjtBQUN2Qjs7QUFFQTtJQUNJLG1CQUFtQjtJQUNuQiwyQ0FBMkM7QUFDL0MiLCJmaWxlIjoic3JjL2FwcC9jb21wb25lbnRzL3dlbGNvbWUvd2VsY29tZS5jb21wb25lbnQuY3NzIiwic291cmNlc0NvbnRlbnQiOlsiI2JhY2tncm91bmQge1xyXG4gICAgcG9zaXRpb246IGZpeGVkO1xyXG4gICAgdG9wOiAwO1xyXG4gICAgbGVmdDogMDtcclxuICAgIHJpZ2h0OiAwO1xyXG4gICAgYm90dG9tOiAwO1xyXG4gICAgLyogICAgIG1heC13aWR0aDogMTAwJTtcclxuICAgIG1heC1oZWlnaHQ6IDEwMCU7XHJcbiAgICBtaW4td2lkdGg6IDEwMHZ3O1xyXG4gICAgYmFja2dyb3VuZC1wb3NpdGlvbjogcmlnaHQgY2VudGVyO1xyXG4gICAgYmFja2dyb3VuZC1zaXplOiBjb3ZlcjtcclxuICAgIGFuaW1hdGlvbjogc2xpZGVCZyAxMHMgaW5maW5pdGUgMXM7Ki9cclxuICAgIGJhY2tncm91bmQtaW1hZ2U6IHVybChcIi4uLy4uLy4uL2Fzc2V0cy9pbWcvYmcvMS5qcGdcIik7ICAgXHJcbiAgICBtYXJnaW46IDAgYXV0bztcclxuICAgIGhlaWdodDogMTAwJTtcclxuICAgIHdpZHRoOiAxMDAlO1xyXG4gICAgZm9udC1mYW1pbHk6IFwiTW9udHNlcnJhdFwiLCBzYW5zLXNlcmlmO1xyXG4gICAgb3ZlcmZsb3c6IGhpZGRlbjtcclxuICAgIHBvc2l0aW9uOiBhYnNvbHV0ZTtcclxuICAgIHRvcDogMDtcclxuICAgIG9iamVjdC1maXQ6IGNvdmVyO1xyXG4gICAgbWF4LXdpZHRoOiAxMDB2dztcclxuICAgIG1heC1oZWlnaHQ6IDEwMHZoO1xyXG4gICAgei1pbmRleDogLTEwMDA7XHJcbn1cclxuXHJcbkBrZXlmcmFtZXMgc2xpZGVCZyB7XHJcbiAgICAwJSB7XHJcbiAgICAgICAgYmFja2dyb3VuZC1pbWFnZTogdXJsKFwiLi4vLi4vLi4vYXNzZXRzL2ltZy9iZy8xLmpwZ1wiKTtcclxuICAgIH1cclxuICAgIDMwJSB7XHJcbiAgICAgICAgYmFja2dyb3VuZC1pbWFnZTogdXJsKFwiLi4vLi4vLi4vYXNzZXRzL2ltZy9iZy8zLmpwZ1wiKTtcclxuICAgIH1cclxuICAgIDYwJSB7XHJcbiAgICAgICAgYmFja2dyb3VuZC1pbWFnZTogdXJsKFwiLi4vLi4vLi4vYXNzZXRzL2ltZy9iZy80LmpwZ1wiKTtcclxuICAgIH1cclxuICAgIDEwMCUge1xyXG4gICAgICAgIGJhY2tncm91bmQtaW1hZ2U6IHVybChcIi4uLy4uLy4uL2Fzc2V0cy9pbWcvYmcvMS5qcGdcIik7XHJcbiAgICB9XHJcbn1cclxuXHJcbi5mbHVpZC1jb250YWluZXIge1xyXG4gICAgaGVpZ2h0OiAxMDAlO1xyXG4gICAgd2lkdGg6IDEwMCU7XHJcbn1cclxuXHJcbi5uYXYge1xyXG4gICAgcGFkZGluZy10b3A6IDUwcHg7XHJcbiAgICBwYWRkaW5nLWxlZnQ6IDYwcHg7XHJcbn1cclxuXHJcbiNsb2dpbiB7XHJcbiAgICBwYWRkaW5nOiAxMHB4O1xyXG4gICAgZm9udC13ZWlnaHQ6IGJvbGQ7XHJcbiAgICBjb2xvcjogd2hpdGU7XHJcbiAgICBsZXR0ZXItc3BhY2luZzogNXB4O1xyXG59XHJcblxyXG4jcmVnaXN0ZXIge1xyXG4gICAgYm9yZGVyOiAycHggc29saWQgd2hpdGU7XHJcbiAgICBib3JkZXItcmFkaXVzOiA1MHB4O1xyXG4gICAgcGFkZGluZzogMTBweDtcclxuICAgIGZvbnQtd2VpZ2h0OiBib2xkO1xyXG4gICAgY29sb3I6IHdoaXRlO1xyXG4gICAgZm9udC1mYW1pbHk6IFwiTW9udHNlcnJhdFwiLCBzYW5zLXNlcmlmO1xyXG4gICAgbGV0dGVyLXNwYWNpbmc6IDVweDtcclxuICAgIG1hcmdpbi1sZWZ0OiA3MHB4O1xyXG4gICAgLXdlYmtpdC1ib3gtc2hhZG93OiA2cHggNnB4IDBweCAwcHggcmdiYSgyMzAsIDYyLCA2NiwgMSk7XHJcbiAgICAtbW96LWJveC1zaGFkb3c6IDZweCA2cHggMHB4IDBweCByZ2JhKDIzMCwgNjIsIDY2LCAxKTtcclxuICAgIGJveC1zaGFkb3c6IDZweCA2cHggMHB4IDBweCByZ2JhKDIzMCwgNjIsIDY2LCAxKTtcclxuICAgIGFuaW1hdGlvbi1uYW1lOiBzbGlkZUJveFNoYWRvd0luO1xyXG4gICAgYW5pbWF0aW9uLWR1cmF0aW9uOiAzMDBtcztcclxuICAgIGFuaW1hdGlvbi10aW1pbmctZnVuY3Rpb246IGVhc2Utb3V0O1xyXG59XHJcblxyXG4jcmVnaXN0ZXI6aG92ZXIge1xyXG4gICAgYmFja2dyb3VuZDogcmdiYSgyMzAsIDYyLCA2NiwgMSk7XHJcbiAgICBhbmltYXRpb24tbmFtZTogc2xpZGVCb3hTaGFkb3dPdXQ7XHJcbiAgICBhbmltYXRpb24tZHVyYXRpb246IDMwMG1zO1xyXG4gICAgZm9udC1mYW1pbHk6IFwiTW9udHNlcnJhdFwiLCBzYW5zLXNlcmlmO1xyXG4gICAgYW5pbWF0aW9uLXRpbWluZy1mdW5jdGlvbjogZWFzZS1pbjtcclxuICAgIC13ZWJraXQtYm94LXNoYWRvdzogbm9uZTtcclxuICAgIC1tb3otYm94LXNoYWRvdzogbm9uZTtcclxuICAgIGJveC1zaGFkb3c6IG5vbmU7XHJcbn1cclxuXHJcbkBrZXlmcmFtZXMgc2xpZGVCb3hTaGFkb3dPdXQge1xyXG4gICAgMCUge1xyXG4gICAgICAgIGJhY2tncm91bmQ6IHJnYmEoMjMwLCA2MiwgNjYsIDApO1xyXG4gICAgICAgIC13ZWJraXQtYm94LXNoYWRvdzogNnB4IDZweCAwcHggMHB4IHJnYmEoMjMwLCA2MiwgNjYsIDEpO1xyXG4gICAgICAgIC1tb3otYm94LXNoYWRvdzogNnB4IDZweCAwcHggMHB4IHJnYmEoMjMwLCA2MiwgNjYsIDEpO1xyXG4gICAgICAgIGJveC1zaGFkb3c6IDZweCA2cHggMHB4IDBweCByZ2JhKDIzMCwgNjIsIDY2LCAxKTtcclxuICAgIH1cclxuICAgIDUwJSB7XHJcbiAgICAgICAgYmFja2dyb3VuZDogcmdiYSgyMzAsIDYyLCA2NiwgMC40KTtcclxuICAgICAgICAtd2Via2l0LWJveC1zaGFkb3c6IDJweCAycHggMHB4IDBweCByZ2JhKDIzMCwgNjIsIDY2LCAwLjUpO1xyXG4gICAgICAgIC1tb3otYm94LXNoYWRvdzogMnB4IDJweCAwcHggMHB4IHJnYmEoMjMwLCA2MiwgNjYsIDAuNSk7XHJcbiAgICAgICAgYm94LXNoYWRvdzogMnB4IDJweCAwcHggMHB4IHJnYmEoMjMwLCA2MiwgNjYsIDAuNSk7XHJcbiAgICB9XHJcbiAgICAxMDAlIHtcclxuICAgICAgICBiYWNrZ3JvdW5kOiByZ2JhKDIzMCwgNjIsIDY2LCAxKTtcclxuICAgICAgICAtd2Via2l0LWJveC1zaGFkb3c6IG5vbmU7XHJcbiAgICAgICAgLW1vei1ib3gtc2hhZG93OiBub25lO1xyXG4gICAgICAgIGJveC1zaGFkb3c6IG5vbmU7XHJcbiAgICB9XHJcbn1cclxuXHJcbkBrZXlmcmFtZXMgc2xpZGVCb3hTaGFkb3dJbiB7XHJcbiAgICAwJSB7XHJcbiAgICAgICAgLXdlYmtpdC1ib3gtc2hhZG93OiBub25lO1xyXG4gICAgICAgIC1tb3otYm94LXNoYWRvdzogbm9uZTtcclxuICAgICAgICBib3gtc2hhZG93OiBub25lO1xyXG4gICAgfVxyXG4gICAgNTAlIHtcclxuICAgICAgICAtd2Via2l0LWJveC1zaGFkb3c6IDJweCAycHggMHB4IDBweCByZ2JhKDIzMCwgNjIsIDY2LCAwLjUpO1xyXG4gICAgICAgIC1tb3otYm94LXNoYWRvdzogMnB4IDJweCAwcHggMHB4IHJnYmEoMjMwLCA2MiwgNjYsIDAuNSk7XHJcbiAgICAgICAgYm94LXNoYWRvdzogMnB4IDJweCAwcHggMHB4IHJnYmEoMjMwLCA2MiwgNjYsIDAuNSk7XHJcbiAgICB9XHJcbiAgICAxMDAlIHtcclxuICAgICAgICAtd2Via2l0LWJveC1zaGFkb3c6IDZweCA2cHggMHB4IDBweCByZ2JhKDIzMCwgNjIsIDY2LCAxKTtcclxuICAgICAgICAtbW96LWJveC1zaGFkb3c6IDZweCA2cHggMHB4IDBweCByZ2JhKDIzMCwgNjIsIDY2LCAxKTtcclxuICAgICAgICBib3gtc2hhZG93OiA2cHggNnB4IDBweCAwcHggcmdiYSgyMzAsIDYyLCA2NiwgMSk7XHJcbiAgICB9XHJcbn1cclxuXHJcbmE6aG92ZXIge1xyXG4gICAgdGV4dC1kZWNvcmF0aW9uOiBub25lO1xyXG59XHJcblxyXG4uY29vbC1saW5rIHtcclxuICAgIGRpc3BsYXk6IGlubGluZS1ibG9jaztcclxuICAgIGNvbG9yOiB3aGl0ZTtcclxuICAgIHRleHQtZGVjb3JhdGlvbjogbm9uZTtcclxufVxyXG5cclxuLmNvb2wtbGluazo6YWZ0ZXIge1xyXG4gICAgY29udGVudDogXCJcIjtcclxuICAgIGRpc3BsYXk6IGJsb2NrO1xyXG4gICAgd2lkdGg6IDA7XHJcbiAgICBoZWlnaHQ6IDJweDtcclxuICAgIGJhY2tncm91bmQ6IHJnYigyNTUsIDI1NSwgMjU1KTtcclxuICAgIHRyYW5zaXRpb246IHdpZHRoIDAuM3M7XHJcbn1cclxuXHJcbi5jb29sLWxpbms6aG92ZXI6OmFmdGVyIHtcclxuICAgIHdpZHRoOiAxMDAlO1xyXG4gICAgdHJhbnNpdGlvbjogd2lkdGggMC4zcztcclxufVxyXG5cclxuLm5vc2VsZWN0IHtcclxuICAgIC13ZWJraXQtdG91Y2gtY2FsbG91dDogbm9uZTsgLyogaU9TIFNhZmFyaSAqL1xyXG4gICAgLXdlYmtpdC11c2VyLXNlbGVjdDogbm9uZTsgLyogU2FmYXJpICovXHJcbiAgICAta2h0bWwtdXNlci1zZWxlY3Q6IG5vbmU7IC8qIEtvbnF1ZXJvciBIVE1MICovXHJcbiAgICAtbW96LXVzZXItc2VsZWN0OiBub25lOyAvKiBGaXJlZm94ICovXHJcbiAgICAtbXMtdXNlci1zZWxlY3Q6IG5vbmU7IC8qIEludGVybmV0IEV4cGxvcmVyL0VkZ2UgKi9cclxuICAgIHVzZXItc2VsZWN0OiBub25lOyAvKiBOb24tcHJlZml4ZWQgdmVyc2lvbiwgY3VycmVudGx5XHJcbiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBzdXBwb3J0ZWQgYnkgQ2hyb21lIGFuZCBPcGVyYSAqL1xyXG59XHJcblxyXG5pbWcge1xyXG4gICAgbWF4LXdpZHRoOiA2MDBweDtcclxufVxyXG5cclxucC5jb29sLWxpbms6aG92ZXIge1xyXG4gICAgY3Vyc29yOiBwb2ludGVyO1xyXG59XHJcblxyXG4jbGVhcm5Nb3JlIHtcclxuICAgIHBvc2l0aW9uOiBhYnNvbHV0ZTtcclxuICAgIGJvdHRvbTogMDtcclxuICAgIHJpZ2h0OiAwO1xyXG4gICAgdG9wOiA1MCU7XHJcbiAgICBsZWZ0OjA7XHJcbiAgICBiYWNrZ3JvdW5kLWNvbG9yOiB3aGl0ZTtcclxuICAgIGJvcmRlci1yYWRpdXM6IDIwcHg7XHJcbn1cclxuXHJcbiNsZWFybk1vcmUubGVhZCB7XHJcbiAgICBib3JkZXItcmFkaXVzOiAyNXB4O1xyXG4gICAgdGV4dC1zaGFkb3c6IDFweCAxcHggM3B4IHJnYmEoMCwgMCwgMCwgMC41KTtcclxufVxyXG4iXX0= */"
+module.exports = "#background {\r\n    position: fixed;\r\n    top: 0;\r\n    left: 0;\r\n    right: 0;\r\n    bottom: 0;\r\n    /*     max-width: 100%;\r\n    max-height: 100%;\r\n    min-width: 100vw;\r\n    animation: slideBg 10s infinite 1s;*/\r\n    background-image: url('1.jpg'); \r\n    background-position: center center;\r\n    background-size: cover;  \r\n    margin: 0 auto;\r\n    height: 100%;\r\n    width: 100%;\r\n    font-family: \"Montserrat\", sans-serif;\r\n    overflow: hidden;\r\n    position: absolute;\r\n    top: 0;\r\n    -o-object-fit: cover;\r\n       object-fit: cover;\r\n    max-width: 100vw;\r\n    max-height: 100vh;\r\n    z-index: -1000;\r\n}\r\n\r\n@-webkit-keyframes slideBg {\r\n    0% {\r\n        background-image: url('1.jpg');\r\n    }\r\n    30% {\r\n        background-image: url('3.jpg');\r\n    }\r\n    60% {\r\n        background-image: url('4.jpg');\r\n    }\r\n    100% {\r\n        background-image: url('1.jpg');\r\n    }\r\n}\r\n\r\n@keyframes slideBg {\r\n    0% {\r\n        background-image: url('1.jpg');\r\n    }\r\n    30% {\r\n        background-image: url('3.jpg');\r\n    }\r\n    60% {\r\n        background-image: url('4.jpg');\r\n    }\r\n    100% {\r\n        background-image: url('1.jpg');\r\n    }\r\n}\r\n\r\n.fluid-container {\r\n    height: 100%;\r\n    width: 100%;\r\n}\r\n\r\n.nav {\r\n    padding-top: 50px;\r\n    padding-left: 60px;\r\n}\r\n\r\n#login {\r\n    padding: 10px;\r\n    font-weight: bold;\r\n    color: white;\r\n    letter-spacing: 5px;\r\n}\r\n\r\n#register {\r\n    border: 2px solid white;\r\n    border-radius: 50px;\r\n    padding: 10px;\r\n    font-weight: bold;\r\n    color: white;\r\n    font-family: \"Montserrat\", sans-serif;\r\n    letter-spacing: 5px;\r\n    margin-left: 70px;\r\n    box-shadow: 6px 6px 0px 0px rgba(230, 62, 66, 1);\r\n    -webkit-animation-name: slideBoxShadowIn;\r\n            animation-name: slideBoxShadowIn;\r\n    -webkit-animation-duration: 300ms;\r\n            animation-duration: 300ms;\r\n    -webkit-animation-timing-function: ease-out;\r\n            animation-timing-function: ease-out;\r\n}\r\n\r\n#register:hover {\r\n    background: rgba(230, 62, 66, 1);\r\n    -webkit-animation-name: slideBoxShadowOut;\r\n            animation-name: slideBoxShadowOut;\r\n    -webkit-animation-duration: 300ms;\r\n            animation-duration: 300ms;\r\n    font-family: \"Montserrat\", sans-serif;\r\n    -webkit-animation-timing-function: ease-in;\r\n            animation-timing-function: ease-in;\r\n    box-shadow: none;\r\n}\r\n\r\n@-webkit-keyframes slideBoxShadowOut {\r\n    0% {\r\n        background: rgba(230, 62, 66, 0);\r\n        box-shadow: 6px 6px 0px 0px rgba(230, 62, 66, 1);\r\n    }\r\n    50% {\r\n        background: rgba(230, 62, 66, 0.4);\r\n        box-shadow: 2px 2px 0px 0px rgba(230, 62, 66, 0.5);\r\n    }\r\n    100% {\r\n        background: rgba(230, 62, 66, 1);\r\n        box-shadow: none;\r\n    }\r\n}\r\n\r\n@keyframes slideBoxShadowOut {\r\n    0% {\r\n        background: rgba(230, 62, 66, 0);\r\n        box-shadow: 6px 6px 0px 0px rgba(230, 62, 66, 1);\r\n    }\r\n    50% {\r\n        background: rgba(230, 62, 66, 0.4);\r\n        box-shadow: 2px 2px 0px 0px rgba(230, 62, 66, 0.5);\r\n    }\r\n    100% {\r\n        background: rgba(230, 62, 66, 1);\r\n        box-shadow: none;\r\n    }\r\n}\r\n\r\n@-webkit-keyframes slideBoxShadowIn {\r\n    0% {\r\n        box-shadow: none;\r\n    }\r\n    50% {\r\n        box-shadow: 2px 2px 0px 0px rgba(230, 62, 66, 0.5);\r\n    }\r\n    100% {\r\n        box-shadow: 6px 6px 0px 0px rgba(230, 62, 66, 1);\r\n    }\r\n}\r\n\r\n@keyframes slideBoxShadowIn {\r\n    0% {\r\n        box-shadow: none;\r\n    }\r\n    50% {\r\n        box-shadow: 2px 2px 0px 0px rgba(230, 62, 66, 0.5);\r\n    }\r\n    100% {\r\n        box-shadow: 6px 6px 0px 0px rgba(230, 62, 66, 1);\r\n    }\r\n}\r\n\r\na:hover {\r\n    text-decoration: none;\r\n}\r\n\r\n.cool-link {\r\n    display: inline-block;\r\n    color: white;\r\n    text-decoration: none;\r\n}\r\n\r\n.cool-link::after {\r\n    content: \"\";\r\n    display: block;\r\n    width: 0;\r\n    height: 2px;\r\n    background: rgb(255, 255, 255);\r\n    transition: width 0.3s;\r\n}\r\n\r\n.cool-link:hover::after {\r\n    width: 100%;\r\n    transition: width 0.3s;\r\n}\r\n\r\n.noselect {\r\n    -webkit-touch-callout: none; /* iOS Safari */\r\n    -webkit-user-select: none; /* Safari */ /* Konqueror HTML */\r\n    -moz-user-select: none; /* Firefox */\r\n    -ms-user-select: none; /* Internet Explorer/Edge */\r\n    user-select: none; /* Non-prefixed version, currently\r\n                                        supported by Chrome and Opera */\r\n}\r\n\r\nimg {\r\n    max-width: 600px;\r\n}\r\n\r\np.cool-link:hover {\r\n    cursor: pointer;\r\n}\r\n\r\n#learnMore {\r\n    position: absolute;\r\n    bottom: 0;\r\n    right: 0;\r\n    top: 50%;\r\n    left:0;\r\n    background-color: white;\r\n    border-radius: 20px;\r\n}\r\n\r\n#learnMore.lead {\r\n    border-radius: 25px;\r\n    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);\r\n}\r\n\r\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvY29tcG9uZW50cy93ZWxjb21lL3dlbGNvbWUuY29tcG9uZW50LmNzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQTtJQUNJLGVBQWU7SUFDZixNQUFNO0lBQ04sT0FBTztJQUNQLFFBQVE7SUFDUixTQUFTO0lBQ1Q7Ozt3Q0FHb0M7SUFDcEMsOEJBQXFEO0lBQ3JELGtDQUFrQztJQUNsQyxzQkFBc0I7SUFDdEIsY0FBYztJQUNkLFlBQVk7SUFDWixXQUFXO0lBQ1gscUNBQXFDO0lBQ3JDLGdCQUFnQjtJQUNoQixrQkFBa0I7SUFDbEIsTUFBTTtJQUNOLG9CQUFpQjtPQUFqQixpQkFBaUI7SUFDakIsZ0JBQWdCO0lBQ2hCLGlCQUFpQjtJQUNqQixjQUFjO0FBQ2xCOztBQUVBO0lBQ0k7UUFDSSw4QkFBcUQ7SUFDekQ7SUFDQTtRQUNJLDhCQUFxRDtJQUN6RDtJQUNBO1FBQ0ksOEJBQXFEO0lBQ3pEO0lBQ0E7UUFDSSw4QkFBcUQ7SUFDekQ7QUFDSjs7QUFiQTtJQUNJO1FBQ0ksOEJBQXFEO0lBQ3pEO0lBQ0E7UUFDSSw4QkFBcUQ7SUFDekQ7SUFDQTtRQUNJLDhCQUFxRDtJQUN6RDtJQUNBO1FBQ0ksOEJBQXFEO0lBQ3pEO0FBQ0o7O0FBRUE7SUFDSSxZQUFZO0lBQ1osV0FBVztBQUNmOztBQUVBO0lBQ0ksaUJBQWlCO0lBQ2pCLGtCQUFrQjtBQUN0Qjs7QUFFQTtJQUNJLGFBQWE7SUFDYixpQkFBaUI7SUFDakIsWUFBWTtJQUNaLG1CQUFtQjtBQUN2Qjs7QUFFQTtJQUNJLHVCQUF1QjtJQUN2QixtQkFBbUI7SUFDbkIsYUFBYTtJQUNiLGlCQUFpQjtJQUNqQixZQUFZO0lBQ1oscUNBQXFDO0lBQ3JDLG1CQUFtQjtJQUNuQixpQkFBaUI7SUFHakIsZ0RBQWdEO0lBQ2hELHdDQUFnQztZQUFoQyxnQ0FBZ0M7SUFDaEMsaUNBQXlCO1lBQXpCLHlCQUF5QjtJQUN6QiwyQ0FBbUM7WUFBbkMsbUNBQW1DO0FBQ3ZDOztBQUVBO0lBQ0ksZ0NBQWdDO0lBQ2hDLHlDQUFpQztZQUFqQyxpQ0FBaUM7SUFDakMsaUNBQXlCO1lBQXpCLHlCQUF5QjtJQUN6QixxQ0FBcUM7SUFDckMsMENBQWtDO1lBQWxDLGtDQUFrQztJQUdsQyxnQkFBZ0I7QUFDcEI7O0FBRUE7SUFDSTtRQUNJLGdDQUFnQztRQUdoQyxnREFBZ0Q7SUFDcEQ7SUFDQTtRQUNJLGtDQUFrQztRQUdsQyxrREFBa0Q7SUFDdEQ7SUFDQTtRQUNJLGdDQUFnQztRQUdoQyxnQkFBZ0I7SUFDcEI7QUFDSjs7QUFuQkE7SUFDSTtRQUNJLGdDQUFnQztRQUdoQyxnREFBZ0Q7SUFDcEQ7SUFDQTtRQUNJLGtDQUFrQztRQUdsQyxrREFBa0Q7SUFDdEQ7SUFDQTtRQUNJLGdDQUFnQztRQUdoQyxnQkFBZ0I7SUFDcEI7QUFDSjs7QUFFQTtJQUNJO1FBR0ksZ0JBQWdCO0lBQ3BCO0lBQ0E7UUFHSSxrREFBa0Q7SUFDdEQ7SUFDQTtRQUdJLGdEQUFnRDtJQUNwRDtBQUNKOztBQWhCQTtJQUNJO1FBR0ksZ0JBQWdCO0lBQ3BCO0lBQ0E7UUFHSSxrREFBa0Q7SUFDdEQ7SUFDQTtRQUdJLGdEQUFnRDtJQUNwRDtBQUNKOztBQUVBO0lBQ0kscUJBQXFCO0FBQ3pCOztBQUVBO0lBQ0kscUJBQXFCO0lBQ3JCLFlBQVk7SUFDWixxQkFBcUI7QUFDekI7O0FBRUE7SUFDSSxXQUFXO0lBQ1gsY0FBYztJQUNkLFFBQVE7SUFDUixXQUFXO0lBQ1gsOEJBQThCO0lBQzlCLHNCQUFzQjtBQUMxQjs7QUFFQTtJQUNJLFdBQVc7SUFDWCxzQkFBc0I7QUFDMUI7O0FBRUE7SUFDSSwyQkFBMkIsRUFBRSxlQUFlO0lBQzVDLHlCQUF5QixFQUFFLFdBQVcsRUFDWixtQkFBbUI7SUFDN0Msc0JBQXNCLEVBQUUsWUFBWTtJQUNwQyxxQkFBcUIsRUFBRSwyQkFBMkI7SUFDbEQsaUJBQWlCLEVBQUU7dUVBQ2dEO0FBQ3ZFOztBQUVBO0lBQ0ksZ0JBQWdCO0FBQ3BCOztBQUVBO0lBQ0ksZUFBZTtBQUNuQjs7QUFFQTtJQUNJLGtCQUFrQjtJQUNsQixTQUFTO0lBQ1QsUUFBUTtJQUNSLFFBQVE7SUFDUixNQUFNO0lBQ04sdUJBQXVCO0lBQ3ZCLG1CQUFtQjtBQUN2Qjs7QUFFQTtJQUNJLG1CQUFtQjtJQUNuQiwyQ0FBMkM7QUFDL0MiLCJmaWxlIjoic3JjL2FwcC9jb21wb25lbnRzL3dlbGNvbWUvd2VsY29tZS5jb21wb25lbnQuY3NzIiwic291cmNlc0NvbnRlbnQiOlsiI2JhY2tncm91bmQge1xyXG4gICAgcG9zaXRpb246IGZpeGVkO1xyXG4gICAgdG9wOiAwO1xyXG4gICAgbGVmdDogMDtcclxuICAgIHJpZ2h0OiAwO1xyXG4gICAgYm90dG9tOiAwO1xyXG4gICAgLyogICAgIG1heC13aWR0aDogMTAwJTtcclxuICAgIG1heC1oZWlnaHQ6IDEwMCU7XHJcbiAgICBtaW4td2lkdGg6IDEwMHZ3O1xyXG4gICAgYW5pbWF0aW9uOiBzbGlkZUJnIDEwcyBpbmZpbml0ZSAxczsqL1xyXG4gICAgYmFja2dyb3VuZC1pbWFnZTogdXJsKFwiLi4vLi4vLi4vYXNzZXRzL2ltZy9iZy8xLmpwZ1wiKTsgXHJcbiAgICBiYWNrZ3JvdW5kLXBvc2l0aW9uOiBjZW50ZXIgY2VudGVyO1xyXG4gICAgYmFja2dyb3VuZC1zaXplOiBjb3ZlcjsgIFxyXG4gICAgbWFyZ2luOiAwIGF1dG87XHJcbiAgICBoZWlnaHQ6IDEwMCU7XHJcbiAgICB3aWR0aDogMTAwJTtcclxuICAgIGZvbnQtZmFtaWx5OiBcIk1vbnRzZXJyYXRcIiwgc2Fucy1zZXJpZjtcclxuICAgIG92ZXJmbG93OiBoaWRkZW47XHJcbiAgICBwb3NpdGlvbjogYWJzb2x1dGU7XHJcbiAgICB0b3A6IDA7XHJcbiAgICBvYmplY3QtZml0OiBjb3ZlcjtcclxuICAgIG1heC13aWR0aDogMTAwdnc7XHJcbiAgICBtYXgtaGVpZ2h0OiAxMDB2aDtcclxuICAgIHotaW5kZXg6IC0xMDAwO1xyXG59XHJcblxyXG5Aa2V5ZnJhbWVzIHNsaWRlQmcge1xyXG4gICAgMCUge1xyXG4gICAgICAgIGJhY2tncm91bmQtaW1hZ2U6IHVybChcIi4uLy4uLy4uL2Fzc2V0cy9pbWcvYmcvMS5qcGdcIik7XHJcbiAgICB9XHJcbiAgICAzMCUge1xyXG4gICAgICAgIGJhY2tncm91bmQtaW1hZ2U6IHVybChcIi4uLy4uLy4uL2Fzc2V0cy9pbWcvYmcvMy5qcGdcIik7XHJcbiAgICB9XHJcbiAgICA2MCUge1xyXG4gICAgICAgIGJhY2tncm91bmQtaW1hZ2U6IHVybChcIi4uLy4uLy4uL2Fzc2V0cy9pbWcvYmcvNC5qcGdcIik7XHJcbiAgICB9XHJcbiAgICAxMDAlIHtcclxuICAgICAgICBiYWNrZ3JvdW5kLWltYWdlOiB1cmwoXCIuLi8uLi8uLi9hc3NldHMvaW1nL2JnLzEuanBnXCIpO1xyXG4gICAgfVxyXG59XHJcblxyXG4uZmx1aWQtY29udGFpbmVyIHtcclxuICAgIGhlaWdodDogMTAwJTtcclxuICAgIHdpZHRoOiAxMDAlO1xyXG59XHJcblxyXG4ubmF2IHtcclxuICAgIHBhZGRpbmctdG9wOiA1MHB4O1xyXG4gICAgcGFkZGluZy1sZWZ0OiA2MHB4O1xyXG59XHJcblxyXG4jbG9naW4ge1xyXG4gICAgcGFkZGluZzogMTBweDtcclxuICAgIGZvbnQtd2VpZ2h0OiBib2xkO1xyXG4gICAgY29sb3I6IHdoaXRlO1xyXG4gICAgbGV0dGVyLXNwYWNpbmc6IDVweDtcclxufVxyXG5cclxuI3JlZ2lzdGVyIHtcclxuICAgIGJvcmRlcjogMnB4IHNvbGlkIHdoaXRlO1xyXG4gICAgYm9yZGVyLXJhZGl1czogNTBweDtcclxuICAgIHBhZGRpbmc6IDEwcHg7XHJcbiAgICBmb250LXdlaWdodDogYm9sZDtcclxuICAgIGNvbG9yOiB3aGl0ZTtcclxuICAgIGZvbnQtZmFtaWx5OiBcIk1vbnRzZXJyYXRcIiwgc2Fucy1zZXJpZjtcclxuICAgIGxldHRlci1zcGFjaW5nOiA1cHg7XHJcbiAgICBtYXJnaW4tbGVmdDogNzBweDtcclxuICAgIC13ZWJraXQtYm94LXNoYWRvdzogNnB4IDZweCAwcHggMHB4IHJnYmEoMjMwLCA2MiwgNjYsIDEpO1xyXG4gICAgLW1vei1ib3gtc2hhZG93OiA2cHggNnB4IDBweCAwcHggcmdiYSgyMzAsIDYyLCA2NiwgMSk7XHJcbiAgICBib3gtc2hhZG93OiA2cHggNnB4IDBweCAwcHggcmdiYSgyMzAsIDYyLCA2NiwgMSk7XHJcbiAgICBhbmltYXRpb24tbmFtZTogc2xpZGVCb3hTaGFkb3dJbjtcclxuICAgIGFuaW1hdGlvbi1kdXJhdGlvbjogMzAwbXM7XHJcbiAgICBhbmltYXRpb24tdGltaW5nLWZ1bmN0aW9uOiBlYXNlLW91dDtcclxufVxyXG5cclxuI3JlZ2lzdGVyOmhvdmVyIHtcclxuICAgIGJhY2tncm91bmQ6IHJnYmEoMjMwLCA2MiwgNjYsIDEpO1xyXG4gICAgYW5pbWF0aW9uLW5hbWU6IHNsaWRlQm94U2hhZG93T3V0O1xyXG4gICAgYW5pbWF0aW9uLWR1cmF0aW9uOiAzMDBtcztcclxuICAgIGZvbnQtZmFtaWx5OiBcIk1vbnRzZXJyYXRcIiwgc2Fucy1zZXJpZjtcclxuICAgIGFuaW1hdGlvbi10aW1pbmctZnVuY3Rpb246IGVhc2UtaW47XHJcbiAgICAtd2Via2l0LWJveC1zaGFkb3c6IG5vbmU7XHJcbiAgICAtbW96LWJveC1zaGFkb3c6IG5vbmU7XHJcbiAgICBib3gtc2hhZG93OiBub25lO1xyXG59XHJcblxyXG5Aa2V5ZnJhbWVzIHNsaWRlQm94U2hhZG93T3V0IHtcclxuICAgIDAlIHtcclxuICAgICAgICBiYWNrZ3JvdW5kOiByZ2JhKDIzMCwgNjIsIDY2LCAwKTtcclxuICAgICAgICAtd2Via2l0LWJveC1zaGFkb3c6IDZweCA2cHggMHB4IDBweCByZ2JhKDIzMCwgNjIsIDY2LCAxKTtcclxuICAgICAgICAtbW96LWJveC1zaGFkb3c6IDZweCA2cHggMHB4IDBweCByZ2JhKDIzMCwgNjIsIDY2LCAxKTtcclxuICAgICAgICBib3gtc2hhZG93OiA2cHggNnB4IDBweCAwcHggcmdiYSgyMzAsIDYyLCA2NiwgMSk7XHJcbiAgICB9XHJcbiAgICA1MCUge1xyXG4gICAgICAgIGJhY2tncm91bmQ6IHJnYmEoMjMwLCA2MiwgNjYsIDAuNCk7XHJcbiAgICAgICAgLXdlYmtpdC1ib3gtc2hhZG93OiAycHggMnB4IDBweCAwcHggcmdiYSgyMzAsIDYyLCA2NiwgMC41KTtcclxuICAgICAgICAtbW96LWJveC1zaGFkb3c6IDJweCAycHggMHB4IDBweCByZ2JhKDIzMCwgNjIsIDY2LCAwLjUpO1xyXG4gICAgICAgIGJveC1zaGFkb3c6IDJweCAycHggMHB4IDBweCByZ2JhKDIzMCwgNjIsIDY2LCAwLjUpO1xyXG4gICAgfVxyXG4gICAgMTAwJSB7XHJcbiAgICAgICAgYmFja2dyb3VuZDogcmdiYSgyMzAsIDYyLCA2NiwgMSk7XHJcbiAgICAgICAgLXdlYmtpdC1ib3gtc2hhZG93OiBub25lO1xyXG4gICAgICAgIC1tb3otYm94LXNoYWRvdzogbm9uZTtcclxuICAgICAgICBib3gtc2hhZG93OiBub25lO1xyXG4gICAgfVxyXG59XHJcblxyXG5Aa2V5ZnJhbWVzIHNsaWRlQm94U2hhZG93SW4ge1xyXG4gICAgMCUge1xyXG4gICAgICAgIC13ZWJraXQtYm94LXNoYWRvdzogbm9uZTtcclxuICAgICAgICAtbW96LWJveC1zaGFkb3c6IG5vbmU7XHJcbiAgICAgICAgYm94LXNoYWRvdzogbm9uZTtcclxuICAgIH1cclxuICAgIDUwJSB7XHJcbiAgICAgICAgLXdlYmtpdC1ib3gtc2hhZG93OiAycHggMnB4IDBweCAwcHggcmdiYSgyMzAsIDYyLCA2NiwgMC41KTtcclxuICAgICAgICAtbW96LWJveC1zaGFkb3c6IDJweCAycHggMHB4IDBweCByZ2JhKDIzMCwgNjIsIDY2LCAwLjUpO1xyXG4gICAgICAgIGJveC1zaGFkb3c6IDJweCAycHggMHB4IDBweCByZ2JhKDIzMCwgNjIsIDY2LCAwLjUpO1xyXG4gICAgfVxyXG4gICAgMTAwJSB7XHJcbiAgICAgICAgLXdlYmtpdC1ib3gtc2hhZG93OiA2cHggNnB4IDBweCAwcHggcmdiYSgyMzAsIDYyLCA2NiwgMSk7XHJcbiAgICAgICAgLW1vei1ib3gtc2hhZG93OiA2cHggNnB4IDBweCAwcHggcmdiYSgyMzAsIDYyLCA2NiwgMSk7XHJcbiAgICAgICAgYm94LXNoYWRvdzogNnB4IDZweCAwcHggMHB4IHJnYmEoMjMwLCA2MiwgNjYsIDEpO1xyXG4gICAgfVxyXG59XHJcblxyXG5hOmhvdmVyIHtcclxuICAgIHRleHQtZGVjb3JhdGlvbjogbm9uZTtcclxufVxyXG5cclxuLmNvb2wtbGluayB7XHJcbiAgICBkaXNwbGF5OiBpbmxpbmUtYmxvY2s7XHJcbiAgICBjb2xvcjogd2hpdGU7XHJcbiAgICB0ZXh0LWRlY29yYXRpb246IG5vbmU7XHJcbn1cclxuXHJcbi5jb29sLWxpbms6OmFmdGVyIHtcclxuICAgIGNvbnRlbnQ6IFwiXCI7XHJcbiAgICBkaXNwbGF5OiBibG9jaztcclxuICAgIHdpZHRoOiAwO1xyXG4gICAgaGVpZ2h0OiAycHg7XHJcbiAgICBiYWNrZ3JvdW5kOiByZ2IoMjU1LCAyNTUsIDI1NSk7XHJcbiAgICB0cmFuc2l0aW9uOiB3aWR0aCAwLjNzO1xyXG59XHJcblxyXG4uY29vbC1saW5rOmhvdmVyOjphZnRlciB7XHJcbiAgICB3aWR0aDogMTAwJTtcclxuICAgIHRyYW5zaXRpb246IHdpZHRoIDAuM3M7XHJcbn1cclxuXHJcbi5ub3NlbGVjdCB7XHJcbiAgICAtd2Via2l0LXRvdWNoLWNhbGxvdXQ6IG5vbmU7IC8qIGlPUyBTYWZhcmkgKi9cclxuICAgIC13ZWJraXQtdXNlci1zZWxlY3Q6IG5vbmU7IC8qIFNhZmFyaSAqL1xyXG4gICAgLWtodG1sLXVzZXItc2VsZWN0OiBub25lOyAvKiBLb25xdWVyb3IgSFRNTCAqL1xyXG4gICAgLW1vei11c2VyLXNlbGVjdDogbm9uZTsgLyogRmlyZWZveCAqL1xyXG4gICAgLW1zLXVzZXItc2VsZWN0OiBub25lOyAvKiBJbnRlcm5ldCBFeHBsb3Jlci9FZGdlICovXHJcbiAgICB1c2VyLXNlbGVjdDogbm9uZTsgLyogTm9uLXByZWZpeGVkIHZlcnNpb24sIGN1cnJlbnRseVxyXG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgc3VwcG9ydGVkIGJ5IENocm9tZSBhbmQgT3BlcmEgKi9cclxufVxyXG5cclxuaW1nIHtcclxuICAgIG1heC13aWR0aDogNjAwcHg7XHJcbn1cclxuXHJcbnAuY29vbC1saW5rOmhvdmVyIHtcclxuICAgIGN1cnNvcjogcG9pbnRlcjtcclxufVxyXG5cclxuI2xlYXJuTW9yZSB7XHJcbiAgICBwb3NpdGlvbjogYWJzb2x1dGU7XHJcbiAgICBib3R0b206IDA7XHJcbiAgICByaWdodDogMDtcclxuICAgIHRvcDogNTAlO1xyXG4gICAgbGVmdDowO1xyXG4gICAgYmFja2dyb3VuZC1jb2xvcjogd2hpdGU7XHJcbiAgICBib3JkZXItcmFkaXVzOiAyMHB4O1xyXG59XHJcblxyXG4jbGVhcm5Nb3JlLmxlYWQge1xyXG4gICAgYm9yZGVyLXJhZGl1czogMjVweDtcclxuICAgIHRleHQtc2hhZG93OiAxcHggMXB4IDNweCByZ2JhKDAsIDAsIDAsIDAuNSk7XHJcbn1cclxuIl19 */"
 
 /***/ }),
 
@@ -2010,6 +2091,41 @@ AuthGuard = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
 
 /***/ }),
 
+/***/ "./src/app/services/data-provider.service.ts":
+/*!***************************************************!*\
+  !*** ./src/app/services/data-provider.service.ts ***!
+  \***************************************************/
+/*! exports provided: DataProviderService */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "DataProviderService", function() { return DataProviderService; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm2015/core.js");
+
+
+let DataProviderService = class DataProviderService {
+    constructor() { }
+    setData(data) {
+        console.log("Data provider", data);
+        this.data = data;
+    }
+    removeData() {
+        this.data = null;
+    }
+};
+DataProviderService = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+    Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Injectable"])({
+        providedIn: 'root'
+    }),
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [])
+], DataProviderService);
+
+
+
+/***/ }),
+
 /***/ "./src/app/services/movie.service.ts":
 /*!*******************************************!*\
   !*** ./src/app/services/movie.service.ts ***!
@@ -2049,10 +2165,10 @@ let MovieService = class MovieService {
             .get(url)
             .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["catchError"])(this.handleError("movies")));
     }
-    moviesInTheathers() {
+    moviesInTheathers(page = 1) {
         let url = "https://api.themoviedb.org/3/discover/movie?api_key=" +
             this.apiKey +
-            "&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=1&primary_release_year=2019";
+            "&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=" + page.toString() + "&primary_release_year=2019";
         return this.http
             .get(url)
             .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["catchError"])(this.handleError("movies")));
@@ -2067,12 +2183,12 @@ let MovieService = class MovieService {
             .get(url)
             .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["catchError"])(this.handleError("movies")));
     }
-    searchByName(query) {
+    searchByName(query, page = 1) {
         let url = "https://api.themoviedb.org/3/search/movie?api_key=" +
             this.apiKey +
             "&language=en-US&query=" +
             query.toString() +
-            "&page=1&include_adult=false";
+            "&page=" + page.toString() + "&include_adult=false";
         return this.http
             .get(url)
             .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["catchError"])(this.handleError("tv")));
@@ -2153,8 +2269,7 @@ let ReviewService = class ReviewService {
                 return;
             }
             this.showToastrSuccess(response.message);
-            // TODO: OPEN SEARCH RESULT COMPONENT
-            console.log(response.reviews);
+            this.router.navigate(["searchResult"]);
         }));
     }
     findAllReviews() {
@@ -2245,10 +2360,10 @@ let TvService = class TvService {
             .get(url)
             .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["catchError"])(this.handleError("tv")));
     }
-    discoverTV() {
+    discoverTV(page = 1) {
         let url = "https://api.themoviedb.org/3/discover/tv?api_key=" +
             this.apiKey +
-            "&language=en-US&sort_by=popularity.desc&first_air_date_year=2016&page=1&timezone=America%2FNew_York&include_null_first_air_dates=false&with_original_language=en";
+            "&language=en-US&sort_by=popularity.desc&first_air_date_year=2016&page=" + page.toString + "&timezone=America%2FNew_York&include_null_first_air_dates=false&with_original_language=en";
         return this.http
             .get(url)
             .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["catchError"])(this.handleError("tv")));
@@ -2263,12 +2378,12 @@ let TvService = class TvService {
             .get(url)
             .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["catchError"])(this.handleError("tv")));
     }
-    searchByName(query) {
+    searchByName(query, page = 1) {
         let url = "https://api.themoviedb.org/3/search/tv?api_key=" +
             this.apiKey +
             "&language=en-US&query=" +
             query.toString() +
-            "&page=1";
+            "&page=" + page.toString();
         return this.http
             .get(url)
             .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["catchError"])(this.handleError("tv")));
@@ -2533,8 +2648,6 @@ let WatchlistService = class WatchlistService {
                 return;
             }
             this.showToastrSuccess(response.message);
-            // TODO: OPEN SEARCH RESULT COMPONENT
-            console.log(response);
         }));
     }
     findAllWatchlists() {

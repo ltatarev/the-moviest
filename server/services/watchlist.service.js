@@ -24,7 +24,7 @@ class WatchlistService {
     // ************************************************************
     // * FIND ALL WATCHLISTS BY NAME
     static async findWatchlistsByName(title) {
-        return await Watchlist.find({ title })
+        return await Watchlist.find( { title: { $regex: title, $options:"i" } } )
             .populate('author_id', "username")
             .exec();
     }

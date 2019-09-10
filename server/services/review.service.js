@@ -23,7 +23,8 @@ class ReviewService {
   // * FIND ALL REVIEWS FOR MOVIES
   // ************************************************************
   static async findReviewByMovie(movieTitle) {
-    return await Review.find({ "movie.movieTitle": movieTitle })
+    let title = movieTitle.toString();
+    return await Review.find({ "movie.movieTitle": { $regex: title, $options:"i" } })
       .populate("author_id", "username")
       .exec();
   }

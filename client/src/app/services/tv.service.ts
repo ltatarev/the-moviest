@@ -33,11 +33,11 @@ export class TvService {
             .pipe(catchError(this.handleError<any>("tv")));
     }
 
-    discoverTV() {
+    discoverTV(page:any = 1) {
         let url =
             "https://api.themoviedb.org/3/discover/tv?api_key=" +
             this.apiKey +
-            "&language=en-US&sort_by=popularity.desc&first_air_date_year=2016&page=1&timezone=America%2FNew_York&include_null_first_air_dates=false&with_original_language=en";
+            "&language=en-US&sort_by=popularity.desc&first_air_date_year=2016&page="+page.toString+"&timezone=America%2FNew_York&include_null_first_air_dates=false&with_original_language=en";
         return this.http
             .get<any>(url)
             .pipe(catchError(this.handleError<any>("tv")));
@@ -55,13 +55,13 @@ export class TvService {
             .pipe(catchError(this.handleError<any>("tv")));
     }
 
-    searchByName(query) {
+    searchByName(query,page:any = 1) {
         let url =
             "https://api.themoviedb.org/3/search/tv?api_key=" +
             this.apiKey +
             "&language=en-US&query=" +
             query.toString() +
-            "&page=1";
+            "&page="+page.toString();
         return this.http
             .get<any>(url)
             .pipe(catchError(this.handleError<any>("tv")));

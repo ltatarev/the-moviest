@@ -32,11 +32,11 @@ export class MovieService {
             .pipe(catchError(this.handleError<any>("movies")));
     }
 
-    moviesInTheathers() {
+    moviesInTheathers(page:any = 1) {
         let url =
             "https://api.themoviedb.org/3/discover/movie?api_key=" +
             this.apiKey +
-            "&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=1&primary_release_year=2019";
+            "&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page="+page.toString()+"&primary_release_year=2019";
         return this.http
             .get<any>(url)
             .pipe(catchError(this.handleError<any>("movies")));
@@ -54,13 +54,13 @@ export class MovieService {
             .pipe(catchError(this.handleError<any>("movies")));
     }
 
-    searchByName(query) {
+    searchByName(query,page:any = 1) {
         let url =
             "https://api.themoviedb.org/3/search/movie?api_key=" +
             this.apiKey +
             "&language=en-US&query=" +
             query.toString() +
-            "&page=1&include_adult=false";
+            "&page="+page.toString()+"&include_adult=false";
         return this.http
             .get<any>(url)
             .pipe(catchError(this.handleError<any>("tv")));

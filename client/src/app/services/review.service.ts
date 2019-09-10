@@ -57,8 +57,7 @@ export class ReviewService {
                         return;
                     }
                     this.showToastrSuccess(response.message);
-                    // TODO: OPEN SEARCH RESULT COMPONENT
-                    console.log(response.reviews);
+                    this.router.navigate(["searchResult"])
                 })
             );
     }

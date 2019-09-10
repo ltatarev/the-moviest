@@ -58,8 +58,7 @@ export class WatchlistService {
                         return;
                     }
                     this.showToastrSuccess(response.message);
-                    // TODO: OPEN SEARCH RESULT COMPONENT
-                    console.log(response);
+                    this.router.navigate(["searchResult"])
                 })
             );
     }
