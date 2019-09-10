@@ -1,16 +1,13 @@
 <div class="back">
     <app-navbar></app-navbar>
 
-    <div class="container-fluid  animated fadeIn delay-1s" id="trendingNow">
+    <div class="container-fluid animated fadeIn delay-1s" id="trendingNow">
         <!-- T R E N D I N G N O W  -->
         <div class="row">
             <div class="title">
                 <p class="ml-5">
-                    <img
-                        style="opacity: 1; filter: alpha(opacity=100); "
-                        src="../../../assets/img/video-camera.png"
-                        height="80"
-                    />
+                    <img style="opacity: 1; filter: alpha(opacity=100); " src="../../../assets/img/video-camera.png"
+                        height="80" />
                     <!-- 🎬 -->
                     TRENDING NOW
                 </p>
@@ -21,139 +18,121 @@
             <div class="col w-100">
                 <carousel>
                     <slide *ngFor="let three of topThree">
-                            <a (click)="goToMovie(three.id)">
-                        <img
-                            [src]="three.poster"
-                            alt="first slide"
-                            style="display: block; height: 600px; width: 100%; object-fit: cover;"
-                        />
+
+                        <img [src]="three.poster" alt="first slide"
+                            style="display: block; height: 600px; width: 100%; object-fit: cover;" />
+
                         <div class="carousel-caption d-none d-md-block">
-                            <h3>
-                               {{
+                            <a (click)="goToMovie(three.id)">
+                                <h3>
+                                    {{
                                     three.title
                                 }}
-                            </h3>
-                            <p class="lead">{{ three.overview }}</p>
-                        </a>
+                                </h3>
+                                <p class="lead">{{ three.overview }}</p>
+                            </a>
                         </div>
                     </slide>
                 </carousel>
             </div>
         </div>
 
-        <div class="container-fluid" id="airingOnTv">
-            <div class="row p-2">
-                <div class="col p-2 d-flex" *ngFor="let five of topFive">
-                    <div class="card" style="height: 600px; overflow: auto;">
-                        <a class="c-preview">
-                            <img
-                                [src]="five.poster"
-                                class="card-img-top c-preview__img"
-                                alt="..."
-                                height="300"
-                                style="object-fit: cover;"
-                            />
-                        </a>
-                        <div class="card-body">
-                            <div class="row p-1">
-                                <h5 class="card-title">{{ five.title }}</h5>
+        <div class="row" id="airingOnTv">
+            <div class="col d-flex" *ngFor="let five of topFive">
+                <div class="card" style="height: 600px; overflow: auto;">
+                    <a class="c-preview">
+                        <img [src]="five.poster" class="card-img-top c-preview__img" alt="..." height="300"
+                            style="object-fit: cover;" />
+                    </a>
+                    <div class="card-body">
+                        <div class="row p-1">
+                            <h5 class="card-title">{{ five.title }}</h5>
 
-                                <p class="card-text lead">
-                                    {{ five.overview }}
-                                </p>
-                                <div class="ml-2 pl-2">
-                                    <a (click)="goToMovie(five.id)">
-                                        <button class="learn-more">
-                                            <div class="circle">
-                                                <span class="icon arrow"></span>
-                                            </div>
-                                            <p class="button-text">
-                                                Learn More
-                                            </p>
-                                        </button>
-                                    </a>
-                                </div>
+                            <p class="card-text lead">
+                                {{ five.overview }}
+                            </p>
+                            <div class="ml-2 pl-2">
+                                <a (click)="goToMovie(five.id)">
+                                    <button class="learn-more">
+                                        <div class="circle">
+                                            <span class="icon arrow"></span>
+                                        </div>
+                                        <p class="button-text">
+                                            Learn More
+                                        </p>
+                                    </button>
+                                </a>
                             </div>
                         </div>
                     </div>
+
                 </div>
             </div>
         </div>
 
         <!-- A I R I N G O N T V -->
-        <div class="container-fluid">
-            <div class="row">
-                <div class="titleRight w-100 pr-5 mr-3">
-                    POPULAR ON TV
-                    <!-- 📺 -->
-                    <img
-                        style="opacity: 1; filter: alpha(opacity=100); padding: 10px;"
-                        src="../../../assets/img/tv.png"
-                        height="80"
-                    />
-                </div>
-            </div>
 
-            <div class="row">
-                <div class="col w-100">
-                    <carousel>
-                        <slide *ngFor="let three of topThreeTv">
-                                <a (click)="goToTv(three.id)">
-                            <img
-                                [src]="three.poster"
-                                alt="first slide"
-                                style="display: block; height: 600px; width: 100%; object-fit: cover;"
-                            />
-                            <div class="carousel-caption d-none d-md-block">
+        <div class="row">
+            <div class="titleRight w-100 pr-5 mr-3">
+                POPULAR ON TV
+                <!-- 📺 -->
+                <img style="opacity: 1; filter: alpha(opacity=100); padding: 10px;" src="../../../assets/img/tv.png"
+                    height="80" />
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col w-100">
+                <carousel>
+                    <slide *ngFor="let three of topThreeTv">
+                        <img [src]="three.poster" alt="first slide"
+                            style="display: block; height: 600px; width: 100%; object-fit: cover;" />
+                        <div class="carousel-caption d-none d-md-block">
+                            <a (click)="goToTv(three.id)">
                                 <h3>
-                                   {{
+                                    {{
                                         three.name
                                     }}
                                 </h3>
                                 <p class="lead">{{ three.overview }}</p>
                             </a>
-                            </div>
-                        </slide>
-                    </carousel>
-                </div>
+                        </div>
+                    </slide>
+                </carousel>
             </div>
+
         </div>
-        <div class="container-fluid" id="airingOnTv">
-            <div class="row p-2">
-                <div class="col p-2 d-flex" *ngFor="let five of topFiveTv">
-                    <div class="card" style="height: 600px; overflow: auto;">
-                        <a class="c-preview">
-                            <img
-                                [src]="five.poster"
-                                class="card-img-top c-preview__img "
-                                alt="..."
-                                height="300"
-                                style="object-fit: cover;"
-                            />
-                        </a>
-                        <div class="card-body">
-                            <div class="row p-2">
-                                <h5 class="card-title">{{ five.name }}</h5>
-                                <p class="card-text lead">
-                                    {{ five.overview }}
-                                </p>
-                                <div class="ml-2 pl-2">
-                                    <a (click)="goToTv(five.id)">
-                                        <button class="learn-more">
-                                            <div class="circle">
-                                                <span class="icon arrow"></span>
-                                            </div>
-                                            <p class="button-text">
-                                                Learn more
-                                            </p>
-                                        </button>
-                                    </a>
-                                </div>
+
+        <div class="row p-2">
+            <div class="col p-2 d-flex" *ngFor="let five of topFiveTv">
+                <div class="card" style="height: 600px; overflow: auto;">
+                    <a class="c-preview">
+                        <img [src]="five.poster" class="card-img-top c-preview__img " alt="..." height="300"
+                            style="object-fit: cover;" />
+                    </a>
+                    <div class="card-body">
+                        <div class="row p-2">
+                            <h5 class="card-title">{{ five.name }}</h5>
+                            <p class="card-text lead">
+                                {{ five.overview }}
+                            </p>
+                            <div class="ml-2 pl-2">
+                                <a (click)="goToTv(five.id)">
+                                    <button class="learn-more">
+                                        <div class="circle">
+                                            <span class="icon arrow"></span>
+                                        </div>
+                                        <p class="button-text">
+                                            Learn more
+                                        </p>
+                                    </button>
+                                </a>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
+
         </div>
     </div>
 

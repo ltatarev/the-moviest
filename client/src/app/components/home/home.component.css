@@ -10,11 +10,15 @@
     text-transform: uppercase;
     padding-bottom: 155px;
     min-height: 100vh;
-    min-width: 100vw;
+    width: 100%;
 }
 
 app-footer {
     width: 100%;
+}
+
+.container-fluid{
+    width: 90%;
 }
 
 .title {
@@ -60,7 +64,7 @@ h3 {
     font-family: "Montserrat", sans-serif;
 }
 
-h3 a:hover {
+ a:hover {
     cursor: pointer;
 }
 
