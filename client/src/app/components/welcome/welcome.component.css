@@ -5,7 +5,9 @@
     min-width: 100%;
     min-height: 100%;
     z-index: -100;
-    background-position: right;
+    background-position: center center;
+    margin: 0 auto;
+    width: 400px;
     /*     animation: slideBg 10s infinite 2s;
     background-image: url("../../../assets/img/bg/1.jpg"); */
 }
