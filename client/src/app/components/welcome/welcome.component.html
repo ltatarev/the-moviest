@@ -1,4 +1,4 @@
-<div class="fluid-container" id="background">
+<div class="fluid-container">
     <div class="nav p-5 mb-5 animated fadeIn">
         <a [routerLink]="['/login']" class="ml-auto m-5 cool-link" id="login"
             >LOGIN</a
@@ -7,12 +7,12 @@
     </div>
     <div
         *ngIf="learnMore"
-        class="text-light pl-5 pr-5 pb-5 mt-0 row rounded animated fadeInLeft"
+        class="text-dark pl-5 pr-5 pb-5 m-0 row rounded animated fadeInLeft"
         id="learnMore"
     >
         <div class="col-12 text-right">
             <p
-                class="cool-link font-weight-bold mt-5 text-right"
+                class="cool-link text-dark font-weight-bold mt-5 text-right"
                 (click)="toggleLearnMore()"
             >
                 BACK <i class="fas fa-chevron-left p-1"></i>
@@ -33,7 +33,7 @@
     </div>
     <!--  -->
     <div
-        class="row text-light pl-5 pt-5 m-0 animated fadeInRight"
+        class="row text-light pl-5 pt-5 m-0 animated fadeIn"
         *ngIf="!learnMore"
     >
         <div class="col-9">

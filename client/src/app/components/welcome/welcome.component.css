@@ -13,14 +13,14 @@
     background-image: url("../../../assets/img/bg/1.jpg");   */
     margin: 0 auto;
     height: 100%;
+    width: 100%;
     font-family: "Montserrat", sans-serif;
     overflow: hidden;
     position: absolute;
     top: 0;
     object-fit: cover;
-    min-width: 100vw;
-    min-height: 100vh;
-    height: 100vh;
+    max-width: 100vw;
+    max-height: 100vh;
     z-index: -1000;
 }
 
@@ -166,7 +166,8 @@ p.cool-link:hover {
 }
 
 #learnMore {
-    background-color: rgba(216, 21, 128, 0.5);
+    background-color: white;
+    border-radius: 20px;
 }
 
 #learnMore.lead {
