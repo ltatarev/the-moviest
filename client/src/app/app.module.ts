@@ -28,6 +28,8 @@ import { SearchComponent } from "./components/search/search.component";
 import { ProfileComponent } from "./components/profile/profile.component";
 import { SettingsComponent } from "./components/settings/settings.component";
 import { TvComponent } from "./components/tv/tv.component";
+import { SearchResultComponent } from './components/search-result/search-result.component';
+import { DetailsComponent } from './components/details/details.component';
 
 @NgModule({
     declarations: [
@@ -45,7 +47,9 @@ import { TvComponent } from "./components/tv/tv.component";
         SearchComponent,
         ProfileComponent,
         SettingsComponent,
-        TvComponent
+        TvComponent,
+        SearchResultComponent,
+        DetailsComponent
     ],
     imports: [
         AppRoutingModule,
