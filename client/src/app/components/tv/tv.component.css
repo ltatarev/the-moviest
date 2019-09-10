@@ -11,6 +11,7 @@
     min-height: 100vh;
     padding-bottom: 155px;
     font-family: "Montserrat", sans-serif;
+    min-width: 100vw;
 }
 
 .container {

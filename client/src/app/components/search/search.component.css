@@ -12,6 +12,8 @@
     height: 100vh;
     overflow: auto;
     padding-bottom: 155px;
+    min-height: 100vh;
+    min-width: 100vw;
 }
 
 .container {

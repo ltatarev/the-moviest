@@ -6,7 +6,7 @@ li {
     padding-left: 20px;
     padding-right: 20px;
     font-family: "Montserrat", sans-serif;
-    font-size: 30px;
+    font-size: 20px;
     text-transform: uppercase;
 }
 
@@ -15,7 +15,7 @@ li a {
     color: white;
     font-weight: bold;
     letter-spacing: 5px;
-    font-size: 17px;
+    font-size: 12px;
 }
 
 ul {
@@ -51,14 +51,17 @@ ul > *:hover {
 
 .dropdown {
     position: relative;
+    left: -20px;
+    font-size: 10px;
 }
 
 .dropdown-content {
-    border-radius: 20px;
+    border-radius: 15px;
     display: none;
     position: absolute;
-    background-color: #f1f1f19d;
-    min-width: 120px;
+    font-size: 10px;
+    background-color: #f1f1f16b;
+    min-width: 100px;
     box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
     z-index: 1;
 }
@@ -66,7 +69,7 @@ ul > *:hover {
 .dropdown-content a {
     color: black;
     font-size: 10px;
-    padding: 10px 10px;
+    padding: 7px 7px;
     text-align: center;
     text-decoration: none;
     display: block;

@@ -1,6 +1,7 @@
 .main {
     width: 100%;
-    min-height: 100vh; /* will cover the 100% of viewport */
+    min-height: 100vh;
+    min-width: 100vw;
     padding-bottom: 155px;
     position: absolute;
     top: 0;

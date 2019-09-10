@@ -40,7 +40,7 @@ export class DiscoverComponent implements OnInit {
         newTv.poster_path = tv.results.map(
             tvs =>
                 (tvs.poster_path =
-                    "https://image.tmdb.org/t/p/w342" + tvs.poster_path)
+                    "https://image.tmdb.org/t/p/w500" + tvs.poster_path)
         );
         return newTv;
     }
@@ -50,7 +50,7 @@ export class DiscoverComponent implements OnInit {
         newMovie.poster_path = movie.results.map(
             movies =>
                 (movies.poster_path =
-                    "https://image.tmdb.org/t/p/w342" + movies.poster_path)
+                    "https://image.tmdb.org/t/p/w500" + movies.poster_path)
         );
         return newMovie;
     }

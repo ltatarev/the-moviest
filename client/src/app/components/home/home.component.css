@@ -10,6 +10,7 @@
     text-transform: uppercase;
     padding-bottom: 155px;
     min-height: 100vh;
+    min-width: 100vw;
 }
 
 app-footer {

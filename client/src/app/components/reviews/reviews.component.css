@@ -10,6 +10,7 @@
     padding-bottom: 125px;
     min-height: 100vh;
     padding-bottom: 155px;
+    min-width: 100vw;
 }
 
 .container {
