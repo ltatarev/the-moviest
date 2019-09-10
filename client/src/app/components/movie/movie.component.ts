@@ -110,5 +110,8 @@ export class MovieComponent implements OnInit {
         this.writingReview = false;
     }
 
-    addToWatchlist() {}
+    addToWatchlist() {
+        // TODO: router navigate to profile with user id ?? OR open div with users watchlists as a form ?
+        // * save movie id, title, poster path to local storage ??
+    }
 }

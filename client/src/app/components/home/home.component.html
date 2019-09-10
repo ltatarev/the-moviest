@@ -21,6 +21,7 @@
             <div class="col w-100">
                 <carousel>
                     <slide *ngFor="let three of topThree">
+                            <a (click)="goToMovie(three.id)">
                         <img
                             [src]="three.poster"
                             alt="first slide"
@@ -28,11 +29,12 @@
                         />
                         <div class="carousel-caption d-none d-md-block">
                             <h3>
-                                <a (click)="goToMovie(three.id)">{{
+                               {{
                                     three.title
-                                }}</a>
+                                }}
                             </h3>
                             <p class="lead">{{ three.overview }}</p>
+                        </a>
                         </div>
                     </slide>
                 </carousel>
@@ -96,6 +98,7 @@
                 <div class="col w-100">
                     <carousel>
                         <slide *ngFor="let three of topThreeTv">
+                                <a (click)="goToTv(three.id)">
                             <img
                                 [src]="three.poster"
                                 alt="first slide"
@@ -103,11 +106,12 @@
                             />
                             <div class="carousel-caption d-none d-md-block">
                                 <h3>
-                                    <a (click)="goToTv(three.id)">{{
+                                   {{
                                         three.name
-                                    }}</a>
+                                    }}
                                 </h3>
                                 <p class="lead">{{ three.overview }}</p>
+                            </a>
                             </div>
                         </slide>
                     </carousel>
