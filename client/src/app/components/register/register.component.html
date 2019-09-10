@@ -1,61 +1,118 @@
 <div class="back animated fadeIn"></div>
 <div class="registration-form">
-  <header>
-    <h1>🎬 Register</h1>
-    <p class="lead text-italic">Enter your information</p>
-  </header>
+    <header>
+        <h1>🎬 Register</h1>
+        <p class="lead text-italic">Enter your information</p>
+    </header>
 
-  <form [formGroup]="registerForm" (ngSubmit)="onSubmit()" class="animated fadeInDown">
-
-  <!-- E M A I L -->
-    <div class="input-section email-section">
-      <input class="email" formControlName="email" type="email" placeholder="ENTER YOUR E-MAIL" required autocomplete="off" />
-      <!-- animated button -->
-      <div class="animated-button">
-      <span [ngClass]="{'icon-paper-plane':true,'next':registerForm.get('email').valid}"><i class="fa fa-envelope-o"></i></span>
-      <span class="next-button email"><i class="fa fa-arrow-up"></i></span>
-      </div>
-    </div>
-
-    <!-- .next-button:hover {cursor:pointer} -->
-
-  <!-- U S E R N A M E -->
-    <div class="input-section username-section folded">
-      <input class="username" formControlName="username" type="text" required placeholder="ENTER YOUR USERNAME" />
-   <!-- animated button -->
-     <div class="animated-button">
-      <span [ngClass]="{'icon-lock':true,'next':registerForm.get('username').valid}"><i class="fa fa-laptop"></i></span>
-      <span class="next-button username"><i class="fa fa-arrow-up"></i></span>
-    </div>
-      </div>
-
-
-  <!-- P A S S W O R D -->
-    <div class="input-section password-section folded">
-      <input class="password" formControlName="password" type="password" required placeholder="ENTER YOUR PASSWORD" />
-    
-    <!-- animated button -->
-    <div class="animated-button">
-    <span [ngClass]="{'icon-repeat-lock':true,'next':registerForm.get('password').valid}"><i class="fa fa-lock"></i></span>
-
-    <!-- s u b m i t -->
-        <span class="next-button password">
-          <button type="submit" class="btn btn-link" [disabled]="registerForm.invalid"><i class="fa fa-paper-plane"></i></button>
-        </span>
+    <form
+        [formGroup]="registerForm"
+        (ngSubmit)="onSubmit()"
+        class="animated fadeInDown"
+    >
+        <!-- E M A I L -->
+        <div class="input-section email-section">
+            <input
+                class="email"
+                formControlName="email"
+                type="email"
+                placeholder="ENTER YOUR E-MAIL"
+                required
+                autocomplete="off"
+            />
+            <!-- animated button -->
+            <div class="animated-button">
+                <span
+                    [ngClass]="{
+                        'icon-paper-plane': true,
+                        next: registerForm.get('email').valid
+                    }"
+                    ><i class="fa fa-envelope-o"></i
+                ></span>
+                <span class="next-button email"
+                    ><i class="fa fa-arrow-up"></i
+                ></span>
+            </div>
         </div>
-    </div>
-    <div class="success"> 
-      <p>CREATING ACCOUNT...</p>
-    </div>
-  </form>
-  <p class="lead p-5 mt-5 text-danger font-weight-bold" 
-  *ngIf="(registerForm.get('username').dirty)&&!registerForm.get('username').valid">
-  Minimum username length is 3!
-</p>
-<p class="lead p-5 mt-5 text-danger font-weight-bold" 
-*ngIf="(registerForm.get('password').dirty)&&!registerForm.get('password').valid">
-Minimum password length is 3!
-</p>
-   
 
+        <!-- .next-button:hover {cursor:pointer} -->
+
+        <!-- U S E R N A M E -->
+        <div class="input-section username-section folded">
+            <input
+                class="username"
+                formControlName="username"
+                type="text"
+                required
+                placeholder="ENTER YOUR USERNAME"
+            />
+            <!-- animated button -->
+            <div class="animated-button">
+                <span
+                    [ngClass]="{
+                        'icon-lock': true,
+                        next: registerForm.get('username').valid
+                    }"
+                    ><i class="fa fa-laptop"></i
+                ></span>
+                <span class="next-button username"
+                    ><i class="fa fa-arrow-up"></i
+                ></span>
+            </div>
+        </div>
+
+        <!-- P A S S W O R D -->
+        <div class="input-section password-section folded">
+            <input
+                class="password"
+                formControlName="password"
+                type="password"
+                required
+                placeholder="ENTER YOUR PASSWORD"
+            />
+
+            <!-- animated button -->
+            <div class="animated-button">
+                <span
+                    [ngClass]="{
+                        'icon-repeat-lock': true,
+                        next: registerForm.get('password').valid
+                    }"
+                    ><i class="fa fa-lock"></i
+                ></span>
+
+                <!-- s u b m i t -->
+                <span class="next-button password">
+                    <button
+                        type="submit"
+                        class="btn btn-link"
+                        [disabled]="registerForm.invalid"
+                    >
+                        <i class="fa fa-paper-plane"></i>
+                    </button>
+                </span>
+            </div>
+        </div>
+        <div class="success">
+            <p>CREATING ACCOUNT...</p>
+        </div>
+    </form>
+    <p
+        class="lead p-5 mt-5 text-danger font-weight-bold"
+        *ngIf="
+            registerForm.get('username').dirty &&
+            !registerForm.get('username').valid
+        "
+    >
+        Minimum username length is 3!
+    </p>
+    <p
+        class="lead p-5 mt-5 text-danger font-weight-bold"
+        *ngIf="
+            registerForm.get('password').dirty &&
+            !registerForm.get('password').valid
+        "
+    >
+        Minimum password length is 3!
+    </p>
 </div>

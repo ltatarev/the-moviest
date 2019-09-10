@@ -4,7 +4,7 @@
     background-size: cover;
     position: relative;
     height: 100%;
-    overflow: hidden;
+    overflow: auto;
     font-family: "Montserrat", sans-serif;
     font-size: 30px;
     padding-bottom: 155px;

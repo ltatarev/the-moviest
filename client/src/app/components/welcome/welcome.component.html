@@ -1,16 +1,58 @@
-<div class="fluid-container" style="overflow: auto;">
+<div class="fluid-container" id="background">
     <div class="nav p-5 mb-5 animated fadeIn">
         <a [routerLink]="['/login']" class="ml-auto m-5 cool-link" id="login"
             >LOGIN</a
         >
         <a [routerLink]="['/register']" class="m-5" id="register">REGISTER</a>
     </div>
-
-    <!--     <div class="row pl-5 pt-5 m-0">
-        <div class="col pt-5 mt-5">
-           <img class="w-50 mt-5 pt-5 noselect animated pulse" src="../../../assets/img/logo.png" alt="The Moviest ">
+    <div
+        *ngIf="learnMore"
+        class="text-light pl-5 pr-5 pb-5 mt-0 row rounded animated fadeInLeft"
+        id="learnMore"
+    >
+        <div class="col-12 text-right">
+            <p
+                class="cool-link font-weight-bold mt-5 text-right"
+                (click)="toggleLearnMore()"
+            >
+                BACK <i class="fas fa-chevron-left p-1"></i>
+            </p>
         </div>
-    </div> -->
+        <div class="row">
+            <div class="col-7">
+                <h4 style="border-bottom: 7px solid rgb(11, 20, 99);">
+                    Platform for your favorite movies & TV shows.
+                </h4>
+                <p class="font-italic">
+                    Register by entering your e-mail, username & password.
+                    Discover popular movies & TV shows, write reviews, create
+                    watchlists, customize your profile...
+                </p>
+            </div>
+        </div>
+    </div>
+    <!--  -->
+    <div
+        class="row text-light pl-5 pt-5 m-0 animated fadeInRight"
+        *ngIf="!learnMore"
+    >
+        <div class="col-9">
+            <img
+                *ngIf="false"
+                class="noselect"
+                src="../../../assets/img/logo.png"
+                alt="The Moviest "
+            />
+        </div>
+        <div class="col m-5 text-right">
+            <p
+                class="cool-link font-weight-bold mt-5 pt-5"
+                (click)="toggleLearnMore()"
+            >
+                LEARN MORE <i class="fas fa-chevron-right p-1"></i>
+            </p>
+        </div>
+    </div>
     <video autoplay loop [muted]="true" id="background">
         <source src="../../../assets/bg.mp4" type="video/mp4" />
     </video>
