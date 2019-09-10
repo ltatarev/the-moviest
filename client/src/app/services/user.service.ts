@@ -68,7 +68,6 @@ export class UserService {
     private handleError<T>(operation: string = "operation", result?: T) {
         return (response: any): Observable<T> => {
             this.toasterService.error(
-                "Error",
                 "Error has occured. Please try again."
             );
             // this.router.navigate(["welcome"]);

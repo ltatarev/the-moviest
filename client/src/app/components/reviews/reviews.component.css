@@ -21,7 +21,6 @@
 
 .container .box {
     width: 250px;
-    height: 250px;
     border-radius: 10px;
     background-color: white;
     margin: 20px;
@@ -48,7 +47,18 @@
     color: #8293ff;
     font-weight: bold;
     padding: 10px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
 }
+
+.movie {
+    font-size: 24px;
+    color: #8293ff;
+    font-weight: bold;
+    padding: 10px;
+    text-transform: none;
+}
+
 .container .box .boxContent .desc {
     color: #8293ff;
     font-size: 15px;
@@ -65,4 +75,8 @@
 .container .box:hover .boxContent .desc {
     color: white;
     transition: 1s all;
+}
+
+.container .box:hover .boxContent .movie {
+    color: rgb(0, 217, 255);
 }

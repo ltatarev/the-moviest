@@ -13,12 +13,12 @@
         <div class="container animated fadeInUp">
             <div class="box" *ngFor="let watchlist of watchlists">
                 <div class="boxContent">
-                    <i class="fa fa-microchip icon"></i>
+                    <i class="fas fa-tv icon"></i>
                     <h1 class="title">{{ watchlist.title }}</h1>
                     <p class="desc">
-                        {{ watchlist.author_id.username }}
+                       <strong>{{ watchlist.author_id.username }}</strong>
                         <br />
-                        {{ watchlist.description }}
+                        <em>{{ watchlist.description }}</em>
                     </p>
                 </div>
             </div>

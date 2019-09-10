@@ -75,8 +75,8 @@
             <ng-template #t let-i="index" let-v="value">
                 <button
                     type="button"
-                    class="btn btn-sm btn{{ i < v ? 'Pink' : '-default' }}"
-                    style="border-radius: 10px; transition: all 0.1s;"
+                    class="btn  btn{{ i < v ? 'Pink' : '-default' }}"
+                    style="transition: all 0.1s;"
                 >
                     {{ i < v ? "&#9733;" : "&#9734;" }}
                 </button>

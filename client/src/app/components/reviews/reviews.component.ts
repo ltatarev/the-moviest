@@ -38,15 +38,14 @@ export class ReviewsComponent implements OnInit {
 
     private getReviewsByAuthor(id) {
         return this.reviewService.findReviewsByAuthor(id).subscribe(res => {
-            console.log(res.message);
             this.reviews = res.reviews;
         });
     }
 
     private getAllReviews() {
         return this.reviewService.findAllReviews().subscribe(res => {
-            console.log(res);
             this.reviews = res.reviews;
+            console.log(this.reviews)
         });
     }
 }

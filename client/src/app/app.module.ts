@@ -59,7 +59,7 @@ import { TvComponent } from "./components/tv/tv.component";
         CommonModule,
         BrowserAnimationsModule,
         ToastrModule.forRoot({
-            timeOut: 1250,
+            timeOut: 1750,
             positionClass: "toast-top-right",
             countDuplicates: true,
             preventDuplicates: true,
