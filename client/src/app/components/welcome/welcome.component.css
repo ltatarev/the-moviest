@@ -166,6 +166,11 @@ p.cool-link:hover {
 }
 
 #learnMore {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    top: 50%;
+    left:0;
     background-color: white;
     border-radius: 20px;
 }

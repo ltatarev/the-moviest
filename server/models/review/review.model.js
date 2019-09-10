@@ -6,7 +6,7 @@ const reviewSchema = new mongoose.Schema(
       type: String,
       required: true,
       minlength: 3,
-      maxlength: 15
+      maxlength: 45
     },
     movie: {
       movieId: { type: Number },
