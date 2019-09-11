@@ -1,8 +1,9 @@
 import { Component, OnInit } from "@angular/core";
 import { WatchlistService } from "src/app/services/watchlist.service";
-import { ActivatedRoute } from "@angular/router";
+import { ActivatedRoute, Router } from "@angular/router";
 import { UserService } from "src/app/services/user.service";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
+import { DataProviderService } from "src/app/services/data-provider.service";
 
 @Component({
     selector: "app-watchlists",
@@ -22,6 +23,8 @@ export class WatchlistsComponent implements OnInit {
         private userService: UserService,
         private watchlistService: WatchlistService,
         private activatedRoute: ActivatedRoute,
+        private dataProvider: DataProviderService,
+        private router: Router,
         private fb: FormBuilder
     ) {
         let currentUserId = this.userService.user.value._id;
@@ -79,5 +82,10 @@ export class WatchlistsComponent implements OnInit {
         if (this.id) {
             this.getWatchlists(this.id);
         } else this.getAllWatchlists();
+    }
+
+    private openWatchlist(watchlist) {
+        this.dataProvider.setData({ watchlist, type: "watchlist" });
+        this.router.navigate(["details"]);
     }
 }

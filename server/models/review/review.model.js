@@ -10,7 +10,8 @@ const reviewSchema = new mongoose.Schema(
     },
     movie: {
       movieId: { type: Number },
-      movieTitle: String
+      movieTitle: String,
+      moviePosterPath: String
     },
     rating: {
       type: Number,

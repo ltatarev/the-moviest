@@ -1,7 +1,8 @@
 import { Component, OnInit } from "@angular/core";
 import { ReviewService } from "src/app/services/review.service";
-import { ActivatedRoute } from "@angular/router";
+import { ActivatedRoute, Router } from "@angular/router";
 import { UserService } from "src/app/services/user.service";
+import { DataProviderService } from "src/app/services/data-provider.service";
 
 @Component({
     selector: "app-reviews",
@@ -17,9 +18,13 @@ export class ReviewsComponent implements OnInit {
     constructor(
         private userService: UserService,
         private reviewService: ReviewService,
-        private activatedRoute: ActivatedRoute
+        private activatedRoute: ActivatedRoute,
+        private dataProvider: DataProviderService,
+        private router: Router
     ) {
         let currentUserId = this.userService.user.value._id;
+
+        this.dataProvider.removeData();
 
         this.activatedRoute.params.subscribe(params => {
             if (params.id) {
@@ -45,7 +50,11 @@ export class ReviewsComponent implements OnInit {
     private getAllReviews() {
         return this.reviewService.findAllReviews().subscribe(res => {
             this.reviews = res.reviews;
-            console.log(this.reviews)
         });
+    }
+
+    public openReview(review) {
+        this.dataProvider.setData({ review, type: "review" });
+        this.router.navigate(["details"]);
     }
 }

@@ -1,5 +1,42 @@
 <div class="back">
     <app-navbar></app-navbar>
 
+    <div class="container mb-5 text-dark animated fadeInUp">
+        <section class="product">
+            <div class="product__photo">
+                <div class="photo-container">
+                    <div class="photo-main">
+                        <img src="{{ data?.img }}" style="width: 100%; " />
+                    </div>
+                </div>
+            </div>
+            <div class="product__info">
+                <div class="price">
+                    <span>{{ data.title }}</span>
+                </div>
+                <div class="title font-italic pt-3">
+                    <h1>{{ data.subtitle }}</h1>
+                </div>
+                <div class="description">
+                    <span *ngIf="!isWatchlist">
+                        <p *ngFor="let body of data.body">
+                            {{ body }}
+                        </p>
+                    </span>
+                    <span *ngIf="isWatchlist">
+                        <h5 *ngIf="data.body.length" class="font-weight-bold">
+                            Movies/TV shows:
+                        </h5>
+                        <ul *ngFor="let body of data.body">
+                            <li style="font-size: 15px;">{{ body }}</li>
+                        </ul>
+                    </span>
+                    <hr />
+                    <p class="lead">{{ data.footer }}</p>
+                </div>
+            </div>
+        </section>
+    </div>
+
     <app-footer></app-footer>
 </div>

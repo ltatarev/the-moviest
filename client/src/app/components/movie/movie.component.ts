@@ -120,7 +120,8 @@ export class MovieComponent implements OnInit {
             ...this.reviewForm.value,
             movie: {
                 movieId: this.movieId,
-                movieTitle: this.movie.original_title
+                movieTitle: this.movie.original_title,
+                moviePosterPath: this.movie.poster_path
             }
         };
         this.reviewService.createReview(review).subscribe();
