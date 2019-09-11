@@ -8,8 +8,8 @@
         >
             {{ title }}
         </h2>
-        <div class="div" *ngFor="let data of displayData">
-            <div class="card m-4 p-3" (click)="navigateTo(data)">
+        <div class="div" *ngFor="let data of displayData; let i = index">
+            <div class="card m-4 p-3" (click)="navigateTo(data, i)">
                 <div class="row">
                     <div class="col-2" *ngIf="data.img">
                         <img [src]="data.img" />
@@ -22,6 +22,38 @@
                         </div>
                     </div>
                 </div>
+            </div>
+        </div>
+
+        <!-- P A G I N A T I O N -->
+        <div class="pagination-wrapper">
+            <div class="pagination">
+                <a
+                    *ngIf="currentPage > 1"
+                    class="prev page-numbers"
+                    (click)="goToFirstPage()"
+                    >first</a
+                >
+                <a
+                    *ngIf="currentPage > 1"
+                    class="page-numbers"
+                    (click)="goToPrevPage()"
+                    >{{ prevPage }}</a
+                >
+                <span class="page-numbers current">{{ currentPage }}</span>
+                <a
+                    *ngIf="nextPage <= lastPage"
+                    class="page-numbers"
+                    (click)="goToNextPage()"
+                    >{{ nextPage }}</a
+                >
+
+                <a
+                    *ngIf="nextPage < lastPage"
+                    class="next page-numbers"
+                    (click)="goToLastPage()"
+                    >last</a
+                >
             </div>
         </div>
     </div>

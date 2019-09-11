@@ -77,11 +77,12 @@ export class WatchlistsComponent implements OnInit {
         this.watchlistService.createWatchlist(watchlist).subscribe();
         this.watchlistForm.reset();
         this.writingWatchlist = false;
-        // TODO: fetch watchlists after submitting
-        // socket?
-        if (this.id) {
+        this.router.navigate(["discover"]);
+
+        // TODO: fetch watchlists after submitting -- socket.io
+        /*         if (this.id) {
             this.getWatchlists(this.id);
-        } else this.getAllWatchlists();
+        } else this.getAllWatchlists(); */
     }
 
     private openWatchlist(watchlist) {

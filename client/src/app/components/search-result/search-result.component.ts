@@ -1,6 +1,8 @@
 import { Component } from "@angular/core";
 import { DataProviderService } from "src/app/services/data-provider.service";
 import { Router } from "@angular/router";
+import { TvService } from "src/app/services/tv.service";
+import { MovieService } from "src/app/services/movie.service";
 
 @Component({
     selector: "app-search-result",
@@ -15,14 +17,25 @@ export class SearchResultComponent {
 
     private search: any;
 
+    private currentPage: any = 1;
+    private nextPage: any = 2;
+    private prevPage: any = 0;
+    private lastPage: any;
+
+    private type: any;
+
     constructor(
+        private tvService: TvService,
+        private movieService: MovieService,
         private dataProvider: DataProviderService,
         private router: Router
     ) {
         this.data = this.dataProvider.data;
         this.search = this.dataProvider.data.search;
 
-        switch (this.data.type) {
+        this.type = this.data.type;
+
+        switch (this.type) {
             case "reviews":
                 this.parseReview(this.data.reviews);
                 this.title = "Reviews";
@@ -34,10 +47,12 @@ export class SearchResultComponent {
             case "tvShow":
                 this.parseTv(this.data.res.results);
                 this.title = "TV shows";
+                this.lastPage = this.data.res.total_pages - 1;
                 break;
             case "movie":
                 this.parseMovie(this.data.res.results);
                 this.title = "Movies";
+                this.lastPage = this.data.res.total_pages - 1;
                 break;
         }
     }
@@ -46,11 +61,7 @@ export class SearchResultComponent {
         for (let review of data) {
             this.displayData.push({
                 title: review.title,
-                subtitle:
-                    review.movie.movieTitle +
-                    ", " +
-                    review.rating.toString() +
-                    "/5",
+                subtitle: review.movie.movieTitle,
                 body: review.reviewText
             });
         }
@@ -73,8 +84,9 @@ export class SearchResultComponent {
     }
 
     public parseTv(data) {
+        this.displayData = [];
         for (let tv of data) {
-            if (!tv.overview || !tv.vote_average || !tv.poster_path) {
+            if (!tv.overview && !tv.poster_path) {
                 continue;
             }
             this.displayData.push({
@@ -91,7 +103,7 @@ export class SearchResultComponent {
 
     public parseMovie(data) {
         for (let movie of data) {
-            if (!movie.overview || !movie.vote_average || !movie.poster_path) {
+            if (!movie.overview && !movie.poster_path) {
                 continue;
             }
             this.displayData.push({
@@ -106,11 +118,23 @@ export class SearchResultComponent {
         }
     }
 
-    public navigateTo(data) {
+    public navigateTo(data, i) {
         switch (this.data.type) {
             case "reviews":
+                this.dataProvider.removeData();
+                this.dataProvider.setData({
+                    review: this.data.reviews[i],
+                    type: "review"
+                });
+                this.router.navigate(["details"]);
                 break;
             case "watchlist":
+                this.dataProvider.removeData();
+                this.dataProvider.setData({
+                    watchlist: this.data.watchlists[i],
+                    type: "watchlist"
+                });
+                this.router.navigate(["details"]);
                 break;
             case "tvShow":
                 this.router.navigate(["tv", data.id]);
@@ -119,5 +143,135 @@ export class SearchResultComponent {
                 this.router.navigate(["movie", data.id]);
                 break;
         }
+    }
+
+    public goToNextPage() {
+        switch (this.type) {
+            case "tvShow":
+                if (this.currentPage < this.lastPage) {
+                    this.tvService
+                        .searchByName(this.search, this.nextPage)
+                        .subscribe(res => {
+                            this.data = res.results;
+                            console.log(this.data);
+                            this.parseTv(this.data);
+                            window.scroll(0, 0);
+                        });
+                    this.updatePages(1);
+                }
+                break;
+            case "movie":
+                if (this.currentPage < this.lastPage) {
+                    this.movieService
+                        .searchByName(this.search, this.nextPage)
+                        .subscribe(res => {
+                            this.data = res.results;
+                            console.log(this.data);
+                            this.parseMovie(this.data);
+                            window.scroll(0, 0);
+                        });
+                    this.updatePages(1);
+                }
+                break;
+        }
+    }
+
+    public goToPrevPage() {
+        switch (this.type) {
+            case "tvShow":
+                if (this.currentPage > 1) {
+                    this.tvService
+                        .searchByName(this.search, this.prevPage)
+                        .subscribe(res => {
+                            this.data = res.results;
+                            console.log(this.data);
+                            this.parseTv(this.data);
+                            window.scroll(0, 0);
+                        });
+                    this.updatePages(-1);
+                }
+                break;
+            case "movie":
+                if (this.currentPage > 1) {
+                    this.movieService
+                        .searchByName(this.search, this.prevPage)
+                        .subscribe(res => {
+                            this.data = res.results;
+                            console.log(this.data);
+                            this.parseMovie(this.data);
+                            window.scroll(0, 0);
+                        });
+                    this.updatePages(-1);
+                }
+                break;
+        }
+    }
+
+    public goToLastPage() {
+        switch (this.type) {
+            case "tvShow":
+                if (this.currentPage < this.lastPage) {
+                    this.tvService
+                        .searchByName(this.search, this.lastPage)
+                        .subscribe(res => {
+                            this.data = res.results;
+                            console.log(this.data);
+                            this.parseTv(this.data);
+                            window.scroll(0, 0);
+                        });
+                    this.updatePages(this.lastPage - this.currentPage);
+                }
+                break;
+            case "movie":
+                if (this.currentPage < this.lastPage) {
+                    this.movieService
+                        .searchByName(this.search, this.lastPage)
+                        .subscribe(res => {
+                            this.data = res.results;
+                            console.log(this.data);
+                            this.parseMovie(this.data);
+                            window.scroll(0, 0);
+                        });
+                }
+                this.updatePages(this.lastPage - this.currentPage);
+                break;
+        }
+    }
+
+    public goToFirstPage() {
+        switch (this.type) {
+            case "tvShow":
+                if (this.currentPage > 1) {
+                    this.tvService
+                        .searchByName(this.search, 1)
+                        .subscribe(res => {
+                            this.data = res.results;
+                            console.log(this.data);
+                            this.parseTv(this.data);
+                            window.scroll(0, 0);
+                        });
+                    this.updatePages(1 - this.currentPage);
+                }
+                break;
+            case "movie":
+                if (this.currentPage > 1) {
+                    this.movieService
+                        .searchByName(this.search, 1)
+                        .subscribe(res => {
+                            this.data = res.results;
+                            console.log(this.data);
+                            this.parseMovie(this.data);
+                            window.scroll(0, 0);
+                        });
+                }
+                this.updatePages(1 - this.currentPage);
+                break;
+        }
+    }
+
+    private updatePages(change: number) {
+        this.currentPage += change;
+        this.nextPage = this.currentPage + 1;
+        this.prevPage = this.currentPage - 1;
     }
 }

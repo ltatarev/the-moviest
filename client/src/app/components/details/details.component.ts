@@ -1,6 +1,5 @@
 import { Component, OnInit } from "@angular/core";
 import { DataProviderService } from "src/app/services/data-provider.service";
-import { MovieService } from "src/app/services/movie.service";
 
 @Component({
     selector: "app-details",
@@ -36,7 +35,7 @@ export class DetailsComponent implements OnInit {
             ? review.movie.moviePosterPath
             : "";
         this.data.subtitle = review.movie.movieTitle;
-        this.data.body = ["Rating: " + review.rating, review.reviewText];
+        this.data.body = ["Rating: " + review.rating + "/5", review.reviewText];
         this.data.footer = "Written by: " + review.author_id.username;
     }
 

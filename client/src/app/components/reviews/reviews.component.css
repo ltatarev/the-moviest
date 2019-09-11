@@ -70,6 +70,7 @@
 .container .box:hover {
     background: linear-gradient(130deg, #503bff 0%, #8293ff 100%);
     box-shadow: none;
+    cursor: pointer;
 }
 
 .container .box:hover .boxContent .title,

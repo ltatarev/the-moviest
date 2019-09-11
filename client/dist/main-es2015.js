@@ -151,7 +151,7 @@ module.exports = "<div class=\"back animated fadeIn\">\n    <app-navbar></app-na
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"back\">\n    <app-navbar></app-navbar>\n    <div class=\"container\">\n        <h1 class=\"text-light display-4\">Search results for \"{{ search }}\"</h1>\n        <h2\n            class=\"font-weight-bold font-italic text-light\"\n            style=\"border-bottom: 2px solid salmon;\"\n        >\n            {{ title }}\n        </h2>\n        <div class=\"div\" *ngFor=\"let data of displayData\">\n            <div class=\"card m-4 p-3\" (click)=\"navigateTo(data)\">\n                <div class=\"row\">\n                    <div class=\"col-2\" *ngIf=\"data.img\">\n                        <img [src]=\"data.img\" />\n                    </div>\n                    <div class=\"col\">\n                        <div class=\"card-title\">{{ data.title }}</div>\n                        <div class=\"card-subtitle\">{{ data.subtitle }}</div>\n                        <div class=\"card-body\">\n                            {{ data.body }}\n                        </div>\n                    </div>\n                </div>\n            </div>\n        </div>\n    </div>\n    <app-footer></app-footer>\n</div>\n"
+module.exports = "<div class=\"back\">\n    <app-navbar></app-navbar>\n    <div class=\"container\">\n        <h1 class=\"text-light display-4\">Search results for \"{{ search }}\"</h1>\n        <h2\n            class=\"font-weight-bold font-italic text-light\"\n            style=\"border-bottom: 2px solid salmon;\"\n        >\n            {{ title }}\n        </h2>\n        <div class=\"div\" *ngFor=\"let data of displayData; let i = index\">\n            <div class=\"card m-4 p-3\" (click)=\"navigateTo(data, i)\">\n                <div class=\"row\">\n                    <div class=\"col-2\" *ngIf=\"data.img\">\n                        <img [src]=\"data.img\" />\n                    </div>\n                    <div class=\"col\">\n                        <div class=\"card-title\">{{ data.title }}</div>\n                        <div class=\"card-subtitle\">{{ data.subtitle }}</div>\n                        <div class=\"card-body\">\n                            {{ data.body }}\n                        </div>\n                    </div>\n                </div>\n            </div>\n        </div>\n\n        <!-- P A G I N A T I O N -->\n        <div class=\"pagination-wrapper\">\n            <div class=\"pagination\">\n                <a\n                    *ngIf=\"currentPage > 1\"\n                    class=\"prev page-numbers\"\n                    (click)=\"goToFirstPage()\"\n                    >first</a\n                >\n                <a\n                    *ngIf=\"currentPage > 1\"\n                    class=\"page-numbers\"\n                    (click)=\"goToPrevPage()\"\n                    >{{ prevPage }}</a\n                >\n                <span class=\"page-numbers current\">{{ currentPage }}</span>\n                <a\n                    *ngIf=\"nextPage <= lastPage\"\n                    class=\"page-numbers\"\n                    (click)=\"goToNextPage()\"\n                    >{{ nextPage }}</a\n                >\n\n                <a\n                    *ngIf=\"nextPage < lastPage\"\n                    class=\"next page-numbers\"\n                    (click)=\"goToLastPage()\"\n                    >last</a\n                >\n            </div>\n        </div>\n    </div>\n    <app-footer></app-footer>\n</div>\n"
 
 /***/ }),
 
@@ -576,7 +576,7 @@ let DetailsComponent = class DetailsComponent {
             ? review.movie.moviePosterPath
             : "";
         this.data.subtitle = review.movie.movieTitle;
-        this.data.body = ["Rating: " + review.rating, review.reviewText];
+        this.data.body = ["Rating: " + review.rating + "/5", review.reviewText];
         this.data.footer = "Written by: " + review.author_id.username;
     }
     parseWatchlist(watchlist) {
@@ -1378,7 +1378,7 @@ RegisterComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = ".back {\n    background-image: url('14.jpg');\n    background-attachment: fixed;\n    background-size: cover;\n    position: relative;\n    height: 100%;\n    overflow: hidden;\n    font-family: \"Montserrat\", sans-serif;\n    font-size: 30px;\n    padding-bottom: 125px;\n    min-height: 100vh;\n    padding-bottom: 155px;\n    min-width: 100vw;\n    width: 100%;\n}\n\n.container {\n    display: flex;\n    justify-content: space-evenly;\n    align-items: center;\n    flex-wrap: wrap;\n}\n\n.container .box {\n    width: 250px;\n    border-radius: 10px;\n    background-color: white;\n    margin: 20px;\n    transition: 0.3s all ease-in-out;\n    position: relative;\n    box-shadow: 0px 0px 40px background;\n}\n\n.container .box .boxContent {\n    display: flex;\n    flex-direction: column;\n    justify-content: center;\n    align-items: center;\n    text-align: center;\n    padding: 15px;\n}\n\n.container .box .boxContent .icon {\n    color: #8293ff;\n    font-size: 48px;\n    padding: 15px;\n}\n\n.container .box .boxContent .title {\n    font-size: 24px;\n    color: #8293ff;\n    font-weight: bold;\n    padding: 10px;\n    letter-spacing: 2px;\n    text-transform: uppercase;\n}\n\n.movie {\n    font-size: 24px;\n    color: #8293ff;\n    font-weight: bold;\n    padding: 10px;\n    text-transform: none;\n}\n\n.container .box .boxContent .desc {\n    color: #8293ff;\n    font-size: 15px;\n    height: 20%;\n}\n\n.container .box:hover {\n    background: linear-gradient(130deg, #503bff 0%, #8293ff 100%);\n    box-shadow: none;\n}\n\n.container .box:hover .boxContent .title,\n.container .box:hover .boxContent .icon,\n.container .box:hover .boxContent .desc {\n    color: white;\n    transition: 1s all;\n}\n\n.container .box:hover .boxContent .movie {\n    color: rgb(0, 217, 255);\n}\n\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvY29tcG9uZW50cy9yZXZpZXdzL3Jldmlld3MuY29tcG9uZW50LmNzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQTtJQUNJLCtCQUFzRDtJQUN0RCw0QkFBNEI7SUFDNUIsc0JBQXNCO0lBQ3RCLGtCQUFrQjtJQUNsQixZQUFZO0lBQ1osZ0JBQWdCO0lBQ2hCLHFDQUFxQztJQUNyQyxlQUFlO0lBQ2YscUJBQXFCO0lBQ3JCLGlCQUFpQjtJQUNqQixxQkFBcUI7SUFDckIsZ0JBQWdCO0lBQ2hCLFdBQVc7QUFDZjs7QUFFQTtJQUNJLGFBQWE7SUFDYiw2QkFBNkI7SUFDN0IsbUJBQW1CO0lBQ25CLGVBQWU7QUFDbkI7O0FBRUE7SUFDSSxZQUFZO0lBQ1osbUJBQW1CO0lBQ25CLHVCQUF1QjtJQUN2QixZQUFZO0lBQ1osZ0NBQWdDO0lBQ2hDLGtCQUFrQjtJQUNsQixtQ0FBbUM7QUFDdkM7O0FBQ0E7SUFDSSxhQUFhO0lBQ2Isc0JBQXNCO0lBQ3RCLHVCQUF1QjtJQUN2QixtQkFBbUI7SUFDbkIsa0JBQWtCO0lBQ2xCLGFBQWE7QUFDakI7O0FBQ0E7SUFDSSxjQUFjO0lBQ2QsZUFBZTtJQUNmLGFBQWE7QUFDakI7O0FBRUE7SUFDSSxlQUFlO0lBQ2YsY0FBYztJQUNkLGlCQUFpQjtJQUNqQixhQUFhO0lBQ2IsbUJBQW1CO0lBQ25CLHlCQUF5QjtBQUM3Qjs7QUFFQTtJQUNJLGVBQWU7SUFDZixjQUFjO0lBQ2QsaUJBQWlCO0lBQ2pCLGFBQWE7SUFDYixvQkFBb0I7QUFDeEI7O0FBRUE7SUFDSSxjQUFjO0lBQ2QsZUFBZTtJQUNmLFdBQVc7QUFDZjs7QUFFQTtJQUNJLDZEQUE2RDtJQUM3RCxnQkFBZ0I7QUFDcEI7O0FBRUE7OztJQUdJLFlBQVk7SUFDWixrQkFBa0I7QUFDdEI7O0FBRUE7SUFDSSx1QkFBdUI7QUFDM0IiLCJmaWxlIjoic3JjL2FwcC9jb21wb25lbnRzL3Jldmlld3MvcmV2aWV3cy5jb21wb25lbnQuY3NzIiwic291cmNlc0NvbnRlbnQiOlsiLmJhY2sge1xuICAgIGJhY2tncm91bmQtaW1hZ2U6IHVybChcIi4uLy4uLy4uL2Fzc2V0cy9pbWcvYmcvMTQuanBnXCIpO1xuICAgIGJhY2tncm91bmQtYXR0YWNobWVudDogZml4ZWQ7XG4gICAgYmFja2dyb3VuZC1zaXplOiBjb3ZlcjtcbiAgICBwb3NpdGlvbjogcmVsYXRpdmU7XG4gICAgaGVpZ2h0OiAxMDAlO1xuICAgIG92ZXJmbG93OiBoaWRkZW47XG4gICAgZm9udC1mYW1pbHk6IFwiTW9udHNlcnJhdFwiLCBzYW5zLXNlcmlmO1xuICAgIGZvbnQtc2l6ZTogMzBweDtcbiAgICBwYWRkaW5nLWJvdHRvbTogMTI1cHg7XG4gICAgbWluLWhlaWdodDogMTAwdmg7XG4gICAgcGFkZGluZy1ib3R0b206IDE1NXB4O1xuICAgIG1pbi13aWR0aDogMTAwdnc7XG4gICAgd2lkdGg6IDEwMCU7XG59XG5cbi5jb250YWluZXIge1xuICAgIGRpc3BsYXk6IGZsZXg7XG4gICAganVzdGlmeS1jb250ZW50OiBzcGFjZS1ldmVubHk7XG4gICAgYWxpZ24taXRlbXM6IGNlbnRlcjtcbiAgICBmbGV4LXdyYXA6IHdyYXA7XG59XG5cbi5jb250YWluZXIgLmJveCB7XG4gICAgd2lkdGg6IDI1MHB4O1xuICAgIGJvcmRlci1yYWRpdXM6IDEwcHg7XG4gICAgYmFja2dyb3VuZC1jb2xvcjogd2hpdGU7XG4gICAgbWFyZ2luOiAyMHB4O1xuICAgIHRyYW5zaXRpb246IDAuM3MgYWxsIGVhc2UtaW4tb3V0O1xuICAgIHBvc2l0aW9uOiByZWxhdGl2ZTtcbiAgICBib3gtc2hhZG93OiAwcHggMHB4IDQwcHggYmFja2dyb3VuZDtcbn1cbi5jb250YWluZXIgLmJveCAuYm94Q29udGVudCB7XG4gICAgZGlzcGxheTogZmxleDtcbiAgICBmbGV4LWRpcmVjdGlvbjogY29sdW1uO1xuICAgIGp1c3RpZnktY29udGVudDogY2VudGVyO1xuICAgIGFsaWduLWl0ZW1zOiBjZW50ZXI7XG4gICAgdGV4dC1hbGlnbjogY2VudGVyO1xuICAgIHBhZGRpbmc6IDE1cHg7XG59XG4uY29udGFpbmVyIC5ib3ggLmJveENvbnRlbnQgLmljb24ge1xuICAgIGNvbG9yOiAjODI5M2ZmO1xuICAgIGZvbnQtc2l6ZTogNDhweDtcbiAgICBwYWRkaW5nOiAxNXB4O1xufVxuXG4uY29udGFpbmVyIC5ib3ggLmJveENvbnRlbnQgLnRpdGxlIHtcbiAgICBmb250LXNpemU6IDI0cHg7XG4gICAgY29sb3I6ICM4MjkzZmY7XG4gICAgZm9udC13ZWlnaHQ6IGJvbGQ7XG4gICAgcGFkZGluZzogMTBweDtcbiAgICBsZXR0ZXItc3BhY2luZzogMnB4O1xuICAgIHRleHQtdHJhbnNmb3JtOiB1cHBlcmNhc2U7XG59XG5cbi5tb3ZpZSB7XG4gICAgZm9udC1zaXplOiAyNHB4O1xuICAgIGNvbG9yOiAjODI5M2ZmO1xuICAgIGZvbnQtd2VpZ2h0OiBib2xkO1xuICAgIHBhZGRpbmc6IDEwcHg7XG4gICAgdGV4dC10cmFuc2Zvcm06IG5vbmU7XG59XG5cbi5jb250YWluZXIgLmJveCAuYm94Q29udGVudCAuZGVzYyB7XG4gICAgY29sb3I6ICM4MjkzZmY7XG4gICAgZm9udC1zaXplOiAxNXB4O1xuICAgIGhlaWdodDogMjAlO1xufVxuXG4uY29udGFpbmVyIC5ib3g6aG92ZXIge1xuICAgIGJhY2tncm91bmQ6IGxpbmVhci1ncmFkaWVudCgxMzBkZWcsICM1MDNiZmYgMCUsICM4MjkzZmYgMTAwJSk7XG4gICAgYm94LXNoYWRvdzogbm9uZTtcbn1cblxuLmNvbnRhaW5lciAuYm94OmhvdmVyIC5ib3hDb250ZW50IC50aXRsZSxcbi5jb250YWluZXIgLmJveDpob3ZlciAuYm94Q29udGVudCAuaWNvbixcbi5jb250YWluZXIgLmJveDpob3ZlciAuYm94Q29udGVudCAuZGVzYyB7XG4gICAgY29sb3I6IHdoaXRlO1xuICAgIHRyYW5zaXRpb246IDFzIGFsbDtcbn1cblxuLmNvbnRhaW5lciAuYm94OmhvdmVyIC5ib3hDb250ZW50IC5tb3ZpZSB7XG4gICAgY29sb3I6IHJnYigwLCAyMTcsIDI1NSk7XG59XG4iXX0= */"
+module.exports = ".back {\n    background-image: url('14.jpg');\n    background-attachment: fixed;\n    background-size: cover;\n    position: relative;\n    height: 100%;\n    overflow: hidden;\n    font-family: \"Montserrat\", sans-serif;\n    font-size: 30px;\n    padding-bottom: 125px;\n    min-height: 100vh;\n    padding-bottom: 155px;\n    min-width: 100vw;\n    width: 100%;\n}\n\n.container {\n    display: flex;\n    justify-content: space-evenly;\n    align-items: center;\n    flex-wrap: wrap;\n}\n\n.container .box {\n    width: 250px;\n    border-radius: 10px;\n    background-color: white;\n    margin: 20px;\n    transition: 0.3s all ease-in-out;\n    position: relative;\n    box-shadow: 0px 0px 40px background;\n}\n\n.container .box .boxContent {\n    display: flex;\n    flex-direction: column;\n    justify-content: center;\n    align-items: center;\n    text-align: center;\n    padding: 15px;\n}\n\n.container .box .boxContent .icon {\n    color: #8293ff;\n    font-size: 48px;\n    padding: 15px;\n}\n\n.container .box .boxContent .title {\n    font-size: 24px;\n    color: #8293ff;\n    font-weight: bold;\n    padding: 10px;\n    letter-spacing: 2px;\n    text-transform: uppercase;\n}\n\n.movie {\n    font-size: 24px;\n    color: #8293ff;\n    font-weight: bold;\n    padding: 10px;\n    text-transform: none;\n}\n\n.container .box .boxContent .desc {\n    color: #8293ff;\n    font-size: 15px;\n    height: 20%;\n}\n\n.container .box:hover {\n    background: linear-gradient(130deg, #503bff 0%, #8293ff 100%);\n    box-shadow: none;\n    cursor: pointer;\n}\n\n.container .box:hover .boxContent .title,\n.container .box:hover .boxContent .icon,\n.container .box:hover .boxContent .desc {\n    color: white;\n    transition: 1s all;\n}\n\n.container .box:hover .boxContent .movie {\n    color: rgb(0, 217, 255);\n}\n\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvY29tcG9uZW50cy9yZXZpZXdzL3Jldmlld3MuY29tcG9uZW50LmNzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQTtJQUNJLCtCQUFzRDtJQUN0RCw0QkFBNEI7SUFDNUIsc0JBQXNCO0lBQ3RCLGtCQUFrQjtJQUNsQixZQUFZO0lBQ1osZ0JBQWdCO0lBQ2hCLHFDQUFxQztJQUNyQyxlQUFlO0lBQ2YscUJBQXFCO0lBQ3JCLGlCQUFpQjtJQUNqQixxQkFBcUI7SUFDckIsZ0JBQWdCO0lBQ2hCLFdBQVc7QUFDZjs7QUFFQTtJQUNJLGFBQWE7SUFDYiw2QkFBNkI7SUFDN0IsbUJBQW1CO0lBQ25CLGVBQWU7QUFDbkI7O0FBRUE7SUFDSSxZQUFZO0lBQ1osbUJBQW1CO0lBQ25CLHVCQUF1QjtJQUN2QixZQUFZO0lBQ1osZ0NBQWdDO0lBQ2hDLGtCQUFrQjtJQUNsQixtQ0FBbUM7QUFDdkM7O0FBQ0E7SUFDSSxhQUFhO0lBQ2Isc0JBQXNCO0lBQ3RCLHVCQUF1QjtJQUN2QixtQkFBbUI7SUFDbkIsa0JBQWtCO0lBQ2xCLGFBQWE7QUFDakI7O0FBQ0E7SUFDSSxjQUFjO0lBQ2QsZUFBZTtJQUNmLGFBQWE7QUFDakI7O0FBRUE7SUFDSSxlQUFlO0lBQ2YsY0FBYztJQUNkLGlCQUFpQjtJQUNqQixhQUFhO0lBQ2IsbUJBQW1CO0lBQ25CLHlCQUF5QjtBQUM3Qjs7QUFFQTtJQUNJLGVBQWU7SUFDZixjQUFjO0lBQ2QsaUJBQWlCO0lBQ2pCLGFBQWE7SUFDYixvQkFBb0I7QUFDeEI7O0FBRUE7SUFDSSxjQUFjO0lBQ2QsZUFBZTtJQUNmLFdBQVc7QUFDZjs7QUFFQTtJQUNJLDZEQUE2RDtJQUM3RCxnQkFBZ0I7SUFDaEIsZUFBZTtBQUNuQjs7QUFFQTs7O0lBR0ksWUFBWTtJQUNaLGtCQUFrQjtBQUN0Qjs7QUFFQTtJQUNJLHVCQUF1QjtBQUMzQiIsImZpbGUiOiJzcmMvYXBwL2NvbXBvbmVudHMvcmV2aWV3cy9yZXZpZXdzLmNvbXBvbmVudC5jc3MiLCJzb3VyY2VzQ29udGVudCI6WyIuYmFjayB7XG4gICAgYmFja2dyb3VuZC1pbWFnZTogdXJsKFwiLi4vLi4vLi4vYXNzZXRzL2ltZy9iZy8xNC5qcGdcIik7XG4gICAgYmFja2dyb3VuZC1hdHRhY2htZW50OiBmaXhlZDtcbiAgICBiYWNrZ3JvdW5kLXNpemU6IGNvdmVyO1xuICAgIHBvc2l0aW9uOiByZWxhdGl2ZTtcbiAgICBoZWlnaHQ6IDEwMCU7XG4gICAgb3ZlcmZsb3c6IGhpZGRlbjtcbiAgICBmb250LWZhbWlseTogXCJNb250c2VycmF0XCIsIHNhbnMtc2VyaWY7XG4gICAgZm9udC1zaXplOiAzMHB4O1xuICAgIHBhZGRpbmctYm90dG9tOiAxMjVweDtcbiAgICBtaW4taGVpZ2h0OiAxMDB2aDtcbiAgICBwYWRkaW5nLWJvdHRvbTogMTU1cHg7XG4gICAgbWluLXdpZHRoOiAxMDB2dztcbiAgICB3aWR0aDogMTAwJTtcbn1cblxuLmNvbnRhaW5lciB7XG4gICAgZGlzcGxheTogZmxleDtcbiAgICBqdXN0aWZ5LWNvbnRlbnQ6IHNwYWNlLWV2ZW5seTtcbiAgICBhbGlnbi1pdGVtczogY2VudGVyO1xuICAgIGZsZXgtd3JhcDogd3JhcDtcbn1cblxuLmNvbnRhaW5lciAuYm94IHtcbiAgICB3aWR0aDogMjUwcHg7XG4gICAgYm9yZGVyLXJhZGl1czogMTBweDtcbiAgICBiYWNrZ3JvdW5kLWNvbG9yOiB3aGl0ZTtcbiAgICBtYXJnaW46IDIwcHg7XG4gICAgdHJhbnNpdGlvbjogMC4zcyBhbGwgZWFzZS1pbi1vdXQ7XG4gICAgcG9zaXRpb246IHJlbGF0aXZlO1xuICAgIGJveC1zaGFkb3c6IDBweCAwcHggNDBweCBiYWNrZ3JvdW5kO1xufVxuLmNvbnRhaW5lciAuYm94IC5ib3hDb250ZW50IHtcbiAgICBkaXNwbGF5OiBmbGV4O1xuICAgIGZsZXgtZGlyZWN0aW9uOiBjb2x1bW47XG4gICAganVzdGlmeS1jb250ZW50OiBjZW50ZXI7XG4gICAgYWxpZ24taXRlbXM6IGNlbnRlcjtcbiAgICB0ZXh0LWFsaWduOiBjZW50ZXI7XG4gICAgcGFkZGluZzogMTVweDtcbn1cbi5jb250YWluZXIgLmJveCAuYm94Q29udGVudCAuaWNvbiB7XG4gICAgY29sb3I6ICM4MjkzZmY7XG4gICAgZm9udC1zaXplOiA0OHB4O1xuICAgIHBhZGRpbmc6IDE1cHg7XG59XG5cbi5jb250YWluZXIgLmJveCAuYm94Q29udGVudCAudGl0bGUge1xuICAgIGZvbnQtc2l6ZTogMjRweDtcbiAgICBjb2xvcjogIzgyOTNmZjtcbiAgICBmb250LXdlaWdodDogYm9sZDtcbiAgICBwYWRkaW5nOiAxMHB4O1xuICAgIGxldHRlci1zcGFjaW5nOiAycHg7XG4gICAgdGV4dC10cmFuc2Zvcm06IHVwcGVyY2FzZTtcbn1cblxuLm1vdmllIHtcbiAgICBmb250LXNpemU6IDI0cHg7XG4gICAgY29sb3I6ICM4MjkzZmY7XG4gICAgZm9udC13ZWlnaHQ6IGJvbGQ7XG4gICAgcGFkZGluZzogMTBweDtcbiAgICB0ZXh0LXRyYW5zZm9ybTogbm9uZTtcbn1cblxuLmNvbnRhaW5lciAuYm94IC5ib3hDb250ZW50IC5kZXNjIHtcbiAgICBjb2xvcjogIzgyOTNmZjtcbiAgICBmb250LXNpemU6IDE1cHg7XG4gICAgaGVpZ2h0OiAyMCU7XG59XG5cbi5jb250YWluZXIgLmJveDpob3ZlciB7XG4gICAgYmFja2dyb3VuZDogbGluZWFyLWdyYWRpZW50KDEzMGRlZywgIzUwM2JmZiAwJSwgIzgyOTNmZiAxMDAlKTtcbiAgICBib3gtc2hhZG93OiBub25lO1xuICAgIGN1cnNvcjogcG9pbnRlcjtcbn1cblxuLmNvbnRhaW5lciAuYm94OmhvdmVyIC5ib3hDb250ZW50IC50aXRsZSxcbi5jb250YWluZXIgLmJveDpob3ZlciAuYm94Q29udGVudCAuaWNvbixcbi5jb250YWluZXIgLmJveDpob3ZlciAuYm94Q29udGVudCAuZGVzYyB7XG4gICAgY29sb3I6IHdoaXRlO1xuICAgIHRyYW5zaXRpb246IDFzIGFsbDtcbn1cblxuLmNvbnRhaW5lciAuYm94OmhvdmVyIC5ib3hDb250ZW50IC5tb3ZpZSB7XG4gICAgY29sb3I6IHJnYigwLCAyMTcsIDI1NSk7XG59XG4iXX0= */"
 
 /***/ }),
 
@@ -1475,7 +1475,7 @@ ReviewsComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = ".back {\n    background-image: url('14.jpg');\n    background-attachment: fixed;\n    background-size: cover;\n    position: relative;\n    height: 100%;\n    overflow: hidden;\n    font-family: \"Montserrat\", sans-serif;\n    font-size: 30px;\n    padding-bottom: 125px;\n    min-height: 100vh;\n    padding-bottom: 155px;\n    min-width: 100vw;\n    width: 100%;\n}\n\n.card {\n    background-color: rgba(250, 235, 215, 0.75);\n}\n\n.card:hover {\n    background-color: rgba(250, 235, 215, 1);\n    -webkit-transform: scale(1.1);\n            transform: scale(1.1);\n    transition: 0.7s all;\n    cursor: pointer;\n}\n\n.card-title {\n    font-weight: bold;\n    font-size: 21px;\n}\n\n.card-subtitle{\n    font-style: italic;\n    font-size: 18px;\n    border-bottom: 2px solid palevioletred;\n}\n\n.card-body {\n    font-size: 13px;\n}\n\nimg {\n    -o-object-fit: scale-down;\n       object-fit: scale-down;\n    max-width: 100%;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvY29tcG9uZW50cy9zZWFyY2gtcmVzdWx0L3NlYXJjaC1yZXN1bHQuY29tcG9uZW50LmNzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQTtJQUNJLCtCQUFzRDtJQUN0RCw0QkFBNEI7SUFDNUIsc0JBQXNCO0lBQ3RCLGtCQUFrQjtJQUNsQixZQUFZO0lBQ1osZ0JBQWdCO0lBQ2hCLHFDQUFxQztJQUNyQyxlQUFlO0lBQ2YscUJBQXFCO0lBQ3JCLGlCQUFpQjtJQUNqQixxQkFBcUI7SUFDckIsZ0JBQWdCO0lBQ2hCLFdBQVc7QUFDZjs7QUFFQTtJQUNJLDJDQUEyQztBQUMvQzs7QUFHQTtJQUNJLHdDQUF3QztJQUN4Qyw2QkFBcUI7WUFBckIscUJBQXFCO0lBQ3JCLG9CQUFvQjtJQUNwQixlQUFlO0FBQ25COztBQUVBO0lBQ0ksaUJBQWlCO0lBQ2pCLGVBQWU7QUFDbkI7O0FBRUE7SUFDSSxrQkFBa0I7SUFDbEIsZUFBZTtJQUNmLHNDQUFzQztBQUMxQzs7QUFFQTtJQUNJLGVBQWU7QUFDbkI7O0FBRUE7SUFDSSx5QkFBc0I7T0FBdEIsc0JBQXNCO0lBQ3RCLGVBQWU7QUFDbkIiLCJmaWxlIjoic3JjL2FwcC9jb21wb25lbnRzL3NlYXJjaC1yZXN1bHQvc2VhcmNoLXJlc3VsdC5jb21wb25lbnQuY3NzIiwic291cmNlc0NvbnRlbnQiOlsiLmJhY2sge1xuICAgIGJhY2tncm91bmQtaW1hZ2U6IHVybChcIi4uLy4uLy4uL2Fzc2V0cy9pbWcvYmcvMTQuanBnXCIpO1xuICAgIGJhY2tncm91bmQtYXR0YWNobWVudDogZml4ZWQ7XG4gICAgYmFja2dyb3VuZC1zaXplOiBjb3ZlcjtcbiAgICBwb3NpdGlvbjogcmVsYXRpdmU7XG4gICAgaGVpZ2h0OiAxMDAlO1xuICAgIG92ZXJmbG93OiBoaWRkZW47XG4gICAgZm9udC1mYW1pbHk6IFwiTW9udHNlcnJhdFwiLCBzYW5zLXNlcmlmO1xuICAgIGZvbnQtc2l6ZTogMzBweDtcbiAgICBwYWRkaW5nLWJvdHRvbTogMTI1cHg7XG4gICAgbWluLWhlaWdodDogMTAwdmg7XG4gICAgcGFkZGluZy1ib3R0b206IDE1NXB4O1xuICAgIG1pbi13aWR0aDogMTAwdnc7XG4gICAgd2lkdGg6IDEwMCU7XG59XG5cbi5jYXJkIHtcbiAgICBiYWNrZ3JvdW5kLWNvbG9yOiByZ2JhKDI1MCwgMjM1LCAyMTUsIDAuNzUpO1xufVxuXG5cbi5jYXJkOmhvdmVyIHtcbiAgICBiYWNrZ3JvdW5kLWNvbG9yOiByZ2JhKDI1MCwgMjM1LCAyMTUsIDEpO1xuICAgIHRyYW5zZm9ybTogc2NhbGUoMS4xKTtcbiAgICB0cmFuc2l0aW9uOiAwLjdzIGFsbDtcbiAgICBjdXJzb3I6IHBvaW50ZXI7XG59XG5cbi5jYXJkLXRpdGxlIHtcbiAgICBmb250LXdlaWdodDogYm9sZDtcbiAgICBmb250LXNpemU6IDIxcHg7XG59XG5cbi5jYXJkLXN1YnRpdGxle1xuICAgIGZvbnQtc3R5bGU6IGl0YWxpYztcbiAgICBmb250LXNpemU6IDE4cHg7XG4gICAgYm9yZGVyLWJvdHRvbTogMnB4IHNvbGlkIHBhbGV2aW9sZXRyZWQ7XG59XG5cbi5jYXJkLWJvZHkge1xuICAgIGZvbnQtc2l6ZTogMTNweDtcbn1cblxuaW1nIHtcbiAgICBvYmplY3QtZml0OiBzY2FsZS1kb3duO1xuICAgIG1heC13aWR0aDogMTAwJTtcbn0iXX0= */"
+module.exports = ".back {\n    background-image: url('14.jpg');\n    background-attachment: fixed;\n    background-size: cover;\n    position: relative;\n    height: 100%;\n    overflow: hidden;\n    font-family: \"Montserrat\", sans-serif;\n    font-size: 30px;\n    padding-bottom: 125px;\n    min-height: 100vh;\n    padding-bottom: 155px;\n    min-width: 100vw;\n    width: 100%;\n}\n\n.card {\n    background-color: rgba(250, 235, 215, 0.75);\n}\n\n.card:hover {\n    background-color: rgba(250, 235, 215, 1);\n    -webkit-transform: scale(1.1);\n            transform: scale(1.1);\n    transition: 0.7s all;\n    cursor: pointer;\n}\n\n.card-title {\n    font-weight: bold;\n    font-size: 21px;\n}\n\n.card-subtitle {\n    font-style: italic;\n    font-size: 18px;\n    border-bottom: 2px solid palevioletred;\n}\n\n.card-body {\n    font-size: 13px;\n}\n\nimg {\n    -o-object-fit: scale-down;\n       object-fit: scale-down;\n    max-width: 100%;\n}\n\na {\n    text-decoration: none;\n}\n\na:hover {\n    cursor: pointer;\n}\n\n.pagination-wrapper {\n    text-align: right;\n    margin: 10px;\n}\n\n.pagination {\n    display: inline-block;\n    height: 70px;\n    margin-top: 20px;\n    padding: 0 25px;\n    border-radius: 15px;\n    background-color: #eee;\n}\n\n@media only screen and (max-width: 1199px) {\n    .pagination {\n        height: 50px;\n        margin-top: 30px;\n        padding: 0 10px;\n        border-radius: 15px;\n    }\n}\n\n.fill:hover {\n    cursor: not-allowed;\n}\n\n.page-numbers {\n    display: block;\n    padding: 0 25px;\n    float: left;\n    transition: 400ms ease;\n    color: #595959;\n    font-size: 20px;\n    letter-spacing: 0.1em;\n    line-height: 70px;\n}\n\n.page-numbers:hover,\n.page-numbers.current {\n    background-color: palevioletred;\n    color: #fff;\n}\n\n.page-numbers.prev:hover,\n.page-numbers.next:hover {\n    background-color: transparent;\n    color: palevioletred;\n}\n\n@media only screen and (max-width: 1199px) {\n    .page-numbers {\n        padding: 0 15px;\n        font-size: 16px;\n        line-height: 50px;\n    }\n}\n\n@media only screen and (min-width: 120px) and (max-width: 1024px) {\n    .page-numbers {\n        padding: 0 14px;\n        display: none;\n    }\n    .page-numbers:nth-of-type(2) {\n        position: relative;\n        padding-right: 50px;\n    }\n\n    .page-numbers:nth-child(-n + 3),\n    .page-numbers:nth-last-child(-n + 3) {\n        display: block;\n    }\n    .page-numbers:nth-last-child(-n + 4) {\n        padding-right: 14px;\n    }\n    .page-numbers:nth-last-child(-n + 4)::after {\n        content: none;\n    }\n}\n\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvY29tcG9uZW50cy9zZWFyY2gtcmVzdWx0L3NlYXJjaC1yZXN1bHQuY29tcG9uZW50LmNzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQTtJQUNJLCtCQUFzRDtJQUN0RCw0QkFBNEI7SUFDNUIsc0JBQXNCO0lBQ3RCLGtCQUFrQjtJQUNsQixZQUFZO0lBQ1osZ0JBQWdCO0lBQ2hCLHFDQUFxQztJQUNyQyxlQUFlO0lBQ2YscUJBQXFCO0lBQ3JCLGlCQUFpQjtJQUNqQixxQkFBcUI7SUFDckIsZ0JBQWdCO0lBQ2hCLFdBQVc7QUFDZjs7QUFFQTtJQUNJLDJDQUEyQztBQUMvQzs7QUFFQTtJQUNJLHdDQUF3QztJQUN4Qyw2QkFBcUI7WUFBckIscUJBQXFCO0lBQ3JCLG9CQUFvQjtJQUNwQixlQUFlO0FBQ25COztBQUVBO0lBQ0ksaUJBQWlCO0lBQ2pCLGVBQWU7QUFDbkI7O0FBRUE7SUFDSSxrQkFBa0I7SUFDbEIsZUFBZTtJQUNmLHNDQUFzQztBQUMxQzs7QUFFQTtJQUNJLGVBQWU7QUFDbkI7O0FBRUE7SUFDSSx5QkFBc0I7T0FBdEIsc0JBQXNCO0lBQ3RCLGVBQWU7QUFDbkI7O0FBRUE7SUFDSSxxQkFBcUI7QUFDekI7O0FBRUE7SUFDSSxlQUFlO0FBQ25COztBQUVBO0lBQ0ksaUJBQWlCO0lBQ2pCLFlBQVk7QUFDaEI7O0FBRUE7SUFDSSxxQkFBcUI7SUFDckIsWUFBWTtJQUNaLGdCQUFnQjtJQUNoQixlQUFlO0lBQ2YsbUJBQW1CO0lBQ25CLHNCQUFzQjtBQUMxQjs7QUFDQTtJQUNJO1FBQ0ksWUFBWTtRQUNaLGdCQUFnQjtRQUNoQixlQUFlO1FBQ2YsbUJBQW1CO0lBQ3ZCO0FBQ0o7O0FBRUE7SUFDSSxtQkFBbUI7QUFDdkI7O0FBRUE7SUFDSSxjQUFjO0lBQ2QsZUFBZTtJQUNmLFdBQVc7SUFDWCxzQkFBc0I7SUFDdEIsY0FBYztJQUNkLGVBQWU7SUFDZixxQkFBcUI7SUFDckIsaUJBQWlCO0FBQ3JCOztBQUVBOztJQUVJLCtCQUErQjtJQUMvQixXQUFXO0FBQ2Y7O0FBQ0E7O0lBRUksNkJBQTZCO0lBQzdCLG9CQUFvQjtBQUN4Qjs7QUFFQTtJQUNJO1FBQ0ksZUFBZTtRQUNmLGVBQWU7UUFDZixpQkFBaUI7SUFDckI7QUFDSjs7QUFDQTtJQUNJO1FBQ0ksZUFBZTtRQUNmLGFBQWE7SUFDakI7SUFDQTtRQUNJLGtCQUFrQjtRQUNsQixtQkFBbUI7SUFDdkI7O0lBRUE7O1FBRUksY0FBYztJQUNsQjtJQUNBO1FBQ0ksbUJBQW1CO0lBQ3ZCO0lBQ0E7UUFDSSxhQUFhO0lBQ2pCO0FBQ0oiLCJmaWxlIjoic3JjL2FwcC9jb21wb25lbnRzL3NlYXJjaC1yZXN1bHQvc2VhcmNoLXJlc3VsdC5jb21wb25lbnQuY3NzIiwic291cmNlc0NvbnRlbnQiOlsiLmJhY2sge1xuICAgIGJhY2tncm91bmQtaW1hZ2U6IHVybChcIi4uLy4uLy4uL2Fzc2V0cy9pbWcvYmcvMTQuanBnXCIpO1xuICAgIGJhY2tncm91bmQtYXR0YWNobWVudDogZml4ZWQ7XG4gICAgYmFja2dyb3VuZC1zaXplOiBjb3ZlcjtcbiAgICBwb3NpdGlvbjogcmVsYXRpdmU7XG4gICAgaGVpZ2h0OiAxMDAlO1xuICAgIG92ZXJmbG93OiBoaWRkZW47XG4gICAgZm9udC1mYW1pbHk6IFwiTW9udHNlcnJhdFwiLCBzYW5zLXNlcmlmO1xuICAgIGZvbnQtc2l6ZTogMzBweDtcbiAgICBwYWRkaW5nLWJvdHRvbTogMTI1cHg7XG4gICAgbWluLWhlaWdodDogMTAwdmg7XG4gICAgcGFkZGluZy1ib3R0b206IDE1NXB4O1xuICAgIG1pbi13aWR0aDogMTAwdnc7XG4gICAgd2lkdGg6IDEwMCU7XG59XG5cbi5jYXJkIHtcbiAgICBiYWNrZ3JvdW5kLWNvbG9yOiByZ2JhKDI1MCwgMjM1LCAyMTUsIDAuNzUpO1xufVxuXG4uY2FyZDpob3ZlciB7XG4gICAgYmFja2dyb3VuZC1jb2xvcjogcmdiYSgyNTAsIDIzNSwgMjE1LCAxKTtcbiAgICB0cmFuc2Zvcm06IHNjYWxlKDEuMSk7XG4gICAgdHJhbnNpdGlvbjogMC43cyBhbGw7XG4gICAgY3Vyc29yOiBwb2ludGVyO1xufVxuXG4uY2FyZC10aXRsZSB7XG4gICAgZm9udC13ZWlnaHQ6IGJvbGQ7XG4gICAgZm9udC1zaXplOiAyMXB4O1xufVxuXG4uY2FyZC1zdWJ0aXRsZSB7XG4gICAgZm9udC1zdHlsZTogaXRhbGljO1xuICAgIGZvbnQtc2l6ZTogMThweDtcbiAgICBib3JkZXItYm90dG9tOiAycHggc29saWQgcGFsZXZpb2xldHJlZDtcbn1cblxuLmNhcmQtYm9keSB7XG4gICAgZm9udC1zaXplOiAxM3B4O1xufVxuXG5pbWcge1xuICAgIG9iamVjdC1maXQ6IHNjYWxlLWRvd247XG4gICAgbWF4LXdpZHRoOiAxMDAlO1xufVxuXG5hIHtcbiAgICB0ZXh0LWRlY29yYXRpb246IG5vbmU7XG59XG5cbmE6aG92ZXIge1xuICAgIGN1cnNvcjogcG9pbnRlcjtcbn1cblxuLnBhZ2luYXRpb24td3JhcHBlciB7XG4gICAgdGV4dC1hbGlnbjogcmlnaHQ7XG4gICAgbWFyZ2luOiAxMHB4O1xufVxuXG4ucGFnaW5hdGlvbiB7XG4gICAgZGlzcGxheTogaW5saW5lLWJsb2NrO1xuICAgIGhlaWdodDogNzBweDtcbiAgICBtYXJnaW4tdG9wOiAyMHB4O1xuICAgIHBhZGRpbmc6IDAgMjVweDtcbiAgICBib3JkZXItcmFkaXVzOiAxNXB4O1xuICAgIGJhY2tncm91bmQtY29sb3I6ICNlZWU7XG59XG5AbWVkaWEgb25seSBzY3JlZW4gYW5kIChtYXgtd2lkdGg6IDExOTlweCkge1xuICAgIC5wYWdpbmF0aW9uIHtcbiAgICAgICAgaGVpZ2h0OiA1MHB4O1xuICAgICAgICBtYXJnaW4tdG9wOiAzMHB4O1xuICAgICAgICBwYWRkaW5nOiAwIDEwcHg7XG4gICAgICAgIGJvcmRlci1yYWRpdXM6IDE1cHg7XG4gICAgfVxufVxuXG4uZmlsbDpob3ZlciB7XG4gICAgY3Vyc29yOiBub3QtYWxsb3dlZDtcbn1cblxuLnBhZ2UtbnVtYmVycyB7XG4gICAgZGlzcGxheTogYmxvY2s7XG4gICAgcGFkZGluZzogMCAyNXB4O1xuICAgIGZsb2F0OiBsZWZ0O1xuICAgIHRyYW5zaXRpb246IDQwMG1zIGVhc2U7XG4gICAgY29sb3I6ICM1OTU5NTk7XG4gICAgZm9udC1zaXplOiAyMHB4O1xuICAgIGxldHRlci1zcGFjaW5nOiAwLjFlbTtcbiAgICBsaW5lLWhlaWdodDogNzBweDtcbn1cblxuLnBhZ2UtbnVtYmVyczpob3Zlcixcbi5wYWdlLW51bWJlcnMuY3VycmVudCB7XG4gICAgYmFja2dyb3VuZC1jb2xvcjogcGFsZXZpb2xldHJlZDtcbiAgICBjb2xvcjogI2ZmZjtcbn1cbi5wYWdlLW51bWJlcnMucHJldjpob3Zlcixcbi5wYWdlLW51bWJlcnMubmV4dDpob3ZlciB7XG4gICAgYmFja2dyb3VuZC1jb2xvcjogdHJhbnNwYXJlbnQ7XG4gICAgY29sb3I6IHBhbGV2aW9sZXRyZWQ7XG59XG5cbkBtZWRpYSBvbmx5IHNjcmVlbiBhbmQgKG1heC13aWR0aDogMTE5OXB4KSB7XG4gICAgLnBhZ2UtbnVtYmVycyB7XG4gICAgICAgIHBhZGRpbmc6IDAgMTVweDtcbiAgICAgICAgZm9udC1zaXplOiAxNnB4O1xuICAgICAgICBsaW5lLWhlaWdodDogNTBweDtcbiAgICB9XG59XG5AbWVkaWEgb25seSBzY3JlZW4gYW5kIChtaW4td2lkdGg6IDEyMHB4KSBhbmQgKG1heC13aWR0aDogMTAyNHB4KSB7XG4gICAgLnBhZ2UtbnVtYmVycyB7XG4gICAgICAgIHBhZGRpbmc6IDAgMTRweDtcbiAgICAgICAgZGlzcGxheTogbm9uZTtcbiAgICB9XG4gICAgLnBhZ2UtbnVtYmVyczpudGgtb2YtdHlwZSgyKSB7XG4gICAgICAgIHBvc2l0aW9uOiByZWxhdGl2ZTtcbiAgICAgICAgcGFkZGluZy1yaWdodDogNTBweDtcbiAgICB9XG5cbiAgICAucGFnZS1udW1iZXJzOm50aC1jaGlsZCgtbiArIDMpLFxuICAgIC5wYWdlLW51bWJlcnM6bnRoLWxhc3QtY2hpbGQoLW4gKyAzKSB7XG4gICAgICAgIGRpc3BsYXk6IGJsb2NrO1xuICAgIH1cbiAgICAucGFnZS1udW1iZXJzOm50aC1sYXN0LWNoaWxkKC1uICsgNCkge1xuICAgICAgICBwYWRkaW5nLXJpZ2h0OiAxNHB4O1xuICAgIH1cbiAgICAucGFnZS1udW1iZXJzOm50aC1sYXN0LWNoaWxkKC1uICsgNCk6OmFmdGVyIHtcbiAgICAgICAgY29udGVudDogbm9uZTtcbiAgICB9XG59XG4iXX0= */"
 
 /***/ }),
 
@@ -1493,18 +1493,28 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm2015/core.js");
 /* harmony import */ var src_app_services_data_provider_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! src/app/services/data-provider.service */ "./src/app/services/data-provider.service.ts");
 /* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm2015/router.js");
+/* harmony import */ var src_app_services_tv_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! src/app/services/tv.service */ "./src/app/services/tv.service.ts");
+/* harmony import */ var src_app_services_movie_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! src/app/services/movie.service */ "./src/app/services/movie.service.ts");
+
+
 
 
 
 
 let SearchResultComponent = class SearchResultComponent {
-    constructor(dataProvider, router) {
+    constructor(tvService, movieService, dataProvider, router) {
+        this.tvService = tvService;
+        this.movieService = movieService;
         this.dataProvider = dataProvider;
         this.router = router;
         this.displayData = [];
+        this.currentPage = 1;
+        this.nextPage = 2;
+        this.prevPage = 0;
         this.data = this.dataProvider.data;
         this.search = this.dataProvider.data.search;
-        switch (this.data.type) {
+        this.type = this.data.type;
+        switch (this.type) {
             case "reviews":
                 this.parseReview(this.data.reviews);
                 this.title = "Reviews";
@@ -1516,10 +1526,12 @@ let SearchResultComponent = class SearchResultComponent {
             case "tvShow":
                 this.parseTv(this.data.res.results);
                 this.title = "TV shows";
+                this.lastPage = this.data.res.total_pages - 1;
                 break;
             case "movie":
                 this.parseMovie(this.data.res.results);
                 this.title = "Movies";
+                this.lastPage = this.data.res.total_pages - 1;
                 break;
         }
     }
@@ -1527,10 +1539,7 @@ let SearchResultComponent = class SearchResultComponent {
         for (let review of data) {
             this.displayData.push({
                 title: review.title,
-                subtitle: review.movie.movieTitle +
-                    ", " +
-                    review.rating.toString() +
-                    "/5",
+                subtitle: review.movie.movieTitle,
                 body: review.reviewText
             });
         }
@@ -1549,8 +1558,9 @@ let SearchResultComponent = class SearchResultComponent {
         }
     }
     parseTv(data) {
+        this.displayData = [];
         for (let tv of data) {
-            if (!tv.overview || !tv.vote_average || !tv.poster_path) {
+            if (!tv.overview && !tv.poster_path) {
                 continue;
             }
             this.displayData.push({
@@ -1566,7 +1576,7 @@ let SearchResultComponent = class SearchResultComponent {
     }
     parseMovie(data) {
         for (let movie of data) {
-            if (!movie.overview || !movie.vote_average || !movie.poster_path) {
+            if (!movie.overview && !movie.poster_path) {
                 continue;
             }
             this.displayData.push({
@@ -1580,11 +1590,23 @@ let SearchResultComponent = class SearchResultComponent {
             });
         }
     }
-    navigateTo(data) {
+    navigateTo(data, i) {
         switch (this.data.type) {
             case "reviews":
+                this.dataProvider.removeData();
+                this.dataProvider.setData({
+                    review: this.data.reviews[i],
+                    type: "review"
+                });
+                this.router.navigate(["details"]);
                 break;
             case "watchlist":
+                this.dataProvider.removeData();
+                this.dataProvider.setData({
+                    watchlist: this.data.watchlists[i],
+                    type: "watchlist"
+                });
+                this.router.navigate(["details"]);
                 break;
             case "tvShow":
                 this.router.navigate(["tv", data.id]);
@@ -1594,8 +1616,135 @@ let SearchResultComponent = class SearchResultComponent {
                 break;
         }
     }
+    goToNextPage() {
+        switch (this.type) {
+            case "tvShow":
+                if (this.currentPage < this.lastPage) {
+                    this.tvService
+                        .searchByName(this.search, this.nextPage)
+                        .subscribe(res => {
+                        this.data = res.results;
+                        console.log(this.data);
+                        this.parseTv(this.data);
+                        window.scroll(0, 0);
+                    });
+                    this.updatePages(1);
+                }
+                break;
+            case "movie":
+                if (this.currentPage < this.lastPage) {
+                    this.movieService
+                        .searchByName(this.search, this.nextPage)
+                        .subscribe(res => {
+                        this.data = res.results;
+                        console.log(this.data);
+                        this.parseMovie(this.data);
+                        window.scroll(0, 0);
+                    });
+                    this.updatePages(1);
+                }
+                break;
+        }
+    }
+    goToPrevPage() {
+        switch (this.type) {
+            case "tvShow":
+                if (this.currentPage > 1) {
+                    this.tvService
+                        .searchByName(this.search, this.prevPage)
+                        .subscribe(res => {
+                        this.data = res.results;
+                        console.log(this.data);
+                        this.parseTv(this.data);
+                        window.scroll(0, 0);
+                    });
+                    this.updatePages(-1);
+                }
+                break;
+            case "movie":
+                if (this.currentPage > 1) {
+                    this.movieService
+                        .searchByName(this.search, this.prevPage)
+                        .subscribe(res => {
+                        this.data = res.results;
+                        console.log(this.data);
+                        this.parseMovie(this.data);
+                        window.scroll(0, 0);
+                    });
+                    this.updatePages(-1);
+                }
+                break;
+        }
+    }
+    goToLastPage() {
+        switch (this.type) {
+            case "tvShow":
+                if (this.currentPage < this.lastPage) {
+                    this.tvService
+                        .searchByName(this.search, this.lastPage)
+                        .subscribe(res => {
+                        this.data = res.results;
+                        console.log(this.data);
+                        this.parseTv(this.data);
+                        window.scroll(0, 0);
+                    });
+                    this.updatePages(this.lastPage - this.currentPage);
+                }
+                break;
+            case "movie":
+                if (this.currentPage < this.lastPage) {
+                    this.movieService
+                        .searchByName(this.search, this.lastPage)
+                        .subscribe(res => {
+                        this.data = res.results;
+                        console.log(this.data);
+                        this.parseMovie(this.data);
+                        window.scroll(0, 0);
+                    });
+                }
+                this.updatePages(this.lastPage - this.currentPage);
+                break;
+        }
+    }
+    goToFirstPage() {
+        switch (this.type) {
+            case "tvShow":
+                if (this.currentPage > 1) {
+                    this.tvService
+                        .searchByName(this.search, 1)
+                        .subscribe(res => {
+                        this.data = res.results;
+                        console.log(this.data);
+                        this.parseTv(this.data);
+                        window.scroll(0, 0);
+                    });
+                    this.updatePages(1 - this.currentPage);
+                }
+                break;
+            case "movie":
+                if (this.currentPage > 1) {
+                    this.movieService
+                        .searchByName(this.search, 1)
+                        .subscribe(res => {
+                        this.data = res.results;
+                        console.log(this.data);
+                        this.parseMovie(this.data);
+                        window.scroll(0, 0);
+                    });
+                }
+                this.updatePages(1 - this.currentPage);
+                break;
+        }
+    }
+    updatePages(change) {
+        this.currentPage += change;
+        this.nextPage = this.currentPage + 1;
+        this.prevPage = this.currentPage - 1;
+    }
 };
 SearchResultComponent.ctorParameters = () => [
+    { type: src_app_services_tv_service__WEBPACK_IMPORTED_MODULE_4__["TvService"] },
+    { type: src_app_services_movie_service__WEBPACK_IMPORTED_MODULE_5__["MovieService"] },
     { type: src_app_services_data_provider_service__WEBPACK_IMPORTED_MODULE_2__["DataProviderService"] },
     { type: _angular_router__WEBPACK_IMPORTED_MODULE_3__["Router"] }
 ];
@@ -1605,7 +1754,9 @@ SearchResultComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         template: __webpack_require__(/*! raw-loader!./search-result.component.html */ "./node_modules/raw-loader/index.js!./src/app/components/search-result/search-result.component.html"),
         styles: [__webpack_require__(/*! ./search-result.component.css */ "./src/app/components/search-result/search-result.component.css")]
     }),
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [src_app_services_data_provider_service__WEBPACK_IMPORTED_MODULE_2__["DataProviderService"],
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [src_app_services_tv_service__WEBPACK_IMPORTED_MODULE_4__["TvService"],
+        src_app_services_movie_service__WEBPACK_IMPORTED_MODULE_5__["MovieService"],
+        src_app_services_data_provider_service__WEBPACK_IMPORTED_MODULE_2__["DataProviderService"],
         _angular_router__WEBPACK_IMPORTED_MODULE_3__["Router"]])
 ], SearchResultComponent);
 
@@ -2081,7 +2232,7 @@ TvComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = ".back {\n    background-image: url('14.jpg');\n    background-attachment: fixed;\n    background-size: cover;\n    position: relative;\n    height: 100%;\n    overflow: hidden;\n    font-family: \"Montserrat\", sans-serif;\n    font-size: 30px;\n    padding-bottom: 125px;\n    min-height: 100vh;\n    padding-bottom: 155px;\n    min-height: 100vh;\n    width: 100%;\n}\n\n.container {\n    display: flex;\n    justify-content: space-evenly;\n    align-items: center;\n    flex-wrap: wrap;\n}\n\n.container .box {\n    width: 250px;\n    height: 250px;\n    border-radius: 10px;\n    background-color: white;\n    margin: 20px;\n    transition: 0.3s all ease-in-out;\n    position: relative;\n    box-shadow: 0px 0px 40px background;\n    /* Link */\n}\n\n.container .box .boxContent {\n    display: flex;\n    flex-direction: column;\n    justify-content: center;\n    align-items: center;\n    text-align: center;\n    padding: 15px;\n}\n\n.container .box .boxContent .icon {\n    color: #8293ff;\n    font-size: 48px;\n    padding: 15px;\n}\n\n.container .box .boxContent .title {\n    font-size: 24px;\n    color: #8293ff;\n    font-weight: bold;\n    padding: 10px;\n}\n\n.container .box .boxContent .desc {\n    color: #8293ff;\n    font-size: 15px;\n    height: 20%;\n}\n\n.container .box a {\n    position: absolute;\n    width: 100%;\n    height: 100%;\n    top: 0;\n    left: 0;\n}\n\n.container .box:hover {\n    background: linear-gradient(130deg, #503bff 0%, #8293ff 100%);\n    box-shadow: none;\n}\n\n.container .box:hover .boxContent .title,\n.container .box:hover .boxContent .icon,\n.container .box:hover .boxContent .desc {\n    color: white;\n    transition: 1s all;\n}\n\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvY29tcG9uZW50cy93YXRjaGxpc3RzL3dhdGNobGlzdHMuY29tcG9uZW50LmNzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQTtJQUNJLCtCQUFzRDtJQUN0RCw0QkFBNEI7SUFDNUIsc0JBQXNCO0lBQ3RCLGtCQUFrQjtJQUNsQixZQUFZO0lBQ1osZ0JBQWdCO0lBQ2hCLHFDQUFxQztJQUNyQyxlQUFlO0lBQ2YscUJBQXFCO0lBQ3JCLGlCQUFpQjtJQUNqQixxQkFBcUI7SUFDckIsaUJBQWlCO0lBQ2pCLFdBQVc7QUFDZjs7QUFFQTtJQUNJLGFBQWE7SUFDYiw2QkFBNkI7SUFDN0IsbUJBQW1CO0lBQ25CLGVBQWU7QUFDbkI7O0FBRUE7SUFDSSxZQUFZO0lBQ1osYUFBYTtJQUNiLG1CQUFtQjtJQUNuQix1QkFBdUI7SUFDdkIsWUFBWTtJQUNaLGdDQUFnQztJQUNoQyxrQkFBa0I7SUFDbEIsbUNBQW1DO0lBQ25DLFNBQVM7QUFDYjs7QUFDQTtJQUNJLGFBQWE7SUFDYixzQkFBc0I7SUFDdEIsdUJBQXVCO0lBQ3ZCLG1CQUFtQjtJQUNuQixrQkFBa0I7SUFDbEIsYUFBYTtBQUNqQjs7QUFDQTtJQUNJLGNBQWM7SUFDZCxlQUFlO0lBQ2YsYUFBYTtBQUNqQjs7QUFDQTtJQUNJLGVBQWU7SUFDZixjQUFjO0lBQ2QsaUJBQWlCO0lBQ2pCLGFBQWE7QUFDakI7O0FBQ0E7SUFDSSxjQUFjO0lBQ2QsZUFBZTtJQUNmLFdBQVc7QUFDZjs7QUFDQTtJQUNJLGtCQUFrQjtJQUNsQixXQUFXO0lBQ1gsWUFBWTtJQUNaLE1BQU07SUFDTixPQUFPO0FBQ1g7O0FBQ0E7SUFDSSw2REFBNkQ7SUFDN0QsZ0JBQWdCO0FBQ3BCOztBQUVBOzs7SUFHSSxZQUFZO0lBQ1osa0JBQWtCO0FBQ3RCIiwiZmlsZSI6InNyYy9hcHAvY29tcG9uZW50cy93YXRjaGxpc3RzL3dhdGNobGlzdHMuY29tcG9uZW50LmNzcyIsInNvdXJjZXNDb250ZW50IjpbIi5iYWNrIHtcbiAgICBiYWNrZ3JvdW5kLWltYWdlOiB1cmwoXCIuLi8uLi8uLi9hc3NldHMvaW1nL2JnLzE0LmpwZ1wiKTtcbiAgICBiYWNrZ3JvdW5kLWF0dGFjaG1lbnQ6IGZpeGVkO1xuICAgIGJhY2tncm91bmQtc2l6ZTogY292ZXI7XG4gICAgcG9zaXRpb246IHJlbGF0aXZlO1xuICAgIGhlaWdodDogMTAwJTtcbiAgICBvdmVyZmxvdzogaGlkZGVuO1xuICAgIGZvbnQtZmFtaWx5OiBcIk1vbnRzZXJyYXRcIiwgc2Fucy1zZXJpZjtcbiAgICBmb250LXNpemU6IDMwcHg7XG4gICAgcGFkZGluZy1ib3R0b206IDEyNXB4O1xuICAgIG1pbi1oZWlnaHQ6IDEwMHZoO1xuICAgIHBhZGRpbmctYm90dG9tOiAxNTVweDtcbiAgICBtaW4taGVpZ2h0OiAxMDB2aDtcbiAgICB3aWR0aDogMTAwJTtcbn1cblxuLmNvbnRhaW5lciB7XG4gICAgZGlzcGxheTogZmxleDtcbiAgICBqdXN0aWZ5LWNvbnRlbnQ6IHNwYWNlLWV2ZW5seTtcbiAgICBhbGlnbi1pdGVtczogY2VudGVyO1xuICAgIGZsZXgtd3JhcDogd3JhcDtcbn1cblxuLmNvbnRhaW5lciAuYm94IHtcbiAgICB3aWR0aDogMjUwcHg7XG4gICAgaGVpZ2h0OiAyNTBweDtcbiAgICBib3JkZXItcmFkaXVzOiAxMHB4O1xuICAgIGJhY2tncm91bmQtY29sb3I6IHdoaXRlO1xuICAgIG1hcmdpbjogMjBweDtcbiAgICB0cmFuc2l0aW9uOiAwLjNzIGFsbCBlYXNlLWluLW91dDtcbiAgICBwb3NpdGlvbjogcmVsYXRpdmU7XG4gICAgYm94LXNoYWRvdzogMHB4IDBweCA0MHB4IGJhY2tncm91bmQ7XG4gICAgLyogTGluayAqL1xufVxuLmNvbnRhaW5lciAuYm94IC5ib3hDb250ZW50IHtcbiAgICBkaXNwbGF5OiBmbGV4O1xuICAgIGZsZXgtZGlyZWN0aW9uOiBjb2x1bW47XG4gICAganVzdGlmeS1jb250ZW50OiBjZW50ZXI7XG4gICAgYWxpZ24taXRlbXM6IGNlbnRlcjtcbiAgICB0ZXh0LWFsaWduOiBjZW50ZXI7XG4gICAgcGFkZGluZzogMTVweDtcbn1cbi5jb250YWluZXIgLmJveCAuYm94Q29udGVudCAuaWNvbiB7XG4gICAgY29sb3I6ICM4MjkzZmY7XG4gICAgZm9udC1zaXplOiA0OHB4O1xuICAgIHBhZGRpbmc6IDE1cHg7XG59XG4uY29udGFpbmVyIC5ib3ggLmJveENvbnRlbnQgLnRpdGxlIHtcbiAgICBmb250LXNpemU6IDI0cHg7XG4gICAgY29sb3I6ICM4MjkzZmY7XG4gICAgZm9udC13ZWlnaHQ6IGJvbGQ7XG4gICAgcGFkZGluZzogMTBweDtcbn1cbi5jb250YWluZXIgLmJveCAuYm94Q29udGVudCAuZGVzYyB7XG4gICAgY29sb3I6ICM4MjkzZmY7XG4gICAgZm9udC1zaXplOiAxNXB4O1xuICAgIGhlaWdodDogMjAlO1xufVxuLmNvbnRhaW5lciAuYm94IGEge1xuICAgIHBvc2l0aW9uOiBhYnNvbHV0ZTtcbiAgICB3aWR0aDogMTAwJTtcbiAgICBoZWlnaHQ6IDEwMCU7XG4gICAgdG9wOiAwO1xuICAgIGxlZnQ6IDA7XG59XG4uY29udGFpbmVyIC5ib3g6aG92ZXIge1xuICAgIGJhY2tncm91bmQ6IGxpbmVhci1ncmFkaWVudCgxMzBkZWcsICM1MDNiZmYgMCUsICM4MjkzZmYgMTAwJSk7XG4gICAgYm94LXNoYWRvdzogbm9uZTtcbn1cblxuLmNvbnRhaW5lciAuYm94OmhvdmVyIC5ib3hDb250ZW50IC50aXRsZSxcbi5jb250YWluZXIgLmJveDpob3ZlciAuYm94Q29udGVudCAuaWNvbixcbi5jb250YWluZXIgLmJveDpob3ZlciAuYm94Q29udGVudCAuZGVzYyB7XG4gICAgY29sb3I6IHdoaXRlO1xuICAgIHRyYW5zaXRpb246IDFzIGFsbDtcbn1cbiJdfQ== */"
+module.exports = ".back {\n    background-image: url('14.jpg');\n    background-attachment: fixed;\n    background-size: cover;\n    position: relative;\n    height: 100%;\n    overflow: hidden;\n    font-family: \"Montserrat\", sans-serif;\n    font-size: 30px;\n    padding-bottom: 125px;\n    min-height: 100vh;\n    padding-bottom: 155px;\n    min-height: 100vh;\n    width: 100%;\n}\n\n.container {\n    display: flex;\n    justify-content: space-evenly;\n    align-items: center;\n    flex-wrap: wrap;\n}\n\n.container .box {\n    width: 250px;\n    height: 250px;\n    border-radius: 10px;\n    background-color: white;\n    margin: 20px;\n    transition: 0.3s all ease-in-out;\n    position: relative;\n    box-shadow: 0px 0px 40px background;\n    /* Link */\n}\n\n.container .box .boxContent {\n    display: flex;\n    flex-direction: column;\n    justify-content: center;\n    align-items: center;\n    text-align: center;\n    padding: 15px;\n}\n\n.container .box .boxContent .icon {\n    color: #8293ff;\n    font-size: 48px;\n    padding: 15px;\n}\n\n.container .box .boxContent .title {\n    font-size: 24px;\n    color: #8293ff;\n    font-weight: bold;\n    padding: 10px;\n}\n\n.container .box .boxContent .desc {\n    color: #8293ff;\n    font-size: 15px;\n    height: 20%;\n}\n\n.container .box a {\n    position: absolute;\n    width: 100%;\n    height: 100%;\n    top: 0;\n    left: 0;\n}\n\n.container .box:hover {\n    background: linear-gradient(130deg, #503bff 0%, #8293ff 100%);\n    box-shadow: none;\n    cursor: pointer;\n}\n\n.container .box:hover .boxContent .title,\n.container .box:hover .boxContent .icon,\n.container .box:hover .boxContent .desc {\n    color: white;\n    transition: 1s all;\n}\n\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvY29tcG9uZW50cy93YXRjaGxpc3RzL3dhdGNobGlzdHMuY29tcG9uZW50LmNzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQTtJQUNJLCtCQUFzRDtJQUN0RCw0QkFBNEI7SUFDNUIsc0JBQXNCO0lBQ3RCLGtCQUFrQjtJQUNsQixZQUFZO0lBQ1osZ0JBQWdCO0lBQ2hCLHFDQUFxQztJQUNyQyxlQUFlO0lBQ2YscUJBQXFCO0lBQ3JCLGlCQUFpQjtJQUNqQixxQkFBcUI7SUFDckIsaUJBQWlCO0lBQ2pCLFdBQVc7QUFDZjs7QUFFQTtJQUNJLGFBQWE7SUFDYiw2QkFBNkI7SUFDN0IsbUJBQW1CO0lBQ25CLGVBQWU7QUFDbkI7O0FBRUE7SUFDSSxZQUFZO0lBQ1osYUFBYTtJQUNiLG1CQUFtQjtJQUNuQix1QkFBdUI7SUFDdkIsWUFBWTtJQUNaLGdDQUFnQztJQUNoQyxrQkFBa0I7SUFDbEIsbUNBQW1DO0lBQ25DLFNBQVM7QUFDYjs7QUFDQTtJQUNJLGFBQWE7SUFDYixzQkFBc0I7SUFDdEIsdUJBQXVCO0lBQ3ZCLG1CQUFtQjtJQUNuQixrQkFBa0I7SUFDbEIsYUFBYTtBQUNqQjs7QUFDQTtJQUNJLGNBQWM7SUFDZCxlQUFlO0lBQ2YsYUFBYTtBQUNqQjs7QUFDQTtJQUNJLGVBQWU7SUFDZixjQUFjO0lBQ2QsaUJBQWlCO0lBQ2pCLGFBQWE7QUFDakI7O0FBQ0E7SUFDSSxjQUFjO0lBQ2QsZUFBZTtJQUNmLFdBQVc7QUFDZjs7QUFDQTtJQUNJLGtCQUFrQjtJQUNsQixXQUFXO0lBQ1gsWUFBWTtJQUNaLE1BQU07SUFDTixPQUFPO0FBQ1g7O0FBQ0E7SUFDSSw2REFBNkQ7SUFDN0QsZ0JBQWdCO0lBQ2hCLGVBQWU7QUFDbkI7O0FBRUE7OztJQUdJLFlBQVk7SUFDWixrQkFBa0I7QUFDdEIiLCJmaWxlIjoic3JjL2FwcC9jb21wb25lbnRzL3dhdGNobGlzdHMvd2F0Y2hsaXN0cy5jb21wb25lbnQuY3NzIiwic291cmNlc0NvbnRlbnQiOlsiLmJhY2sge1xuICAgIGJhY2tncm91bmQtaW1hZ2U6IHVybChcIi4uLy4uLy4uL2Fzc2V0cy9pbWcvYmcvMTQuanBnXCIpO1xuICAgIGJhY2tncm91bmQtYXR0YWNobWVudDogZml4ZWQ7XG4gICAgYmFja2dyb3VuZC1zaXplOiBjb3ZlcjtcbiAgICBwb3NpdGlvbjogcmVsYXRpdmU7XG4gICAgaGVpZ2h0OiAxMDAlO1xuICAgIG92ZXJmbG93OiBoaWRkZW47XG4gICAgZm9udC1mYW1pbHk6IFwiTW9udHNlcnJhdFwiLCBzYW5zLXNlcmlmO1xuICAgIGZvbnQtc2l6ZTogMzBweDtcbiAgICBwYWRkaW5nLWJvdHRvbTogMTI1cHg7XG4gICAgbWluLWhlaWdodDogMTAwdmg7XG4gICAgcGFkZGluZy1ib3R0b206IDE1NXB4O1xuICAgIG1pbi1oZWlnaHQ6IDEwMHZoO1xuICAgIHdpZHRoOiAxMDAlO1xufVxuXG4uY29udGFpbmVyIHtcbiAgICBkaXNwbGF5OiBmbGV4O1xuICAgIGp1c3RpZnktY29udGVudDogc3BhY2UtZXZlbmx5O1xuICAgIGFsaWduLWl0ZW1zOiBjZW50ZXI7XG4gICAgZmxleC13cmFwOiB3cmFwO1xufVxuXG4uY29udGFpbmVyIC5ib3gge1xuICAgIHdpZHRoOiAyNTBweDtcbiAgICBoZWlnaHQ6IDI1MHB4O1xuICAgIGJvcmRlci1yYWRpdXM6IDEwcHg7XG4gICAgYmFja2dyb3VuZC1jb2xvcjogd2hpdGU7XG4gICAgbWFyZ2luOiAyMHB4O1xuICAgIHRyYW5zaXRpb246IDAuM3MgYWxsIGVhc2UtaW4tb3V0O1xuICAgIHBvc2l0aW9uOiByZWxhdGl2ZTtcbiAgICBib3gtc2hhZG93OiAwcHggMHB4IDQwcHggYmFja2dyb3VuZDtcbiAgICAvKiBMaW5rICovXG59XG4uY29udGFpbmVyIC5ib3ggLmJveENvbnRlbnQge1xuICAgIGRpc3BsYXk6IGZsZXg7XG4gICAgZmxleC1kaXJlY3Rpb246IGNvbHVtbjtcbiAgICBqdXN0aWZ5LWNvbnRlbnQ6IGNlbnRlcjtcbiAgICBhbGlnbi1pdGVtczogY2VudGVyO1xuICAgIHRleHQtYWxpZ246IGNlbnRlcjtcbiAgICBwYWRkaW5nOiAxNXB4O1xufVxuLmNvbnRhaW5lciAuYm94IC5ib3hDb250ZW50IC5pY29uIHtcbiAgICBjb2xvcjogIzgyOTNmZjtcbiAgICBmb250LXNpemU6IDQ4cHg7XG4gICAgcGFkZGluZzogMTVweDtcbn1cbi5jb250YWluZXIgLmJveCAuYm94Q29udGVudCAudGl0bGUge1xuICAgIGZvbnQtc2l6ZTogMjRweDtcbiAgICBjb2xvcjogIzgyOTNmZjtcbiAgICBmb250LXdlaWdodDogYm9sZDtcbiAgICBwYWRkaW5nOiAxMHB4O1xufVxuLmNvbnRhaW5lciAuYm94IC5ib3hDb250ZW50IC5kZXNjIHtcbiAgICBjb2xvcjogIzgyOTNmZjtcbiAgICBmb250LXNpemU6IDE1cHg7XG4gICAgaGVpZ2h0OiAyMCU7XG59XG4uY29udGFpbmVyIC5ib3ggYSB7XG4gICAgcG9zaXRpb246IGFic29sdXRlO1xuICAgIHdpZHRoOiAxMDAlO1xuICAgIGhlaWdodDogMTAwJTtcbiAgICB0b3A6IDA7XG4gICAgbGVmdDogMDtcbn1cbi5jb250YWluZXIgLmJveDpob3ZlciB7XG4gICAgYmFja2dyb3VuZDogbGluZWFyLWdyYWRpZW50KDEzMGRlZywgIzUwM2JmZiAwJSwgIzgyOTNmZiAxMDAlKTtcbiAgICBib3gtc2hhZG93OiBub25lO1xuICAgIGN1cnNvcjogcG9pbnRlcjtcbn1cblxuLmNvbnRhaW5lciAuYm94OmhvdmVyIC5ib3hDb250ZW50IC50aXRsZSxcbi5jb250YWluZXIgLmJveDpob3ZlciAuYm94Q29udGVudCAuaWNvbixcbi5jb250YWluZXIgLmJveDpob3ZlciAuYm94Q29udGVudCAuZGVzYyB7XG4gICAgY29sb3I6IHdoaXRlO1xuICAgIHRyYW5zaXRpb246IDFzIGFsbDtcbn1cbiJdfQ== */"
 
 /***/ }),
 
@@ -2161,13 +2312,11 @@ let WatchlistsComponent = class WatchlistsComponent {
         this.watchlistService.createWatchlist(watchlist).subscribe();
         this.watchlistForm.reset();
         this.writingWatchlist = false;
-        // TODO: fetch watchlists after submitting
-        // socket?
-        if (this.id) {
+        this.router.navigate(["discover"]);
+        // TODO: fetch watchlists after submitting -- socket.io
+        /*         if (this.id) {
             this.getWatchlists(this.id);
-        }
-        else
-            this.getAllWatchlists();
+        } else this.getAllWatchlists(); */
     }
     openWatchlist(watchlist) {
         this.dataProvider.setData({ watchlist, type: "watchlist" });
