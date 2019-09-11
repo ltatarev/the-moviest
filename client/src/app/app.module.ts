@@ -7,7 +7,6 @@ import { CommonModule } from "@angular/common";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 
 import { ToastrModule } from "ngx-toastr";
-import { SocketIoModule, SocketIoConfig } from "ngx-socket-io";
 
 import { AppRoutingModule } from "./app-routing.module";
 import { AppComponent } from "./app.component";
@@ -31,8 +30,6 @@ import { SettingsComponent } from "./components/settings/settings.component";
 import { TvComponent } from "./components/tv/tv.component";
 import { SearchResultComponent } from "./components/search-result/search-result.component";
 import { DetailsComponent } from "./components/details/details.component";
-
-const config: SocketIoConfig = { url: "http://localhost:3000", options: {} };
 
 @NgModule({
     declarations: [
@@ -71,8 +68,7 @@ const config: SocketIoConfig = { url: "http://localhost:3000", options: {} };
             countDuplicates: true,
             preventDuplicates: true,
             maxOpened: 5
-        }),
-        SocketIoModule.forRoot(config)
+        })
     ],
     providers: [],
     bootstrap: [AppComponent]
