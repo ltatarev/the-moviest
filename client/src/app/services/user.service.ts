@@ -13,6 +13,8 @@ import { ToastrService } from "ngx-toastr";
 
 import { of } from "rxjs";
 
+import { Socket } from "ngx-socket-io";
+
 @Injectable({
     providedIn: "root"
 })
@@ -23,16 +25,24 @@ export class UserService {
         false
     );
     public user: BehaviorSubject<User> = new BehaviorSubject<User>(null);
+    public avatarURL;
 
     constructor(
         private http: HttpClient,
         private router: Router,
-        public toasterService: ToastrService
+        public toasterService: ToastrService,
+        private socket: Socket
     ) {
         if (this.isLoggedIn()) {
             this.loggedIn.next(true);
             this.user.next(this.credentials());
         }
+
+        this.avatarURL = this.socket.fromEvent<string>("getAvatarURL");
+    }
+
+    getAvatarURL() {
+        this.socket.emit("getAvatarURL", this.user.value._id);
     }
 
     isLoggedIn() {

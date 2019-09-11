@@ -5,26 +5,34 @@ const ObjectId = mongoose.Types.ObjectId;
 class ReviewService {
   // ************************************************************
   // * FIND ALL REVIEWS
-  static async findAllReviews() {
+  static async findAllReviews(page = 0) {
     return await Review.find()
+      .skip(20 * page)
+      .limit(20)
       .populate("author_id", "username")
       .exec();
   }
 
   // ************************************************************
   // * FIND ALL REVIEWS WRITTEN BY AUTHOR
-  static async findReviewsByAuthor(authorId) {
+  static async findReviewsByAuthor(authorId, page = 0) {
     let author_id = ObjectId(authorId.toString());
     return await Review.find({ author_id: author_id })
+      .skip(20 * page)
+      .limit(20)
       .populate("author_id", "username")
       .exec();
   }
 
   // * FIND ALL REVIEWS FOR MOVIES
   // ************************************************************
-  static async findReviewByMovie(movieTitle) {
+  static async findReviewByMovie(movieTitle, page = 0) {
     let title = movieTitle.toString();
-    return await Review.find({ "movie.movieTitle": { $regex: title, $options:"i" } })
+    return await Review.find({
+      "movie.movieTitle": { $regex: title, $options: "i" }
+    })
+      .skip(20 * page)
+      .limit(20)
       .populate("author_id", "username")
       .exec();
   }

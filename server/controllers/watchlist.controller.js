@@ -4,10 +4,11 @@ class WatchlistController {
   // ************************************************************
   // * FIND ALL WATCHLISTS
   static async findAllWatchlists(request, response) {
+    let page = request.query.page ? request.query.page : 0;
     let watchlists, message;
 
     try {
-      watchlists = await WatchlistService.findAllWatchlists();
+      watchlists = await WatchlistService.findAllWatchlists(page);
     } catch (err) {
       return response.status(500).json(err);
     }
@@ -19,12 +20,16 @@ class WatchlistController {
   // ************************************************************
   // * FIND ALL WATCHLISTS FOR A SPECIFIC USER
   static async findAllWatchlistsByAuthorId(request, response) {
+    let page = request.query.page ? request.query.page : 0;
     let authorId = request.query.id;
 
     let watchlists, message;
 
     try {
-      watchlists = await WatchlistService.findAllWatchlistsByAuthorId(authorId);
+      watchlists = await WatchlistService.findAllWatchlistsByAuthorId(
+        authorId,
+        page
+      );
     } catch (err) {
       return response.status(500).json(err);
     }
@@ -36,12 +41,13 @@ class WatchlistController {
   // ************************************************************
   // * FIND ALL WATCHLISTS BY NAME
   static async findWatchlistsByName(request, response) {
+    let page = request.query.page ? request.query.page : 0;
     let title = request.query.title;
 
     let watchlists, message;
 
     try {
-      watchlists = await WatchlistService.findWatchlistsByName(title);
+      watchlists = await WatchlistService.findWatchlistsByName(title, page);
     } catch (err) {
       return response.status(500).json(err);
     }
@@ -146,7 +152,6 @@ class WatchlistController {
     try {
       message = await WatchlistService.deleteWatchlist(watchlistId);
     } catch (err) {
-      console.log(err);
       return response.status(500).json(err);
     }
 
@@ -167,7 +172,6 @@ class WatchlistController {
         movieId
       );
     } catch (err) {
-      console.log(err);
       return response.status(500).json(err);
     }
 

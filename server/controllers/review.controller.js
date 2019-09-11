@@ -4,10 +4,11 @@ class ReviewController {
   // ************************************************************
   // * FIND ALL REVIEWS
   static async findAllReviews(request, response) {
+    let page = request.query.page ? request.query.page : 0;
     let reviews, message;
 
     try {
-      reviews = await ReviewService.findAllReviews();
+      reviews = await ReviewService.findAllReviews(page);
     } catch (err) {
       return response.status(500).json(err);
     }
@@ -19,12 +20,13 @@ class ReviewController {
   // ************************************************************
   // * FIND ALL REVIEWS WRITTEN BY AUTHOR
   static async findReviewsByAuthor(request, response) {
+    let page = request.query.page ? request.query.page : 0;
     let authorId = request.query.id;
 
     let reviews, message;
 
     try {
-      reviews = await ReviewService.findReviewsByAuthor(authorId);
+      reviews = await ReviewService.findReviewsByAuthor(authorId, page);
     } catch (err) {
       return response.status(500).json(err);
     }
@@ -36,12 +38,13 @@ class ReviewController {
   // ************************************************************
   // * FIND ALL REVIEWS FOR MOVIES
   static async findReviewByMovie(request, response) {
+    let page = request.query.page ? request.query.page : 0;
     let movieTitle = request.query.movieTitle;
 
     let reviews, message;
 
     try {
-      reviews = await ReviewService.findReviewByMovie(movieTitle);
+      reviews = await ReviewService.findReviewByMovie(movieTitle, page);
     } catch (err) {
       return response.status(500).json(err);
     }

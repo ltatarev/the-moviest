@@ -5,25 +5,31 @@ const ObjectId = mongoose.Types.ObjectId;
 class WatchlistService {
   // ************************************************************
   // * FIND ALL WATCHLISTS
-  static async findAllWatchlists() {
+  static async findAllWatchlists(page = 0) {
     return await Watchlist.find()
+      .skip(20 * page)
+      .limit(20)
       .populate("author_id", "username")
       .exec();
   }
 
   // ************************************************************
   // * FIND ALL WATCHLISTS FOR A SPECIFIC USER
-  static async findAllWatchlistsByAuthorId(authorId) {
+  static async findAllWatchlistsByAuthorId(authorId, page = 0) {
     let author_id = ObjectId(authorId.toString());
     return await Watchlist.find({ author_id: author_id })
+      .skip(20 * page)
+      .limit(20)
       .populate("author_id", "username")
       .exec();
   }
 
   // ************************************************************
   // * FIND ALL WATCHLISTS BY NAME
-  static async findWatchlistsByName(title) {
+  static async findWatchlistsByName(title, page = 0) {
     return await Watchlist.find({ title: { $regex: title, $options: "i" } })
+      .skip(20 * page)
+      .limit(20)
       .populate("author_id", "username")
       .exec();
   }

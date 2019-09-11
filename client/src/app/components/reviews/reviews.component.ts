@@ -41,6 +41,8 @@ export class ReviewsComponent implements OnInit {
 
     ngOnInit() {}
 
+    // todo: sort by date created and movie name
+
     private getReviewsByAuthor(id) {
         return this.reviewService.findReviewsByAuthor(id).subscribe(res => {
             this.reviews = res.reviews;

@@ -85,6 +85,8 @@ export class WatchlistsComponent implements OnInit {
         } else this.getAllWatchlists(); */
     }
 
+    // todo: sort by date created and title
+
     private openWatchlist(watchlist) {
         this.dataProvider.setData({ watchlist, type: "watchlist" });
         this.router.navigate(["details"]);

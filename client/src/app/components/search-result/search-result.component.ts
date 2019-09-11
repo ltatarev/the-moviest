@@ -153,7 +153,6 @@ export class SearchResultComponent {
                         .searchByName(this.search, this.nextPage)
                         .subscribe(res => {
                             this.data = res.results;
-                            console.log(this.data);
                             this.parseTv(this.data);
                             window.scroll(0, 0);
                         });
@@ -166,7 +165,6 @@ export class SearchResultComponent {
                         .searchByName(this.search, this.nextPage)
                         .subscribe(res => {
                             this.data = res.results;
-                            console.log(this.data);
                             this.parseMovie(this.data);
                             window.scroll(0, 0);
                         });
@@ -184,7 +182,6 @@ export class SearchResultComponent {
                         .searchByName(this.search, this.prevPage)
                         .subscribe(res => {
                             this.data = res.results;
-                            console.log(this.data);
                             this.parseTv(this.data);
                             window.scroll(0, 0);
                         });
@@ -197,7 +194,6 @@ export class SearchResultComponent {
                         .searchByName(this.search, this.prevPage)
                         .subscribe(res => {
                             this.data = res.results;
-                            console.log(this.data);
                             this.parseMovie(this.data);
                             window.scroll(0, 0);
                         });
@@ -215,7 +211,6 @@ export class SearchResultComponent {
                         .searchByName(this.search, this.lastPage)
                         .subscribe(res => {
                             this.data = res.results;
-                            console.log(this.data);
                             this.parseTv(this.data);
                             window.scroll(0, 0);
                         });
@@ -228,7 +223,6 @@ export class SearchResultComponent {
                         .searchByName(this.search, this.lastPage)
                         .subscribe(res => {
                             this.data = res.results;
-                            console.log(this.data);
                             this.parseMovie(this.data);
                             window.scroll(0, 0);
                         });
@@ -246,7 +240,6 @@ export class SearchResultComponent {
                         .searchByName(this.search, 1)
                         .subscribe(res => {
                             this.data = res.results;
-                            console.log(this.data);
                             this.parseTv(this.data);
                             window.scroll(0, 0);
                         });
@@ -259,7 +252,6 @@ export class SearchResultComponent {
                         .searchByName(this.search, 1)
                         .subscribe(res => {
                             this.data = res.results;
-                            console.log(this.data);
                             this.parseMovie(this.data);
                             window.scroll(0, 0);
                         });
