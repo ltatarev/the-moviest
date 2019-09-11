@@ -4,6 +4,10 @@ e63e56
 493fb5
 */
 
+* {
+    font-family: "Montserrat", sans-serif;
+}
+
 ::selection {
     background-color: #e63e56;
     color: #ffd4f6;
