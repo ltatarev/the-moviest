@@ -62,8 +62,8 @@ class WatchlistService {
 
   // ************************************************************
   // * LIKE WATCHLIST
-  static async likeWatchlist(_id) {
-    let _id = ObjectId(_id.toString());
+  static async likeWatchlist(watchId) {
+    let _id = ObjectId(watchId.toString());
 
     let watchlist = await Watchlist.findByIdAndUpdate(
       { _id },

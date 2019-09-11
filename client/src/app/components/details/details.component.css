@@ -24,6 +24,12 @@ h3 {
     font-size: 0.7em;
 }
 
+.like:hover {
+    color: rgba(0, 94, 202, 0.822);
+    transition: 50ms all;
+    cursor: pointer;
+}
+
 img {
     width: 300px;
     -webkit-filter: drop-shadow(1px 1px 3px #a6a6a6);

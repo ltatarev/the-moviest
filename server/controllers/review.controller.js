@@ -118,6 +118,23 @@ class ReviewController {
     message = "Successfully deleted review!";
     return response.status(202).json({ message, review });
   }
+
+    // ************************************************************
+  // * LIKE REVIEW
+  static async likeReview(request, response) {
+    let reviewId = request.body.reviewId;
+
+    let review, message;
+
+    try {
+      review = await ReviewService.likeReview(reviewId);
+    } catch (err) {
+      return response.status(500).json(err);
+    }
+
+    message = "Successfully liked review!";
+    return response.status(202).json({ message, review });
+  }
 }
 
 module.exports = ReviewController;

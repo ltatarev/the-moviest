@@ -53,13 +53,20 @@ class ReviewService {
       { _id: review_id },
       { title, rating, reviewText },
       { new: true }
-    );
+    ).exec();
   }
 
   // ************************************************************
   // * DELETE REVIEW
   static async deleteReview(review_id) {
-    return await Review.findOneAndDelete({ _id: review_id });
+    return await Review.findOneAndDelete({ _id: review_id }).exec();
+  }
+
+    // ************************************************************
+  // * LIKE REVIEW
+  static async likeReview(review_id) {
+    let _id = ObjectId(review_id.toString());
+    return await Review.findByIdAndUpdate({ _id},  { $inc: { likes: 1 } }, {returnOriginal:false}).exec();
   }
 }
 

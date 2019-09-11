@@ -93,4 +93,11 @@ export class ReviewService {
             .delete<any>(this.reviewUrl + "/deleteReview", reviewId)
             .pipe(catchError(this.handleError<any>("deleteReview")));
     }
+
+    likeReview(reviewId: any): Observable<any> {
+        // reviewId
+        return this.http
+            .post<any>(this.reviewUrl + "/likeReview", {reviewId})
+            .pipe(catchError(this.handleError<any>("likeReview")));
+    }
 }

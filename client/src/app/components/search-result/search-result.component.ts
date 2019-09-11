@@ -119,7 +119,7 @@ export class SearchResultComponent {
     }
 
     public navigateTo(data, i) {
-        switch (this.data.type) {
+        switch (this.type) {
             case "reviews":
                 this.dataProvider.removeData();
                 this.dataProvider.setData({

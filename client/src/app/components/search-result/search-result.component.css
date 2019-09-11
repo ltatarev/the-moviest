@@ -10,7 +10,7 @@
     padding-bottom: 125px;
     min-height: 100vh;
     padding-bottom: 155px;
-    min-width: 100vw;
+    min-height: 100vh;
     width: 100%;
 }
 
@@ -60,7 +60,7 @@ a:hover {
 
 .pagination {
     display: inline-block;
-    height: 70px;
+    height: 40px;
     margin-top: 20px;
     padding: 0 25px;
     border-radius: 15px;
@@ -68,7 +68,7 @@ a:hover {
 }
 @media only screen and (max-width: 1199px) {
     .pagination {
-        height: 50px;
+        height: 40px;
         margin-top: 30px;
         padding: 0 10px;
         border-radius: 15px;
@@ -87,7 +87,7 @@ a:hover {
     color: #595959;
     font-size: 20px;
     letter-spacing: 0.1em;
-    line-height: 70px;
+    line-height: 40px;
 }
 
 .page-numbers:hover,
@@ -105,7 +105,7 @@ a:hover {
     .page-numbers {
         padding: 0 15px;
         font-size: 16px;
-        line-height: 50px;
+        line-height: 40px;
     }
 }
 @media only screen and (min-width: 120px) and (max-width: 1024px) {

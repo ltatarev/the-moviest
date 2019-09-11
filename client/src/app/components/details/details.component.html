@@ -13,6 +13,10 @@
             <div class="product__info">
                 <div class="price">
                     <span>{{ data.title }}</span>
+                    <div class="text-right">
+                        {{data.likes}}
+                        <i class="far fa-thumbs-up like" (click)="like()"></i>
+                    </div>
                 </div>
                 <div class="title font-italic pt-3">
                     <h1>{{ data.subtitle }}</h1>

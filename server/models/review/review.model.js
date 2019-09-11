@@ -24,7 +24,7 @@ const reviewSchema = new mongoose.Schema(
       maxlength: 400
     },
     author_id: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
-    likes: { type: Number, min: 0 }
+    likes: { type: Number, min: 0, default: 0 }
   },
   { timestamps: true }
 );

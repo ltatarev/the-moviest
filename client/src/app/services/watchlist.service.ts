@@ -94,7 +94,7 @@ export class WatchlistService {
     likeWatchlist(watchlistId: any): Observable<any> {
         // watchlistId
         return this.http
-            .post<any>(this.watchlistUrl + "/likeWatchlist", watchlistId)
+            .post<any>(this.watchlistUrl + "/likeWatchlist", {watchlistId})
             .pipe(catchError(this.handleError<any>("likeWatchlist")));
     }
 

@@ -4,9 +4,7 @@ import { ActivatedRoute } from "@angular/router";
 import {
     FormBuilder,
     FormGroup,
-    Validators,
-    FormArray,
-    FormControl
+    Validators
 } from "@angular/forms";
 import { ReviewService } from "src/app/services/review.service";
 import { WatchlistService } from "src/app/services/watchlist.service";
