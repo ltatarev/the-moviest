@@ -14,6 +14,18 @@
     width: 100%;
 }
 
+.card {
+    background-color: rgba(250, 235, 215, 0.75);
+}
+
+
+.card:hover {
+    background-color: rgba(250, 235, 215, 1);
+    transform: scale(1.1);
+    transition: 0.7s all;
+    cursor: pointer;
+}
+
 .card-title {
     font-weight: bold;
     font-size: 21px;

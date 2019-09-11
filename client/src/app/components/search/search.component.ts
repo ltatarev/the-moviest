@@ -33,7 +33,9 @@ export class SearchComponent implements OnInit {
         });
     }
 
-    ngOnInit() { }
+    ngOnInit() {
+        this.dataProviderService.removeData();
+     }
 
     onSubmit() {
         let value: any = this.searchForm.value;
@@ -43,13 +45,13 @@ export class SearchComponent implements OnInit {
                 this.watchlistService
                     .findWatchlistsByName(value.search)
                     .subscribe(res => {
-                            this.dataProviderService.setData({watchlists:res.watchlists,type:"watchlist"});
+                            this.dataProviderService.setData({watchlists:res.watchlists,type:"watchlist",search:value.search});
                         }
                     );
                 break;
             case "review":
                 this.reviewService.findReviewByMovie(value.search).subscribe(res => {
-                        this.dataProviderService.setData({reviews:res.reviews,type:"reviews"});
+                        this.dataProviderService.setData({reviews:res.reviews,type:"reviews",search:value.search});
                     }
                 );
                 break;
@@ -58,13 +60,13 @@ export class SearchComponent implements OnInit {
                 break;
             case "tvShow":
                 this.tvService.searchByName(value.search).subscribe(res => {
-                    this.dataProviderService.setData({res, type:"tvShow"});
+                    this.dataProviderService.setData({res, type:"tvShow",search:value.search});
                     this.router.navigate(["searchResult"]);
                 });
                 break;
             case "movie":
                 this.movieService.searchByName(value.search).subscribe(res => {
-                    this.dataProviderService.setData({res, type:"movie"});
+                    this.dataProviderService.setData({res, type:"movie",search:value.search});
                     this.router.navigate(["searchResult"]);
                 });
                 break;

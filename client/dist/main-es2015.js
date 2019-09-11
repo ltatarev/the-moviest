@@ -96,7 +96,7 @@ module.exports = "<div class=\"back animated fadeIn\"></div>\r\n<div class=\"reg
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"back\">\r\n    <app-navbar></app-navbar>\r\n    <div\r\n        class=\"container mb-5 text-dark animated fadeInUp\"\r\n        *ngIf=\"!writingReview\"\r\n    >\r\n        <section class=\"product\">\r\n            <div class=\"product__photo\">\r\n                <div class=\"photo-container\">\r\n                    <div class=\"photo-main\">\r\n                        <img\r\n                            src=\"{{ movie?.poster_path }}\"\r\n                            style=\"width: 100%; \"\r\n                        />\r\n                    </div>\r\n                </div>\r\n            </div>\r\n            <div class=\"product__info\">\r\n                <div class=\"price\">\r\n                    <span>{{ movie.original_title }}</span>\r\n                </div>\r\n                <div class=\"title font-italic pt-3\">\r\n                    <h1>{{ movie.tagline }}</h1>\r\n                </div>\r\n                <div class=\"description\">\r\n                    <p>{{ movie.overview }}</p>\r\n                    <hr />\r\n                    <h3 style=\"display: inline; padding: 7px;\">Genres:</h3>\r\n                    <p\r\n                        *ngFor=\"let genre of movie.genres\"\r\n                        style=\"display: inline; padding: 7px;\"\r\n                    >\r\n                        {{ genreEmojis[genre.name] }} {{ genre.name }}\r\n                    </p>\r\n                    <div class=\"pt-4\">\r\n                        <button\r\n                            class=\"btn btn-outline-success btn-sm m-1 p-2\"\r\n                            (click)=\"addToWatchlist()\"\r\n                        >\r\n                            <i class=\"fas fa-highlighter p-1\"></i> Add to\r\n                            watchlist\r\n                        </button>\r\n                        <button\r\n                            class=\"btn btnPink btn-sm m-1\"\r\n                            (click)=\"writeReview()\"\r\n                        >\r\n                            <i class=\"fas fa-clipboard-list p-1\"></i> Write a\r\n                            review\r\n                        </button>\r\n                    </div>\r\n                </div>\r\n            </div>\r\n        </section>\r\n    </div>\r\n\r\n    <!-- R E V I E W  -->\r\n    <div\r\n        class=\"text-center container mb-5 bg-light p-5 rounded animated fadeInUp\"\r\n        *ngIf=\"writingReview\"\r\n    >\r\n        <button\r\n            class=\"btn btn-outline-danger btn-sm ml-auto\"\r\n            (click)=\"closeReview()\"\r\n        >\r\n            <i class=\"fas fa-times\" style=\"cursor:pointer;\"></i>\r\n        </button>\r\n        <h6 class=\"display-4\">Write a review</h6>\r\n        <!-- R E V I E W F O R M -->\r\n        <form\r\n            [formGroup]=\"reviewForm\"\r\n            (ngSubmit)=\"submitReview()\"\r\n            class=\"animated fadeInDown\"\r\n        >\r\n            <!-- T E M P L A T E  -->\r\n            <ng-template #t let-i=\"index\" let-v=\"value\">\r\n                <button\r\n                    type=\"button\"\r\n                    class=\"btn  btn{{ i < v ? 'Pink' : '-default' }} p-2\"\r\n                    style=\"transition: all 0.1s;\"\r\n                >\r\n                    {{ i < v ? \"&#9733;\" : \"&#9734;\" }}\r\n                </button>\r\n            </ng-template>\r\n            <!-- R A T I N G  -->\r\n            <div class=\"p-3\">\r\n                <rating\r\n                    [max]=\"5\"\r\n                    formControlName=\"rating\"\r\n                    [customTemplate]=\"t\"\r\n                    style=\"font-size: 20px;\"\r\n                ></rating>\r\n            </div>\r\n            <div class=\"input-group pb-3\">\r\n                <input\r\n                    type=\"text\"\r\n                    class=\"form-control\"\r\n                    formControlName=\"title\"\r\n                    id=\"title\"\r\n                    placeholder=\"Review title\"\r\n                />\r\n            </div>\r\n            <div class=\"form-group\">\r\n                <textarea\r\n                    class=\"form-control rounded-0\"\r\n                    formControlName=\"reviewText\"\r\n                    placeholder=\"Review text...\"\r\n                    rows=\"3\"\r\n                ></textarea>\r\n            </div>\r\n            <!-- S U B M I T  -->\r\n            <div class=\"p-2 ml-auto\">\r\n                <button\r\n                    class=\"btn btn-outline-success\"\r\n                    type=\"submit\"\r\n                    [disabled]=\"!reviewForm.valid\"\r\n                >\r\n                    Submit\r\n                </button>\r\n            </div>\r\n        </form>\r\n        <hr />\r\n    </div>\r\n\r\n    <app-footer></app-footer>\r\n</div>\r\n"
+module.exports = "<div class=\"back\">\r\n    <app-navbar></app-navbar>\r\n    <div class=\"container mb-5 text-dark animated fadeInUp\" *ngIf=\"!writingReview && !addingToWatchlist\">\r\n        <section class=\"product\">\r\n            <div class=\"product__photo\">\r\n                <div class=\"photo-container\">\r\n                    <div class=\"photo-main\">\r\n                        <img src=\"{{ movie?.poster_path }}\" style=\"width: 100%; \" />\r\n                    </div>\r\n                </div>\r\n            </div>\r\n            <div class=\"product__info\">\r\n                <div class=\"price\">\r\n                    <span>{{ movie.original_title }}</span>\r\n                </div>\r\n                <div class=\"title font-italic pt-3\">\r\n                    <h1>{{ movie.tagline }}</h1>\r\n                </div>\r\n                <div class=\"description\">\r\n                    <p>{{ movie.overview }}</p>\r\n                    <hr />\r\n                    <h3 style=\"display: inline; padding: 7px;\">Genres:</h3>\r\n                    <p *ngFor=\"let genre of movie.genres\" style=\"display: inline; padding: 7px;\">\r\n                        {{ genreEmojis[genre.name] }} {{ genre.name }}\r\n                    </p>\r\n                    <div class=\"pt-4\">\r\n                        <button class=\"btn btn-outline-success btn-sm m-1 p-2\" (click)=\"addToWatchlist()\">\r\n                            <i class=\"fas fa-highlighter p-1\"></i> Add to\r\n                            watchlist\r\n                        </button>\r\n                        <button class=\"btn btnPink btn-sm m-1\" (click)=\"writeReview()\">\r\n                            <i class=\"fas fa-clipboard-list p-1\"></i> Write a\r\n                            review\r\n                        </button>\r\n                    </div>\r\n                </div>\r\n            </div>\r\n        </section>\r\n    </div>\r\n\r\n    <!-- R E V I E W  -->\r\n    <div class=\"text-center container mb-5 bg-light p-5 rounded animated fadeInUp\"\r\n        *ngIf=\"writingReview && !addingToWatchlist\">\r\n        <button class=\"btn btn-outline-danger btn-sm ml-auto\" (click)=\"closeReview()\">\r\n            <i class=\"fas fa-times\" style=\"cursor:pointer;\"></i>\r\n        </button>\r\n        <h6 class=\"display-4\">Write a review</h6>\r\n        <!-- R E V I E W F O R M -->\r\n        <form [formGroup]=\"reviewForm\" (ngSubmit)=\"submitReview()\" class=\"animated fadeInDown\">\r\n            <!-- T E M P L A T E  -->\r\n            <ng-template #t let-i=\"index\" let-v=\"value\">\r\n                <button type=\"button\" class=\"btn  btn{{ i < v ? 'Pink' : '-default' }} p-2\"\r\n                    style=\"transition: all 0.1s;\">\r\n                    {{ i < v ? \"&#9733;\" : \"&#9734;\" }}\r\n                </button>\r\n            </ng-template>\r\n            <!-- R A T I N G  -->\r\n            <div class=\"p-3\">\r\n                <rating [max]=\"5\" formControlName=\"rating\" [customTemplate]=\"t\" style=\"font-size: 20px;\"></rating>\r\n            </div>\r\n            <div class=\"input-group pb-3\">\r\n                <input type=\"text\" class=\"form-control\" formControlName=\"title\" id=\"title\" placeholder=\"Review title\" />\r\n            </div>\r\n            <div class=\"form-group\">\r\n                <textarea class=\"form-control rounded-0\" formControlName=\"reviewText\" placeholder=\"Review text...\"\r\n                    rows=\"3\"></textarea>\r\n            </div>\r\n            <!-- S U B M I T  -->\r\n            <div class=\"p-2 ml-auto\">\r\n                <button class=\"btn btn-outline-success\" type=\"submit\" [disabled]=\"!reviewForm.valid\">\r\n                    Submit\r\n                </button>\r\n            </div>\r\n        </form>\r\n        <hr />\r\n    </div>\r\n\r\n\r\n    <!-- W A T C H L I S T -->\r\n    <div class=\"text-center container mb-5 bg-light p-5 rounded animated fadeInUp\"\r\n        *ngIf=\"addingToWatchlist && !writingReview\">\r\n        <form [formGroup]=\"watchlistForm\" (ngSubmit)=\"addToWatchlist()\" class=\"animated fadeInDown\">\r\n            <div class=\"input-group pb-3\">       \r\n            <div *ngFor=\"let w of watchlistsArrayForm.controls; let i=index\" [formGroupName]=\"i\">\r\n                    <input type=\"radio\" formControlName=\"watchlist\">{{w}}  \r\n            </div>\r\n        </div>\r\n            <!-- S U B M I T  -->\r\n            <div class=\"p-2 ml-auto\">\r\n                <button class=\"btn btn-outline-success\" type=\"submit\" [disabled]=\"!watchlistForm.valid\">\r\n                    Submit\r\n                </button>\r\n            </div>\r\n        </form>\r\n    </div>\r\n\r\n    <app-footer></app-footer>\r\n</div>"
 
 /***/ }),
 
@@ -151,7 +151,7 @@ module.exports = "<div class=\"back animated fadeIn\">\r\n    <app-navbar></app-
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"back\">\r\n    <app-navbar></app-navbar>\r\n    <div class=\"container\">\r\n        <h1 class=\"text-light display-4\">Search results</h1>\r\n        <h2 class=\"font-weight-bold font-italic text-light\" style=\"border-bottom: 2px solid salmon;\">{{title}}</h2>\r\n        <div class=\"div\" *ngFor=\"let data of displayData\">\r\n        <div class=\"card m-4 p-3\">\r\n            <div class=\"row\">\r\n                <div class=\"col-2\" *ngIf=\"data.img\">\r\n                    <img [src]=\"data.img\">\r\n                </div>\r\n                <div class=\"col\">\r\n                    <div class=\"card-title\">{{data.title}}</div>\r\n                    <div class=\"card-subtitle\">{{data.subtitle}}</div>\r\n                    <div class=\"card-body\">\r\n                        {{data.body}}\r\n                    </div>\r\n                </div>\r\n            </div>\r\n        </div>\r\n    </div>\r\n    </div>\r\n    <app-footer></app-footer>\r\n</div>\r\n"
+module.exports = "<div class=\"back\">\r\n    <app-navbar></app-navbar>\r\n    <div class=\"container\">\r\n        <h1 class=\"text-light display-4\">Search results for \"{{search}}\"</h1>\r\n        <h2 class=\"font-weight-bold font-italic text-light\" style=\"border-bottom: 2px solid salmon;\">{{title}}</h2>\r\n        <div class=\"div\" *ngFor=\"let data of displayData\">\r\n\r\n        <div class=\"card m-4 p-3\" (click)=\"navigateTo(data)\">\r\n            <div class=\"row\">\r\n                <div class=\"col-2\" *ngIf=\"data.img\">\r\n                    <img [src]=\"data.img\">\r\n                </div>\r\n                <div class=\"col\">\r\n                    <div class=\"card-title\">{{data.title}}</div>\r\n                    <div class=\"card-subtitle\">{{data.subtitle}}</div>\r\n                    <div class=\"card-body\">\r\n                        {{data.body}}\r\n                    </div>\r\n                </div>\r\n            </div>\r\n        </div>\r\n    </div>\r\n    </div>\r\n    <app-footer></app-footer>\r\n</div>\r\n"
 
 /***/ }),
 
@@ -934,6 +934,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm2015/router.js");
 /* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/forms */ "./node_modules/@angular/forms/fesm2015/forms.js");
 /* harmony import */ var src_app_services_review_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! src/app/services/review.service */ "./src/app/services/review.service.ts");
+/* harmony import */ var src_app_services_watchlist_service__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! src/app/services/watchlist.service */ "./src/app/services/watchlist.service.ts");
+/* harmony import */ var src_app_services_user_service__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! src/app/services/user.service */ "./src/app/services/user.service.ts");
+
+
 
 
 
@@ -941,12 +945,15 @@ __webpack_require__.r(__webpack_exports__);
 
 
 let MovieComponent = class MovieComponent {
-    constructor(movieService, reviewService, route, fb) {
+    constructor(movieService, watchlistService, userService, reviewService, route, fb) {
         this.movieService = movieService;
+        this.watchlistService = watchlistService;
+        this.userService = userService;
         this.reviewService = reviewService;
         this.route = route;
         this.fb = fb;
         this.writingReview = false;
+        this.addingToWatchlist = false;
         this.genreEmojis = {
             Action: "🚗",
             Adventure: "🗺️",
@@ -984,6 +991,13 @@ let MovieComponent = class MovieComponent {
             ]),
             reviewText: this.fb.control("")
         });
+        this.watchlistForm = this.fb.group({
+            watchlistsArray: this.fb.array([], _angular_forms__WEBPACK_IMPORTED_MODULE_4__["Validators"].required)
+        });
+        this.userId = this.userService.user.value._id;
+    }
+    get watchlistsArrayForm() {
+        return this.watchlistForm.get('watchlistsArray');
     }
     ngOnInit() {
         // get movieId from url
@@ -1020,12 +1034,28 @@ let MovieComponent = class MovieComponent {
         this.writingReview = false;
     }
     addToWatchlist() {
-        // TODO: router navigate to profile with user id ?? OR open div with users watchlists as a form ?
-        // * save movie id, title, poster path to local storage ??
+        this.addingToWatchlist = true;
+        this.watchlistService.findWatchlistsByAuthor(this.userId).subscribe(res => {
+            this.watchlists = res.watchlists;
+            this.addNewWatchlist(this.watchlists);
+        });
+    }
+    addNewWatchlist(watchlists) {
+        for (let w of watchlists) {
+            const watchlist = this.fb.group({
+                title: [w.title]
+            });
+            this.watchlistsArrayForm.push(watchlist);
+        }
+    }
+    submitWatchlist() {
+        this.addingToWatchlist = false;
     }
 };
 MovieComponent.ctorParameters = () => [
     { type: src_app_services_movie_service__WEBPACK_IMPORTED_MODULE_2__["MovieService"] },
+    { type: src_app_services_watchlist_service__WEBPACK_IMPORTED_MODULE_6__["WatchlistService"] },
+    { type: src_app_services_user_service__WEBPACK_IMPORTED_MODULE_7__["UserService"] },
     { type: src_app_services_review_service__WEBPACK_IMPORTED_MODULE_5__["ReviewService"] },
     { type: _angular_router__WEBPACK_IMPORTED_MODULE_3__["ActivatedRoute"] },
     { type: _angular_forms__WEBPACK_IMPORTED_MODULE_4__["FormBuilder"] }
@@ -1037,6 +1067,8 @@ MovieComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         styles: [__webpack_require__(/*! ./movie.component.css */ "./src/app/components/movie/movie.component.css")]
     }),
     tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [src_app_services_movie_service__WEBPACK_IMPORTED_MODULE_2__["MovieService"],
+        src_app_services_watchlist_service__WEBPACK_IMPORTED_MODULE_6__["WatchlistService"],
+        src_app_services_user_service__WEBPACK_IMPORTED_MODULE_7__["UserService"],
         src_app_services_review_service__WEBPACK_IMPORTED_MODULE_5__["ReviewService"],
         _angular_router__WEBPACK_IMPORTED_MODULE_3__["ActivatedRoute"],
         _angular_forms__WEBPACK_IMPORTED_MODULE_4__["FormBuilder"]])
@@ -1383,7 +1415,7 @@ ReviewsComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = ".back {\r\n    background-image: url('14.jpg');\r\n    background-attachment: fixed;\r\n    background-size: cover;\r\n    position: relative;\r\n    height: 100%;\r\n    overflow: hidden;\r\n    font-family: \"Montserrat\", sans-serif;\r\n    font-size: 30px;\r\n    padding-bottom: 125px;\r\n    min-height: 100vh;\r\n    padding-bottom: 155px;\r\n    min-width: 100vw;\r\n    width: 100%;\r\n}\r\n\r\n.card-title {\r\n    font-weight: bold;\r\n    font-size: 21px;\r\n}\r\n\r\n.card-subtitle{\r\n    font-style: italic;\r\n    font-size: 18px;\r\n    border-bottom: 2px solid palevioletred;\r\n}\r\n\r\n.card-body {\r\n    font-size: 13px;\r\n}\r\n\r\nimg {\r\n    -o-object-fit: scale-down;\r\n       object-fit: scale-down;\r\n    max-width: 100%;\r\n}\r\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvY29tcG9uZW50cy9zZWFyY2gtcmVzdWx0L3NlYXJjaC1yZXN1bHQuY29tcG9uZW50LmNzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQTtJQUNJLCtCQUFzRDtJQUN0RCw0QkFBNEI7SUFDNUIsc0JBQXNCO0lBQ3RCLGtCQUFrQjtJQUNsQixZQUFZO0lBQ1osZ0JBQWdCO0lBQ2hCLHFDQUFxQztJQUNyQyxlQUFlO0lBQ2YscUJBQXFCO0lBQ3JCLGlCQUFpQjtJQUNqQixxQkFBcUI7SUFDckIsZ0JBQWdCO0lBQ2hCLFdBQVc7QUFDZjs7QUFFQTtJQUNJLGlCQUFpQjtJQUNqQixlQUFlO0FBQ25COztBQUVBO0lBQ0ksa0JBQWtCO0lBQ2xCLGVBQWU7SUFDZixzQ0FBc0M7QUFDMUM7O0FBRUE7SUFDSSxlQUFlO0FBQ25COztBQUVBO0lBQ0kseUJBQXNCO09BQXRCLHNCQUFzQjtJQUN0QixlQUFlO0FBQ25CIiwiZmlsZSI6InNyYy9hcHAvY29tcG9uZW50cy9zZWFyY2gtcmVzdWx0L3NlYXJjaC1yZXN1bHQuY29tcG9uZW50LmNzcyIsInNvdXJjZXNDb250ZW50IjpbIi5iYWNrIHtcclxuICAgIGJhY2tncm91bmQtaW1hZ2U6IHVybChcIi4uLy4uLy4uL2Fzc2V0cy9pbWcvYmcvMTQuanBnXCIpO1xyXG4gICAgYmFja2dyb3VuZC1hdHRhY2htZW50OiBmaXhlZDtcclxuICAgIGJhY2tncm91bmQtc2l6ZTogY292ZXI7XHJcbiAgICBwb3NpdGlvbjogcmVsYXRpdmU7XHJcbiAgICBoZWlnaHQ6IDEwMCU7XHJcbiAgICBvdmVyZmxvdzogaGlkZGVuO1xyXG4gICAgZm9udC1mYW1pbHk6IFwiTW9udHNlcnJhdFwiLCBzYW5zLXNlcmlmO1xyXG4gICAgZm9udC1zaXplOiAzMHB4O1xyXG4gICAgcGFkZGluZy1ib3R0b206IDEyNXB4O1xyXG4gICAgbWluLWhlaWdodDogMTAwdmg7XHJcbiAgICBwYWRkaW5nLWJvdHRvbTogMTU1cHg7XHJcbiAgICBtaW4td2lkdGg6IDEwMHZ3O1xyXG4gICAgd2lkdGg6IDEwMCU7XHJcbn1cclxuXHJcbi5jYXJkLXRpdGxlIHtcclxuICAgIGZvbnQtd2VpZ2h0OiBib2xkO1xyXG4gICAgZm9udC1zaXplOiAyMXB4O1xyXG59XHJcblxyXG4uY2FyZC1zdWJ0aXRsZXtcclxuICAgIGZvbnQtc3R5bGU6IGl0YWxpYztcclxuICAgIGZvbnQtc2l6ZTogMThweDtcclxuICAgIGJvcmRlci1ib3R0b206IDJweCBzb2xpZCBwYWxldmlvbGV0cmVkO1xyXG59XHJcblxyXG4uY2FyZC1ib2R5IHtcclxuICAgIGZvbnQtc2l6ZTogMTNweDtcclxufVxyXG5cclxuaW1nIHtcclxuICAgIG9iamVjdC1maXQ6IHNjYWxlLWRvd247XHJcbiAgICBtYXgtd2lkdGg6IDEwMCU7XHJcbn0iXX0= */"
+module.exports = ".back {\r\n    background-image: url('14.jpg');\r\n    background-attachment: fixed;\r\n    background-size: cover;\r\n    position: relative;\r\n    height: 100%;\r\n    overflow: hidden;\r\n    font-family: \"Montserrat\", sans-serif;\r\n    font-size: 30px;\r\n    padding-bottom: 125px;\r\n    min-height: 100vh;\r\n    padding-bottom: 155px;\r\n    min-width: 100vw;\r\n    width: 100%;\r\n}\r\n\r\n.card {\r\n    background-color: rgba(250, 235, 215, 0.75);\r\n}\r\n\r\n.card:hover {\r\n    background-color: rgba(250, 235, 215, 1);\r\n    -webkit-transform: scale(1.1);\r\n            transform: scale(1.1);\r\n    transition: 0.7s all;\r\n    cursor: pointer;\r\n}\r\n\r\n.card-title {\r\n    font-weight: bold;\r\n    font-size: 21px;\r\n}\r\n\r\n.card-subtitle{\r\n    font-style: italic;\r\n    font-size: 18px;\r\n    border-bottom: 2px solid palevioletred;\r\n}\r\n\r\n.card-body {\r\n    font-size: 13px;\r\n}\r\n\r\nimg {\r\n    -o-object-fit: scale-down;\r\n       object-fit: scale-down;\r\n    max-width: 100%;\r\n}\r\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvY29tcG9uZW50cy9zZWFyY2gtcmVzdWx0L3NlYXJjaC1yZXN1bHQuY29tcG9uZW50LmNzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQTtJQUNJLCtCQUFzRDtJQUN0RCw0QkFBNEI7SUFDNUIsc0JBQXNCO0lBQ3RCLGtCQUFrQjtJQUNsQixZQUFZO0lBQ1osZ0JBQWdCO0lBQ2hCLHFDQUFxQztJQUNyQyxlQUFlO0lBQ2YscUJBQXFCO0lBQ3JCLGlCQUFpQjtJQUNqQixxQkFBcUI7SUFDckIsZ0JBQWdCO0lBQ2hCLFdBQVc7QUFDZjs7QUFFQTtJQUNJLDJDQUEyQztBQUMvQzs7QUFHQTtJQUNJLHdDQUF3QztJQUN4Qyw2QkFBcUI7WUFBckIscUJBQXFCO0lBQ3JCLG9CQUFvQjtJQUNwQixlQUFlO0FBQ25COztBQUVBO0lBQ0ksaUJBQWlCO0lBQ2pCLGVBQWU7QUFDbkI7O0FBRUE7SUFDSSxrQkFBa0I7SUFDbEIsZUFBZTtJQUNmLHNDQUFzQztBQUMxQzs7QUFFQTtJQUNJLGVBQWU7QUFDbkI7O0FBRUE7SUFDSSx5QkFBc0I7T0FBdEIsc0JBQXNCO0lBQ3RCLGVBQWU7QUFDbkIiLCJmaWxlIjoic3JjL2FwcC9jb21wb25lbnRzL3NlYXJjaC1yZXN1bHQvc2VhcmNoLXJlc3VsdC5jb21wb25lbnQuY3NzIiwic291cmNlc0NvbnRlbnQiOlsiLmJhY2sge1xyXG4gICAgYmFja2dyb3VuZC1pbWFnZTogdXJsKFwiLi4vLi4vLi4vYXNzZXRzL2ltZy9iZy8xNC5qcGdcIik7XHJcbiAgICBiYWNrZ3JvdW5kLWF0dGFjaG1lbnQ6IGZpeGVkO1xyXG4gICAgYmFja2dyb3VuZC1zaXplOiBjb3ZlcjtcclxuICAgIHBvc2l0aW9uOiByZWxhdGl2ZTtcclxuICAgIGhlaWdodDogMTAwJTtcclxuICAgIG92ZXJmbG93OiBoaWRkZW47XHJcbiAgICBmb250LWZhbWlseTogXCJNb250c2VycmF0XCIsIHNhbnMtc2VyaWY7XHJcbiAgICBmb250LXNpemU6IDMwcHg7XHJcbiAgICBwYWRkaW5nLWJvdHRvbTogMTI1cHg7XHJcbiAgICBtaW4taGVpZ2h0OiAxMDB2aDtcclxuICAgIHBhZGRpbmctYm90dG9tOiAxNTVweDtcclxuICAgIG1pbi13aWR0aDogMTAwdnc7XHJcbiAgICB3aWR0aDogMTAwJTtcclxufVxyXG5cclxuLmNhcmQge1xyXG4gICAgYmFja2dyb3VuZC1jb2xvcjogcmdiYSgyNTAsIDIzNSwgMjE1LCAwLjc1KTtcclxufVxyXG5cclxuXHJcbi5jYXJkOmhvdmVyIHtcclxuICAgIGJhY2tncm91bmQtY29sb3I6IHJnYmEoMjUwLCAyMzUsIDIxNSwgMSk7XHJcbiAgICB0cmFuc2Zvcm06IHNjYWxlKDEuMSk7XHJcbiAgICB0cmFuc2l0aW9uOiAwLjdzIGFsbDtcclxuICAgIGN1cnNvcjogcG9pbnRlcjtcclxufVxyXG5cclxuLmNhcmQtdGl0bGUge1xyXG4gICAgZm9udC13ZWlnaHQ6IGJvbGQ7XHJcbiAgICBmb250LXNpemU6IDIxcHg7XHJcbn1cclxuXHJcbi5jYXJkLXN1YnRpdGxle1xyXG4gICAgZm9udC1zdHlsZTogaXRhbGljO1xyXG4gICAgZm9udC1zaXplOiAxOHB4O1xyXG4gICAgYm9yZGVyLWJvdHRvbTogMnB4IHNvbGlkIHBhbGV2aW9sZXRyZWQ7XHJcbn1cclxuXHJcbi5jYXJkLWJvZHkge1xyXG4gICAgZm9udC1zaXplOiAxM3B4O1xyXG59XHJcblxyXG5pbWcge1xyXG4gICAgb2JqZWN0LWZpdDogc2NhbGUtZG93bjtcclxuICAgIG1heC13aWR0aDogMTAwJTtcclxufSJdfQ== */"
 
 /***/ }),
 
@@ -1400,18 +1432,22 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm2015/core.js");
 /* harmony import */ var src_app_services_data_provider_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! src/app/services/data-provider.service */ "./src/app/services/data-provider.service.ts");
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm2015/router.js");
+
 
 
 
 let SearchResultComponent = class SearchResultComponent {
-    constructor(dataProvider) {
+    constructor(dataProvider, router) {
         this.dataProvider = dataProvider;
+        this.router = router;
         this.displayData = [];
         this.data = this.dataProvider.data;
+        this.search = this.dataProvider.data.search;
         switch (this.data.type) {
             case "reviews":
                 this.parseReview(this.data.reviews);
-                this.title = "Reviews for: " + this.data.reviews[0].movie.movieTitle;
+                this.title = "Reviews";
                 break;
             case "watchlist":
                 this.parseWatchlist(this.data.watchlists);
@@ -1427,41 +1463,51 @@ let SearchResultComponent = class SearchResultComponent {
                 break;
         }
     }
-    ngOnInit() { }
     parseReview(data) {
         for (let review of data) {
             this.displayData.push({ title: review.title, subtitle: review.rating.toString() + "/5", body: review.reviewText });
         }
-        this.dataProvider.removeData();
     }
     parseWatchlist(data) {
         for (let watchlist of data) {
             let movieTitles = JSON.stringify(watchlist.movies.map(movie => movie.movieTitle)).replace("[", "").replace("]", "");
             this.displayData.push({ title: watchlist.title, subtitle: watchlist.description, body: movieTitles, img: data.movies ? data.movies[0].moviePosterPath : "" });
         }
-        this.dataProvider.removeData();
     }
     parseTv(data) {
         for (let tv of data) {
             if (!tv.overview || !tv.vote_average || !tv.poster_path) {
                 continue;
             }
-            this.displayData.push({ title: tv.original_name, subtitle: tv.vote_average + "/10", body: tv.overview, img: tv.poster_path ? "https://image.tmdb.org/t/p/w500/" + tv.poster_path : "" });
+            this.displayData.push({ id: tv.id, title: tv.original_name, subtitle: tv.vote_average + "/10", body: tv.overview, img: tv.poster_path ? "https://image.tmdb.org/t/p/w500/" + tv.poster_path : "" });
         }
-        this.dataProvider.removeData();
     }
     parseMovie(data) {
         for (let movie of data) {
             if (!movie.overview || !movie.vote_average || !movie.poster_path) {
                 continue;
             }
-            this.displayData.push({ title: movie.original_title, subtitle: movie.vote_average + "/10", body: movie.overview, img: movie.poster_path ? "https://image.tmdb.org/t/p/w500/" + movie.poster_path : "" });
+            this.displayData.push({ id: movie.id, title: movie.original_title, subtitle: movie.vote_average + "/10", body: movie.overview, img: movie.poster_path ? "https://image.tmdb.org/t/p/w500/" + movie.poster_path : "" });
         }
-        this.dataProvider.removeData();
+    }
+    navigateTo(data) {
+        switch (this.data.type) {
+            case "reviews":
+                break;
+            case "watchlist":
+                break;
+            case "tvShow":
+                this.router.navigate(["tv", data.id]);
+                break;
+            case "movie":
+                this.router.navigate(["movie", data.id]);
+                break;
+        }
     }
 };
 SearchResultComponent.ctorParameters = () => [
-    { type: src_app_services_data_provider_service__WEBPACK_IMPORTED_MODULE_2__["DataProviderService"] }
+    { type: src_app_services_data_provider_service__WEBPACK_IMPORTED_MODULE_2__["DataProviderService"] },
+    { type: _angular_router__WEBPACK_IMPORTED_MODULE_3__["Router"] }
 ];
 SearchResultComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
     Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
@@ -1469,7 +1515,7 @@ SearchResultComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         template: __webpack_require__(/*! raw-loader!./search-result.component.html */ "./node_modules/raw-loader/index.js!./src/app/components/search-result/search-result.component.html"),
         styles: [__webpack_require__(/*! ./search-result.component.css */ "./src/app/components/search-result/search-result.component.css")]
     }),
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [src_app_services_data_provider_service__WEBPACK_IMPORTED_MODULE_2__["DataProviderService"]])
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [src_app_services_data_provider_service__WEBPACK_IMPORTED_MODULE_2__["DataProviderService"], _angular_router__WEBPACK_IMPORTED_MODULE_3__["Router"]])
 ], SearchResultComponent);
 
 
@@ -1532,7 +1578,9 @@ let SearchComponent = class SearchComponent {
             type: this.fb.control([], _angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].required)
         });
     }
-    ngOnInit() { }
+    ngOnInit() {
+        this.dataProviderService.removeData();
+    }
     onSubmit() {
         let value = this.searchForm.value;
         switch (value.type) {
@@ -1540,12 +1588,12 @@ let SearchComponent = class SearchComponent {
                 this.watchlistService
                     .findWatchlistsByName(value.search)
                     .subscribe(res => {
-                    this.dataProviderService.setData({ watchlists: res.watchlists, type: "watchlist" });
+                    this.dataProviderService.setData({ watchlists: res.watchlists, type: "watchlist", search: value.search });
                 });
                 break;
             case "review":
                 this.reviewService.findReviewByMovie(value.search).subscribe(res => {
-                    this.dataProviderService.setData({ reviews: res.reviews, type: "reviews" });
+                    this.dataProviderService.setData({ reviews: res.reviews, type: "reviews", search: value.search });
                 });
                 break;
             case "profile":
@@ -1553,13 +1601,13 @@ let SearchComponent = class SearchComponent {
                 break;
             case "tvShow":
                 this.tvService.searchByName(value.search).subscribe(res => {
-                    this.dataProviderService.setData({ res, type: "tvShow" });
+                    this.dataProviderService.setData({ res, type: "tvShow", search: value.search });
                     this.router.navigate(["searchResult"]);
                 });
                 break;
             case "movie":
                 this.movieService.searchByName(value.search).subscribe(res => {
-                    this.dataProviderService.setData({ res, type: "movie" });
+                    this.dataProviderService.setData({ res, type: "movie", search: value.search });
                     this.router.navigate(["searchResult"]);
                 });
                 break;
@@ -2648,6 +2696,7 @@ let WatchlistService = class WatchlistService {
                 return;
             }
             this.showToastrSuccess(response.message);
+            this.router.navigate(["searchResult"]);
         }));
     }
     findAllWatchlists() {

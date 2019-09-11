@@ -1,8 +1,10 @@
 import { Component, OnInit } from "@angular/core";
 import { MovieService } from "src/app/services/movie.service";
 import { ActivatedRoute } from "@angular/router";
-import { FormBuilder, FormGroup, Validators } from "@angular/forms";
+import { FormBuilder, FormGroup, Validators, FormArray } from "@angular/forms";
 import { ReviewService } from "src/app/services/review.service";
+import { WatchlistService } from 'src/app/services/watchlist.service';
+import { UserService } from 'src/app/services/user.service';
 
 @Component({
     selector: "app-movie",
@@ -15,7 +17,14 @@ export class MovieComponent implements OnInit {
 
     public writingReview: boolean = false;
 
+    public addingToWatchlist: boolean = false;
+
     public reviewForm: FormGroup;
+    public watchlistForm: FormGroup;
+
+    public userId: any;
+
+    public watchlists: any;
 
     protected genreEmojis = {
         Action: "🚗",
@@ -45,6 +54,8 @@ export class MovieComponent implements OnInit {
 
     constructor(
         private movieService: MovieService,
+        private watchlistService: WatchlistService,
+        private userService: UserService,
         private reviewService: ReviewService,
         private route: ActivatedRoute,
         private fb: FormBuilder
@@ -61,7 +72,19 @@ export class MovieComponent implements OnInit {
             ]),
             reviewText: this.fb.control("")
         });
+
+        this.watchlistForm = this.fb.group({
+            watchlistsArray: this.fb.array([], Validators.required)
+        })
+
+        this.userId = this.userService.user.value._id;
+
     }
+
+    get watchlistsArrayForm() {
+        return this.watchlistForm.get('watchlistsArray') as FormArray
+      }
+    
 
     ngOnInit() {
         // get movieId from url
@@ -111,7 +134,24 @@ export class MovieComponent implements OnInit {
     }
 
     addToWatchlist() {
-        // TODO: router navigate to profile with user id ?? OR open div with users watchlists as a form ?
-        // * save movie id, title, poster path to local storage ??
+        this.addingToWatchlist = true;
+        this.watchlistService.findWatchlistsByAuthor(this.userId).subscribe(res =>{ 
+            this.watchlists = res.watchlists
+            this.addNewWatchlist(this.watchlists)
+        })
     }
+
+    addNewWatchlist(watchlists) {
+        for (let w of watchlists){
+            const watchlist = this.fb.group({
+                title: [w.title]
+              })
+              this.watchlistsArrayForm.push(watchlist);
+        }
+      }
+
+    submitWatchlist() {
+        this.addingToWatchlist = false;
+    }
+
 }
