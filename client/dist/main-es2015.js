@@ -391,27 +391,28 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_common__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @angular/common */ "./node_modules/@angular/common/fesm2015/common.js");
 /* harmony import */ var _angular_platform_browser_animations__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @angular/platform-browser/animations */ "./node_modules/@angular/platform-browser/fesm2015/animations.js");
 /* harmony import */ var ngx_toastr__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ngx-toastr */ "./node_modules/ngx-toastr/fesm2015/ngx-toastr.js");
-/* harmony import */ var _app_routing_module__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./app-routing.module */ "./src/app/app-routing.module.ts");
-/* harmony import */ var _app_component__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./app.component */ "./src/app/app.component.ts");
-/* harmony import */ var _components_welcome_welcome_component__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./components/welcome/welcome.component */ "./src/app/components/welcome/welcome.component.ts");
-/* harmony import */ var _components_login_login_component__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./components/login/login.component */ "./src/app/components/login/login.component.ts");
-/* harmony import */ var _components_register_register_component__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./components/register/register.component */ "./src/app/components/register/register.component.ts");
-/* harmony import */ var _components_home_home_component__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./components/home/home.component */ "./src/app/components/home/home.component.ts");
-/* harmony import */ var ngx_bootstrap_rating__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ngx-bootstrap/rating */ "./node_modules/ngx-bootstrap/rating/fesm2015/ngx-bootstrap-rating.js");
-/* harmony import */ var ngx_bootstrap__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ngx-bootstrap */ "./node_modules/ngx-bootstrap/esm5/ngx-bootstrap.js");
-/* harmony import */ var _components_navbar_navbar_component__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ./components/navbar/navbar.component */ "./src/app/components/navbar/navbar.component.ts");
-/* harmony import */ var ngx_bootstrap_carousel__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! ngx-bootstrap/carousel */ "./node_modules/ngx-bootstrap/carousel/fesm2015/ngx-bootstrap-carousel.js");
-/* harmony import */ var _components_footer_footer_component__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! ./components/footer/footer.component */ "./src/app/components/footer/footer.component.ts");
-/* harmony import */ var _components_discover_discover_component__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! ./components/discover/discover.component */ "./src/app/components/discover/discover.component.ts");
-/* harmony import */ var _components_movie_movie_component__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! ./components/movie/movie.component */ "./src/app/components/movie/movie.component.ts");
-/* harmony import */ var _components_reviews_reviews_component__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! ./components/reviews/reviews.component */ "./src/app/components/reviews/reviews.component.ts");
-/* harmony import */ var _components_watchlists_watchlists_component__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(/*! ./components/watchlists/watchlists.component */ "./src/app/components/watchlists/watchlists.component.ts");
-/* harmony import */ var _components_search_search_component__WEBPACK_IMPORTED_MODULE_23__ = __webpack_require__(/*! ./components/search/search.component */ "./src/app/components/search/search.component.ts");
-/* harmony import */ var _components_profile_profile_component__WEBPACK_IMPORTED_MODULE_24__ = __webpack_require__(/*! ./components/profile/profile.component */ "./src/app/components/profile/profile.component.ts");
-/* harmony import */ var _components_settings_settings_component__WEBPACK_IMPORTED_MODULE_25__ = __webpack_require__(/*! ./components/settings/settings.component */ "./src/app/components/settings/settings.component.ts");
-/* harmony import */ var _components_tv_tv_component__WEBPACK_IMPORTED_MODULE_26__ = __webpack_require__(/*! ./components/tv/tv.component */ "./src/app/components/tv/tv.component.ts");
-/* harmony import */ var _components_search_result_search_result_component__WEBPACK_IMPORTED_MODULE_27__ = __webpack_require__(/*! ./components/search-result/search-result.component */ "./src/app/components/search-result/search-result.component.ts");
-/* harmony import */ var _components_details_details_component__WEBPACK_IMPORTED_MODULE_28__ = __webpack_require__(/*! ./components/details/details.component */ "./src/app/components/details/details.component.ts");
+/* harmony import */ var ngx_socket_io__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ngx-socket-io */ "./node_modules/ngx-socket-io/fesm2015/ngx-socket-io.js");
+/* harmony import */ var _app_routing_module__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./app-routing.module */ "./src/app/app-routing.module.ts");
+/* harmony import */ var _app_component__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./app.component */ "./src/app/app.component.ts");
+/* harmony import */ var _components_welcome_welcome_component__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./components/welcome/welcome.component */ "./src/app/components/welcome/welcome.component.ts");
+/* harmony import */ var _components_login_login_component__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./components/login/login.component */ "./src/app/components/login/login.component.ts");
+/* harmony import */ var _components_register_register_component__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./components/register/register.component */ "./src/app/components/register/register.component.ts");
+/* harmony import */ var _components_home_home_component__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./components/home/home.component */ "./src/app/components/home/home.component.ts");
+/* harmony import */ var ngx_bootstrap_rating__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ngx-bootstrap/rating */ "./node_modules/ngx-bootstrap/rating/fesm2015/ngx-bootstrap-rating.js");
+/* harmony import */ var ngx_bootstrap__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ngx-bootstrap */ "./node_modules/ngx-bootstrap/esm5/ngx-bootstrap.js");
+/* harmony import */ var _components_navbar_navbar_component__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! ./components/navbar/navbar.component */ "./src/app/components/navbar/navbar.component.ts");
+/* harmony import */ var ngx_bootstrap_carousel__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! ngx-bootstrap/carousel */ "./node_modules/ngx-bootstrap/carousel/fesm2015/ngx-bootstrap-carousel.js");
+/* harmony import */ var _components_footer_footer_component__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! ./components/footer/footer.component */ "./src/app/components/footer/footer.component.ts");
+/* harmony import */ var _components_discover_discover_component__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! ./components/discover/discover.component */ "./src/app/components/discover/discover.component.ts");
+/* harmony import */ var _components_movie_movie_component__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! ./components/movie/movie.component */ "./src/app/components/movie/movie.component.ts");
+/* harmony import */ var _components_reviews_reviews_component__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(/*! ./components/reviews/reviews.component */ "./src/app/components/reviews/reviews.component.ts");
+/* harmony import */ var _components_watchlists_watchlists_component__WEBPACK_IMPORTED_MODULE_23__ = __webpack_require__(/*! ./components/watchlists/watchlists.component */ "./src/app/components/watchlists/watchlists.component.ts");
+/* harmony import */ var _components_search_search_component__WEBPACK_IMPORTED_MODULE_24__ = __webpack_require__(/*! ./components/search/search.component */ "./src/app/components/search/search.component.ts");
+/* harmony import */ var _components_profile_profile_component__WEBPACK_IMPORTED_MODULE_25__ = __webpack_require__(/*! ./components/profile/profile.component */ "./src/app/components/profile/profile.component.ts");
+/* harmony import */ var _components_settings_settings_component__WEBPACK_IMPORTED_MODULE_26__ = __webpack_require__(/*! ./components/settings/settings.component */ "./src/app/components/settings/settings.component.ts");
+/* harmony import */ var _components_tv_tv_component__WEBPACK_IMPORTED_MODULE_27__ = __webpack_require__(/*! ./components/tv/tv.component */ "./src/app/components/tv/tv.component.ts");
+/* harmony import */ var _components_search_result_search_result_component__WEBPACK_IMPORTED_MODULE_28__ = __webpack_require__(/*! ./components/search-result/search-result.component */ "./src/app/components/search-result/search-result.component.ts");
+/* harmony import */ var _components_details_details_component__WEBPACK_IMPORTED_MODULE_29__ = __webpack_require__(/*! ./components/details/details.component */ "./src/app/components/details/details.component.ts");
 
 
 
@@ -441,38 +442,40 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+
+const config = { url: "http://localhost:3000", options: {} };
 let AppModule = class AppModule {
 };
 AppModule = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
     Object(_angular_core__WEBPACK_IMPORTED_MODULE_2__["NgModule"])({
         declarations: [
-            _app_component__WEBPACK_IMPORTED_MODULE_9__["AppComponent"],
-            _components_welcome_welcome_component__WEBPACK_IMPORTED_MODULE_10__["WelcomeComponent"],
-            _components_login_login_component__WEBPACK_IMPORTED_MODULE_11__["LoginComponent"],
-            _components_register_register_component__WEBPACK_IMPORTED_MODULE_12__["RegisterComponent"],
-            _components_home_home_component__WEBPACK_IMPORTED_MODULE_13__["HomeComponent"],
-            _components_navbar_navbar_component__WEBPACK_IMPORTED_MODULE_16__["NavbarComponent"],
-            _components_footer_footer_component__WEBPACK_IMPORTED_MODULE_18__["FooterComponent"],
-            _components_discover_discover_component__WEBPACK_IMPORTED_MODULE_19__["DiscoverComponent"],
-            _components_movie_movie_component__WEBPACK_IMPORTED_MODULE_20__["MovieComponent"],
-            _components_reviews_reviews_component__WEBPACK_IMPORTED_MODULE_21__["ReviewsComponent"],
-            _components_watchlists_watchlists_component__WEBPACK_IMPORTED_MODULE_22__["WatchlistsComponent"],
-            _components_search_search_component__WEBPACK_IMPORTED_MODULE_23__["SearchComponent"],
-            _components_profile_profile_component__WEBPACK_IMPORTED_MODULE_24__["ProfileComponent"],
-            _components_settings_settings_component__WEBPACK_IMPORTED_MODULE_25__["SettingsComponent"],
-            _components_tv_tv_component__WEBPACK_IMPORTED_MODULE_26__["TvComponent"],
-            _components_search_result_search_result_component__WEBPACK_IMPORTED_MODULE_27__["SearchResultComponent"],
-            _components_details_details_component__WEBPACK_IMPORTED_MODULE_28__["DetailsComponent"]
+            _app_component__WEBPACK_IMPORTED_MODULE_10__["AppComponent"],
+            _components_welcome_welcome_component__WEBPACK_IMPORTED_MODULE_11__["WelcomeComponent"],
+            _components_login_login_component__WEBPACK_IMPORTED_MODULE_12__["LoginComponent"],
+            _components_register_register_component__WEBPACK_IMPORTED_MODULE_13__["RegisterComponent"],
+            _components_home_home_component__WEBPACK_IMPORTED_MODULE_14__["HomeComponent"],
+            _components_navbar_navbar_component__WEBPACK_IMPORTED_MODULE_17__["NavbarComponent"],
+            _components_footer_footer_component__WEBPACK_IMPORTED_MODULE_19__["FooterComponent"],
+            _components_discover_discover_component__WEBPACK_IMPORTED_MODULE_20__["DiscoverComponent"],
+            _components_movie_movie_component__WEBPACK_IMPORTED_MODULE_21__["MovieComponent"],
+            _components_reviews_reviews_component__WEBPACK_IMPORTED_MODULE_22__["ReviewsComponent"],
+            _components_watchlists_watchlists_component__WEBPACK_IMPORTED_MODULE_23__["WatchlistsComponent"],
+            _components_search_search_component__WEBPACK_IMPORTED_MODULE_24__["SearchComponent"],
+            _components_profile_profile_component__WEBPACK_IMPORTED_MODULE_25__["ProfileComponent"],
+            _components_settings_settings_component__WEBPACK_IMPORTED_MODULE_26__["SettingsComponent"],
+            _components_tv_tv_component__WEBPACK_IMPORTED_MODULE_27__["TvComponent"],
+            _components_search_result_search_result_component__WEBPACK_IMPORTED_MODULE_28__["SearchResultComponent"],
+            _components_details_details_component__WEBPACK_IMPORTED_MODULE_29__["DetailsComponent"]
         ],
         imports: [
-            _app_routing_module__WEBPACK_IMPORTED_MODULE_8__["AppRoutingModule"],
+            _app_routing_module__WEBPACK_IMPORTED_MODULE_9__["AppRoutingModule"],
             _angular_platform_browser__WEBPACK_IMPORTED_MODULE_1__["BrowserModule"],
             _angular_common_http__WEBPACK_IMPORTED_MODULE_3__["HttpClientModule"],
             _angular_forms__WEBPACK_IMPORTED_MODULE_4__["ReactiveFormsModule"],
             _angular_forms__WEBPACK_IMPORTED_MODULE_4__["FormsModule"],
-            ngx_bootstrap__WEBPACK_IMPORTED_MODULE_15__["ModalModule"].forRoot(),
-            ngx_bootstrap_carousel__WEBPACK_IMPORTED_MODULE_17__["CarouselModule"].forRoot(),
-            ngx_bootstrap_rating__WEBPACK_IMPORTED_MODULE_14__["RatingModule"].forRoot(),
+            ngx_bootstrap__WEBPACK_IMPORTED_MODULE_16__["ModalModule"].forRoot(),
+            ngx_bootstrap_carousel__WEBPACK_IMPORTED_MODULE_18__["CarouselModule"].forRoot(),
+            ngx_bootstrap_rating__WEBPACK_IMPORTED_MODULE_15__["RatingModule"].forRoot(),
             _angular_common__WEBPACK_IMPORTED_MODULE_5__["CommonModule"],
             _angular_platform_browser_animations__WEBPACK_IMPORTED_MODULE_6__["BrowserAnimationsModule"],
             ngx_toastr__WEBPACK_IMPORTED_MODULE_7__["ToastrModule"].forRoot({
@@ -481,10 +484,11 @@ AppModule = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
                 countDuplicates: true,
                 preventDuplicates: true,
                 maxOpened: 5
-            })
+            }),
+            ngx_socket_io__WEBPACK_IMPORTED_MODULE_8__["SocketIoModule"].forRoot(config)
         ],
         providers: [],
-        bootstrap: [_app_component__WEBPACK_IMPORTED_MODULE_9__["AppComponent"]]
+        bootstrap: [_app_component__WEBPACK_IMPORTED_MODULE_10__["AppComponent"]]
     })
 ], AppModule);
 
@@ -1429,6 +1433,7 @@ let ReviewsComponent = class ReviewsComponent {
         });
     }
     ngOnInit() { }
+    // todo: sort by date created and movie name
     getReviewsByAuthor(id) {
         return this.reviewService.findReviewsByAuthor(id).subscribe(res => {
             this.reviews = res.reviews;
@@ -1624,7 +1629,6 @@ let SearchResultComponent = class SearchResultComponent {
                         .searchByName(this.search, this.nextPage)
                         .subscribe(res => {
                         this.data = res.results;
-                        console.log(this.data);
                         this.parseTv(this.data);
                         window.scroll(0, 0);
                     });
@@ -1637,7 +1641,6 @@ let SearchResultComponent = class SearchResultComponent {
                         .searchByName(this.search, this.nextPage)
                         .subscribe(res => {
                         this.data = res.results;
-                        console.log(this.data);
                         this.parseMovie(this.data);
                         window.scroll(0, 0);
                     });
@@ -1654,7 +1657,6 @@ let SearchResultComponent = class SearchResultComponent {
                         .searchByName(this.search, this.prevPage)
                         .subscribe(res => {
                         this.data = res.results;
-                        console.log(this.data);
                         this.parseTv(this.data);
                         window.scroll(0, 0);
                     });
@@ -1667,7 +1669,6 @@ let SearchResultComponent = class SearchResultComponent {
                         .searchByName(this.search, this.prevPage)
                         .subscribe(res => {
                         this.data = res.results;
-                        console.log(this.data);
                         this.parseMovie(this.data);
                         window.scroll(0, 0);
                     });
@@ -1684,7 +1685,6 @@ let SearchResultComponent = class SearchResultComponent {
                         .searchByName(this.search, this.lastPage)
                         .subscribe(res => {
                         this.data = res.results;
-                        console.log(this.data);
                         this.parseTv(this.data);
                         window.scroll(0, 0);
                     });
@@ -1697,7 +1697,6 @@ let SearchResultComponent = class SearchResultComponent {
                         .searchByName(this.search, this.lastPage)
                         .subscribe(res => {
                         this.data = res.results;
-                        console.log(this.data);
                         this.parseMovie(this.data);
                         window.scroll(0, 0);
                     });
@@ -1714,7 +1713,6 @@ let SearchResultComponent = class SearchResultComponent {
                         .searchByName(this.search, 1)
                         .subscribe(res => {
                         this.data = res.results;
-                        console.log(this.data);
                         this.parseTv(this.data);
                         window.scroll(0, 0);
                     });
@@ -1727,7 +1725,6 @@ let SearchResultComponent = class SearchResultComponent {
                         .searchByName(this.search, 1)
                         .subscribe(res => {
                         this.data = res.results;
-                        console.log(this.data);
                         this.parseMovie(this.data);
                         window.scroll(0, 0);
                     });
@@ -2318,6 +2315,7 @@ let WatchlistsComponent = class WatchlistsComponent {
             this.getWatchlists(this.id);
         } else this.getAllWatchlists(); */
     }
+    // todo: sort by date created and title
     openWatchlist(watchlist) {
         this.dataProvider.setData({ watchlist, type: "watchlist" });
         this.router.navigate(["details"]);
@@ -2773,6 +2771,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! rxjs/operators */ "./node_modules/rxjs/_esm2015/operators/index.js");
 /* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm2015/router.js");
 /* harmony import */ var ngx_toastr__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ngx-toastr */ "./node_modules/ngx-toastr/fesm2015/ngx-toastr.js");
+/* harmony import */ var ngx_socket_io__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ngx-socket-io */ "./node_modules/ngx-socket-io/fesm2015/ngx-socket-io.js");
+
 
 
 
@@ -2783,10 +2783,11 @@ __webpack_require__.r(__webpack_exports__);
 
 
 let UserService = class UserService {
-    constructor(http, router, toasterService) {
+    constructor(http, router, toasterService, socket) {
         this.http = http;
         this.router = router;
         this.toasterService = toasterService;
+        this.socket = socket;
         this.userUrl = "/api/user";
         this.loggedIn = new rxjs__WEBPACK_IMPORTED_MODULE_2__["BehaviorSubject"](false);
         this.user = new rxjs__WEBPACK_IMPORTED_MODULE_2__["BehaviorSubject"](null);
@@ -2794,6 +2795,10 @@ let UserService = class UserService {
             this.loggedIn.next(true);
             this.user.next(this.credentials());
         }
+        this.avatarURL = this.socket.fromEvent("getAvatarURL");
+    }
+    getAvatarURL() {
+        this.socket.emit("getAvatarURL", this.user.value._id);
     }
     isLoggedIn() {
         let token = _classes_token__WEBPACK_IMPORTED_MODULE_3__["Token"].get();
@@ -2922,7 +2927,8 @@ let UserService = class UserService {
 UserService.ctorParameters = () => [
     { type: _angular_common_http__WEBPACK_IMPORTED_MODULE_4__["HttpClient"] },
     { type: _angular_router__WEBPACK_IMPORTED_MODULE_6__["Router"] },
-    { type: ngx_toastr__WEBPACK_IMPORTED_MODULE_7__["ToastrService"] }
+    { type: ngx_toastr__WEBPACK_IMPORTED_MODULE_7__["ToastrService"] },
+    { type: ngx_socket_io__WEBPACK_IMPORTED_MODULE_8__["Socket"] }
 ];
 UserService = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
     Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Injectable"])({
@@ -2930,7 +2936,8 @@ UserService = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
     }),
     tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_angular_common_http__WEBPACK_IMPORTED_MODULE_4__["HttpClient"],
         _angular_router__WEBPACK_IMPORTED_MODULE_6__["Router"],
-        ngx_toastr__WEBPACK_IMPORTED_MODULE_7__["ToastrService"]])
+        ngx_toastr__WEBPACK_IMPORTED_MODULE_7__["ToastrService"],
+        ngx_socket_io__WEBPACK_IMPORTED_MODULE_8__["Socket"]])
 ], UserService);
 
 
@@ -3134,6 +3141,17 @@ Object(_angular_platform_browser_dynamic__WEBPACK_IMPORTED_MODULE_1__["platformB
 
 module.exports = __webpack_require__(/*! /Users/five/the-moviest/client/src/main.ts */"./src/main.ts");
 
+
+/***/ }),
+
+/***/ 1:
+/*!********************!*\
+  !*** ws (ignored) ***!
+  \********************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+/* (ignored) */
 
 /***/ })
 
