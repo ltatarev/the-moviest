@@ -1,5 +1,13 @@
 <div class="back">
     <app-navbar></app-navbar>
+    <p
+        *ngIf="false"
+        class="text-center text-light font-italic pb-2"
+        style="font-size: 12px; transition: 50ms all;"
+    >
+        Search watchlists by title, reviews for a movie, user profiles by
+        username, movies & tv shows by name.
+    </p>
     <form
         [formGroup]="searchForm"
         (ngSubmit)="onSubmit()"

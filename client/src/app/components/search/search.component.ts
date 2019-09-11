@@ -6,8 +6,8 @@ import { TvService } from "../../services/tv.service";
 import { UserService } from "src/app/services/user.service";
 import { ReviewService } from "src/app/services/review.service";
 import { WatchlistService } from "src/app/services/watchlist.service";
-import { DataProviderService } from 'src/app/services/data-provider.service';
-import { Router } from '@angular/router';
+import { DataProviderService } from "src/app/services/data-provider.service";
+import { Router } from "@angular/router";
 
 @Component({
     selector: "app-search",
@@ -35,7 +35,7 @@ export class SearchComponent implements OnInit {
 
     ngOnInit() {
         this.dataProviderService.removeData();
-     }
+    }
 
     onSubmit() {
         let value: any = this.searchForm.value;
@@ -45,28 +45,44 @@ export class SearchComponent implements OnInit {
                 this.watchlistService
                     .findWatchlistsByName(value.search)
                     .subscribe(res => {
-                            this.dataProviderService.setData({watchlists:res.watchlists,type:"watchlist",search:value.search});
-                        }
-                    );
+                        this.dataProviderService.setData({
+                            watchlists: res.watchlists,
+                            type: "watchlist",
+                            search: value.search
+                        });
+                    });
                 break;
             case "review":
-                this.reviewService.findReviewByMovie(value.search).subscribe(res => {
-                        this.dataProviderService.setData({reviews:res.reviews,type:"reviews",search:value.search});
-                    }
-                );
+                this.reviewService
+                    .findReviewByMovie(value.search)
+                    .subscribe(res => {
+                        this.dataProviderService.setData({
+                            reviews: res.reviews,
+                            type: "reviews",
+                            search: value.search
+                        });
+                    });
                 break;
             case "profile":
                 this.userService.findUserByUsername(value.search).subscribe();
                 break;
             case "tvShow":
                 this.tvService.searchByName(value.search).subscribe(res => {
-                    this.dataProviderService.setData({res, type:"tvShow",search:value.search});
+                    this.dataProviderService.setData({
+                        res,
+                        type: "tvShow",
+                        search: value.search
+                    });
                     this.router.navigate(["searchResult"]);
                 });
                 break;
             case "movie":
                 this.movieService.searchByName(value.search).subscribe(res => {
-                    this.dataProviderService.setData({res, type:"movie",search:value.search});
+                    this.dataProviderService.setData({
+                        res,
+                        type: "movie",
+                        search: value.search
+                    });
                     this.router.navigate(["searchResult"]);
                 });
                 break;

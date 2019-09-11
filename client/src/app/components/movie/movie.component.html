@@ -132,8 +132,8 @@
         <h6 class="display-4 font-italic p-3 text-light">Add to watchlist</h6>
         <div class="container m-3 bg-light p-3 rounded animated fadeInUp">
             <div *ngFor="let w of watchlists">
-                <p class="lead pl-3 pt-1" (click)="addToWatchlist(w)">
-                    <i class="fas fa-asterisk"></i>
+                <i class="fas fa-asterisk pl-3" style="font-size: 13px;"></i>
+                <p class="lead pl-1 d-inline-block" (click)="addToWatchlist(w)">
                     {{ w.title }}
                 </p>
                 <hr />

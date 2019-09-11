@@ -15,7 +15,8 @@ import { ProfileComponent } from "./components/profile/profile.component";
 import { SettingsComponent } from "./components/settings/settings.component";
 import { SearchComponent } from "./components/search/search.component";
 import { TvComponent } from "./components/tv/tv.component";
-import { SearchResultComponent } from './components/search-result/search-result.component';
+import { SearchResultComponent } from "./components/search-result/search-result.component";
+import { DetailsComponent } from "./components/details/details.component";
 
 const routes: Routes = [
     { path: "", redirectTo: "welcome", pathMatch: "full" },
@@ -52,8 +53,17 @@ const routes: Routes = [
         component: WatchlistsComponent,
         canActivate: [AuthGuard]
     },
+    {
+        path: "details",
+        component: DetailsComponent,
+        canActivate: [AuthGuard]
+    },
     { path: "search", component: SearchComponent, canActivate: [AuthGuard] },
-    { path: "searchResult", component: SearchResultComponent, canActivate: [AuthGuard] },
+    {
+        path: "searchResult",
+        component: SearchResultComponent,
+        canActivate: [AuthGuard]
+    },
     {
         path: "profile/:id",
         component: ProfileComponent,
