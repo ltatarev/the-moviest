@@ -6,8 +6,11 @@
         <div class="row">
             <div class="title">
                 <p class="ml-5">
-                    <img style="opacity: 1; filter: alpha(opacity=100); " src="../../../assets/img/video-camera.png"
-                        height="80" />
+                    <img
+                        style="opacity: 1; filter: alpha(opacity=100); "
+                        src="../../../assets/img/video-camera.png"
+                        height="80"
+                    />
                     <!-- 🎬 -->
                     TRENDING NOW
                 </p>
@@ -17,20 +20,22 @@
         <div class="row">
             <div class="col w-100">
                 <carousel>
-                    <slide *ngFor="let three of topThree">
-
-                        <img [src]="three.poster" alt="first slide"
-                            style="display: block; height: 600px; width: 100%; object-fit: cover;" />
+                    <slide
+                        *ngFor="let three of topThree"
+                        (click)="goToMovie(three.id)"
+                        style="cursor: pointer;"
+                    >
+                        <img
+                            [src]="three.poster"
+                            alt="first slide"
+                            style="display: block; height: 600px; width: 100%; object-fit: cover;"
+                        />
 
                         <div class="carousel-caption d-none d-md-block">
-                            <a (click)="goToMovie(three.id)">
-                                <h3>
-                                    {{
-                                    three.title
-                                }}
-                                </h3>
-                                <p class="lead">{{ three.overview }}</p>
-                            </a>
+                            <h3>
+                                {{ three.title }}
+                            </h3>
+                            <p class="lead">{{ three.overview }}</p>
                         </div>
                     </slide>
                 </carousel>
@@ -41,8 +46,13 @@
             <div class="col d-flex" *ngFor="let five of topFive">
                 <div class="card" style="height: 600px; overflow: auto;">
                     <a class="c-preview">
-                        <img [src]="five.poster" class="card-img-top c-preview__img" alt="..." height="300"
-                            style="object-fit: cover;" />
+                        <img
+                            [src]="five.poster"
+                            class="card-img-top c-preview__img"
+                            alt="..."
+                            height="300"
+                            style="object-fit: cover;"
+                        />
                     </a>
                     <div class="card-body">
                         <div class="row p-1">
@@ -65,7 +75,6 @@
                             </div>
                         </div>
                     </div>
-
                 </div>
             </div>
         </div>
@@ -76,39 +85,49 @@
             <div class="titleRight w-100 pr-5 pt-5 mt-5 mr-3">
                 POPULAR ON TV
                 <!-- 📺 -->
-                <img style="opacity: 1; filter: alpha(opacity=100); padding: 10px;" src="../../../assets/img/tv.png"
-                    height="80" />
+                <img
+                    style="opacity: 1; filter: alpha(opacity=100); padding: 10px;"
+                    src="../../../assets/img/tv.png"
+                    height="80"
+                />
             </div>
         </div>
 
         <div class="row">
             <div class="col w-100">
                 <carousel>
-                    <slide *ngFor="let three of topThreeTv">
-                        <img [src]="three.poster" alt="first slide"
-                            style="display: block; height: 600px; width: 100%; object-fit: cover;" />
+                    <slide
+                        *ngFor="let three of topThreeTv"
+                        (click)="goToTv(three.id)"
+                        style="cursor: pointer;"
+                    >
+                        <img
+                            [src]="three.poster"
+                            alt="first slide"
+                            style="display: block; height: 600px; width: 100%; object-fit: cover;"
+                        />
                         <div class="carousel-caption d-none d-md-block">
-                            <a (click)="goToTv(three.id)">
-                                <h3>
-                                    {{
-                                        three.name
-                                    }}
-                                </h3>
-                                <p class="lead">{{ three.overview }}</p>
-                            </a>
+                            <h3>
+                                {{ three.name }}
+                            </h3>
+                            <p class="lead">{{ three.overview }}</p>
                         </div>
                     </slide>
                 </carousel>
             </div>
-
         </div>
 
         <div class="row p-2">
             <div class="col p-2 d-flex" *ngFor="let five of topFiveTv">
                 <div class="card" style="height: 600px; overflow: auto;">
                     <a class="c-preview">
-                        <img [src]="five.poster" class="card-img-top c-preview__img " alt="..." height="300"
-                            style="object-fit: cover;" />
+                        <img
+                            [src]="five.poster"
+                            class="card-img-top c-preview__img "
+                            alt="..."
+                            height="300"
+                            style="object-fit: cover;"
+                        />
                     </a>
                     <div class="card-body">
                         <div class="row p-2">
@@ -132,7 +151,6 @@
                     </div>
                 </div>
             </div>
-
         </div>
     </div>
 

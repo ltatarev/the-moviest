@@ -1,10 +1,16 @@
 import { Component, OnInit } from "@angular/core";
 import { MovieService } from "src/app/services/movie.service";
 import { ActivatedRoute } from "@angular/router";
-import { FormBuilder, FormGroup, Validators, FormArray } from "@angular/forms";
+import {
+    FormBuilder,
+    FormGroup,
+    Validators,
+    FormArray,
+    FormControl
+} from "@angular/forms";
 import { ReviewService } from "src/app/services/review.service";
-import { WatchlistService } from 'src/app/services/watchlist.service';
-import { UserService } from 'src/app/services/user.service';
+import { WatchlistService } from "src/app/services/watchlist.service";
+import { UserService } from "src/app/services/user.service";
 
 @Component({
     selector: "app-movie",
@@ -20,7 +26,6 @@ export class MovieComponent implements OnInit {
     public addingToWatchlist: boolean = false;
 
     public reviewForm: FormGroup;
-    public watchlistForm: FormGroup;
 
     public userId: any;
 
@@ -73,18 +78,8 @@ export class MovieComponent implements OnInit {
             reviewText: this.fb.control("")
         });
 
-        this.watchlistForm = this.fb.group({
-            watchlistsArray: this.fb.array([], Validators.required)
-        })
-
         this.userId = this.userService.user.value._id;
-
     }
-
-    get watchlistsArrayForm() {
-        return this.watchlistForm.get('watchlistsArray') as FormArray
-      }
-    
 
     ngOnInit() {
         // get movieId from url
@@ -133,25 +128,29 @@ export class MovieComponent implements OnInit {
         this.writingReview = false;
     }
 
-    addToWatchlist() {
+    addWatchlists() {
         this.addingToWatchlist = true;
-        this.watchlistService.findWatchlistsByAuthor(this.userId).subscribe(res =>{ 
-            this.watchlists = res.watchlists
-            this.addNewWatchlist(this.watchlists)
-        })
+        this.watchlistService
+            .findWatchlistsByAuthor(this.userId)
+            .subscribe(res => {
+                this.watchlists = res.watchlists;
+            });
     }
 
-    addNewWatchlist(watchlists) {
-        for (let w of watchlists){
-            const watchlist = this.fb.group({
-                title: [w.title]
-              })
-              this.watchlistsArrayForm.push(watchlist);
-        }
-      }
+    addToWatchlist(watchlist) {
+        // watchlistId, movieId, movieTitle, moviePosterPath
+        let watchlistObject = {
+            watchlistId: watchlist._id,
+            movieId: this.movie._id,
+            movieTitle: this.movie.original_title,
+            moviePosterPath: this.movie.poster_path
+        };
 
-    submitWatchlist() {
+        this.watchlistService.addMovieToWatchlist(watchlistObject).subscribe();
         this.addingToWatchlist = false;
     }
 
+    closeWatchlist() {
+        this.addingToWatchlist = false;
+    }
 }

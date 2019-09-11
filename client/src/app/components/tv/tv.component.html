@@ -2,7 +2,7 @@
     <app-navbar></app-navbar>
     <div
         class="container mb-5 text-dark animated fadeInUp"
-        *ngIf="!writingReview"
+        *ngIf="!writingReview && !addingToWatchlist"
     >
         <section class="product">
             <div class="product__photo">
@@ -32,7 +32,7 @@
                     <div class="pt-4">
                         <button
                             class="btn btn-outline-success btn-sm m-1 p-2"
-                            (click)="addToWatchlist()"
+                            (click)="addWatchlists()"
                         >
                             <i class="fas fa-highlighter p-1"></i> Add to
                             watchlist
@@ -53,7 +53,7 @@
     <!-- R E V I E W  -->
     <div
         class="text-center container mb-5 bg-light p-5 rounded animated fadeInUp"
-        *ngIf="writingReview"
+        *ngIf="writingReview && !addingToWatchlist"
     >
         <button
             class="btn btn-outline-danger btn-sm ml-auto"
@@ -72,7 +72,7 @@
             <ng-template #t let-i="index" let-v="value">
                 <button
                     type="button"
-                    class="btn btn-sm btn{{ i < v ? 'Pink' : '-default'}} p-2"
+                    class="btn btn-sm btn{{ i < v ? 'Pink' : '-default' }} p-2"
                     style="border-radius: 10px; transition: all 0.1s;"
                 >
                     {{ i < v ? "&#9733;" : "&#9734;" }}
@@ -116,6 +116,26 @@
             </div>
         </form>
         <hr />
+    </div>
+
+    <!-- W A T C H L I S T -->
+    <div class="container" *ngIf="addingToWatchlist && !writingReview">
+        <button
+            class="btn btn-outline-danger btn-sm ml-auto"
+            (click)="closeWatchlist()"
+        >
+            <i class="fas fa-times" style="cursor:pointer;"></i>
+        </button>
+        <h6 class="display-4 font-italic p-3 text-light">Add to watchlist</h6>
+        <div class="container m-3 bg-light p-3 rounded animated fadeInUp">
+            <div *ngFor="let w of watchlists">
+                <p class="lead pl-3 pt-1" (click)="addToWatchlist(w)">
+                    <i class="fas fa-asterisk"></i>
+                    {{ w.title }}
+                </p>
+                <hr />
+            </div>
+        </div>
     </div>
 
     <app-footer></app-footer>

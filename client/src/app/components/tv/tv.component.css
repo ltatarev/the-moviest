@@ -123,3 +123,16 @@ img {
     margin-bottom: 1em;
     font-size: 14px;
 }
+
+.lead {
+    font-size: 20px;
+}
+
+.lead:hover {
+    color: palevioletred;
+    font-weight: bold;
+    transform: scale(1.2);
+    transform: translateX(10px);
+    transition: 500ms all ease-in;
+    cursor: pointer;
+}

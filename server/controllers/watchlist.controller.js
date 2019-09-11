@@ -67,7 +67,7 @@ class WatchlistController {
       return response.status(500).json(err);
     }
 
-    message = "Successfully retrieved watchlists!";
+    message = "Successfully added " + movieTitle + " to watchlist!";
     return response.status(202).json({ message, watchlist });
   }
 

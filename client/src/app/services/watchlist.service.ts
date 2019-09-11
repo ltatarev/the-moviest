@@ -58,7 +58,7 @@ export class WatchlistService {
                         return;
                     }
                     this.showToastrSuccess(response.message);
-                    this.router.navigate(["searchResult"])
+                    this.router.navigate(["searchResult"]);
                 })
             );
     }
@@ -85,7 +85,10 @@ export class WatchlistService {
         // watchlistId, movieId, movieTitle, moviePosterPath
         return this.http
             .post<any>(this.watchlistUrl + "/addMovieToWatchlist", watchlist)
-            .pipe(catchError(this.handleError<any>("addMovieToWatchlist")));
+            .pipe(
+                tap(response => this.showToastrSuccess(response.message)),
+                catchError(this.handleError<any>("addMovieToWatchlist"))
+            );
     }
 
     likeWatchlist(watchlistId: any): Observable<any> {

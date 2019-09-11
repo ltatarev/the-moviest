@@ -3,6 +3,8 @@ import { TvService } from "src/app/services/tv.service";
 import { ActivatedRoute } from "@angular/router";
 import { ReviewService } from "src/app/services/review.service";
 import { FormGroup, FormBuilder, Validators } from "@angular/forms";
+import { WatchlistService } from "src/app/services/watchlist.service";
+import { UserService } from "src/app/services/user.service";
 
 @Component({
     selector: "app-tv",
@@ -15,7 +17,13 @@ export class TvComponent implements OnInit {
 
     public writingReview: boolean = false;
 
+    public addingToWatchlist: boolean = false;
+
     public reviewForm: FormGroup;
+
+    public userId: any;
+
+    public watchlists: any;
 
     protected genreEmojis = {
         Action: "🚗",
@@ -47,6 +55,8 @@ export class TvComponent implements OnInit {
     constructor(
         private tvService: TvService,
         private reviewService: ReviewService,
+        private watchlistService: WatchlistService,
+        private userService: UserService,
         private route: ActivatedRoute,
         private fb: FormBuilder
     ) {
@@ -62,6 +72,8 @@ export class TvComponent implements OnInit {
             ]),
             reviewText: this.fb.control("")
         });
+
+        this.userId = this.userService.user.value._id;
     }
 
     ngOnInit() {
@@ -108,5 +120,29 @@ export class TvComponent implements OnInit {
         this.writingReview = false;
     }
 
-    addToWatchlist() {}
+    addWatchlists() {
+        this.addingToWatchlist = true;
+        this.watchlistService
+            .findWatchlistsByAuthor(this.userId)
+            .subscribe(res => {
+                this.watchlists = res.watchlists;
+            });
+    }
+
+    addToWatchlist(watchlist) {
+        // watchlistId, movieId, movieTitle, moviePosterPath
+        let watchlistObject = {
+            watchlistId: watchlist._id,
+            movieId: this.tv._id,
+            movieTitle: this.tv.original_name,
+            moviePosterPath: this.tv.poster_path
+        };
+
+        this.watchlistService.addMovieToWatchlist(watchlistObject).subscribe();
+        this.addingToWatchlist = false;
+    }
+
+    closeWatchlist() {
+        this.addingToWatchlist = false;
+    }
 }
