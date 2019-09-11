@@ -54,7 +54,7 @@ export class WatchlistService {
             .pipe(
                 tap(response => {
                     if (!response.watchlists.length) {
-                        this.toasterService.error("No reviews found!");
+                        this.toasterService.error("No watchlists found!");
                         return;
                     }
                     this.showToastrSuccess(response.message);

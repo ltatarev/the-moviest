@@ -9,8 +9,27 @@
     height: 100%;
     min-height: 100vh;
     min-width: 100vw;
+}
 
-    
+.cool-link {
+    display: inline-block;
+    color: white;
+    text-decoration: none;
+    padding: 10px;
+}
+
+.cool-link::after {
+    content: "";
+    display: block;
+    width: 0;
+    height: 2px;
+    background: rgb(255, 255, 255);
+    transition: width 0.3s;
+}
+
+.cool-link:hover::after {
+    width: 100%;
+    transition: width 0.3s;
 }
 
 .registration-form {

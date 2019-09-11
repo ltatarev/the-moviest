@@ -1,5 +1,12 @@
 <div class="back animated fadeIn"></div>
 <div class="registration-form">
+    <a
+        class="cool-link text-light font-weight-bold mt-5 text-right"
+        (click)="toggleLearnMore()"
+        [routerLink]="['/welcome']"
+    >
+        <i class="fas fa-chevron-left p-1"></i> BACK
+    </a>
     <header>
         <h1>🎬 Register</h1>
         <p class="lead text-italic">Enter your information</p>

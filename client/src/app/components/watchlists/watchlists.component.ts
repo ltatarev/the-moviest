@@ -79,7 +79,7 @@ export class WatchlistsComponent implements OnInit {
         this.writingWatchlist = false;
         this.router.navigate(["discover"]);
 
-        // TODO: fetch watchlists after submitting -- socket.io
+        // TODO: fetch watchlists after submitting
         /*         if (this.id) {
             this.getWatchlists(this.id);
         } else this.getAllWatchlists(); */
