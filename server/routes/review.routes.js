@@ -3,6 +3,8 @@ let router = express.Router();
 
 const ReviewController = require("../controllers/review.controller");
 
+router.route("/getCount").get(ReviewController.getCount);
+
 router.route("/findAllReviews").get(ReviewController.findAllReviews);
 
 router.route("/findReviewsByAuthor").get(ReviewController.findReviewsByAuthor);

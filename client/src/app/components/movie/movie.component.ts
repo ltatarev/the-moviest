@@ -1,11 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import { MovieService } from "src/app/services/movie.service";
 import { ActivatedRoute } from "@angular/router";
-import {
-    FormBuilder,
-    FormGroup,
-    Validators
-} from "@angular/forms";
+import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { ReviewService } from "src/app/services/review.service";
 import { WatchlistService } from "src/app/services/watchlist.service";
 import { UserService } from "src/app/services/user.service";
@@ -28,6 +24,8 @@ export class MovieComponent implements OnInit {
     public userId: any;
 
     public watchlists: any;
+
+    public isEmpty: boolean = false;
 
     protected genreEmojis = {
         Action: "🚗",
@@ -130,9 +128,10 @@ export class MovieComponent implements OnInit {
     addWatchlists() {
         this.addingToWatchlist = true;
         this.watchlistService
-            .findWatchlistsByAuthor(this.userId)
+            .findWatchlistsByAuthor(this.userId, 0)
             .subscribe(res => {
                 this.watchlists = res.watchlists;
+                this.isEmpty = !this.watchlists.length;
             });
     }
 

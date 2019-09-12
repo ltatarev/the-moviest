@@ -52,14 +52,14 @@ export class WatchlistsComponent implements OnInit {
 
     private getWatchlists(id: any) {
         return this.watchlistService
-            .findWatchlistsByAuthor(id)
+            .findWatchlistsByAuthor(id, 0)
             .subscribe(res => {
                 this.watchlists = res.watchlists;
             });
     }
 
     private getAllWatchlists() {
-        return this.watchlistService.findAllWatchlists().subscribe(res => {
+        return this.watchlistService.findAllWatchlists(0).subscribe(res => {
             this.watchlists = res.watchlists;
         });
     }

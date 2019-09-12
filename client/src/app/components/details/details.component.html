@@ -12,9 +12,18 @@
             </div>
             <div class="product__info">
                 <div class="price">
+                    <div class="text-right">
+                        <button
+                            *ngIf="isOwner"
+                            class="btn btn-outline-danger btn-sm m-2"
+                            (click)="delete()"
+                        >
+                            <i class="far fa-trash-alt"></i>
+                        </button>
+                    </div>
                     <span>{{ data.title }}</span>
                     <div class="text-right">
-                        {{data.likes}}
+                        {{ data.likes }}
                         <i class="far fa-thumbs-up like" (click)="like()"></i>
                     </div>
                 </div>

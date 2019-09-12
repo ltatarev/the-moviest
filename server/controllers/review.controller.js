@@ -54,6 +54,21 @@ class ReviewController {
   }
 
   // ************************************************************
+  // * GET COUNT
+  static async getCount(request, response) {
+    let page, message;
+
+    try {
+      reviews = await ReviewService.getCount();
+    } catch (err) {
+      return response.status(500).json(err);
+    }
+
+    message = "Successfully retrieved review count!";
+    return response.status(202).json({ message, page });
+  }
+
+  // ************************************************************
   // * CREATE REVIEW
   static async createReview(request, response) {
     let { title, movie, rating, reviewText, authorId } = request.body;
@@ -105,7 +120,7 @@ class ReviewController {
   // ************************************************************
   // * DELETE REVIEW
   static async deleteReview(request, response) {
-    let reviewId = request.body.reviewId;
+    let reviewId = request.query.reviewId;
 
     let review, message;
 
@@ -119,7 +134,7 @@ class ReviewController {
     return response.status(202).json({ message, review });
   }
 
-    // ************************************************************
+  // ************************************************************
   // * LIKE REVIEW
   static async likeReview(request, response) {
     let reviewId = request.body.reviewId;

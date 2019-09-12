@@ -24,8 +24,8 @@ class ReviewService {
       .exec();
   }
 
-  // * FIND ALL REVIEWS FOR MOVIES
   // ************************************************************
+  // * FIND ALL REVIEWS FOR MOVIES
   static async findReviewByMovie(movieTitle, page = 0) {
     let title = movieTitle.toString();
     return await Review.find({
@@ -35,6 +35,12 @@ class ReviewService {
       .limit(20)
       .populate("author_id", "username")
       .exec();
+  }
+
+  // ************************************************************
+  // * GET COUNT
+  static async getCount() {
+    return await Review.count().exec();
   }
 
   // ************************************************************
@@ -62,11 +68,15 @@ class ReviewService {
     return await Review.findOneAndDelete({ _id: review_id }).exec();
   }
 
-    // ************************************************************
+  // ************************************************************
   // * LIKE REVIEW
   static async likeReview(review_id) {
     let _id = ObjectId(review_id.toString());
-    return await Review.findByIdAndUpdate({ _id},  { $inc: { likes: 1 } }, {returnOriginal:false}).exec();
+    return await Review.findByIdAndUpdate(
+      { _id },
+      { $inc: { likes: 1 } },
+      { returnOriginal: false }
+    ).exec();
   }
 }
 

@@ -145,7 +145,7 @@ class WatchlistController {
   // ************************************************************
   // * DELETE WATCHLIST
   static async deleteWatchlist(request, response) {
-    let watchlistId = request.body.watchlistId;
+    let watchlistId = request.query.watchlistId;
 
     let message;
 

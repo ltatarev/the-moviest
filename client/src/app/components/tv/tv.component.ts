@@ -123,7 +123,7 @@ export class TvComponent implements OnInit {
     addWatchlists() {
         this.addingToWatchlist = true;
         this.watchlistService
-            .findWatchlistsByAuthor(this.userId)
+            .findWatchlistsByAuthor(this.userId, 0)
             .subscribe(res => {
                 this.watchlists = res.watchlists;
             });

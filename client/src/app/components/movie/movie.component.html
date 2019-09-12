@@ -131,6 +131,17 @@
         </button>
         <h6 class="display-4 font-italic p-3 text-light">Add to watchlist</h6>
         <div class="container m-3 bg-light p-3 rounded animated fadeInUp">
+            <div *ngIf="isEmpty">
+                No watchlists created yet!
+                <a
+                    class="btn btn-outline-success btn-sm"
+                    [routerLink]="['/watchlists']"
+                    style="text-decoration: none;"
+                >
+                    Create new watchlist
+                </a>
+            </div>
+
             <div *ngFor="let w of watchlists">
                 <i class="fas fa-asterisk pl-3" style="font-size: 13px;"></i>
                 <p class="lead pl-1 d-inline-block" (click)="addToWatchlist(w)">

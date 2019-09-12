@@ -83,3 +83,88 @@
 .container .box:hover .boxContent .movie {
     color: rgb(0, 217, 255);
 }
+
+a {
+    text-decoration: none;
+}
+
+a:hover {
+    cursor: pointer;
+}
+
+.pagination-wrapper {
+    text-align: right;
+    margin: 10px;
+}
+
+.pagination {
+    display: inline-block;
+    height: 40px;
+    margin-top: 20px;
+    padding: 0 25px;
+    border-radius: 15px;
+    background-color: #eee;
+}
+@media only screen and (max-width: 1199px) {
+    .pagination {
+        height: 40px;
+        margin-top: 30px;
+        padding: 0 10px;
+        border-radius: 15px;
+    }
+}
+
+.fill:hover {
+    cursor: not-allowed;
+}
+
+.page-numbers {
+    display: block;
+    padding: 0 25px;
+    float: left;
+    transition: 400ms ease;
+    color: #595959;
+    font-size: 20px;
+    letter-spacing: 0.1em;
+    line-height: 40px;
+}
+
+.page-numbers:hover,
+.page-numbers.current {
+    background-color: palevioletred;
+    color: #fff;
+}
+.page-numbers.prev:hover,
+.page-numbers.next:hover {
+    background-color: transparent;
+    color: palevioletred;
+}
+
+@media only screen and (max-width: 1199px) {
+    .page-numbers {
+        padding: 0 15px;
+        font-size: 16px;
+        line-height: 40px;
+    }
+}
+@media only screen and (min-width: 120px) and (max-width: 1024px) {
+    .page-numbers {
+        padding: 0 14px;
+        display: none;
+    }
+    .page-numbers:nth-of-type(2) {
+        position: relative;
+        padding-right: 50px;
+    }
+
+    .page-numbers:nth-child(-n + 3),
+    .page-numbers:nth-last-child(-n + 3) {
+        display: block;
+    }
+    .page-numbers:nth-last-child(-n + 4) {
+        padding-right: 14px;
+    }
+    .page-numbers:nth-last-child(-n + 4)::after {
+        content: none;
+    }
+}

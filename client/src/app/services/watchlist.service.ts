@@ -40,15 +40,15 @@ export class WatchlistService {
         });
     }
 
-    findWatchlistsByAuthor(id: any): Observable<any> {
-        let params = new HttpParams().set("id", id);
+    findWatchlistsByAuthor(id: any, page: any): Observable<any> {
+        let params = new HttpParams().set("id", id).set("page", page);
         return this.http
             .get<any>(this.watchlistUrl + "/findWatchlistsByAuthor", { params })
             .pipe(catchError(this.handleError<any>("findWatchlistsByAuthor")));
     }
 
-    findWatchlistsByName(name: any): Observable<any> {
-        let params = new HttpParams().set("title", name);
+    findWatchlistsByName(name: any, page: any): Observable<any> {
+        let params = new HttpParams().set("title", name).set("page", page);
         return this.http
             .get<any>(this.watchlistUrl + "/findWatchlistsByName", { params })
             .pipe(
@@ -63,9 +63,11 @@ export class WatchlistService {
             );
     }
 
-    findAllWatchlists(): Observable<any> {
+    findAllWatchlists(page: any): Observable<any> {
+        let params = new HttpParams().set("page", page);
+
         return this.http
-            .get<any>(this.watchlistUrl + "/findAllWatchlists")
+            .get<any>(this.watchlistUrl + "/findAllWatchlists", { params })
             .pipe(catchError(this.handleError<any>("findAllWatchlists")));
     }
 
@@ -94,7 +96,7 @@ export class WatchlistService {
     likeWatchlist(watchlistId: any): Observable<any> {
         // watchlistId
         return this.http
-            .post<any>(this.watchlistUrl + "/likeWatchlist", {watchlistId})
+            .post<any>(this.watchlistUrl + "/likeWatchlist", { watchlistId })
             .pipe(catchError(this.handleError<any>("likeWatchlist")));
     }
 
@@ -112,8 +114,9 @@ export class WatchlistService {
 
     deleteWatchlist(watchlistId: any): Observable<any> {
         // watchlistId
+        let params = new HttpParams().set("watchlistId", watchlistId);
         return this.http
-            .delete<any>(this.watchlistUrl + "/deleteWatchlist", watchlistId)
+            .delete<any>(this.watchlistUrl + "/deleteWatchlist", { params })
             .pipe(catchError(this.handleError<any>("deleteWatchlist")));
     }
 

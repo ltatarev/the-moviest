@@ -43,7 +43,7 @@ export class SearchComponent implements OnInit {
         switch (value.type) {
             case "watchlist":
                 this.watchlistService
-                    .findWatchlistsByName(value.search)
+                    .findWatchlistsByName(value.search, 0)
                     .subscribe(res => {
                         this.dataProviderService.setData({
                             watchlists: res.watchlists,
@@ -54,7 +54,7 @@ export class SearchComponent implements OnInit {
                 break;
             case "review":
                 this.reviewService
-                    .findReviewByMovie(value.search)
+                    .findReviewByMovie(value.search, 0)
                     .subscribe(res => {
                         this.dataProviderService.setData({
                             reviews: res.reviews,

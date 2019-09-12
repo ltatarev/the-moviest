@@ -12,8 +12,11 @@ import { DataProviderService } from "src/app/services/data-provider.service";
 export class ReviewsComponent implements OnInit {
     public id: any;
     public reviews: any;
-    // boolean for displaying "delete/update review"
-    public isOwner: boolean = false;
+
+    private currentPage: number = 1;
+    private nextPage: number = 2;
+    private prevPage: number = 0;
+    private lastPage: number;
 
     constructor(
         private userService: UserService,
@@ -22,15 +25,12 @@ export class ReviewsComponent implements OnInit {
         private dataProvider: DataProviderService,
         private router: Router
     ) {
-        let currentUserId = this.userService.user.value._id;
-
         this.dataProvider.removeData();
 
         this.activatedRoute.params.subscribe(params => {
             if (params.id) {
                 // if there is an id, find only reviews for that id
                 this.id = params.id;
-                this.isOwner = this.id === currentUserId;
                 this.getReviewsByAuthor(this.id);
             } else {
                 // else show all reviews
@@ -41,16 +41,14 @@ export class ReviewsComponent implements OnInit {
 
     ngOnInit() {}
 
-    // todo: sort by date created and movie name
-
     private getReviewsByAuthor(id) {
-        return this.reviewService.findReviewsByAuthor(id).subscribe(res => {
+        return this.reviewService.findReviewsByAuthor(id, 0).subscribe(res => {
             this.reviews = res.reviews;
         });
     }
 
     private getAllReviews() {
-        return this.reviewService.findAllReviews().subscribe(res => {
+        return this.reviewService.findAllReviews(0).subscribe(res => {
             this.reviews = res.reviews;
         });
     }
@@ -58,5 +56,92 @@ export class ReviewsComponent implements OnInit {
     public openReview(review) {
         this.dataProvider.setData({ review, type: "review" });
         this.router.navigate(["details"]);
+    }
+
+    public goToNextPage() {
+        if (this.currentPage < this.lastPage) {
+            if (this.id) {
+                this.reviewService
+                    .findReviewsByAuthor(this.id, this.nextPage)
+                    .subscribe(res => {
+                        this.reviews = res.reviews;
+                        window.scroll(0, 0);
+                    });
+            } else {
+                this.reviewService
+                    .findAllReviews(this.nextPage)
+                    .subscribe(res => {
+                        this.reviews = res.reviews;
+                        window.scroll(0, 0);
+                    });
+            }
+        }
+    }
+
+    public goToPrevPage() {
+        if (this.currentPage > 1) {
+            if (this.id) {
+                this.reviewService
+                    .findReviewsByAuthor(this.id, this.prevPage)
+                    .subscribe(res => {
+                        this.reviews = res.reviews;
+                        window.scroll(0, 0);
+                    });
+            } else {
+                this.reviewService
+                    .findAllReviews(this.prevPage)
+                    .subscribe(res => {
+                        this.reviews = res.reviews;
+                        window.scroll(0, 0);
+                    });
+            }
+            this.updatePages(-1);
+        }
+    }
+
+    public goToLastPage() {
+        if (this.currentPage < this.lastPage) {
+            if (this.id) {
+                this.reviewService
+                    .findReviewsByAuthor(this.id, this.lastPage)
+                    .subscribe(res => {
+                        this.reviews = res.reviews;
+                        window.scroll(0, 0);
+                    });
+            } else {
+                this.reviewService
+                    .findAllReviews(this.lastPage)
+                    .subscribe(res => {
+                        this.reviews = res.reviews;
+                        window.scroll(0, 0);
+                    });
+            }
+            this.updatePages(this.lastPage - this.currentPage);
+        }
+    }
+
+    public goToFirstPage() {
+        if (this.currentPage > 1) {
+            if (this.id) {
+                this.reviewService
+                    .findReviewsByAuthor(this.id, 0)
+                    .subscribe(res => {
+                        this.reviews = res.reviews;
+                        window.scroll(0, 0);
+                    });
+            } else {
+                this.reviewService.findAllReviews(0).subscribe(res => {
+                    this.reviews = res.reviews;
+                    window.scroll(0, 0);
+                });
+            }
+            this.updatePages(1 - this.currentPage);
+        }
+    }
+
+    private updatePages(change: number) {
+        this.currentPage += change;
+        this.nextPage = this.currentPage + 1;
+        this.prevPage = this.currentPage - 1;
     }
 }

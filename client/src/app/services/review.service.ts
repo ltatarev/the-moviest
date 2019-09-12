@@ -39,15 +39,18 @@ export class ReviewService {
         });
     }
 
-    findReviewsByAuthor(id: any): Observable<any> {
-        let params = new HttpParams().set("id", id);
+    findReviewsByAuthor(id: any, page: any): Observable<any> {
+        let params = new HttpParams().set("id", id).set("page", page);
         return this.http
             .get<any>(this.reviewUrl + "/findReviewsByAuthor", { params })
             .pipe(catchError(this.handleError<any>("findReviewsByAuthor")));
     }
 
-    findReviewByMovie(movieTitle: any): Observable<any> {
-        let params = new HttpParams().set("movieTitle", movieTitle);
+    findReviewByMovie(movieTitle: any, page: any): Observable<any> {
+        let params = new HttpParams()
+            .set("movieTitle", movieTitle)
+            .set("page", page);
+
         return this.http
             .get<any>(this.reviewUrl + "/findReviewByMovie", { params })
             .pipe(
@@ -57,14 +60,21 @@ export class ReviewService {
                         return;
                     }
                     this.showToastrSuccess(response.message);
-                    this.router.navigate(["searchResult"])
+                    this.router.navigate(["searchResult"]);
                 })
             );
     }
 
-    findAllReviews(): Observable<any> {
+    findAllReviews(page: any): Observable<any> {
+        let params = new HttpParams().set("page", page);
         return this.http
-            .get<any>(this.reviewUrl + "/findAllReviews")
+            .get<any>(this.reviewUrl + "/findAllReviews", { params })
+            .pipe(catchError(this.handleError<any>("findAllReviews")));
+    }
+
+    getCount(): Observable<any> {
+        return this.http
+            .get<any>(this.reviewUrl + "/getCount")
             .pipe(catchError(this.handleError<any>("findAllReviews")));
     }
 
@@ -89,15 +99,16 @@ export class ReviewService {
 
     deleteReview(reviewId: any): Observable<any> {
         // reviewId
+        let params = new HttpParams().set("reviewId", reviewId);
         return this.http
-            .delete<any>(this.reviewUrl + "/deleteReview", reviewId)
+            .delete<any>(this.reviewUrl + "/deleteReview", { params })
             .pipe(catchError(this.handleError<any>("deleteReview")));
     }
 
     likeReview(reviewId: any): Observable<any> {
         // reviewId
         return this.http
-            .post<any>(this.reviewUrl + "/likeReview", {reviewId})
+            .post<any>(this.reviewUrl + "/likeReview", { reviewId })
             .pipe(catchError(this.handleError<any>("likeReview")));
     }
 }
