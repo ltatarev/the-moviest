@@ -63,14 +63,15 @@ export class TvComponent implements OnInit {
         this.reviewForm = this.fb.group({
             title: this.fb.control("", [
                 Validators.required,
-                Validators.minLength(3)
+                Validators.minLength(3),
+                Validators.maxLength(45)
             ]),
             rating: this.fb.control("", [
                 Validators.required,
                 Validators.min(1),
                 Validators.max(5)
             ]),
-            reviewText: this.fb.control("")
+            reviewText: this.fb.control("", Validators.maxLength(400))
         });
 
         this.userId = this.userService.user.value._id;
@@ -112,7 +113,8 @@ export class TvComponent implements OnInit {
             ...this.reviewForm.value,
             movie: {
                 movieId: this.tvId,
-                movieTitle: this.tv.original_title
+                movieTitle: this.tv.original_name,
+                moviePosterPath: this.tv.poster_path
             }
         };
         this.reviewService.createReview(review).subscribe();

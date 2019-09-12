@@ -135,9 +135,13 @@ export class DetailsComponent implements OnInit {
             movies => movies.movieTitle === movie
         )[0]._id;
 
+        let newMovies = this.temp.watchlist.movies.filter(
+            movies => movies.movieTitle !== movie
+        );
+
         this.watchlistService
             .deleteMovieFromWatchlist(watchlistId, movieId)
-            .subscribe();
+            .subscribe(res => (this.temp.watchlist.movies = newMovies));
     }
 
     public toggleMovieHover() {

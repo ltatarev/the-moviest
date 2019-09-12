@@ -125,6 +125,7 @@ export class WatchlistService {
         let params = new HttpParams()
             .set("watchlistId", watchlistId)
             .set("movieId", movieId);
+
         return this.http
             .delete<any>(this.watchlistUrl + "/deleteMovieFromWatchlist", {
                 params

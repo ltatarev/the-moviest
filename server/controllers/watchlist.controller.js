@@ -164,10 +164,10 @@ class WatchlistController {
     let watchlistId = request.query.watchlistId;
     let movieId = request.query.movieId;
 
-    let message;
+    let message, watchlist;
 
     try {
-      message = await WatchlistService.deleteMovieFromWatchlist(
+      watchlist = await WatchlistService.deleteMovieFromWatchlist(
         watchlistId,
         movieId
       );
@@ -175,7 +175,8 @@ class WatchlistController {
       return response.status(500).json(err);
     }
 
-    return response.status(200).json({ message });
+    message = "Successfully deleted movie from watchlist!";
+    return response.status(200).json({ message, watchlist });
   }
 }
 

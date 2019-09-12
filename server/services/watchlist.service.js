@@ -103,20 +103,19 @@ class WatchlistService {
 
   // ************************************************************
   // * DELETE A SINGLE MOVIE FROM WATCHLIST
-  static async deleteMovieFromWatchlist(_id, movieId) {
-    let _id = ObjectId(_id.toString());
+  static async deleteMovieFromWatchlist(watchlistId, movieId) {
+    let _id = ObjectId(watchlistId.toString());
+    let _movieId = ObjectId(movieId.toString());
 
-    await Watchlist.findOneAndUpdate(
+    await Watchlist.findByIdAndUpdate(
       { _id },
-      { $pull: { movies: { _id: movieId } } },
+      { $pull: { movies: { _id: _movieId } } },
       { new: true },
-      function(err) {
-        if (err) {
-          return err;
-        }
-        return "Succesfully deleted movie from watchlist!";
+      function(err, watchlist) {
+        if (err) return err;
+        else return watchlist;
       }
-    ).exec();
+    );
   }
 }
 

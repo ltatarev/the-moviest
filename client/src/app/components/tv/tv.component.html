@@ -92,10 +92,20 @@
                     type="text"
                     class="form-control"
                     formControlName="title"
-                    id="title"
                     placeholder="Review title"
                 />
             </div>
+            <p
+                style="font-size: 10px;"
+                class="text-danger font-italic"
+                *ngIf="
+                    !reviewForm.get('title').valid &&
+                    (reviewForm.get('title').touched ||
+                        reviewForm.get('title').dirty)
+                "
+            >
+                Title should be at least 3 characters long
+            </p>
             <div class="form-group">
                 <textarea
                     class="form-control rounded-0"
@@ -104,6 +114,17 @@
                     rows="3"
                 ></textarea>
             </div>
+            <p
+                class="text-danger font-italic"
+                style="font-size: 10px;"
+                *ngIf="
+                    reviewForm.get('reviewText').invalid &&
+                    (reviewForm.get('reviewText').touched ||
+                        reviewForm.get('reviewText').dirty)
+                "
+            >
+                Review text shouldn't be longer than 400 characters
+            </p>
             <!-- S U B M I T  -->
             <div class="p-2 ml-auto">
                 <button

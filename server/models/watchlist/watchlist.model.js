@@ -16,7 +16,7 @@ const watchlistSchema = new mongoose.Schema(
     },
     movies: [
       {
-        movieId: { type: Number, unique: false, sparse: true },
+        movieId: { type: Number, sparse: true },
         movieTitle: String,
         moviePosterPath: String
       }
