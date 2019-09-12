@@ -36,6 +36,12 @@ img {
     filter: drop-shadow(1px 1px 3px #a6a6a6);
 }
 
+li:hover{
+    cursor: pointer;
+    transform: translateX(30px) scale(1.2);
+    transition: 230ms all ease-in-out;
+}
+
 .btnPink {
     border-radius: 10px;
     background: linear-gradient(

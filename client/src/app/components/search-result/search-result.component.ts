@@ -102,6 +102,7 @@ export class SearchResultComponent {
     }
 
     public parseMovie(data) {
+        this.displayData = [];
         for (let movie of data) {
             if (!movie.overview && !movie.poster_path) {
                 continue;
@@ -164,6 +165,7 @@ export class SearchResultComponent {
                     this.movieService
                         .searchByName(this.search, this.nextPage)
                         .subscribe(res => {
+                            console.log(this.data)
                             this.data = res.results;
                             this.parseMovie(this.data);
                             window.scroll(0, 0);

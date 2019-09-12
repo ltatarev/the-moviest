@@ -39,7 +39,10 @@ export class DetailsComponent implements OnInit {
             : "";
         this.data.subtitle = review.movie.movieTitle;
         this.data.likes = review.likes;
-        this.data.body = ["Rating: " + review.rating + "/5", review.reviewText];
+
+
+
+        this.data.body = ["Rating: " + this.starRating(review.rating), review.reviewText];
         this.data.footer = "Written by: " + review.author_id.username;
     }
 
@@ -60,11 +63,34 @@ export class DetailsComponent implements OnInit {
     public like() {
         switch (this.temp.type) {
             case "review":
-                this.reviewService.likeReview(this.temp.review._id).subscribe(res=> this.data.likes +=1);
-               
+                this.reviewService.likeReview(this.temp.review._id).subscribe(res => this.data.likes += 1);
+
                 break;
             case "watchlist":
-                this.watchlistService.likeWatchlist(this.temp.watchlist._id).subscribe(res=> this.data.likes +=1);
+                this.watchlistService.likeWatchlist(this.temp.watchlist._id).subscribe(res => this.data.likes += 1);
+                break;
+        }
+    }
+
+    private starRating(num: number) {
+        switch (num) {
+            case 1:
+                return "🌟";
+                break;
+            case 2:
+                return "🌟🌟";
+                break;
+            case 3:
+                return "🌟🌟🌟";
+                break;
+            case 4:
+                return "🌟🌟🌟🌟";
+                break;
+            case 5:
+                return "🌟🌟🌟🌟🌟";
+                break;
+            default:
+                return "🌟";
                 break;
         }
     }
