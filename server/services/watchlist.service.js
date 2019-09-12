@@ -92,8 +92,8 @@ class WatchlistService {
 
   // ************************************************************
   // * DELETE WATCHLIST
-  static async deleteWatchlist(_id) {
-    let _id = ObjectId(_id.toString());
+  static async deleteWatchlist(watchid) {
+    let _id = ObjectId(watchid.toString());
 
     await Watchlist.findByIdAndDelete({ _id }, function(err) {
       if (err) return err;
@@ -108,7 +108,7 @@ class WatchlistService {
 
     await Watchlist.findOneAndUpdate(
       { _id },
-      { $pull: { movies: { movieId } } },
+      { $pull: { movies: { _id: movieId } } },
       { new: true },
       function(err) {
         if (err) {

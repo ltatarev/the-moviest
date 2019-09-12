@@ -41,7 +41,22 @@
                             Movies/TV shows:
                         </h5>
                         <ul *ngFor="let body of data.body">
-                            <li style="font-size: 15px;">{{ body }}</li>
+                            <li style="font-size: 15px;">
+                                <p
+                                    (mouseover)="toggleMovieHover()"
+                                    style="display: inline;"
+                                >
+                                    {{ body }}
+                                </p>
+                                <button
+                                    *ngIf="movieHover"
+                                    class="btn btn-sm btn-outline-danger m-5"
+                                    (click)="deleteFromWatchlist(body)"
+                                    style="font-size: 10px;"
+                                >
+                                    <i class="far fa-trash-alt"></i>
+                                </button>
+                            </li>
                         </ul>
                     </span>
                     <hr />

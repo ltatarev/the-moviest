@@ -147,10 +147,10 @@ class WatchlistController {
   static async deleteWatchlist(request, response) {
     let watchlistId = request.query.watchlistId;
 
-    let message;
+    let message = "Successfully deleted watchlist!";
 
     try {
-      message = await WatchlistService.deleteWatchlist(watchlistId);
+      await WatchlistService.deleteWatchlist(watchlistId);
     } catch (err) {
       return response.status(500).json(err);
     }
@@ -161,8 +161,8 @@ class WatchlistController {
   // ************************************************************
   // * DELETE MOVIE FROM WATCHLIST
   static async deleteMovieFromWatchlist(request, response) {
-    let watchlistId = request.body.watchlistId;
-    let movieId = request.body.movieId;
+    let watchlistId = request.query.watchlistId;
+    let movieId = request.query.movieId;
 
     let message;
 

@@ -153,9 +153,9 @@ export class SearchResultComponent {
                     this.tvService
                         .searchByName(this.search, this.nextPage)
                         .subscribe(res => {
+                            window.scroll(0, 0);
                             this.data = res.results;
                             this.parseTv(this.data);
-                            window.scroll(0, 0);
                         });
                     this.updatePages(1);
                 }
@@ -165,10 +165,9 @@ export class SearchResultComponent {
                     this.movieService
                         .searchByName(this.search, this.nextPage)
                         .subscribe(res => {
-                            console.log(this.data);
+                            window.scroll(0, 0);
                             this.data = res.results;
                             this.parseMovie(this.data);
-                            window.scroll(0, 0);
                         });
                     this.updatePages(1);
                 }
@@ -183,9 +182,9 @@ export class SearchResultComponent {
                     this.tvService
                         .searchByName(this.search, this.prevPage)
                         .subscribe(res => {
+                            window.scroll(0, 0);
                             this.data = res.results;
                             this.parseTv(this.data);
-                            window.scroll(0, 0);
                         });
                     this.updatePages(-1);
                 }
@@ -195,9 +194,9 @@ export class SearchResultComponent {
                     this.movieService
                         .searchByName(this.search, this.prevPage)
                         .subscribe(res => {
+                            window.scroll(0, 0);
                             this.data = res.results;
                             this.parseMovie(this.data);
-                            window.scroll(0, 0);
                         });
                     this.updatePages(-1);
                 }
@@ -212,9 +211,9 @@ export class SearchResultComponent {
                     this.tvService
                         .searchByName(this.search, this.lastPage)
                         .subscribe(res => {
+                            window.scroll(0, 0);
                             this.data = res.results;
                             this.parseTv(this.data);
-                            window.scroll(0, 0);
                         });
                     this.updatePages(this.lastPage - this.currentPage);
                 }
@@ -224,9 +223,9 @@ export class SearchResultComponent {
                     this.movieService
                         .searchByName(this.search, this.lastPage)
                         .subscribe(res => {
+                            window.scroll(0, 0);
                             this.data = res.results;
                             this.parseMovie(this.data);
-                            window.scroll(0, 0);
                         });
                 }
                 this.updatePages(this.lastPage - this.currentPage);
@@ -241,9 +240,9 @@ export class SearchResultComponent {
                     this.tvService
                         .searchByName(this.search, 1)
                         .subscribe(res => {
+                            window.scroll(0, 0);
                             this.data = res.results;
                             this.parseTv(this.data);
-                            window.scroll(0, 0);
                         });
                     this.updatePages(1 - this.currentPage);
                 }
@@ -253,9 +252,9 @@ export class SearchResultComponent {
                     this.movieService
                         .searchByName(this.search, 1)
                         .subscribe(res => {
+                            window.scroll(0, 0);
                             this.data = res.results;
                             this.parseMovie(this.data);
-                            window.scroll(0, 0);
                         });
                 }
                 this.updatePages(1 - this.currentPage);

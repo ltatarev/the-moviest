@@ -27,6 +27,7 @@ export class ReviewsComponent implements OnInit {
     ) {
         this.dataProvider.removeData();
 
+        // * check if you need fetch all or just specific users' watchlists
         this.activatedRoute.params.subscribe(params => {
             if (params.id) {
                 // if there is an id, find only reviews for that id
@@ -41,23 +42,27 @@ export class ReviewsComponent implements OnInit {
 
     ngOnInit() {}
 
+    // * get all watchlists from a specific user
     private getReviewsByAuthor(id) {
         return this.reviewService.findReviewsByAuthor(id, 0).subscribe(res => {
             this.reviews = res.reviews;
         });
     }
 
+    // * get all watchlists
     private getAllReviews() {
         return this.reviewService.findAllReviews(0).subscribe(res => {
             this.reviews = res.reviews;
         });
     }
 
+    // * open review details
     public openReview(review) {
         this.dataProvider.setData({ review, type: "review" });
         this.router.navigate(["details"]);
     }
 
+    // * pagination
     public goToNextPage() {
         if (this.currentPage < this.lastPage) {
             if (this.id) {

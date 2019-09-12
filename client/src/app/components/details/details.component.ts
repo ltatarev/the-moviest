@@ -16,7 +16,10 @@ export class DetailsComponent implements OnInit {
 
     public isWatchlist: boolean = false;
 
-    private isOwner: boolean = false;
+    // * check if current user is the owner of data
+    public isOwner: boolean = false;
+
+    public movieHover: boolean = false;
 
     constructor(
         private dataProvider: DataProviderService,
@@ -25,10 +28,12 @@ export class DetailsComponent implements OnInit {
         private userService: UserService,
         private router: Router
     ) {
+        // * this.temp = {review: , type:"review"} OR {watchlist:, type:"watchlist"}
         this.temp = this.dataProvider.data;
 
         let userId = this.userService.user.value._id;
 
+        // * check if its review or watchlist
         if (this.temp.type) {
             switch (this.temp.type) {
                 case "review":
@@ -50,34 +55,30 @@ export class DetailsComponent implements OnInit {
     ngOnInit() {}
 
     private parseReview(review) {
-        this.data.title = review.title;
-        this.data.img = review.movie.moviePosterPath
-            ? review.movie.moviePosterPath
-            : "";
-        this.data.subtitle = review.movie.movieTitle;
-        this.data.likes = review.likes;
-
-        this.data.body = [
-            "Rating: " + this.starRating(review.rating),
-            review.reviewText
-        ];
-        this.data.footer = "Written by: " + review.author_id.username;
+        // * parse data for displaying
+        let { title, movie, likes, rating, author_id, reviewText } = review;
+        this.data.title = title;
+        this.data.img = movie.moviePosterPath ? movie.moviePosterPath : "";
+        this.data.subtitle = movie.movieTitle;
+        this.data.likes = likes;
+        this.data.body = ["Rating: " + this.starRating(rating), reviewText];
+        this.data.footer = "Written by: " + author_id.username;
     }
 
     private parseWatchlist(watchlist) {
         this.isWatchlist = true;
-        this.data.title = watchlist.title;
-        this.data.subtitle = watchlist.description;
-        this.data.likes = watchlist.likes;
-        this.data.img = watchlist.movies.length
-            ? watchlist.movies[0].moviePosterPath
-            : "";
+        // * parse data for displaying
+        let { title, description, likes, movies, author_id } = watchlist;
 
-        this.data.body = watchlist.movies.map(movie => movie.movieTitle);
-
-        this.data.footer = "Created by: " + watchlist.author_id.username;
+        this.data.title = title;
+        this.data.subtitle = description;
+        this.data.likes = likes;
+        this.data.img = movies.length ? movies[0].moviePosterPath : "";
+        this.data.body = movies.map(movie => movie.movieTitle);
+        this.data.footer = "Created by: " + author_id.username;
     }
 
+    // * like
     public like() {
         switch (this.temp.type) {
             case "review":
@@ -94,6 +95,7 @@ export class DetailsComponent implements OnInit {
         }
     }
 
+    // * delete
     private delete() {
         switch (this.temp.type) {
             case "review":
@@ -125,5 +127,21 @@ export class DetailsComponent implements OnInit {
             default:
                 return "🌟";
         }
+    }
+
+    public deleteFromWatchlist(movie) {
+        let watchlistId = this.temp.watchlist._id;
+        let movieId = this.temp.watchlist.movies.filter(
+            movies => movies.movieTitle === movie
+        )[0]._id;
+
+        this.watchlistService
+            .deleteMovieFromWatchlist(watchlistId, movieId)
+            .subscribe();
+    }
+
+    public toggleMovieHover() {
+        this.movieHover = !this.movieHover;
+        setTimeout(() => (this.movieHover = !this.movieHover), 10000);
     }
 }

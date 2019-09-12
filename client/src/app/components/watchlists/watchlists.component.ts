@@ -4,6 +4,7 @@ import { ActivatedRoute, Router } from "@angular/router";
 import { UserService } from "src/app/services/user.service";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { DataProviderService } from "src/app/services/data-provider.service";
+import { ToastrService, Toast } from "ngx-toastr";
 
 @Component({
     selector: "app-watchlists",
@@ -25,10 +26,14 @@ export class WatchlistsComponent implements OnInit {
         private activatedRoute: ActivatedRoute,
         private dataProvider: DataProviderService,
         private router: Router,
-        private fb: FormBuilder
+        private fb: FormBuilder,
+        private toastrService: ToastrService
     ) {
+        this.dataProvider.removeData();
+
         let currentUserId = this.userService.user.value._id;
 
+        // * check if you need fetch all or just specific users' watchlists
         this.activatedRoute.params.subscribe(params => {
             if (params.id) {
                 this.id = params.id;
@@ -39,6 +44,7 @@ export class WatchlistsComponent implements OnInit {
             }
         });
 
+        // * create new watchlist form
         this.watchlistForm = this.fb.group({
             title: this.fb.control("", [
                 Validators.required,
@@ -50,6 +56,7 @@ export class WatchlistsComponent implements OnInit {
 
     ngOnInit() {}
 
+    // * get all watchlists from a specific user
     private getWatchlists(id: any) {
         return this.watchlistService
             .findWatchlistsByAuthor(id, 0)
@@ -58,36 +65,45 @@ export class WatchlistsComponent implements OnInit {
             });
     }
 
+    // * get all watchlists
     private getAllWatchlists() {
         return this.watchlistService.findAllWatchlists(0).subscribe(res => {
             this.watchlists = res.watchlists;
         });
     }
 
+    // * opened "create new watchlist" modal
     public createWatchlist() {
         this.writingWatchlist = true;
     }
 
+    // * closed "create new watchlist" modal
     public closeWatchlist() {
         this.writingWatchlist = false;
     }
 
+    // * form submit
     submitWatchlist() {
         let watchlist = this.watchlistForm.value;
         this.watchlistService.createWatchlist(watchlist).subscribe();
         this.watchlistForm.reset();
         this.writingWatchlist = false;
+        this.toastrService.info(
+            "Add movies to your new watchlist!",
+            "Discover",
+            {
+                timeOut: 5000,
+                positionClass: "toast-center-center",
+                tapToDismiss: true
+            }
+        );
         this.router.navigate(["discover"]);
-
-        // TODO: fetch watchlists after submitting
-        /*         if (this.id) {
-            this.getWatchlists(this.id);
-        } else this.getAllWatchlists(); */
     }
 
     // todo: sort by date created and title
 
-    private openWatchlist(watchlist) {
+    // * open watchlist details
+    public openWatchlist(watchlist) {
         this.dataProvider.setData({ watchlist, type: "watchlist" });
         this.router.navigate(["details"]);
     }
