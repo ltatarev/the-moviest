@@ -15,7 +15,7 @@ import { Router } from "@angular/router";
     styleUrls: ["./search.component.css"]
 })
 export class SearchComponent implements OnInit {
-    private searchForm: FormGroup;
+    public searchForm: FormGroup;
 
     constructor(
         private fb: FormBuilder,

@@ -13,10 +13,10 @@ export class ReviewsComponent implements OnInit {
     public id: any;
     public reviews: any;
 
-    private currentPage: number = 1;
-    private nextPage: number = 2;
-    private prevPage: number = 0;
-    private lastPage: number;
+    public currentPage: number = 1;
+    public nextPage: number = 2;
+    public prevPage: number = 0;
+    public lastPage: number;
 
     public sort = 1;
 
@@ -44,10 +44,10 @@ export class ReviewsComponent implements OnInit {
         });
     }
 
-    ngOnInit() { }
+    ngOnInit() {}
 
     // * get all watchlists from a specific user
-    private getReviewsByAuthor(id) {
+    public getReviewsByAuthor(id) {
         return this.reviewService.findReviewsByAuthor(id, 0).subscribe(res => {
             this.reviews = res.reviews;
             this.isEmpty = !this.reviews.length;
@@ -55,7 +55,7 @@ export class ReviewsComponent implements OnInit {
     }
 
     // * get all watchlists
-    private getAllReviews() {
+    public getAllReviews() {
         return this.reviewService.findAllReviews(0).subscribe(res => {
             this.reviews = res.reviews;
             this.isEmpty = !this.reviews.length;
@@ -150,14 +150,14 @@ export class ReviewsComponent implements OnInit {
         }
     }
 
-    private updatePages(change: number) {
+    public updatePages(change: number) {
         this.currentPage += change;
         this.nextPage = this.currentPage + 1;
         this.prevPage = this.currentPage - 1;
     }
 
-    sortByTitle() {
-              if (this.id) {
+    public sortByTitle() {
+        if (this.id) {
             this.reviewService
                 .sortByMovieTitle(this.id, this.sort)
                 .subscribe(res => {
@@ -165,15 +165,11 @@ export class ReviewsComponent implements OnInit {
                     window.scroll(0, 0);
                 });
         } else {
-            this.reviewService
-                .sortByMovieTitle(0, this.sort)
-                .subscribe(res => {
-                    this.reviews = res.reviews;
-                    window.scroll(0, 0);
-                });
-        };
+            this.reviewService.sortByMovieTitle(0, this.sort).subscribe(res => {
+                this.reviews = res.reviews;
+                window.scroll(0, 0);
+            });
+        }
         this.sort = -this.sort;
     }
-
-
 }

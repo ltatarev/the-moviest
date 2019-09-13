@@ -22,7 +22,7 @@ export class ProfileComponent implements OnInit {
     // userId is currently logged in user
     public userId: any;
     // id is user id (got through search or idk)
-    public id : any;
+    public id: any;
 
     constructor(
         private userService: UserService,
@@ -61,7 +61,7 @@ export class ProfileComponent implements OnInit {
         });
     }
 
-    private fillProfile(user) {
+    public fillProfile(user) {
         this.username = user.username;
         this.bio = user.bio;
         this.avatarURL = user.avatarURL;
@@ -69,7 +69,7 @@ export class ProfileComponent implements OnInit {
         this.favorites = user.favorites;
     }
 
-    private getProfileData(id) {
+    public getProfileData(id) {
         return this.userService.getProfileData(id);
     }
 

@@ -5,7 +5,7 @@ import { WatchlistService } from "src/app/services/watchlist.service";
 import { UserService } from "src/app/services/user.service";
 import { Router } from "@angular/router";
 
-import { emojis } from "../../../assets/emojis"
+import { emojis } from "../../../assets/emojis";
 
 @Component({
     selector: "app-details",
@@ -32,7 +32,7 @@ export class DetailsComponent implements OnInit {
     ) {
         // * this.temp = {review: , type:"review"} OR {watchlist:, type:"watchlist"}
         this.temp = this.dataProvider.data;
-    
+
         let userId = this.userService.user.value._id;
 
         // * check if its review or watchlist
@@ -56,7 +56,7 @@ export class DetailsComponent implements OnInit {
 
     ngOnInit() {}
 
-    private parseReview(review) {
+    public parseReview(review) {
         // * parse data for displaying
         let { title, movie, likes, rating, author_id, reviewText } = review;
         this.data.title = title;
@@ -67,7 +67,7 @@ export class DetailsComponent implements OnInit {
         this.data.footer = "Written by: " + author_id.username;
     }
 
-    private parseWatchlist(watchlist) {
+    public parseWatchlist(watchlist) {
         this.isWatchlist = true;
         // * parse data for displaying
         let { title, description, likes, movies, author_id } = watchlist;
@@ -76,7 +76,9 @@ export class DetailsComponent implements OnInit {
         this.data.subtitle = description;
         this.data.likes = likes;
         this.data.img = movies.length ? movies[0].moviePosterPath : "";
-        this.data.body = movies.map(movie => this.randomEmoji() + " " + movie.movieTitle);
+        this.data.body = movies.map(
+            movie => this.randomEmoji() + " " + movie.movieTitle
+        );
         this.data.footer = "Created by: " + author_id.username;
     }
 
@@ -98,7 +100,7 @@ export class DetailsComponent implements OnInit {
     }
 
     // * delete
-    private delete() {
+    public delete() {
         switch (this.temp.type) {
             case "review":
                 this.reviewService
@@ -114,7 +116,7 @@ export class DetailsComponent implements OnInit {
         }
     }
 
-    private starRating(num: number) {
+    public starRating(num: number) {
         switch (num) {
             case 1:
                 return "🌟";
@@ -151,7 +153,7 @@ export class DetailsComponent implements OnInit {
         setTimeout(() => (this.movieHover = !this.movieHover), 10000);
     }
 
-    private randomEmoji(){
+    public randomEmoji() {
         let len = emojis.length;
         let index = Math.floor(Math.random() * len);
         return emojis[index];

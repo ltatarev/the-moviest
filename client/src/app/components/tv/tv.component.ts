@@ -25,10 +25,9 @@ export class TvComponent implements OnInit {
 
     public watchlists: any;
 
-    
     public isEmpty: boolean = false;
 
-    protected genreEmojis = {
+    public genreEmojis = {
         Action: "🚗",
         Adventure: "🗺️",
         "Action & Adventure": "🗺️",

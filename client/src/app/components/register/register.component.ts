@@ -15,7 +15,7 @@ import * as $ from "jquery";
 })
 export class RegisterComponent implements OnInit {
     // Form
-    private registerForm: FormGroup;
+    public registerForm: FormGroup;
 
     constructor(private fb: FormBuilder, private userService: UserService) {
         this.registerForm = this.fb.group({

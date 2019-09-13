@@ -10,19 +10,19 @@ import { MovieService } from "src/app/services/movie.service";
     styleUrls: ["./search-result.component.css"]
 })
 export class SearchResultComponent {
-    private data: any;
+    public data: any;
 
-    private displayData: any = [];
-    private title: any;
+    public displayData: any = [];
+    public title: any;
 
-    private search: any;
+    public search: any;
 
-    private currentPage: any = 1;
-    private nextPage: any = 2;
-    private prevPage: any = 0;
-    private lastPage: any;
+    public currentPage: any = 1;
+    public nextPage: any = 2;
+    public prevPage: any = 0;
+    public lastPage: any;
 
-    private type: any;
+    public type: any;
 
     constructor(
         private tvService: TvService,
@@ -72,7 +72,8 @@ export class SearchResultComponent {
             let movieTitles = JSON.stringify(
                 watchlist.movies.map(movie => movie.movieTitle)
             )
-                .replace(']', "").replace('[', "");
+                .replace("]", "")
+                .replace("[", "");
             this.displayData.push({
                 title: watchlist.title,
                 subtitle: watchlist.description,
