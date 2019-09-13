@@ -5,6 +5,8 @@ import { WatchlistService } from "src/app/services/watchlist.service";
 import { UserService } from "src/app/services/user.service";
 import { Router } from "@angular/router";
 
+import { emojis } from "../../../assets/emojis"
+
 @Component({
     selector: "app-details",
     templateUrl: "./details.component.html",
@@ -30,7 +32,7 @@ export class DetailsComponent implements OnInit {
     ) {
         // * this.temp = {review: , type:"review"} OR {watchlist:, type:"watchlist"}
         this.temp = this.dataProvider.data;
-
+    
         let userId = this.userService.user.value._id;
 
         // * check if its review or watchlist
@@ -74,7 +76,7 @@ export class DetailsComponent implements OnInit {
         this.data.subtitle = description;
         this.data.likes = likes;
         this.data.img = movies.length ? movies[0].moviePosterPath : "";
-        this.data.body = movies.map(movie => movie.movieTitle);
+        this.data.body = movies.map(movie => this.randomEmoji() + " " + movie.movieTitle);
         this.data.footer = "Created by: " + author_id.username;
     }
 
@@ -147,5 +149,11 @@ export class DetailsComponent implements OnInit {
     public toggleMovieHover() {
         this.movieHover = !this.movieHover;
         setTimeout(() => (this.movieHover = !this.movieHover), 10000);
+    }
+
+    private randomEmoji(){
+        let len = emojis.length;
+        let index = Math.floor(Math.random() * len);
+        return emojis[index];
     }
 }

@@ -72,8 +72,7 @@ export class SearchResultComponent {
             let movieTitles = JSON.stringify(
                 watchlist.movies.map(movie => movie.movieTitle)
             )
-                .replace("[", "")
-                .replace("]", "");
+                .replace(']', "").replace('[', "");
             this.displayData.push({
                 title: watchlist.title,
                 subtitle: watchlist.description,

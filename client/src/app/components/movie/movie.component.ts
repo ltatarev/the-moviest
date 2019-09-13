@@ -5,6 +5,7 @@ import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { ReviewService } from "src/app/services/review.service";
 import { WatchlistService } from "src/app/services/watchlist.service";
 import { UserService } from "src/app/services/user.service";
+import {emojis} from "../../../assets/emojis"
 
 @Component({
     selector: "app-movie",
@@ -24,6 +25,8 @@ export class MovieComponent implements OnInit {
     public userId: any;
 
     public watchlists: any;
+
+    public emoji: any;
 
     public isEmpty: boolean = false;
 
@@ -131,6 +134,7 @@ export class MovieComponent implements OnInit {
             .findWatchlistsByAuthor(this.userId, 0)
             .subscribe(res => {
                 this.watchlists = res.watchlists;
+                this.emoji = this.watchlists.map(watchlist => this.randomEmoji() + " ")
                 this.isEmpty = !this.watchlists.length;
             });
     }
@@ -150,5 +154,11 @@ export class MovieComponent implements OnInit {
 
     closeWatchlist() {
         this.addingToWatchlist = false;
+    }
+
+    private randomEmoji(){
+        let len = emojis.length;
+        let index = Math.floor(Math.random() * len);
+        return emojis[index];
     }
 }

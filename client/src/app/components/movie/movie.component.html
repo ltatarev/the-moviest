@@ -131,10 +131,10 @@
         </button>
         <h6 class="display-4 font-italic p-3 text-light">Add to watchlist</h6>
         <div class="container m-3 bg-light p-3 rounded animated fadeInUp">
-            <div *ngIf="isEmpty">
-                No watchlists created yet!
+            <div *ngIf="isEmpty" class="text-center">
+                <p>No watchlists created yet!</p>
                 <a
-                    class="btn btn-outline-success btn-sm"
+                    class="btn btn-outline-success btn-sm "
                     [routerLink]="['/watchlists']"
                     style="text-decoration: none;"
                 >
@@ -142,10 +142,10 @@
                 </a>
             </div>
 
-            <div *ngFor="let w of watchlists">
+            <div *ngFor="let w of watchlists; let i = index">
                 <i class="fas fa-asterisk pl-3" style="font-size: 13px;"></i>
                 <p class="lead pl-1 d-inline-block" (click)="addToWatchlist(w)">
-                    {{ w.title }}
+                   {{emoji[i]}} {{ w.title }}
                 </p>
                 <hr />
             </div>

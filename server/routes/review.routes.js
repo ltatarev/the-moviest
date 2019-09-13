@@ -15,8 +15,14 @@ router.route("/createReview").post(ReviewController.createReview);
 
 router.route("/likeReview").post(ReviewController.likeReview);
 
+router.route("/sortReviewsByTitle").post(ReviewController.sortReviewsByTitle);
+
+router.route("/sortReviewsByTitleAndAuthor").post(ReviewController.sortReviewsByTitleAndAuthor);
+
 router.route("/updateReview").put(ReviewController.updateReview);
 
 router.route("/deleteReview").delete(ReviewController.deleteReview);
+
+
 
 module.exports = router;

@@ -96,7 +96,7 @@ class UserController {
     let userId = request.body.id;
     let favorites = request.body.favorites;
 
-    console.log(favorites);
+
     let favoritesResponse, message;
 
     try {
@@ -148,8 +148,7 @@ class UserController {
     let username = request.body.username;
     let password = request.body.password;
     let user, message, token;
-
-    // TODO: check if username or email already exist
+    
     try {
       user = await UserService.createUser(username, email, password);
     } catch (err) {

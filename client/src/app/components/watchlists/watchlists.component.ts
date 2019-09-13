@@ -20,6 +20,8 @@ export class WatchlistsComponent implements OnInit {
 
     public watchlistForm: FormGroup;
 
+    public isEmpty: boolean = true;
+
     constructor(
         private userService: UserService,
         private watchlistService: WatchlistService,
@@ -62,6 +64,7 @@ export class WatchlistsComponent implements OnInit {
             .findWatchlistsByAuthor(id, 0)
             .subscribe(res => {
                 this.watchlists = res.watchlists;
+                this.isEmpty = !this.watchlists.length;
             });
     }
 
@@ -69,6 +72,7 @@ export class WatchlistsComponent implements OnInit {
     private getAllWatchlists() {
         return this.watchlistService.findAllWatchlists(0).subscribe(res => {
             this.watchlists = res.watchlists;
+            this.isEmpty = !this.watchlists.length;
         });
     }
 

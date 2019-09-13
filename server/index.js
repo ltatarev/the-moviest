@@ -28,6 +28,6 @@ app.use("**", function(req, res) {
   res.sendFile(path.join(__dirname, "../client/dist/index.html"));
 });
 
-const server = app.listen(server_port, server_host, function() {
+app.listen(server_port, server_host, function() {
   console.log("Listening on port %d", server_port);
 });

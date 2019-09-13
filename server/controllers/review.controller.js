@@ -150,6 +150,40 @@ class ReviewController {
     message = "Successfully liked review!";
     return response.status(202).json({ message, review });
   }
+
+    // ************************************************************
+  // * SORT BY TITLE
+  static async sortReviewsByTitle(request, response) {
+    let sort = request.query.sort;
+
+    let review, message;
+
+    try {
+      review = await ReviewService.sortReviewsByTitle(sort);
+    } catch (err) {
+      return response.status(500).json(err);
+    }
+    console.log(reviews)
+    message = "Successfully sorted reviews!";
+    return response.status(202).json({ message, review });
+  }
+
+    // ************************************************************
+    // * SORT BY TITLE AND AUTHOR
+    static async sortReviewsByTitleAndAuthor(request, response) {
+      let sort = request.query.sort;
+  
+      let reviews, message;
+  
+      try {
+        reviews = await ReviewService.sortReviewsByTitleAndAuthor(sort);
+      } catch (err) {
+        return response.status(500).json(err);
+      }
+  console.log(reviews)
+      message = "Successfully sorted reviews!";
+      return response.status(202).json({ message, reviews });
+    }
 }
 
 module.exports = ReviewController;

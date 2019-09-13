@@ -1,11 +1,16 @@
 <div class="back animated fadeIn">
     <app-navbar></app-navbar>
     <div class="container">
-        <div
-            class="box"
-            *ngFor="let review of reviews"
-            (click)="openReview(review)"
-        >
+
+        <div *ngIf="isEmpty">
+            <h4 class="text-light">
+                No reviews have been written yet!
+            </h4>
+        </div>
+        <div class="bg-light container text-left">
+        <button class="btn btn-outline-success" (click)="sortByTitle()">Sort by title</button>
+    </div>
+        <div class="box" *ngFor="let review of reviews" (click)="openReview(review)">
             <div class="boxContent">
                 <i class="fas fa-film icon"></i>
                 <h1 class="title">{{ review.title }}</h1>
@@ -17,7 +22,7 @@
         </div>
     </div>
     <!-- P A G I N A T I O N -->
-    <div class="pagination-wrapper">
+    <!--    <div class="pagination-wrapper">
         <div class="pagination">
             <a
                 *ngIf="currentPage > 1"
@@ -46,6 +51,6 @@
                 >last</a
             >
         </div>
-    </div>
+    </div> -->
     <app-footer></app-footer>
 </div>

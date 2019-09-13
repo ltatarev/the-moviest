@@ -21,7 +21,7 @@ export class ReviewService {
         private router: Router,
         private toasterService: ToastrService,
         private userService: UserService
-    ) {}
+    ) { }
 
     private handleError<T>(operation: string = "operation", result?: T) {
         return (response: any): Observable<T> => {
@@ -111,4 +111,23 @@ export class ReviewService {
             .post<any>(this.reviewUrl + "/likeReview", { reviewId })
             .pipe(catchError(this.handleError<any>("likeReview")));
     }
+
+
+    sortByMovieTitle(id: any = 0, sort: any) {
+        if (id) {
+            let params = new HttpParams().set("sort", sort).set("id", id);
+            return this.http
+                .get<any>(this.reviewUrl + "/sortReviewsByTitleAndAuthor", { params })
+                .pipe(
+                    catchError(this.handleError<any>("sortReviewsByTitleAndAuthor")));
+        } else {
+            let params = new HttpParams().set("sort", sort);
+            return this.http
+                .get<any>(this.reviewUrl + "/sortReviewsByTitle", { params })
+                .pipe(
+                    catchError(this.handleError<any>("sortReviewsByTitle")));
+        }
+    }
+
+
 }

@@ -78,6 +78,27 @@ class ReviewService {
       { returnOriginal: false }
     ).exec();
   }
+
+  // ************************************************************
+  // * SORT REVIEW
+  static async sortReviewsByTitle(sort) {
+    return await Review.find()
+      .skip(20 * page)
+      .limit(20)
+      .sort({ title: "desc" })
+      .populate("author_id", "username")
+      .exec();
+  }
+
+  // ************************************************************
+  // * SORT REVIEW FOR A CERTAIN USER
+  static async sortReviewsByTitleAndAuthor(authorId, sort) {
+    let author_id = ObjectId(authorId.toString());
+    return await Review.findById({ author_id })
+      .sort({ title: "desc" })
+      .populate("author_id", "username")
+      .exec();
+  }
 }
 
 module.exports = ReviewService;

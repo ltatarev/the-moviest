@@ -15,14 +15,14 @@
                     <div class="text-right">
                         <button
                             *ngIf="isOwner"
-                            class="btn btn-outline-danger btn-sm m-2"
+                            class="btn btn-outline-danger btn-sm m-5"
                             (click)="delete()"
                         >
                             <i class="far fa-trash-alt"></i>
                         </button>
                     </div>
                     <span>{{ data.title }}</span>
-                    <div class="text-right">
+                    <div class="text-right m-5">
                         {{ data.likes }}
                         <i class="far fa-thumbs-up like" (click)="like()"></i>
                     </div>
@@ -40,12 +40,13 @@
                         <h5 *ngIf="data.body.length" class="font-weight-bold">
                             Movies/TV shows:
                         </h5>
-                        <ul *ngFor="let body of data.body">
+                        <ul *ngFor="let body of data.body" style="list-style-type:none;">
                             <li style="font-size: 15px;">
                                 <p
                                     (mouseover)="toggleMovieHover()"
                                     style="display: inline;"
                                 >
+                                
                                     {{ body }}
                                 </p>
                                 <!--                                 <button

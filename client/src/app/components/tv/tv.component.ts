@@ -25,6 +25,9 @@ export class TvComponent implements OnInit {
 
     public watchlists: any;
 
+    
+    public isEmpty: boolean = false;
+
     protected genreEmojis = {
         Action: "🚗",
         Adventure: "🗺️",
@@ -128,6 +131,7 @@ export class TvComponent implements OnInit {
             .findWatchlistsByAuthor(this.userId, 0)
             .subscribe(res => {
                 this.watchlists = res.watchlists;
+                this.isEmpty = !this.watchlists.length;
             });
     }
 

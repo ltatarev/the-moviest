@@ -18,6 +18,10 @@ export class ReviewsComponent implements OnInit {
     private prevPage: number = 0;
     private lastPage: number;
 
+    public sort = 1;
+
+    public isEmpty: boolean = true;
+
     constructor(
         private userService: UserService,
         private reviewService: ReviewService,
@@ -40,12 +44,13 @@ export class ReviewsComponent implements OnInit {
         });
     }
 
-    ngOnInit() {}
+    ngOnInit() { }
 
     // * get all watchlists from a specific user
     private getReviewsByAuthor(id) {
         return this.reviewService.findReviewsByAuthor(id, 0).subscribe(res => {
             this.reviews = res.reviews;
+            this.isEmpty = !this.reviews.length;
         });
     }
 
@@ -53,6 +58,7 @@ export class ReviewsComponent implements OnInit {
     private getAllReviews() {
         return this.reviewService.findAllReviews(0).subscribe(res => {
             this.reviews = res.reviews;
+            this.isEmpty = !this.reviews.length;
         });
     }
 
@@ -149,4 +155,28 @@ export class ReviewsComponent implements OnInit {
         this.nextPage = this.currentPage + 1;
         this.prevPage = this.currentPage - 1;
     }
+
+    sortByTitle() {
+      
+        if (this.id) {
+            this.reviewService
+                .sortByMovieTitle(this.id, this.sort)
+                .subscribe(res => {
+                    console.log(res)
+                    this.reviews = res.reviews;
+                    window.scroll(0, 0);
+                });
+        } else {
+            this.reviewService
+                .sortByMovieTitle(0, this.sort)
+                .subscribe(res => {
+                    console.log(res)
+                   // this.reviews = res.reviews;
+                    window.scroll(0, 0);
+                });
+        };
+        this.sort = -this.sort;
+    }
+
+
 }
