@@ -22,6 +22,8 @@ export class WatchlistsComponent implements OnInit {
 
     public isEmpty: boolean = true;
 
+    public sort: any = 1;
+
     constructor(
         private userService: UserService,
         private watchlistService: WatchlistService,
@@ -56,7 +58,7 @@ export class WatchlistsComponent implements OnInit {
         });
     }
 
-    ngOnInit() {}
+    ngOnInit() { }
 
     // * get all watchlists from a specific user
     private getWatchlists(id: any) {
@@ -104,11 +106,28 @@ export class WatchlistsComponent implements OnInit {
         this.router.navigate(["discover"]);
     }
 
-    // todo: sort by date created and title
-
     // * open watchlist details
     public openWatchlist(watchlist) {
         this.dataProvider.setData({ watchlist, type: "watchlist" });
         this.router.navigate(["details"]);
+    }
+
+    sortByTitle() {
+        if (this.id) {
+            this.watchlistService
+                .sortByTitle(this.id, this.sort)
+                .subscribe(res => {
+                    this.watchlists = res.watchlists;
+                    window.scroll(0, 0);
+                });
+        } else {
+            this.watchlistService
+                .sortByTitle(0, this.sort)
+                .subscribe(res => {
+                    this.watchlists = res.watchlists;
+                    window.scroll(0, 0);
+                });
+        };
+        this.sort = -this.sort;
     }
 }

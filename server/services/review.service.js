@@ -82,10 +82,8 @@ class ReviewService {
   // ************************************************************
   // * SORT REVIEW
   static async sortReviewsByTitle(sort) {
-    return await Review.find()
-      .skip(20 * page)
-      .limit(20)
-      .sort({ title: "desc" })
+    return await Review.find({})
+      .sort({ "movie.movieTitle": sort })
       .populate("author_id", "username")
       .exec();
   }
@@ -95,7 +93,7 @@ class ReviewService {
   static async sortReviewsByTitleAndAuthor(authorId, sort) {
     let author_id = ObjectId(authorId.toString());
     return await Review.findById({ author_id })
-      .sort({ title: "desc" })
+      .sort({ "movie.movieTitle": sort })
       .populate("author_id", "username")
       .exec();
   }

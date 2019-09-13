@@ -178,6 +178,39 @@ class WatchlistController {
     message = "Successfully deleted movie from watchlist!";
     return response.status(200).json({ message, watchlist });
   }
+
+      // ************************************************************
+  // * SORT BY TITLE
+  static async sortWatchlistsByTitle(request, response) {
+    let sort = request.query.sort;
+    let watchlists, message;
+
+    try {
+      watchlists = await WatchlistService.sortWatchlistsByTitle(sort);
+    } catch (err) {
+      return response.status(500).json(err);
+    }
+    
+    message = "Successfully sorted watchlists!";
+    return response.status(202).json({ message, watchlists });
+  }
+
+    // ************************************************************
+    // * SORT BY TITLE AND AUTHOR
+    static async sortWatchlistsByTitleAndAuthor(request, response) {
+      let sort = request.query.sort;
+  
+      let watchlists, message;
+  
+      try {
+        watchlists = await WatchlistService.sortWatchlistsByTitleAndAuthor(sort);
+      } catch (err) {
+        return response.status(500).json(err);
+      }
+
+      message = "Successfully sorted watchlists!";
+      return response.status(202).json({ message, watchlists });
+    }
 }
 
 module.exports = WatchlistController;

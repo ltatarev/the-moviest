@@ -155,17 +155,17 @@ class ReviewController {
   // * SORT BY TITLE
   static async sortReviewsByTitle(request, response) {
     let sort = request.query.sort;
-
-    let review, message;
+ 
+    let reviews, message;
 
     try {
-      review = await ReviewService.sortReviewsByTitle(sort);
+      reviews = await ReviewService.sortReviewsByTitle(sort);
     } catch (err) {
       return response.status(500).json(err);
     }
-    console.log(reviews)
+
     message = "Successfully sorted reviews!";
-    return response.status(202).json({ message, review });
+    return response.status(202).json({ message, reviews });
   }
 
     // ************************************************************
@@ -180,7 +180,7 @@ class ReviewController {
       } catch (err) {
         return response.status(500).json(err);
       }
-  console.log(reviews)
+
       message = "Successfully sorted reviews!";
       return response.status(202).json({ message, reviews });
     }

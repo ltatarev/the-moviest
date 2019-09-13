@@ -117,6 +117,25 @@ class WatchlistService {
       }
     );
   }
+
+  // ************************************************************
+  // * SORT BY TITLE
+  static async sortWatchlistsByTitle(sort) {
+    return await Watchlist.find({})
+      .sort({ title: sort })
+      .populate("author_id", "username")
+      .exec();
+  }
+
+  // ************************************************************
+  // * SORT BY TITLE AND AUTHOR
+  static async sortWatchlistsByTitleAndAuthor(authorId, sort) {
+    let author_id = ObjectId(authorId.toString());
+    return await Watchlist.findById({ author_id })
+      .sort({ title: sort })
+      .populate("author_id", "username")
+      .exec();
+  }
 }
 
 module.exports = WatchlistService;

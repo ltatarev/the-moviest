@@ -7,9 +7,20 @@
                 No reviews have been written yet!
             </h4>
         </div>
-        <div class="bg-light container text-left">
-        <button class="btn btn-outline-success" (click)="sortByTitle()">Sort by title</button>
-    </div>
+        <div class="container-fluid text-right">
+            <button class="btn btn-success" (click)="sortByTitle()">
+                <span class="p-0">
+                    Sort by movie
+                    <p *ngIf="sort===-1" style="display: inline">
+                        <i class="fas fa-arrow-up"></i>
+                    </p>
+                    <p *ngIf="sort===1" style="display: inline">
+                        <i class="fas fa-arrow-down"></i>
+                    </p>
+                </span>
+            </button>
+        </div>
+
         <div class="box" *ngFor="let review of reviews" (click)="openReview(review)">
             <div class="boxContent">
                 <i class="fas fa-film icon"></i>
@@ -21,6 +32,7 @@
             </div>
         </div>
     </div>
+
     <!-- P A G I N A T I O N -->
     <!--    <div class="pagination-wrapper">
         <div class="pagination">

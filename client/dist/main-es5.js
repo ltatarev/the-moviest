@@ -140,7 +140,7 @@ module.exports = "<div class=\"back animated fadeIn\"></div>\r\n<div class=\"reg
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"back animated fadeIn\">\r\n    <app-navbar></app-navbar>\r\n    <div class=\"container\">\r\n\r\n        <div *ngIf=\"isEmpty\">\r\n            <h4 class=\"text-light\">\r\n                No reviews have been written yet!\r\n            </h4>\r\n        </div>\r\n\r\n        <div class=\"box\" *ngFor=\"let review of reviews\" (click)=\"openReview(review)\">\r\n            <div class=\"boxContent\">\r\n                <i class=\"fas fa-film icon\"></i>\r\n                <h1 class=\"title\">{{ review.title }}</h1>\r\n                <h3 class=\"movie\">{{ review.movie.movieTitle }}</h3>\r\n                <p class=\"desc font-italic\">\r\n                    {{ review.author_id.username }}\r\n                </p>\r\n            </div>\r\n        </div>\r\n    </div>\r\n    <!-- P A G I N A T I O N -->\r\n    <!--    <div class=\"pagination-wrapper\">\r\n        <div class=\"pagination\">\r\n            <a\r\n                *ngIf=\"currentPage > 1\"\r\n                class=\"prev page-numbers\"\r\n                (click)=\"goToFirstPage()\"\r\n                >first</a\r\n            >\r\n            <a\r\n                *ngIf=\"currentPage > 1\"\r\n                class=\"page-numbers\"\r\n                (click)=\"goToPrevPage()\"\r\n                >{{ prevPage }}</a\r\n            >\r\n            <span class=\"page-numbers current\">{{ currentPage }}</span>\r\n            <a\r\n                *ngIf=\"nextPage <= lastPage\"\r\n                class=\"page-numbers\"\r\n                (click)=\"goToNextPage()\"\r\n                >{{ nextPage }}</a\r\n            >\r\n\r\n            <a\r\n                *ngIf=\"nextPage < lastPage\"\r\n                class=\"next page-numbers\"\r\n                (click)=\"goToLastPage()\"\r\n                >last</a\r\n            >\r\n        </div>\r\n    </div> -->\r\n    <app-footer></app-footer>\r\n</div>"
+module.exports = "<div class=\"back animated fadeIn\">\r\n    <app-navbar></app-navbar>\r\n    <div class=\"container\">\r\n\r\n        <div *ngIf=\"isEmpty\">\r\n            <h4 class=\"text-light\">\r\n                No reviews have been written yet!\r\n            </h4>\r\n        </div>\r\n        <div class=\"container-fluid text-right\">\r\n            <button class=\"btn btn-success\" (click)=\"sortByTitle()\">\r\n                <span class=\"p-0\">\r\n                    Sort by movie\r\n                    <p *ngIf=\"sort===-1\" style=\"display: inline\">\r\n                        <i class=\"fas fa-arrow-up\"></i>\r\n                    </p>\r\n                    <p *ngIf=\"sort===1\" style=\"display: inline\">\r\n                        <i class=\"fas fa-arrow-down\"></i>\r\n                    </p>\r\n                </span>\r\n            </button>\r\n        </div>\r\n\r\n        <div class=\"box\" *ngFor=\"let review of reviews\" (click)=\"openReview(review)\">\r\n            <div class=\"boxContent\">\r\n                <i class=\"fas fa-film icon\"></i>\r\n                <h1 class=\"title\">{{ review.title }}</h1>\r\n                <h3 class=\"movie\">{{ review.movie.movieTitle }}</h3>\r\n                <p class=\"desc font-italic\">\r\n                    {{ review.author_id.username }}\r\n                </p>\r\n            </div>\r\n        </div>\r\n    </div>\r\n\r\n    <!-- P A G I N A T I O N -->\r\n    <!--    <div class=\"pagination-wrapper\">\r\n        <div class=\"pagination\">\r\n            <a\r\n                *ngIf=\"currentPage > 1\"\r\n                class=\"prev page-numbers\"\r\n                (click)=\"goToFirstPage()\"\r\n                >first</a\r\n            >\r\n            <a\r\n                *ngIf=\"currentPage > 1\"\r\n                class=\"page-numbers\"\r\n                (click)=\"goToPrevPage()\"\r\n                >{{ prevPage }}</a\r\n            >\r\n            <span class=\"page-numbers current\">{{ currentPage }}</span>\r\n            <a\r\n                *ngIf=\"nextPage <= lastPage\"\r\n                class=\"page-numbers\"\r\n                (click)=\"goToNextPage()\"\r\n                >{{ nextPage }}</a\r\n            >\r\n\r\n            <a\r\n                *ngIf=\"nextPage < lastPage\"\r\n                class=\"next page-numbers\"\r\n                (click)=\"goToLastPage()\"\r\n                >last</a\r\n            >\r\n        </div>\r\n    </div> -->\r\n    <app-footer></app-footer>\r\n</div>"
 
 /***/ }),
 
@@ -195,7 +195,7 @@ module.exports = "<div class=\"back\">\r\n    <app-navbar></app-navbar>\r\n    <
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"back animated fadeIn\">\r\n    <app-navbar></app-navbar>\r\n    <div *ngIf=\"!writingWatchlist\">\r\n        <div class=\"container text-center\" *ngIf=\"isEmpty\">\r\n            <h4 class=\"text-light\">\r\n                No reviews have been written yet!\r\n            </h4>\r\n        </div>\r\n\r\n        <div class=\"text-right mr-5 mb-5 animated fadeIn\">\r\n            <button type=\"button\" class=\"btn btn-success\" (click)=\"createWatchlist()\">\r\n                <i class=\"fas fa-plus p-1\"></i> Create new watchlist\r\n            </button>\r\n        </div>\r\n        <div class=\"container animated fadeInUp\">\r\n            <div class=\"box\" *ngFor=\"let watchlist of watchlists\">\r\n                <div class=\"boxContent\" (click)=\"openWatchlist(watchlist)\">\r\n                    <i class=\"fas fa-tv icon\"></i>\r\n                    <h1 class=\"title\">{{ watchlist.title }}</h1>\r\n                    <p class=\"desc\">\r\n                        <strong>{{ watchlist.author_id.username }}</strong>\r\n                        <br />\r\n                        <em>{{ watchlist.description }}</em>\r\n                    </p>\r\n                </div>\r\n            </div>\r\n        </div>\r\n    </div>\r\n\r\n    <!-- W A T C H L I S T  -->\r\n    <div class=\"m-5 p-5 bg-light rounded animated fadeInUp\" *ngIf=\"writingWatchlist\">\r\n        <button class=\"btn btn-outline-danger btn-sm\" style=\"float: right\" (click)=\"closeWatchlist()\">\r\n            <i class=\"fas fa-times\" style=\"cursor:pointer;\"></i>\r\n        </button>\r\n        <h6 class=\"display-4\">Create new watchlist</h6>\r\n        <!-- R E V I E W F O R M -->\r\n        <form [formGroup]=\"watchlistForm\" (ngSubmit)=\"submitWatchlist()\" class=\"animated fadeInDown\">\r\n            <div class=\"input-group pb-3\">\r\n                <input type=\"text\" class=\"form-control\" formControlName=\"title\" id=\"title\"\r\n                    placeholder=\"Watchlist title\" />\r\n            </div>\r\n            <div class=\"form-group\">\r\n                <textarea class=\"form-control rounded-0\" formControlName=\"description\"\r\n                    placeholder=\"Watchlist description...\" rows=\"3\"></textarea>\r\n            </div>\r\n            <!-- S U B M I T  -->\r\n            <div class=\"p-2 ml-auto\">\r\n                <button class=\"btn btn-outline-success\" type=\"submit\" [disabled]=\"!watchlistForm.valid\">\r\n                    Submit\r\n                </button>\r\n            </div>\r\n        </form>\r\n        <hr />\r\n    </div>\r\n\r\n    <app-footer></app-footer>\r\n</div>"
+module.exports = "<div class=\"back animated fadeIn\">\r\n    <app-navbar></app-navbar>\r\n    <div *ngIf=\"!writingWatchlist\">\r\n        <div class=\"container text-center\" *ngIf=\"isEmpty\">\r\n            <h4 class=\"text-light\">\r\n                No watchlists have been made yet!\r\n            </h4>\r\n        </div>\r\n\r\n        <div class=\"text-right mr-5 mb-5 animated fadeIn\">\r\n            <button class=\"btn btn-success m-2\" (click)=\"sortByTitle()\">\r\n                <span class=\"p-0\">\r\n                    Sort by title\r\n                    <p *ngIf=\"sort===-1\" style=\"display: inline\">\r\n                        <i class=\"fas fa-arrow-up\"></i>\r\n                    </p>\r\n                    <p *ngIf=\"sort===1\" style=\"display: inline\">\r\n                        <i class=\"fas fa-arrow-down\"></i>\r\n                    </p>\r\n                </span>\r\n            </button>\r\n            <button type=\"button\" class=\"btn btn-success m-2\" (click)=\"createWatchlist()\">\r\n                <i class=\"fas fa-plus p-1\"></i> Create new watchlist\r\n            </button>\r\n        </div>\r\n        <div class=\"container animated fadeInUp\">\r\n            <div class=\"box\" *ngFor=\"let watchlist of watchlists\">\r\n                <div class=\"boxContent\" (click)=\"openWatchlist(watchlist)\">\r\n                    <i class=\"fas fa-tv icon\"></i>\r\n                    <h1 class=\"title\">{{ watchlist.title }}</h1>\r\n                    <p class=\"desc\">\r\n                        <strong>{{ watchlist.author_id.username }}</strong>\r\n                        <br />\r\n                        <em>{{ watchlist.description }}</em>\r\n                    </p>\r\n                </div>\r\n            </div>\r\n        </div>\r\n    </div>\r\n\r\n    <!-- W A T C H L I S T  -->\r\n    <div class=\"m-5 p-5 bg-light rounded animated fadeInUp\" *ngIf=\"writingWatchlist\">\r\n        <button class=\"btn btn-outline-danger btn-sm\" style=\"float: right\" (click)=\"closeWatchlist()\">\r\n            <i class=\"fas fa-times\" style=\"cursor:pointer;\"></i>\r\n        </button>\r\n        <h6 class=\"display-4\">Create new watchlist</h6>\r\n        <!-- R E V I E W F O R M -->\r\n        <form [formGroup]=\"watchlistForm\" (ngSubmit)=\"submitWatchlist()\" class=\"animated fadeInDown\">\r\n            <div class=\"input-group pb-3\">\r\n                <input type=\"text\" class=\"form-control\" formControlName=\"title\" id=\"title\"\r\n                    placeholder=\"Watchlist title\" />\r\n            </div>\r\n            <div class=\"form-group\">\r\n                <textarea class=\"form-control rounded-0\" formControlName=\"description\"\r\n                    placeholder=\"Watchlist description...\" rows=\"3\"></textarea>\r\n            </div>\r\n            <!-- S U B M I T  -->\r\n            <div class=\"p-2 ml-auto\">\r\n                <button class=\"btn btn-outline-success\" type=\"submit\" [disabled]=\"!watchlistForm.valid\">\r\n                    Submit\r\n                </button>\r\n            </div>\r\n        </form>\r\n        <hr />\r\n    </div>\r\n\r\n    <app-footer></app-footer>\r\n</div>"
 
 /***/ }),
 
@@ -1561,6 +1561,7 @@ var ReviewsComponent = /** @class */ (function () {
         this.currentPage = 1;
         this.nextPage = 2;
         this.prevPage = 0;
+        this.sort = 1;
         this.isEmpty = true;
         this.dataProvider.removeData();
         // * check if you need fetch all or just specific users' watchlists
@@ -1688,6 +1689,27 @@ var ReviewsComponent = /** @class */ (function () {
         this.currentPage += change;
         this.nextPage = this.currentPage + 1;
         this.prevPage = this.currentPage - 1;
+    };
+    ReviewsComponent.prototype.sortByTitle = function () {
+        var _this = this;
+        if (this.id) {
+            this.reviewService
+                .sortByMovieTitle(this.id, this.sort)
+                .subscribe(function (res) {
+                _this.reviews = res.reviews;
+                window.scroll(0, 0);
+            });
+        }
+        else {
+            this.reviewService
+                .sortByMovieTitle(0, this.sort)
+                .subscribe(function (res) {
+                _this.reviews = res.reviews;
+                window.scroll(0, 0);
+            });
+        }
+        ;
+        this.sort = -this.sort;
     };
     ReviewsComponent.ctorParameters = function () { return [
         { type: src_app_services_user_service__WEBPACK_IMPORTED_MODULE_4__["UserService"] },
@@ -2574,6 +2596,7 @@ var WatchlistsComponent = /** @class */ (function () {
         this.toastrService = toastrService;
         this.writingWatchlist = false;
         this.isEmpty = true;
+        this.sort = 1;
         this.dataProvider.removeData();
         var currentUserId = this.userService.user.value._id;
         // * check if you need fetch all or just specific users' watchlists
@@ -2636,11 +2659,31 @@ var WatchlistsComponent = /** @class */ (function () {
         });
         this.router.navigate(["discover"]);
     };
-    // todo: sort by date created and title
     // * open watchlist details
     WatchlistsComponent.prototype.openWatchlist = function (watchlist) {
         this.dataProvider.setData({ watchlist: watchlist, type: "watchlist" });
         this.router.navigate(["details"]);
+    };
+    WatchlistsComponent.prototype.sortByTitle = function () {
+        var _this = this;
+        if (this.id) {
+            this.watchlistService
+                .sortByTitle(this.id, this.sort)
+                .subscribe(function (res) {
+                _this.watchlists = res.watchlists;
+                window.scroll(0, 0);
+            });
+        }
+        else {
+            this.watchlistService
+                .sortByTitle(0, this.sort)
+                .subscribe(function (res) {
+                _this.watchlists = res.watchlists;
+                window.scroll(0, 0);
+            });
+        }
+        ;
+        this.sort = -this.sort;
     };
     WatchlistsComponent.ctorParameters = function () { return [
         { type: src_app_services_user_service__WEBPACK_IMPORTED_MODULE_4__["UserService"] },
@@ -3438,6 +3481,21 @@ var WatchlistService = /** @class */ (function () {
             params: params
         })
             .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["catchError"])(this.handleError("deleteMovieFromWatchlist")));
+    };
+    WatchlistService.prototype.sortByTitle = function (id, sort) {
+        if (id === void 0) { id = 0; }
+        if (id) {
+            var params = new _angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpParams"]().set("sort", sort).set("id", id);
+            return this.http
+                .get(this.watchlistUrl + "/sortWatchlistsByTitleAndAuthor", { params: params })
+                .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["catchError"])(this.handleError("sortWatchlistsByTitleAndAuthor")));
+        }
+        else {
+            var params = new _angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpParams"]().set("sort", sort);
+            return this.http
+                .get(this.watchlistUrl + "/sortWatchlistsByTitle", { params: params })
+                .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["catchError"])(this.handleError("sortWatchlistsByTitle")));
+        }
     };
     WatchlistService.ctorParameters = function () { return [
         { type: _angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpClient"] },

@@ -134,4 +134,20 @@ export class WatchlistService {
                 catchError(this.handleError<any>("deleteMovieFromWatchlist"))
             );
     }
+
+    sortByTitle(id: any = 0, sort: any) {
+        if (id) {
+            let params = new HttpParams().set("sort", sort).set("id", id);
+            return this.http
+                .get<any>(this.watchlistUrl + "/sortWatchlistsByTitleAndAuthor", { params })
+                .pipe(
+                    catchError(this.handleError<any>("sortWatchlistsByTitleAndAuthor")));
+        } else {
+            let params = new HttpParams().set("sort", sort);
+            return this.http
+                .get<any>(this.watchlistUrl + "/sortWatchlistsByTitle", { params })
+                .pipe(
+                    catchError(this.handleError<any>("sortWatchlistsByTitle")));
+        }
+    }
 }

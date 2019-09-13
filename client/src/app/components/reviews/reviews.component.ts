@@ -157,12 +157,10 @@ export class ReviewsComponent implements OnInit {
     }
 
     sortByTitle() {
-      
-        if (this.id) {
+              if (this.id) {
             this.reviewService
                 .sortByMovieTitle(this.id, this.sort)
                 .subscribe(res => {
-                    console.log(res)
                     this.reviews = res.reviews;
                     window.scroll(0, 0);
                 });
@@ -170,8 +168,7 @@ export class ReviewsComponent implements OnInit {
             this.reviewService
                 .sortByMovieTitle(0, this.sort)
                 .subscribe(res => {
-                    console.log(res)
-                   // this.reviews = res.reviews;
+                    this.reviews = res.reviews;
                     window.scroll(0, 0);
                 });
         };

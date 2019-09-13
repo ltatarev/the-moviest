@@ -8,7 +8,18 @@
         </div>
 
         <div class="text-right mr-5 mb-5 animated fadeIn">
-            <button type="button" class="btn btn-success" (click)="createWatchlist()">
+            <button class="btn btn-success m-2" (click)="sortByTitle()">
+                <span class="p-0">
+                    Sort by title
+                    <p *ngIf="sort===-1" style="display: inline">
+                        <i class="fas fa-arrow-up"></i>
+                    </p>
+                    <p *ngIf="sort===1" style="display: inline">
+                        <i class="fas fa-arrow-down"></i>
+                    </p>
+                </span>
+            </button>
+            <button type="button" class="btn btn-success m-2" (click)="createWatchlist()">
                 <i class="fas fa-plus p-1"></i> Create new watchlist
             </button>
         </div>
