@@ -1,11 +1,17 @@
+import _ from "lodash";
 const ReviewService = require("../services/review.service");
 
 class ReviewController {
-  // ************************************************************
-  // * FIND ALL REVIEWS
+  /**
+   * FIND ALL REVIEWS:
+   * Returns all reviews found on current page
+   * @param  {number} page current page
+   * @return {object} Reviews
+   */
   static async findAllReviews(request, response) {
-    let page = request.query.page ? request.query.page : 0;
-    let reviews, message;
+    const page = _.get(request, "query.page", 0);
+
+    let reviews;
 
     try {
       reviews = await ReviewService.findAllReviews(page);
@@ -13,17 +19,22 @@ class ReviewController {
       return response.status(500).json(err);
     }
 
-    message = "Successfully retrieved reviews!";
+    const message = "Successfully retrieved reviews!";
     return response.status(202).json({ message, reviews });
   }
 
-  // ************************************************************
-  // * FIND ALL REVIEWS WRITTEN BY AUTHOR
+  /**
+   * FIND ALL REVIEWS WRITTEN BY AUTHOR:
+   * Returns all reviews written by an author
+   * @param  {string} authorId ID of author
+   * @param  {number} page current page
+   * @return {object} Reviews
+   */
   static async findReviewsByAuthor(request, response) {
-    let page = request.query.page ? request.query.page : 0;
-    let authorId = request.query.id;
+    const authorId = _.get(request, "query.id");
+    const page = _.get(request, "query.page", 0);
 
-    let reviews, message;
+    let reviews;
 
     try {
       reviews = await ReviewService.findReviewsByAuthor(authorId, page);
@@ -31,17 +42,22 @@ class ReviewController {
       return response.status(500).json(err);
     }
 
-    message = "Successfully retrieved reviews!";
+    const message = "Successfully retrieved reviews!";
     return response.status(202).json({ message, reviews });
   }
 
-  // ************************************************************
-  // * FIND ALL REVIEWS FOR MOVIES
+  /**
+   * FIND ALL REVIEWS FOR A MOVIE:
+   * Returns all reviews written for a movie
+   * @param  {number} page current page
+   * @param  {string} movieTitle Title of queried movie
+   * @return {object} Reviews
+   */
   static async findReviewByMovie(request, response) {
-    let page = request.query.page ? request.query.page : 0;
-    let movieTitle = request.query.movieTitle;
+    const page = _.get(request, "query.page", 0);
+    const movieTitle = _.get(request, "query.movieTitle");
 
-    let reviews, message;
+    let reviews;
 
     try {
       reviews = await ReviewService.findReviewByMovie(movieTitle, page);
@@ -49,14 +65,17 @@ class ReviewController {
       return response.status(500).json(err);
     }
 
-    message = "Successfully retrieved reviews!";
+    const message = "Successfully retrieved reviews!";
     return response.status(202).json({ message, reviews });
   }
 
-  // ************************************************************
-  // * GET COUNT
+  /**
+   * GET COUNT:
+   * Returns number of reviews
+   * @return {number} count
+   */
   static async getCount(request, response) {
-    let page, message;
+    let reviews;
 
     try {
       reviews = await ReviewService.getCount();
@@ -64,16 +83,24 @@ class ReviewController {
       return response.status(500).json(err);
     }
 
-    message = "Successfully retrieved review count!";
-    return response.status(202).json({ message, page });
+    const message = "Successfully retrieved review count!";
+    return response.status(202).json({ message, reviews });
   }
 
-  // ************************************************************
-  // * CREATE REVIEW
+  /**
+   * CREATE REVIEW:
+   * Creates a review
+   * @param  {string} title Review title
+   * @param  {string} movie
+   * @param  {number} rating Movie rating
+   * @param  {string} reviewText Review content (optional)
+   * @param  {string} authorId ID of author
+   * @return {object} Review
+   */
   static async createReview(request, response) {
-    let { title, movie, rating, reviewText, authorId } = request.body;
+    const { title, movie, rating, reviewText, authorId } = request.body;
 
-    let review, message;
+    let review;
 
     try {
       review = await ReviewService.createReview(
@@ -88,22 +115,26 @@ class ReviewController {
       return response.status(500).json(err);
     }
 
-    message = "Successfully created review!";
+    const message = "Successfully created review!";
     return response.status(202).json({ message, review });
   }
 
-  // ************************************************************
-  // * UPDATE REVIEW
+  /**
+   * UPDATE REVIEW:
+   * Updates an existing review
+   * @param  {string} reviewId Review ID
+   * @param  {string} title
+   * @param  {number} rating Movie rating
+   * @param  {string} reviewText Review content (optional)
+   * @return {object} Review
+   */
   static async updateReview(request, response) {
-    let reviewId = request.body.reviewId;
-    let title = request.body.title;
-    let rating = request.body.rating;
-    let reviewText = request.body.reviewText;
+    const { reviewId, title, rating, reviewText } = request.body;
 
-    let watchlist, message;
+    let review;
 
     try {
-      watchlist = await ReviewService.updateReview(
+      review = await ReviewService.updateReview(
         reviewId,
         title,
         rating,
@@ -113,16 +144,20 @@ class ReviewController {
       return response.status(500).json(err);
     }
 
-    message = "Successfully updated watchlist!";
-    return response.status(202).json({ message, watchlist });
+    const message = "Successfully updated review!";
+    return response.status(202).json({ message, review });
   }
 
-  // ************************************************************
-  // * DELETE REVIEW
+  /**
+   * DELETE REVIEW:
+   * Deletes an existing review
+   * @param  {string} reviewId Review ID
+   * @return {object} Review
+   */
   static async deleteReview(request, response) {
-    let reviewId = request.query.reviewId;
+    const { reviewId } = request.query;
 
-    let review, message;
+    let review;
 
     try {
       review = await ReviewService.deleteReview(reviewId);
@@ -130,16 +165,20 @@ class ReviewController {
       return response.status(500).json(err);
     }
 
-    message = "Successfully deleted review!";
+    const message = "Successfully deleted review!";
     return response.status(202).json({ message, review });
   }
 
-  // ************************************************************
-  // * LIKE REVIEW
+  /**
+   * LIKE REVIEW:
+   * Likes an existing review
+   * @param  {string} reviewId Review ID
+   * @return {object} Review
+   */
   static async likeReview(request, response) {
-    let reviewId = request.body.reviewId;
+    const { reviewId } = request.body;
 
-    let review, message;
+    let review;
 
     try {
       review = await ReviewService.likeReview(reviewId);
@@ -147,16 +186,20 @@ class ReviewController {
       return response.status(500).json(err);
     }
 
-    message = "Successfully liked review!";
+    const message = "Successfully liked review!";
     return response.status(202).json({ message, review });
   }
 
-    // ************************************************************
-  // * SORT BY TITLE
+  /**
+   * SORT REVIEWS BY TITLE:
+   * Sorts reviews based on title
+   * @param  {string} sort Movie title to sort by
+   * @return {object} Reviews
+   */
   static async sortReviewsByTitle(request, response) {
-    let sort = request.query.sort;
- 
-    let reviews, message;
+    const { sort } = request.query;
+
+    let reviews;
 
     try {
       reviews = await ReviewService.sortReviewsByTitle(sort);
@@ -164,26 +207,30 @@ class ReviewController {
       return response.status(500).json(err);
     }
 
-    message = "Successfully sorted reviews!";
+    const message = "Successfully sorted reviews!";
     return response.status(202).json({ message, reviews });
   }
 
-    // ************************************************************
-    // * SORT BY TITLE AND AUTHOR
-    static async sortReviewsByTitleAndAuthor(request, response) {
-      let sort = request.query.sort;
-  
-      let reviews, message;
-  
-      try {
-        reviews = await ReviewService.sortReviewsByTitleAndAuthor(sort);
-      } catch (err) {
-        return response.status(500).json(err);
-      }
+  /**
+   * SORT BY TITLE AND AUTHOR:
+   * Sorts reviews based on title and author
+   * @param  {string} sort Movie title to sort by
+   * @return {object} Reviews
+   */
+  static async sortReviewsByTitleAndAuthor(request, response) {
+    const { sort } = request.query;
 
-      message = "Successfully sorted reviews!";
-      return response.status(202).json({ message, reviews });
+    let reviews;
+
+    try {
+      reviews = await ReviewService.sortReviewsByTitleAndAuthor(sort);
+    } catch (err) {
+      return response.status(500).json(err);
     }
+
+    const message = "Successfully sorted reviews!";
+    return response.status(202).json({ message, reviews });
+  }
 }
 
 module.exports = ReviewController;

@@ -3,8 +3,12 @@ const Watchlist = mongoose.model("Watchlist");
 const ObjectId = mongoose.Types.ObjectId;
 
 class WatchlistService {
-  // ************************************************************
-  // * FIND ALL WATCHLISTS
+  /**
+   * FIND ALL WATCHLISTS:
+   * Returns all watchlists
+   * @param  {number} page Current page
+   * @return {object} Watchlists
+   */
   static async findAllWatchlists(page = 0) {
     return await Watchlist.find()
       .skip(20 * page)
@@ -13,10 +17,15 @@ class WatchlistService {
       .exec();
   }
 
-  // ************************************************************
-  // * FIND ALL WATCHLISTS FOR A SPECIFIC USER
+  /**
+   * FIND ALL WATCHLISTS BY USER:
+   * Returns all watchlists made by an user
+   * @param  {string} authorId User ID
+   * @param  {number} page Current page
+   * @return {object} Watchlists
+   */
   static async findAllWatchlistsByAuthorId(authorId, page = 0) {
-    let author_id = ObjectId(authorId.toString());
+    const author_id = ObjectId(authorId.toString());
     return await Watchlist.find({ author_id: author_id })
       .skip(20 * page)
       .limit(20)
@@ -24,8 +33,13 @@ class WatchlistService {
       .exec();
   }
 
-  // ************************************************************
-  // * FIND ALL WATCHLISTS BY NAME
+  /**
+   * FIND ALL WATCHLISTS BY NAME:
+   * Returns all watchlists that
+   * @param  {string} title Title that is being searched
+   * @param  {number} page Current page
+   * @return {object} Watchlists that match title
+   */
   static async findWatchlistsByName(title, page = 0) {
     return await Watchlist.find({ title: { $regex: title, $options: "i" } })
       .skip(20 * page)
@@ -34,15 +48,22 @@ class WatchlistService {
       .exec();
   }
 
-  // ************************************************************
-  // * ADD MOVIE TO WATCHLIST
+  /**
+   * ADD MOVIE TO WATCHLIST:
+   * Adds a movie to a premade watchlist
+   * @param  {string} watchlistId Watchlist ID
+   * @param  {string} movieId MovieID on tmdb
+   * @param  {string} movieTitle Movie tilte
+   * @param  {string} moviePosterPath URL containing movie poster image
+   * @return {object} Updated watchlist
+   */
   static async addMovieToWatchlist(
     watchlistId,
     movieId,
     movieTitle,
     moviePosterPath
   ) {
-    let watchlist_id = ObjectId(watchlistId.toString());
+    const watchlist_id = ObjectId(watchlistId.toString());
     return await Watchlist.findByIdAndUpdate(
       { _id: watchlist_id },
       { $push: { movies: { movieId, movieTitle, moviePosterPath } } },
@@ -50,22 +71,32 @@ class WatchlistService {
     ).exec();
   }
 
-  // ************************************************************
-  // * CREATE NEW WATCHLIST
+  /**
+   * CREATE NEW WATCHLIST:
+   * Creates a new watchlist
+   * @param  {string} title Watchlist title
+   * @param  {string} description Watchlist short description
+   * @param  {string} authorId Author ID
+   * @return {object} Watchlist
+   */
   static async createWatchlist(title, description, authorId) {
-    let author_id = ObjectId(authorId.toString());
-    let watchlist = new Watchlist({ title, description, author_id });
+    const author_id = ObjectId(authorId.toString());
+    const watchlist = new Watchlist({ title, description, author_id });
 
     await watchlist.save();
     return watchlist;
   }
 
-  // ************************************************************
-  // * LIKE WATCHLIST
+  /**
+   * LIKE WATCHLIST:
+   * Likes a watchlist
+   * @param  {string} watchlistId Watchlist title
+   * @return {object} Updated watchlist
+   */
   static async likeWatchlist(watchId) {
-    let _id = ObjectId(watchId.toString());
+    const _id = ObjectId(watchId.toString());
 
-    let watchlist = await Watchlist.findByIdAndUpdate(
+    const watchlist = await Watchlist.findByIdAndUpdate(
       { _id },
       { $inc: { likes: 1 } },
       { new: true, fields: "likes" }
@@ -75,12 +106,18 @@ class WatchlistService {
     return watchlist;
   }
 
-  // ************************************************************
-  // * UPDATE TITLE OR DESCRIPTION
+  /**
+   * UPDATE TITLE OR DESCRIPTION:
+   * Updates title and/or description of a watchlist
+   * @param  {string} watchlistId Watchlist ID
+   * @param  {string} title Watchlist title
+   * @param  {string} description Watchlist description
+   * @return {object} Updated watchlist
+   */
   static async updateTitleOrDescription(_id, title, description) {
-    let _id = ObjectId(_id.toString());
+    const _id = ObjectId(_id.toString());
 
-    let watchlist = await Watchlist.findByIdAndUpdate(
+    const watchlist = await Watchlist.findByIdAndUpdate(
       { _id },
       { title, description },
       { new: true, upsert: true }
@@ -90,8 +127,12 @@ class WatchlistService {
     return watchlist;
   }
 
-  // ************************************************************
-  // * DELETE WATCHLIST
+  /**
+   * DELETE WATCHLIST:
+   * Deletes a watchlist
+   * @param  {string} watchlistId Watchlist ID
+   * @return {object} Response
+   */
   static async deleteWatchlist(watchid) {
     let _id = ObjectId(watchid.toString());
 
@@ -101,8 +142,13 @@ class WatchlistService {
     }).exec();
   }
 
-  // ************************************************************
-  // * DELETE A SINGLE MOVIE FROM WATCHLIST
+  /**
+   * DELETE MOVIE FROM WATCHLIST:
+   * Deletes a movie from watchlist
+   * @param  {string} watchlistId Watchlist ID
+   * @param  {string} movieId Movie ID
+   * @return {object} Response
+   */
   static async deleteMovieFromWatchlist(watchlistId, movieId) {
     let _id = ObjectId(watchlistId.toString());
     let _movieId = ObjectId(movieId.toString());
@@ -118,8 +164,12 @@ class WatchlistService {
     );
   }
 
-  // ************************************************************
-  // * SORT BY TITLE
+  /**
+   * SORT BY TITLE:
+   * Sorts all watchlists based on title
+   * @param  {string} sort Sort
+   * @return {object} Response
+   */
   static async sortWatchlistsByTitle(sort) {
     return await Watchlist.find({})
       .sort({ title: sort })
@@ -127,10 +177,14 @@ class WatchlistService {
       .exec();
   }
 
-  // ************************************************************
-  // * SORT BY TITLE AND AUTHOR
+  /**
+   * SORT BY TITLE & AUTHOR:
+   * Sorts all watchlists from an user based on title
+   * @param  {string} sort Sort
+   * @return {object} Response
+   */
   static async sortWatchlistsByTitleAndAuthor(authorId, sort) {
-    let author_id = ObjectId(authorId.toString());
+    const author_id = ObjectId(authorId.toString());
     return await Watchlist.findById({ author_id })
       .sort({ title: sort })
       .populate("author_id", "username")

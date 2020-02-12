@@ -1,12 +1,16 @@
 const UserService = require("../services/user.service");
 
 class UserController {
-  // ************************************************************
-  // * FIND USER BY USERNAME
+  /**
+   * FIND USER BY USERNAME:
+   * Finds a single user by username
+   * @param  {string} username Username
+   * @return {object} Updated user
+   */
   static async findUserByUsername(request, response) {
-    let username = request.query.username;
+    const { username } = request.query;
 
-    let user, message;
+    let user;
 
     try {
       user = await UserService.findUserByUsername(username);
@@ -14,15 +18,20 @@ class UserController {
       return response.status(500).json(err);
     }
 
-    message = "Successfully found user!";
+    const message = "Successfully found user!";
     return response.status(200).json({ message, user });
   }
-  // ************************************************************
-  // * FIND ALL CURRENTLY WATCHING
-  static async findAllCurrentlyWatching(request, response) {
-    let movieTitle = request.body.movieTitle;
 
-    let users, message;
+  /**
+   * FIND ALL CURRENTLY WATCHING:
+   * Finds all users that are currently watching queried movie
+   * @param  {string} movieTitle Title of currently watching movie
+   * @return {object} Updated user
+   */
+  static async findAllCurrentlyWatching(request, response) {
+    const { movieTitle } = request.body;
+
+    let users;
 
     try {
       users = await UserService.findAllCurrentlyWatching(movieTitle);
@@ -30,55 +39,67 @@ class UserController {
       return response.status(500).json(err);
     }
 
-    message = "Successfully found all users!";
+    const message = "Successfully found all users!";
     return response.status(200).json({ message, users });
   }
 
-  // ************************************************************
-  // * GET AVATAR, BIO, CURRENTLY WATCHING, FAVORITES, WATCHLISTS
+  /**
+   * GET PROFILE DATA:
+   * Finds all users that are currently watching queried movie
+   * @param  {string} id User ID
+   * @return {object} User data (avatar, bio, currently watching, favorites, watchlist)
+   */
   static async getProfileData(request, response) {
-    let userId = request.query.id;
+    const { id } = request.query;
 
-    let user, message;
+    let user;
 
     try {
-      user = await UserService.getProfileData(userId);
+      user = await UserService.getProfileData(id);
     } catch (err) {
       return response.status(500).json(err);
     }
 
-    message = "Successfully recieved user data!";
+    const message = "Successfully recieved user data!";
     return response.status(200).json({ user });
   }
 
-  // ************************************************************
-  // * CREATE OR UPDATE BIO
+  /**
+   * CREATE OR UPDATE BIO:
+   * Creates or updates user bio
+   * @param  {string} userId User ID
+   * @param  {string} bio User bio
+   * @return {object} Updated user
+   */
   static async createOrUpdateBio(request, response) {
-    let userId = request.body.id;
-    let bio = request.body.bio;
+    const { userId, bio } = request.body;
 
-    let bioResponse, message;
+    let user;
 
     try {
-      bioResponse = await UserService.createOrUpdateBio(userId, bio);
+      user = await UserService.createOrUpdateBio(userId, bio);
     } catch (err) {
       return response.status(500).json(err);
     }
 
-    message = "Successfully updated bio!";
-    return response.status(201).json({ message, bioResponse });
+    const message = "Successfully updated bio!";
+    return response.status(201).json({ message, user });
   }
 
-  // ************************************************************
-  // * CREATE OR UPDATE CURRENTLY WATCHING
+  /**
+   * CREATE OR UPDATE CURRENTLY WATCHING:
+   * Creates or updates user bio
+   * @param  {string} userId User ID
+   * @param  {string} currentlyWatching Currently watching
+   * @return {object} Updated user
+   */
   static async createOrUpdateCurrentlyWatching(request, response) {
-    let userId = request.body.id;
-    let currentlyWatching = request.body.currentlyWatching;
+    const { userId, currentlyWatching } = request.body;
 
-    let currentlyWatchingResponse, message;
+    let user;
 
     try {
-      currentlyWatchingResponse = await UserService.createOrUpdateCurrentlyWatching(
+      user = await UserService.createOrUpdateCurrentlyWatching(
         userId,
         currentlyWatching
       );
@@ -86,39 +107,44 @@ class UserController {
       return response.status(500).json(err);
     }
 
-    message = "Successfully logged in!";
-    return response.status(201).json({ message, currentlyWatchingResponse });
+    const message = "Successfully updated currently watching!";
+    return response.status(201).json({ message, user });
   }
 
-  // ************************************************************
-  // * CREATE OR UPDATE FAVORITES
+  /**
+   * CREATE OR UPDATE FAVORITES:
+   * Creates or updates user bio
+   * @param  {string} userId User ID
+   * @param  {array} favorites Array of [ movie, tvShow, actor, genre ] favorites
+   * @return {object} Updated user
+   */
   static async createOrUpdateFavorites(request, response) {
-    let userId = request.body.id;
-    let favorites = request.body.favorites;
+    const { userId, favorites } = request.body;
 
-
-    let favoritesResponse, message;
+    let user;
 
     try {
-      favoritesResponse = await UserService.createOrUpdateFavorites(
-        userId,
-        favorites
-      );
+      user = await UserService.createOrUpdateFavorites(userId, favorites);
     } catch (err) {
       return response.status(500).json(err);
     }
 
-    message = "Successfully updated favorites!";
-    return response.status(201).json({ message, favoritesResponse });
+    const message = "Successfully updated favorites!";
+    return response.status(201).json({ message, user });
   }
 
-  // ************************************************************
-  // * LOGIN
+  /**
+   * LOGIN:
+   * Logins a user
+   * @param  {string} username username
+   * @param  {string} email email
+   * @param  {string} password password
+   * @return {object} Token
+   */
   static async login(request, response) {
-    let username = request.body.username;
-    let password = request.body.password;
+    const { username, password } = request.body;
 
-    let user, token, message;
+    let user;
 
     try {
       user = await UserService.findUserByUsername(username);
@@ -136,19 +162,24 @@ class UserController {
       return response.status(403).json({ message });
     }
 
-    token = user.generateJWT();
-    message = "Successfully logged in!";
+    const token = user.generateJWT();
+    const message = "Successfully logged in!";
     return response.status(202).json({ message, token });
   }
 
-  // ************************************************************
-  // * REGISTER
+  /**
+   * REGISTER:
+   * Creates a new user
+   * @param  {string} username username
+   * @param  {string} email email
+   * @param  {string} password password
+   * @return {object} Token
+   */
   static async register(request, response) {
-    let email = request.body.email;
-    let username = request.body.username;
-    let password = request.body.password;
-    let user, message, token;
-    
+    const { username, email, password } = request.body;
+
+    let user;
+
     try {
       user = await UserService.createUser(username, email, password);
     } catch (err) {
@@ -156,18 +187,21 @@ class UserController {
       return response.status(500).json(err);
     }
 
-    message = "Successfully registered!";
-    token = user.generateJWT();
+    const message = "Successfully registered!";
+    const token = user.generateJWT();
     return response.status(201).json({ message, token });
   }
 
-  // ************************************************************
-  // * UPDATE AVATAR
+  /**
+   * UPDATE AVATAR:
+   * Updates avatar picture for a user
+   * @param  {string} id User ID
+   * @return {object} Updated user
+   */
   static async updateAvatar(request, response) {
-    let userId = request.body.id;
-    let avatarURL = request.body.avatarURL;
+    const { userId, avatarURL } = request.body;
 
-    let user, message;
+    let user;
 
     try {
       user = await UserService.updateAvatar(userId, avatarURL);
@@ -175,17 +209,21 @@ class UserController {
       return response.status(500).json(err);
     }
 
-    message = "Successfully changed avatar!";
+    const message = "Successfully changed avatar!";
     return response.status(201).json({ message, user });
   }
 
-  // ************************************************************
-  // * UPDATE PASSWORD
+  /**
+   * UPDATE PASSWORD:
+   * Updates password for a user
+   * @param  {string} id User ID
+   * @param  {string} password New password
+   * @return {object} Updated user
+   */
   static async updatePassword(request, response) {
-    let userId = request.body.id;
-    let password = request.body.password;
+    const { userId, password } = request.body;
 
-    let user, message, token;
+    let user;
 
     try {
       user = await UserService.updatePassword(userId, password);
@@ -194,18 +232,22 @@ class UserController {
       return response.status(500).json(err);
     }
 
-    message = "Successfully changed password!";
-    token = user.generateJWT();
+    const message = "Successfully changed password!";
+    const token = user.generateJWT();
     return response.status(201).json({ message, token });
   }
 
-  // ************************************************************
-  // * UPDATE USERNAME
+  /**
+   * UPDATE USERNAME:
+   * Updates username for a user
+   * @param  {string} id User ID
+   * @param  {string} username New username
+   * @return {object} Updated user
+   */
   static async updateUsername(request, response) {
-    let userId = request.body.id;
-    let username = request.body.username;
+    const { userId, username } = request.body;
 
-    let user, message;
+    let user;
 
     try {
       user = await UserService.updateUsername(userId, username);
@@ -213,7 +255,7 @@ class UserController {
       return response.status(500).json(err);
     }
 
-    message = "Successfully changed username!";
+    const message = "Successfully changed username!";
     return response.status(201).json({ message, user });
   }
 }
