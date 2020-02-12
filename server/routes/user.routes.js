@@ -3,6 +3,7 @@ let router = express.Router();
 
 const UserController = require("../controllers/user.controller");
 
+// GET
 router.route("/findUserByUsername").get(UserController.findUserByUsername);
 
 router
@@ -11,6 +12,7 @@ router
 
 router.route("/getProfileData").get(UserController.getProfileData);
 
+// POST
 router.route("/createOrUpdateBio").post(UserController.createOrUpdateBio);
 
 router
