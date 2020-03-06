@@ -1,7 +1,8 @@
 const mongoose = require("mongoose");
 const config = require("../config");
 
-const dbUri = config.requireEnv("DBURI", "");
+const dbUri =
+  "mongodb+srv://ltatarev:JGFrvdlJCuxOLzqh@themoviest-1qjo5.mongodb.net/test";
 
 mongoose.Promise = global.Promise;
 
