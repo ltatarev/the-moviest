@@ -181,7 +181,7 @@ export class UserService {
     }
 
     updateAvatar(avatarURL: any): Observable<any> {
-        const user = { id: this.user.value._id, avatarURL };
+        const user = { userId: this.user.value._id, avatarURL };
         return this.http.post<any>(this.userUrl + "/updateAvatar", user).pipe(
             tap(response => {
                 this.showToastrSuccess(response.message);
