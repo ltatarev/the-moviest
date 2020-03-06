@@ -31,5 +31,4 @@ const reviewSchema = new mongoose.Schema(
 
 var Review = mongoose.model("Review", reviewSchema, "Review");
 
-// make this available to our users in our applications
 module.exports = Review;

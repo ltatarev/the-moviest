@@ -1,7 +1,7 @@
 const express = require("express");
 let router = express.Router();
 
-const ReviewController = require("../controllers/review.controller");
+const ReviewController = require("./review.controller");
 
 // GET
 router.route("/getCount").get(ReviewController.getCount);

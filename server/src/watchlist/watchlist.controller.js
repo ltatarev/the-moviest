@@ -1,5 +1,5 @@
-import _ from "lodash";
-const WatchlistService = require("../services/watchlist.service");
+const _ = require("lodash");
+const WatchlistService = require("./watchlist.service");
 
 class WatchlistController {
   /**

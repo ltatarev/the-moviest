@@ -30,7 +30,6 @@ const watchlistSchema = new mongoose.Schema(
 // plugin for unique validation
 watchlistSchema.plugin(mongooseUniqueValidator);
 
-var Watchlist = mongoose.model("Watchlist", watchlistSchema, "Watchlist");
+const Watchlist = mongoose.model("Watchlist", watchlistSchema, "Watchlist");
 
-// make this available to our users in our applications
 module.exports = Watchlist;

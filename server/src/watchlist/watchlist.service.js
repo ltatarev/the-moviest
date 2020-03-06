@@ -94,10 +94,10 @@ class WatchlistService {
    * @return {object} Updated watchlist
    */
   static async likeWatchlist(watchId) {
-    const _id = ObjectId(watchId.toString());
+    const _watchId = ObjectId(watchId.toString());
 
     const watchlist = await Watchlist.findByIdAndUpdate(
-      { _id },
+      { _id: _watchId },
       { $inc: { likes: 1 } },
       { new: true, fields: "likes" }
     ).exec();
@@ -115,10 +115,10 @@ class WatchlistService {
    * @return {object} Updated watchlist
    */
   static async updateTitleOrDescription(_id, title, description) {
-    const _id = ObjectId(_id.toString());
+    const _watchId = ObjectId(_id.toString());
 
     const watchlist = await Watchlist.findByIdAndUpdate(
-      { _id },
+      { _id: _watchId },
       { title, description },
       { new: true, upsert: true }
     ).exec();
@@ -134,9 +134,9 @@ class WatchlistService {
    * @return {object} Response
    */
   static async deleteWatchlist(watchid) {
-    let _id = ObjectId(watchid.toString());
+    const _watchId = ObjectId(watchid.toString());
 
-    await Watchlist.findByIdAndDelete({ _id }, function(err) {
+    await Watchlist.findByIdAndDelete({ _id: _watchId }, function(err) {
       if (err) return err;
       return "Succesfully deleted watchlist!";
     }).exec();
@@ -150,11 +150,11 @@ class WatchlistService {
    * @return {object} Response
    */
   static async deleteMovieFromWatchlist(watchlistId, movieId) {
-    let _id = ObjectId(watchlistId.toString());
-    let _movieId = ObjectId(movieId.toString());
+    const _watchId = ObjectId(watchlistId.toString());
+    const _movieId = ObjectId(movieId.toString());
 
     await Watchlist.findByIdAndUpdate(
-      { _id },
+      { _id: _watchId },
       { $pull: { movies: { _id: _movieId } } },
       { new: true },
       function(err, watchlist) {
@@ -185,6 +185,7 @@ class WatchlistService {
    */
   static async sortWatchlistsByTitleAndAuthor(authorId, sort) {
     const author_id = ObjectId(authorId.toString());
+
     return await Watchlist.findById({ author_id })
       .sort({ title: sort })
       .populate("author_id", "username")

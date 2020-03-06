@@ -1,7 +1,7 @@
 const express = require("express");
 let router = express.Router();
 
-const WatchlistController = require("../controllers/watchlist.controller");
+const WatchlistController = require("./watchlist.controller");
 
 // GET
 router.route("/findAllWatchlists").get(WatchlistController.findAllWatchlists);

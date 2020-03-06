@@ -1,5 +1,5 @@
-import _ from "lodash";
-const ReviewService = require("../services/review.service");
+const _ = require("lodash");
+const ReviewService = require("./review.service");
 
 class ReviewController {
   /**

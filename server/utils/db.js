@@ -1,6 +1,7 @@
 const mongoose = require("mongoose");
+const config = require("../config");
 
-const dbUri = require("../config/config").dbUri;
+const dbUri = config.requireEnv("DBURI", "");
 
 mongoose.Promise = global.Promise;
 
