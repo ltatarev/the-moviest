@@ -17,3 +17,18 @@ export default function Home() {
     </div>
   );
 }
+
+export async function getServerSideProps() {
+  let res = await fetch('http://localhost:3000/api/watchlists', {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  });
+
+  const data = await res.json();
+
+  return {
+    props: { allLists: data },
+  };
+}
