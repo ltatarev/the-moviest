@@ -1,5 +1,5 @@
-import Head from "next/head";
-import Image from "next/image";
+import Head from 'next/head';
+import { HomeLayout } from '../components';
 
 export default function Home() {
   return (
@@ -10,9 +10,9 @@ export default function Home() {
       </Head>
 
       <main>
-        <h1>
-          Welcome to <a href="https://nextjs.org">Next.js!</a>
-        </h1>
+        <HomeLayout>
+          <div>test</div>
+        </HomeLayout>
       </main>
     </div>
   );

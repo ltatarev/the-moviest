@@ -11,6 +11,9 @@ module.exports = {
       fontFamily: {
         sans: ['var(--font-dmSans)', ...fontFamily.sans],
       },
+      backgroundImage: {
+        'homeBackground': "url('/assets/background.jpg')"
+      }
     },
   },
   plugins: [],
