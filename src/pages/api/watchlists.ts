@@ -1,10 +1,10 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 import type { NextApiRequest, NextApiResponse } from 'next';
-import mongoClientPromise from '../../../lib/mongo';
+import mongoClientPromise from '@lib/mongo';
 
 type Data = {
-  status: Number;
-  data: Array<Object>;
+  status: number;
+  data: Array<unknown>;
 };
 
 export default async function handler(

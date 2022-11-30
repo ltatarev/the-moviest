@@ -19,7 +19,7 @@ export default function Home() {
 }
 
 export async function getServerSideProps() {
-  let res = await fetch('http://localhost:3000/api/watchlists', {
+  const res = await fetch('http://localhost:3000/api/watchlists', {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',
