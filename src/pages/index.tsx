@@ -26,9 +26,9 @@ export async function getServerSideProps() {
     },
   });
 
-  const data = await res.json();
+  console.log(res);
 
   return {
-    props: { allLists: data },
+    props: { allLists: null },
   };
 }

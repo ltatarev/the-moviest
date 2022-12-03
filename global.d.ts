@@ -1,5 +1,6 @@
-import { MongoClient } from 'mongodb';
+/* eslint-disable no-var */
+import { connection } from '@types/mongoose';
 
 declare global {
-  var _mongoClientPromise: Promise<MongoClient>;
+  var mongoose: connection;
 }
