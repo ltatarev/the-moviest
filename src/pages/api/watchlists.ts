@@ -19,7 +19,7 @@ export default async function handler(
       .limit(20)
       .populate('author_id', 'username')
       .exec();
-    console.log('API', allWatchlists);
+
     return res.json({ status: 200, data: allWatchlists });
   }
 }
