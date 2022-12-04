@@ -1,7 +1,7 @@
 import mongoose, { ConnectOptions } from 'mongoose';
 import { getEnvString } from './env';
 
-require('./models');
+import './models';
 
 const MONGODB_URI = getEnvString('MONGODB_URI');
 

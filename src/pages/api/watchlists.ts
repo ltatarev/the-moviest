@@ -2,6 +2,7 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
 import dbConnect from '@lib/mongo';
 import Watchlist from '@lib/models/watchlist';
+import { DEFAULT_PER_PAGE, formatWatchlistQuery } from '@lib/queryService';
 
 type Data = {
   status: number;
@@ -15,8 +16,12 @@ export default async function handler(
   await dbConnect();
 
   if (req.method === 'GET') {
-    const allWatchlists = await Watchlist.find()
-      .limit(20)
+    const { query, page, sort } = formatWatchlistQuery(req.query);
+
+    const allWatchlists = await Watchlist.find(query)
+      .skip(page * DEFAULT_PER_PAGE)
+      .limit(DEFAULT_PER_PAGE)
+      .sort(sort)
       .populate('author_id', 'username')
       .exec();
 
