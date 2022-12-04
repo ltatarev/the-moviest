@@ -13,7 +13,10 @@ module.exports = {
       },
       backgroundImage: {
         'homeBackground': "url('/assets/background.jpg')"
-      }
+      },
+      dropShadow: {
+        'text': '0 2px 10px rgba(0,0,0,0.75)', 
+      },
     },
   },
   plugins: [],
