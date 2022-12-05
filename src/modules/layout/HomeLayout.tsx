@@ -6,8 +6,8 @@ type HomeLayoutProps = {
 
 export function HomeLayout({ children }: HomeLayoutProps) {
   return (
-    <div className="bg-homeBackground bg-fixed h-full bg-cover relative flex place-content-center overflow-auto w-full min-h-screen">
-      <div className="container pt-10">{children}</div>
+    <div className="bg-homeBackground bg-fixed h-full bg-cover relative flex flex-col items-center w-full min-h-screen min-w-screen px-10">
+      {children}
     </div>
   );
 }

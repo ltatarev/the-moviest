@@ -1,11 +1,18 @@
 import Head from 'next/head';
 import { HomeLayout } from '@modules/layout';
 import { getEnvString } from '@lib/env';
-import { CardsCarousel } from '@modules/carousel/Carousel';
+import { Carousel, CardProps, Footer } from '@modules/ui';
+import { Navbar } from '@modules/navbar';
+import Image from 'next/image';
 
-export default function Home({ trendingMovies }) {
+interface HomeProps {
+  trendingMovies: Array<CardProps>;
+  trendingShows: Array<CardProps>;
+}
+
+export default function Home({ trendingMovies, trendingShows }: HomeProps) {
   const featuredMovies = trendingMovies.slice(0, 3);
-
+  const featuredShows = trendingShows.slice(0, 3);
   return (
     <div>
       <Head>
@@ -13,11 +20,37 @@ export default function Home({ trendingMovies }) {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <main>
-        <HomeLayout>
-          <CardsCarousel data={featuredMovies} />
-        </HomeLayout>
-      </main>
+      <HomeLayout>
+        <div className="container">
+          <Navbar />
+
+          <div className="py-10 min-h-full">
+            <div className="flex flex-row items-end">
+              <Image
+                src="/assets/video-camera.png"
+                width={80}
+                height={80}
+                alt=""
+              />
+              <p className="text-6xl text-slate-100 ml-5 font-semibold border-b-8 border-blue-900">
+                Trending now
+              </p>
+            </div>
+            <Carousel data={featuredMovies} />
+          </div>
+          <div className="py-10 h-full">
+            <div className="flex flex-row items-end place-content-end mt-10">
+              <p className="text-6xl text-slate-100 mr-5 font-semibold text-right border-b-8 border-pink-900">
+                Popular on TV
+              </p>
+              <Image src="/assets/tv.png" width={70} height={70} alt="" />
+            </div>
+            <Carousel data={featuredShows} />
+          </div>
+
+          <Footer />
+        </div>
+      </HomeLayout>
     </div>
   );
 }
@@ -36,7 +69,23 @@ export async function getServerSideProps() {
     )
   ).json();
 
+  const trendingShows = await (
+    await fetch(
+      'https://api.themoviedb.org/3/trending/tv/week?api_key=' +
+        getEnvString('TMDB_KEY'),
+      {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      }
+    )
+  ).json();
+
   return {
-    props: { trendingMovies: trendingMovies.results },
+    props: {
+      trendingMovies: trendingMovies.results,
+      trendingShows: trendingShows.results,
+    },
   };
 }

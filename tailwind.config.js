@@ -1,3 +1,4 @@
+// eslint-disable-next-line @typescript-eslint/no-var-requires
 const { fontFamily } = require('tailwindcss/defaultTheme');
 
 /** @type {import('tailwindcss').Config} */
@@ -10,6 +11,7 @@ module.exports = {
     extend: {
       fontFamily: {
         sans: ['var(--font-dmSans)', ...fontFamily.sans],
+        poppins: ['var(--font-poppins)', ...fontFamily.sans],
       },
       backgroundImage: {
         'homeBackground': "url('/assets/background.jpg')"

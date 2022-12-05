@@ -1,3 +1,76 @@
+import { Group, Button, Burger, Drawer } from '@mantine/core';
+import { useDisclosure } from '@mantine/hooks';
+import Image from 'next/image';
+import { NavLink } from './NavLink';
+
 export function Navbar() {
-  return <div className="flex flex-row bg-slate-50">Discover</div>;
+  const [drawerOpened, { toggle: toggleDrawer, close: closeDrawer }] =
+    useDisclosure(false);
+
+  return (
+    <div className="py-10 w-full">
+      <div className="h-16 px-10 text-slate-100">
+        <div className="flex place-content-between items-center">
+          <Image src="/assets/logo.png" height={50} width={210} alt="" />
+
+          <div className="hidden md:flex flex-1 place-content-center">
+            <NavLink title="Discover" />
+            <NavLink title="Reviews" />
+            <NavLink title="Watchlists" />
+          </div>
+
+          <div className="hidden lg:flex">
+            <div className="bg-violet-400 text-black rounded-lg mx-5 px-5 py-2 items-center flex hover:cursor-pointer hover:bg-violet-600">
+              Log in
+            </div>
+            <div className="border border-pink-700 text-white rounded-lg mx-5 px-5 py-2 items-center flex hover:cursor-pointer hover:bg-pink-600">
+              Sign up
+            </div>
+          </div>
+
+          <Burger
+            opened={drawerOpened}
+            onClick={toggleDrawer}
+            color="white"
+            className="flex md:hidden items-center"
+          />
+        </div>
+      </div>
+
+      <Drawer
+        opened={drawerOpened}
+        onClose={closeDrawer}
+        size="100%"
+        padding="md"
+        title="The Moviest"
+        className="lg:hidden"
+        styles={{
+          body: {
+            fontFamily: 'sans-serif',
+
+            'a:hover': {
+              fontWeight: 600,
+              backgroundColor: 'whitesmoke',
+              backgroundOpacity: '10',
+              borderRadius: 20,
+            },
+          },
+        }}
+        zIndex={1000000}
+        transition="slide-right"
+        transitionDuration={250}
+        transitionTimingFunction="ease"
+      >
+        <div className="flex flex-col mb-5">
+          <NavLink title="Discover" />
+          <NavLink title="Reviews" />
+          <NavLink title="Watchlists" />
+        </div>
+        <Group position="center" grow pb="xl" px="md">
+          <div className="bg-purple-100">Log in</div>
+          <Button variant="default">Sign up</Button>
+        </Group>
+      </Drawer>
+    </div>
+  );
 }
