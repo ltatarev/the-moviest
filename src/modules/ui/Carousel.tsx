@@ -20,7 +20,7 @@ export default function CardsCarousel({ data }: CarouselCardProps) {
           <h3 className="font-semibold font-poppins text-slate-100 text-5xl my-5 text-center uppercase drop-shadow-text">
             {item.original_title || item.original_name}
           </h3>
-          <p className="text-slate-100 italic text-md text-center mx-24 drop-shadow-text">
+          <p className="text-sm lg:text-xl text-slate-100 italic text-center mx-24 drop-shadow-text">
             {item.overview}
           </p>
         </div>
@@ -29,7 +29,7 @@ export default function CardsCarousel({ data }: CarouselCardProps) {
   ));
 
   return (
-    <div style={{ height: 600, display: 'relative' }}>
+    <div className="relative h-[600px]">
       <Carousel
         slideSize="100%"
         slideGap="xl"

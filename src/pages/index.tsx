@@ -17,6 +17,8 @@ export default function Home({ trendingMovies, trendingShows }: HomeProps) {
   const otherMovies = trendingMovies.slice(3, 8);
 
   const featuredShows = trendingShows.slice(0, 3);
+  const otherShows = trendingShows.slice(3, 8);
+
   return (
     <div>
       <Head>
@@ -36,7 +38,7 @@ export default function Home({ trendingMovies, trendingShows }: HomeProps) {
                 height={80}
                 alt=""
               />
-              <p className="text-6xl text-slate-100 ml-5 font-semibold border-b-8 border-blue-900">
+              <p className="text-4xl sm:text-6xl text-slate-100 ml-5 font-semibold border-b-8 border-blue-900">
                 Trending now
               </p>
             </div>
@@ -49,12 +51,17 @@ export default function Home({ trendingMovies, trendingShows }: HomeProps) {
           </div>
           <div className="py-10 h-full">
             <div className="flex flex-row items-end place-content-end mt-10">
-              <p className="text-6xl text-slate-100 mr-5 font-semibold text-right border-b-8 border-pink-900">
+              <p className="text-4xl sm:text-6xl text-slate-100 mr-5 font-semibold text-right border-b-8 border-pink-900">
                 Popular on TV
               </p>
               <Image src="/assets/tv.png" width={70} height={70} alt="" />
             </div>
             <Carousel data={featuredShows} />
+            <div className="flex flex-row flex-wrap place-content-between -mx-1">
+              {otherShows.map((movie) => (
+                <Card key={movie.id} {...movie} />
+              ))}
+            </div>
           </div>
 
           <Footer />
