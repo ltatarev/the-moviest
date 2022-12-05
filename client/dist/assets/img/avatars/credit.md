@@ -1,1 +1,0 @@
-Icons made by (https://www.flaticon.com/authors/darius-dan)[Darius Dan] from (https://www.flaticon.com/)[www.flaticon.com] is licensed by (http://creativecommons.org/licenses/by/3.0/)[Creative Commons BY 3.0]
