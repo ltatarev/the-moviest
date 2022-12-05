@@ -3,22 +3,32 @@ import Image from 'next/image';
 export function Card({ movie }) {
   return (
     <div
-      className="bg-slate-400 bg-opacity-80 relative w-1/5 my-10 mx-3 rounded-lg rounded-tl-3xl rounded-br-3xl shadow-lg"
+      className=" p-2 w-full md:w-1/2 xl:w-1/5 my-10 "
       style={{ height: 600 }}
     >
-      <div className="bg-slate-400 relative w-full h-1/2 rounded-tl-3xl">
-        <Image
-          className="object-cover rounded-tl-3xl"
-          src={`https://image.tmdb.org/t/p/original${movie.poster_path}`}
-          fill
-          alt=""
-        />
-      </div>
-      <div className="p-3 h-1/2">
-        <h2 className="text-3xl font-poppins uppercase font-semibold">
-          {movie.original_title}
-        </h2>
-        <p className="h-1/2 text-ellipsis overflow-hidden">{movie.overview}</p>
+      <div
+        className="w-full bg-slate-400 rounded-lg rounded-tl-3xl rounded-br-3xl shadow-lg"
+        style={{ height: 600 }}
+      >
+        <div className="bg-slate-400 relative w-full h-1/2 rounded-tl-3xl">
+          <Image
+            className="object-cover rounded-tl-3xl"
+            src={`https://image.tmdb.org/t/p/original${movie.poster_path}`}
+            fill
+            alt=""
+          />
+        </div>
+        <div className="p-3 h-1/2 flex flex-col">
+          <h2 className="text-2xl font-poppins uppercase font-semibold">
+            {movie.original_title}
+          </h2>
+          <div className="flex flex-grow overflow-auto pr-3 mb-1 scrollbar-thumb-neutral-300 scrollbar-thin">
+            <p className="italic">{movie.overview}</p>
+          </div>
+          <div className="flex font-bold py-1 px-2 rounded-lg bg-violet-700 w-fit text-white">
+            learn more {'>'}
+          </div>
+        </div>
       </div>
     </div>
   );

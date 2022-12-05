@@ -40,9 +40,9 @@ export default function Home({ trendingMovies, trendingShows }: HomeProps) {
               </p>
             </div>
             <Carousel data={featuredMovies} />
-            <div className="flex flex-row place-content-around -mx-2">
+            <div className="flex flex-row flex-wrap place-content-between -mx-1">
               {otherMovies.map((movie) => (
-                <Card movie={movie} />
+                <Card key={movie.id} movie={movie} />
               ))}
             </div>
           </div>
