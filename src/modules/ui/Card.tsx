@@ -1,6 +1,16 @@
 import Image from 'next/image';
 
-export function Card({ movie }) {
+type Movie = {
+  poster_path: string;
+  original_title: string;
+  overview: string;
+};
+
+type CardProps = {
+  movie: Movie;
+};
+
+export function Card({ movie }: CardProps) {
   return (
     <div
       className=" p-2 w-full md:w-1/2 xl:w-1/5 my-10 "
