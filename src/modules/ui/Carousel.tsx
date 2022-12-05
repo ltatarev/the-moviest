@@ -36,7 +36,7 @@ export default function CardsCarousel({ data }: CarouselCardProps) {
   ));
 
   return (
-    <div style={{ height: 600, display: 'flex' }}>
+    <div style={{ height: 600, display: 'relative' }}>
       <Carousel
         slideSize="100%"
         slideGap="xl"
@@ -45,7 +45,7 @@ export default function CardsCarousel({ data }: CarouselCardProps) {
         align="center"
         loop
         height="100%"
-        sx={{ flex: 1 }}
+        sx={{ height: '100%' }}
         slidesToScroll={1}
         withIndicators
         styles={{

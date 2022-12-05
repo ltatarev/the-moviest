@@ -5,5 +5,7 @@
 @layer base {
   html {
     font-family: DM Sans, system-ui, sans-serif;
+    min-width: 1000px;
+    min-height: 100vh;
   }
 }
