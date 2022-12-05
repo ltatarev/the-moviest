@@ -1,4 +1,4 @@
-import { Group, Button, Burger, Drawer } from '@mantine/core';
+import { Group, Burger, Drawer } from '@mantine/core';
 import { useDisclosure } from '@mantine/hooks';
 import Image from 'next/image';
 import { NavLink } from './NavLink';
