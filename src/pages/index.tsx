@@ -4,6 +4,7 @@ import { getEnvString } from '@lib/env';
 import { Carousel, CardProps, Footer } from '@modules/ui';
 import { Navbar } from '@modules/navbar';
 import Image from 'next/image';
+import { Card } from '../modules/ui/Card';
 
 interface HomeProps {
   trendingMovies: Array<CardProps>;
@@ -12,6 +13,8 @@ interface HomeProps {
 
 export default function Home({ trendingMovies, trendingShows }: HomeProps) {
   const featuredMovies = trendingMovies.slice(0, 3);
+  const otherMovies = trendingMovies.slice(3, 8);
+
   const featuredShows = trendingShows.slice(0, 3);
   return (
     <div>
@@ -37,6 +40,11 @@ export default function Home({ trendingMovies, trendingShows }: HomeProps) {
               </p>
             </div>
             <Carousel data={featuredMovies} />
+            <div className="flex flex-row place-content-around -mx-2">
+              {otherMovies.map((movie) => (
+                <Card movie={movie} />
+              ))}
+            </div>
           </div>
           <div className="py-10 h-full">
             <div className="flex flex-row items-end place-content-end mt-10">
