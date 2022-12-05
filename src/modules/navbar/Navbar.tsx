@@ -67,8 +67,12 @@ export function Navbar() {
           <NavLink title="Watchlists" />
         </div>
         <Group position="center" grow pb="xl" px="md">
-          <div className="bg-purple-100">Log in</div>
-          <Button variant="default">Sign up</Button>
+          <div className="bg-violet-400 text-black rounded-lg mx-5 px-5 py-2 items-center flex hover:cursor-pointer hover:bg-violet-600">
+            Log in
+          </div>
+          <div className="border border-pink-700 text-white rounded-lg mx-5 px-5 py-2 items-center flex hover:cursor-pointer hover:bg-pink-600">
+            Sign up
+          </div>
         </Group>
       </Drawer>
     </div>
