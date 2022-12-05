@@ -1,14 +1,15 @@
 import Head from 'next/head';
 import { HomeLayout } from '@modules/layout';
 import { getEnvString } from '@lib/env';
-import { Carousel, CardProps, Footer } from '@modules/ui';
+import { Carousel, Footer } from '@modules/ui';
 import { Navbar } from '@modules/navbar';
 import Image from 'next/image';
 import { Card } from '../modules/ui/Card';
+import { MovieType } from '@lib/types';
 
 interface HomeProps {
-  trendingMovies: Array<CardProps>;
-  trendingShows: Array<CardProps>;
+  trendingMovies: Array<MovieType>;
+  trendingShows: Array<MovieType>;
 }
 
 export default function Home({ trendingMovies, trendingShows }: HomeProps) {
@@ -42,7 +43,7 @@ export default function Home({ trendingMovies, trendingShows }: HomeProps) {
             <Carousel data={featuredMovies} />
             <div className="flex flex-row flex-wrap place-content-between -mx-1">
               {otherMovies.map((movie) => (
-                <Card key={movie.id} movie={movie} />
+                <Card key={movie.id} {...movie} />
               ))}
             </div>
           </div>

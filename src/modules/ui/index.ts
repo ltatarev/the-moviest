@@ -1,6 +1,2 @@
-export {
-  default as Carousel,
-  type CarouselCardProps,
-  type CardProps,
-} from './Carousel';
+export { default as Carousel } from './Carousel';
 export { Footer } from './Footer';

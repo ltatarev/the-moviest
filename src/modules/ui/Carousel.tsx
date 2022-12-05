@@ -1,20 +1,13 @@
+import { MovieType } from '@lib/types';
 import { Carousel } from '@mantine/carousel';
 import Image from 'next/image';
 
-export type CarouselCardProps = {
-  data: Array<CardProps>;
-};
-
-export type CardProps = {
-  id: string;
-  backdrop_path: string;
-  original_title?: string;
-  original_name?: string;
-  overview: string;
+type CarouselCardProps = {
+  data: Array<MovieType>;
 };
 
 export default function CardsCarousel({ data }: CarouselCardProps) {
-  const slides = data.map((item: CardProps) => (
+  const slides = data.map((item: MovieType) => (
     <Carousel.Slide key={item.id}>
       <div className="flex place-content-end flex-col align-text-bottom h-full">
         <Image
