@@ -9,6 +9,9 @@ module.exports = {
   ],
   theme: {
     extend: {
+      colors: {
+       "accent-pink": "#E63E65",
+      },
       fontFamily: {
         sans: ['var(--font-dmSans)', ...fontFamily.sans],
         poppins: ['var(--font-poppins)', ...fontFamily.sans],
@@ -19,6 +22,9 @@ module.exports = {
       dropShadow: {
         'text': '0 2px 10px rgba(0,0,0,0.75)', 
       },
+      transitionTimingFunction: {
+        'smooth': ' cubic-bezier(0.65, 0, 0.076, 1)' 
+      }
     },
   },
   plugins: [
