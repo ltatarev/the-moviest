@@ -1,5 +1,6 @@
 import { Timestamp } from 'mongodb';
 import mongoose, { SortOrder } from 'mongoose';
+import { Genres } from './tmdb';
 
 export type EnvParam = string;
 
@@ -44,4 +45,6 @@ export type MovieType = {
   original_title?: string;
   original_name?: string;
   overview: string;
+  tagline: string;
+  genres: Array<{ id: number; name: Genres }>;
 };

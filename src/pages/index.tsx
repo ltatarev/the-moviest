@@ -4,7 +4,7 @@ import { getEnvString } from '@lib/env';
 import { Carousel, Footer } from '@modules/ui';
 import { Navbar } from '@modules/navbar';
 import Image from 'next/image';
-import { Card } from '../modules/ui/Card';
+import { Card } from '@modules/ui/Card';
 import { MovieType } from '@lib/types';
 
 interface HomeProps {
