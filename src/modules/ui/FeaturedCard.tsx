@@ -2,6 +2,7 @@ import styled from '@emotion/styled';
 import { MovieType } from '@lib/types';
 import Image from 'next/image';
 
+// TODO: Please rework asap - legacy css
 const Box = styled.div`
   flex: 1;
   overflow: hidden;
@@ -14,22 +15,22 @@ const Box = styled.div`
 
   & > a > img {
     width: 200%;
-    height: calc(100% - 10vh);
+    height: calc(100% - 5vh);
     -o-object-fit: cover;
     object-fit: cover;
     transition: 0.5s;
   }
 
   & > a > p {
-    font-size: 17px;
-    padding-top: 30px;
-    display: block;
-    text-align: center;
-    height: 10vh;
+    font-size: 1rem;
+    text-overflow: ellipsis;
+    padding-top: 20px;
     font-weight: bold;
-    font-size: 1.5rem;
+    justify-content: center;
+    text-align: center;
+    height: 5vh;
     color: white;
-    background-color: rgba(95, 73, 197, 0.5);
+    background-color: rgba(95, 73, 197, 0.3);
   }
 
   &:hover {
@@ -53,8 +54,8 @@ export function FeaturedCard({
         <Image
           src={`https://image.tmdb.org/t/p/original${poster_path}`}
           alt=""
-          width={200}
-          height={650}
+          width={500}
+          height={850}
         />
         <p>{original_title || original_name}</p>
       </a>

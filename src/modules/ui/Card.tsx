@@ -15,7 +15,7 @@ export function Card({
         <div className="relative w-full h-1/2 rounded-tl-3xl">
           <GradientOverlay>
             <Image
-              className="object-cover mix-blend-screen rounded-tl-3xl"
+              className="object-cover mix-blend-screen rounded-tr-lg rounded-tl-3xl"
               src={`https://image.tmdb.org/t/p/original${poster_path}`}
               fill
               alt=""

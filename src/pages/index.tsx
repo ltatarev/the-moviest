@@ -30,7 +30,7 @@ export default function Home({ trendingMovies, trendingShows }: HomeProps) {
         <div className="container">
           <Navbar />
 
-          <div className="py-10 min-h-full">
+          <div className="container py-10 min-h-full">
             <div className="flex flex-row items-end">
               <Image
                 src="/assets/video-camera.png"
