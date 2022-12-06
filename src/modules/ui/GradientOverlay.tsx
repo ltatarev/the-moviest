@@ -40,6 +40,7 @@ const StyledContainer = styled.div`
   background-repeat: no-repeat;
   transition: 0.5s all;
   border-top-left-radius: 1.5rem;
+  border-top-right-radius: 1rem;
 
   &:hover {
     background-position: 100% 100%;
