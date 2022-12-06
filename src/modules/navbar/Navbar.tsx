@@ -1,6 +1,7 @@
 import { Group, Burger, Drawer } from '@mantine/core';
 import { useDisclosure } from '@mantine/hooks';
 import Image from 'next/image';
+import Link from 'next/link';
 import { NavLink } from './NavLink';
 
 export function Navbar() {
@@ -11,12 +12,14 @@ export function Navbar() {
     <div className="py-10 w-full">
       <div className="h-16 px-10 text-slate-100">
         <div className="flex place-content-between items-center">
-          <Image src="/assets/logo.png" height={50} width={210} alt="" />
+          <Link href="/">
+            <Image src="/assets/logo.png" height={50} width={210} alt="" />
+          </Link>
 
           <div className="hidden md:flex flex-1 place-content-center">
-            <NavLink title="Discover" />
-            <NavLink title="Reviews" />
-            <NavLink title="Watchlists" />
+            <NavLink title="Discover" route="/discover" />
+            <NavLink title="Reviews" route="/reviews" />
+            <NavLink title="Watchlists" route="/watchlists" />
           </div>
 
           <div className="hidden lg:flex">
@@ -62,9 +65,9 @@ export function Navbar() {
         transitionTimingFunction="ease"
       >
         <div className="flex flex-col mb-5">
-          <NavLink title="Discover" />
-          <NavLink title="Reviews" />
-          <NavLink title="Watchlists" />
+          <NavLink title="Discover" route="/discover" />
+          <NavLink title="Reviews" route="/reviews" />
+          <NavLink title="Watchlists" route="/watchlists" />
         </div>
         <Group position="center" grow pb="xl" px="md">
           <div className="bg-accent-pink text-black rounded-lg mx-5 px-5 py-2 items-center flex hover:cursor-pointer hover:bg-violet-600">
