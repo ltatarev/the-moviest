@@ -5,34 +5,25 @@ type ActionButtonProps = {
   title: string;
 };
 
-// TODO: Please rework asap
+// TODO: Please rework asap - legacy css
 const Button = styled.div`
   position: relative;
   top: 0px;
   display: inline-block;
   cursor: pointer;
-  outline: none;
-  border: 0;
-  text-decoration: none;
-  background: transparent;
-  padding: 0;
-  font-size: inherit;
-  font-family: inherit;
   width: 12rem;
-  height: auto;
   &:hover > div {
     width: 100%;
   }
   &:hover > div > span > svg {
-    transition: all 0.45s cubic-bezier(0.65, 0, 0.076, 1);
+    transition: all 0.4s cubic-bezier(0.65, 0, 0.076, 1);
     -webkit-transform: translate(2.5rem, 0);
     transform: translate(2.5rem, 0);
   }
   &:hover > div > span::before {
-    transition: all 0.45s cubic-bezier(0.65, 0, 0.076, 1);
+    transition: all 0.4s cubic-bezier(0.65, 0, 0.076, 1);
     -webkit-transform: translate(2.5rem, 0);
     transform: translate(2.5rem, 0);
-    opacity: 0;
   }
   &:hover > p {
     color: #fff;
@@ -40,7 +31,7 @@ const Button = styled.div`
 `;
 
 const Circle = styled.div`
-  transition: all 0.45s cubic-bezier(0.65, 0, 0.076, 1);
+  transition: all 0.4s cubic-bezier(0.65, 0, 0.076, 1);
   position: relative;
   margin: 0;
   width: 2.5rem;
@@ -50,7 +41,7 @@ const Circle = styled.div`
 `;
 
 const Arrow = styled.span`
-  transition: all 0.45s cubic-bezier(0.65, 0, 0.076, 1);
+  transition: all 0.4s cubic-bezier(0.65, 0, 0.076, 1);
   display: block;
   position: relative;
   left: 0.5rem;
@@ -78,7 +69,7 @@ const Arrow = styled.span`
 `;
 
 const Text = styled.p`
-  transition: all 0.45s cubic-bezier(0.65, 0, 0.076, 1);
+  transition: all 0.4s cubic-bezier(0.65, 0, 0.076, 1);
   position: absolute;
   top: 0;
   left: 0;
@@ -88,7 +79,6 @@ const Text = styled.p`
   margin: 0 0 0 1.85rem;
   color: #282936;
   font-weight: 700;
-  line-height: 1.6;
   text-align: center;
   text-transform: uppercase;
 `;
