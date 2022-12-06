@@ -1,20 +1,13 @@
+import { MovieType } from '@lib/types';
 import { Carousel } from '@mantine/carousel';
 import Image from 'next/image';
 
-export type CarouselCardProps = {
-  data: Array<CardProps>;
-};
-
-export type CardProps = {
-  id: string;
-  backdrop_path: string;
-  original_title?: string;
-  original_name?: string;
-  overview: string;
+type CarouselCardProps = {
+  data: Array<MovieType>;
 };
 
 export default function CardsCarousel({ data }: CarouselCardProps) {
-  const slides = data.map((item: CardProps) => (
+  const slides = data.map((item: MovieType) => (
     <Carousel.Slide key={item.id}>
       <div className="flex place-content-end flex-col align-text-bottom h-full">
         <Image
@@ -27,7 +20,7 @@ export default function CardsCarousel({ data }: CarouselCardProps) {
           <h3 className="font-semibold font-poppins text-slate-100 text-5xl my-5 text-center uppercase drop-shadow-text">
             {item.original_title || item.original_name}
           </h3>
-          <p className="text-slate-100 italic text-md text-center mx-24 drop-shadow-text">
+          <p className="text-sm lg:text-xl text-slate-100 italic text-center mx-24 drop-shadow-text">
             {item.overview}
           </p>
         </div>
@@ -36,7 +29,7 @@ export default function CardsCarousel({ data }: CarouselCardProps) {
   ));
 
   return (
-    <div style={{ height: 600, display: 'relative' }}>
+    <div className="relative h-[600px]">
       <Carousel
         slideSize="100%"
         slideGap="xl"

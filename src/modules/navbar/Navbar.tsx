@@ -20,7 +20,7 @@ export function Navbar() {
           </div>
 
           <div className="hidden lg:flex">
-            <div className="bg-violet-400 text-black rounded-lg mx-5 px-5 py-2 items-center flex hover:cursor-pointer hover:bg-violet-600">
+            <div className="bg-accent-pink text-black rounded-lg mx-5 px-5 py-2 items-center flex hover:cursor-pointer hover:bg-violet-600">
               Log in
             </div>
             <div className="border border-pink-700 text-white rounded-lg mx-5 px-5 py-2 items-center flex hover:cursor-pointer hover:bg-pink-600">
@@ -67,7 +67,7 @@ export function Navbar() {
           <NavLink title="Watchlists" />
         </div>
         <Group position="center" grow pb="xl" px="md">
-          <div className="bg-violet-400 text-black rounded-lg mx-5 px-5 py-2 items-center flex hover:cursor-pointer hover:bg-violet-600">
+          <div className="bg-accent-pink text-black rounded-lg mx-5 px-5 py-2 items-center flex hover:cursor-pointer hover:bg-violet-600">
             Log in
           </div>
           <div className="border border-pink-700 text-white rounded-lg mx-5 px-5 py-2 items-center flex hover:cursor-pointer hover:bg-pink-600">

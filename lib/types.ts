@@ -36,3 +36,12 @@ export type WatchlistType = {
   createdAt: Timestamp;
   updatedAt: Timestamp;
 };
+
+export type MovieType = {
+  id: string;
+  backdrop_path: string;
+  poster_path: string;
+  original_title?: string;
+  original_name?: string;
+  overview: string;
+};
