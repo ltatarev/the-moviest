@@ -1,5 +1,6 @@
 import { Group, Burger, Drawer } from '@mantine/core';
 import { useDisclosure } from '@mantine/hooks';
+import { Button } from '@modules/ui/Button';
 import Image from 'next/image';
 import Link from 'next/link';
 import { NavLink } from './NavLink';
@@ -13,7 +14,7 @@ export function Navbar() {
     <div className="py-10 w-full">
       <div className="h-16 px-10 text-slate-100">
         <div className="flex place-content-between items-center">
-          <Link href="/">
+          <Link href="/home">
             <Image src="/assets/logo.png" height={50} width={210} alt="" />
           </Link>
 
@@ -24,11 +25,11 @@ export function Navbar() {
           </div>
 
           <div className="hidden lg:flex">
-            <div className="bg-accent-pink text-black rounded-lg mx-5 px-5 py-2 items-center flex hover:cursor-pointer hover:bg-violet-600 transition-all duration-200 ease-smooth">
+            <div className="bg-accent-pink text-black rounded-2xl mx-5 px-5 py-2 h-fit self-center items-center flex hover:cursor-pointer hover:bg-violet-600 hover:text-white transition-all duration-200 ease-smooth">
               Log in
             </div>
-            <div className="border border-violet-700 text-white rounded-lg mx-5 px-5 py-2 items-center flex hover:cursor-pointer hover:bg-violet-600 transition-all duration-200 ease-smooth">
-              Sign up
+            <div className="text-white font-poppins mx-5 px-5 py-2 hover:cursor-pointer">
+              <Button title="Sign up" />
             </div>
           </div>
 
@@ -74,9 +75,7 @@ export function Navbar() {
           <div className="bg-accent-pink text-black rounded-lg mx-5 px-5 py-2 items-center flex hover:cursor-pointer hover:bg-violet-600">
             Log in
           </div>
-          <div className="border border-pink-700 text-white rounded-lg mx-5 px-5 py-2 items-center flex hover:cursor-pointer hover:bg-pink-600">
-            Sign up
-          </div>
+          <Button title="Sign up" />
         </Group>
       </Drawer>
     </div>
