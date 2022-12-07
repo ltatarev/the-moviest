@@ -13,9 +13,6 @@ export function getDiscoverEndpoint(type: TV | MOVIE): string {
 }
 
 export function getTrendingEndpoint(type: TV | MOVIE): string {
-  console.log(
-    `${TRENDING_URL}/${type}/week?api_key=${getEnvString('TMDB_KEY')}`
-  );
   return `${DISCOVER_URL}/${type}/week?api_key=${getEnvString('TMDB_KEY')}`;
 }
 

@@ -38,6 +38,18 @@ export type WatchlistType = {
   updatedAt: Timestamp;
 };
 
+export type ReviewType = {
+  _id: mongoose.Types.ObjectId;
+  reviewText: string;
+  likes: number;
+  title: string;
+  author_id: Author;
+  movie: { _id: number; movieTitle: string; moviePosterPath: string };
+  rating: number;
+  createdAt: Timestamp;
+  updatedAt: Timestamp;
+};
+
 export type MovieType = {
   id: string;
   backdrop_path: string;
