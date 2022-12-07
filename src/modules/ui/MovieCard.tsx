@@ -27,11 +27,11 @@ export function MovieCard({
           {tagline}
         </p>
         <p className=" pb-5">{overview}</p>
-        <div className="mt-5 flex flex-row">
+        <div className="mt-5 flex flex-row flex-wrap">
           {genres.map((genre) => (
             <div
               key={genre.id}
-              className="mr-3 bg-slate-200 uppercase text-xs tracking-wide font-semibold py-1 px-2 rounded-xl text-center"
+              className="mr-3 my-1 bg-slate-200 uppercase text-xs tracking-wide font-semibold py-1 px-2 rounded-xl text-center"
             >
               {genre.name} {GENRE_EMOJIS[genre.name]}
             </div>
