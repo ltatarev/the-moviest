@@ -4,6 +4,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { NavLink } from './NavLink';
 
+// TODO: Improve drawer
 export function Navbar() {
   const [drawerOpened, { toggle: toggleDrawer, close: closeDrawer }] =
     useDisclosure(false);
@@ -23,10 +24,10 @@ export function Navbar() {
           </div>
 
           <div className="hidden lg:flex">
-            <div className="bg-accent-pink text-black rounded-lg mx-5 px-5 py-2 items-center flex hover:cursor-pointer hover:bg-violet-600">
+            <div className="bg-accent-pink text-black rounded-lg mx-5 px-5 py-2 items-center flex hover:cursor-pointer hover:bg-violet-600 transition-all duration-200 ease-smooth">
               Log in
             </div>
-            <div className="border border-pink-700 text-white rounded-lg mx-5 px-5 py-2 items-center flex hover:cursor-pointer hover:bg-pink-600">
+            <div className="border border-violet-700 text-white rounded-lg mx-5 px-5 py-2 items-center flex hover:cursor-pointer hover:bg-violet-600 transition-all duration-200 ease-smooth">
               Sign up
             </div>
           </div>

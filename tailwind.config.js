@@ -11,6 +11,7 @@ module.exports = {
     extend: {
       colors: {
        "accent-pink": "#E63E65",
+       "greyish": "#343A40"
       },
       fontFamily: {
         sans: ['var(--font-dmSans)', ...fontFamily.sans],

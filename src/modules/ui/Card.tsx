@@ -28,7 +28,7 @@ export function Card({ movie, type }: CardProps) {
           <h2 className="text-2xl font-poppins uppercase font-semibold">
             {movie.original_title || movie.original_name}
           </h2>
-          <div className="flex flex-grow overflow-auto pr-3 my-1 scrollbar-thumb-neutral-300 scrollbar-thin">
+          <div className="flex flex-grow overflow-auto pr-3 my-1 text-greyish scrollbar-thumb-neutral-300 scrollbar-thin">
             <p className="italic">{movie.overview}</p>
           </div>
           <Link href={`${type}/${movie.id}`}>
