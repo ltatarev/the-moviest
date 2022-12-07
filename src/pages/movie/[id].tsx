@@ -18,10 +18,10 @@ export default function MovieDetails({ movie }: MovieDetailsProps) {
       </Head>
 
       <HomeLayout>
-        <div className="container">
+        <div className="container flex flex-col min-h-screen justify-between">
           <Navbar />
 
-          <div className="container h-[65vh] flex justify-center">
+          <div className="flex justify-center">
             <MovieCard {...movie} />
           </div>
 

@@ -11,15 +11,15 @@ export function MovieCard({
   poster_path,
 }: MovieType) {
   return (
-    <div className="bg-neutral-200 bg-opacity-80 flex flex-row w-7/12 self-center rounded-xl p-10">
+    <div className="bg-neutral-200 bg-opacity-80 flex flex-col lg:flex-row w-full lg:w-7/12 self-center rounded-xl p-10">
       <Image
         src={`https://image.tmdb.org/t/p/original${poster_path}`}
         width={270}
         height={600}
-        className="object-cover -ml-20 shadow-xl"
+        className="object-cover shadow-xl lg:-ml-20 rounded-md"
         alt=""
       />
-      <div className="flex flex-col ml-10 mt-5">
+      <div className="flex flex-col lg:ml-10 mt-5">
         <h1 className="font-bold text-6xl text-slate-800">
           {original_title || original_name}
         </h1>
@@ -31,7 +31,7 @@ export function MovieCard({
           {genres.map((genre) => (
             <div
               key={genre.id}
-              className="mr-3 bg-slate-200 uppercase text-xs tracking-wide font-semibold py-1 px-2 rounded-full"
+              className="mr-3 bg-slate-200 uppercase text-xs tracking-wide font-semibold py-1 px-2 rounded-xl text-center"
             >
               {genre.name} {GENRE_EMOJIS[genre.name]}
             </div>
