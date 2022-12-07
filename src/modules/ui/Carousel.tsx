@@ -19,6 +19,8 @@ export default function CardsCarousel({ data, type }: CarouselCardProps) {
             fill
             className="object-cover brightness-50 transition-all hover:transition-all hover:brightness-75"
             alt=""
+            placeholder="blur"
+            blurDataURL="https://dummyimage.com/210x210/8289ed/8289ed.jpg"
           />
           <div className="mb-10">
             <h3 className="font-semibold font-poppins text-slate-100 text-5xl my-5 text-center uppercase drop-shadow-text">

@@ -21,6 +21,8 @@ export function Card({ movie, type }: CardProps) {
               src={getImageSrc(movie.poster_path)}
               fill
               alt=""
+              placeholder="blur"
+              blurDataURL="https://dummyimage.com/210x210/8289ed/8289ed.jpg"
             />
           </GradientOverlay>
         </div>

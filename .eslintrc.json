@@ -18,5 +18,8 @@
     "ecmaVersion": 12,
     "sourceType": "module"
   },
-  "plugins": ["@typescript-eslint/eslint-plugin", "prettier"]
+  "plugins": ["@typescript-eslint/eslint-plugin", "prettier"],
+  "rules": {
+    "jsx-a11y/alt-text": "off"
+  }
 }

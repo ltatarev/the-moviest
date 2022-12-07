@@ -59,6 +59,8 @@ export function FeaturedCard({ movie, type }: FeaturedCardProps) {
           alt=""
           width={500}
           height={850}
+          placeholder="blur"
+          blurDataURL="https://dummyimage.com/500x850/8289ed/8289ed.jpg"
         />
         <p>{movie.original_title || movie.original_name}</p>
       </Link>

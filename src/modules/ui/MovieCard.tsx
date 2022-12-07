@@ -1,27 +1,32 @@
-import { GENRE_EMOJIS, getImageSrc } from '@lib/tmdb';
+import { GENRE_EMOJIS } from '@lib/tmdb';
 import { MovieType } from '@lib/types';
-import Image from 'next/image';
+import Image, { ImageProps } from 'next/image';
 
-export function MovieCard({
-  original_title,
-  original_name,
-  overview,
-  tagline,
-  genres,
-  poster_path,
-}: MovieType) {
+type MovieCardProps = {
+  movie: MovieType;
+  imageProps: ImageProps;
+};
+
+export function MovieCard({ movie, imageProps }: MovieCardProps) {
+  const {
+    original_title = null,
+    original_name,
+    overview,
+    tagline,
+    genres,
+  } = movie;
+
   return (
     <div className="bg-neutral-200 select-none bg-opacity-80 flex flex-col lg:flex-row w-full lg:w-7/12 self-center rounded-xl p-10">
       <Image
-        src={getImageSrc(poster_path)}
-        width={270}
-        height={600}
-        className="object-cover shadow-xl lg:-ml-20 rounded-md hover:-translate-y-2 transition-all duration-200 ease-smooth"
-        alt=""
+        sizes="100vw"
+        className="object-cover shadow-xl lg:-ml-40 w-full md:w-40 h-auto rounded-md hover:-translate-y-2 transition-all duration-200 ease-smooth"
+        placeholder="blur"
+        {...imageProps}
       />
       <div className="flex flex-col lg:ml-10 mt-5">
         <div className="flex flex-col w-fit">
-          <h1 className="font-bold text-6xl text-greyish z-10">
+          <h1 className="font-bold text-3xl md:text-6xl text-greyish z-10 flex-wrap">
             {original_title || original_name}
           </h1>
           <span className="bg-gradient-to-r from-pink-500 via-purple-500 to-blue-500 h-2 z-0 -mt-2" />

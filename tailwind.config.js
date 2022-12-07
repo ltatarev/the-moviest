@@ -25,6 +25,9 @@ module.exports = {
       },
       transitionTimingFunction: {
         'smooth': ' cubic-bezier(0.65, 0, 0.076, 1)' 
+      },
+      width: {
+        40: "40%"
       }
     },
   },
