@@ -1,4 +1,3 @@
-import Head from 'next/head';
 import { HomeLayout } from '@modules/layout';
 import { getEnvString } from '@lib/env';
 import { Footer, MovieCard } from '@modules/ui';
@@ -11,24 +10,17 @@ interface MovieDetailsProps {
 
 export default function TvDetails({ tv }: MovieDetailsProps) {
   return (
-    <div>
-      <Head>
-        <title>The Moviest</title>
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
+    <HomeLayout hideFooter>
+      <div className="flex flex-col justify-between min-h-screen">
+        <Navbar />
 
-      <HomeLayout>
-        <div className="container flex flex-col min-h-screen justify-between">
-          <Navbar />
-
-          <div className="flex justify-center">
-            <MovieCard {...tv} />
-          </div>
-
-          <Footer />
+        <div className="flex justify-center">
+          <MovieCard {...tv} />
         </div>
-      </HomeLayout>
-    </div>
+
+        <Footer />
+      </div>
+    </HomeLayout>
   );
 }
 

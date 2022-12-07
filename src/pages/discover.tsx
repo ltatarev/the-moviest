@@ -1,11 +1,9 @@
-import Head from 'next/head';
 import { HomeLayout } from '@modules/layout';
 import { getEnvString } from '@lib/env';
-import { Footer } from '@modules/ui';
+import { FeaturedCard } from '@modules/ui';
 import { Navbar } from '@modules/navbar';
 import Image from 'next/image';
 import { MovieType } from '@lib/types';
-import { FeaturedCard } from '@modules/ui/FeaturedCard';
 
 interface HomeProps {
   movies: Array<MovieType>;
@@ -14,48 +12,39 @@ interface HomeProps {
 
 export default function Discover({ movies, shows }: HomeProps) {
   return (
-    <div>
-      <Head>
-        <title>The Moviest</title>
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
+    <HomeLayout>
+      <div className="container">
+        <Navbar />
 
-      <HomeLayout>
-        <div className="container">
-          <Navbar />
-
-          <div className="py-10 min-h-full">
-            <div className="flex flex-row ml-5 items-end">
-              <Image src="/assets/ticket.png" width={80} height={80} alt="" />
-              <p className="text-4xl sm:text-6xl text-slate-100 ml-5 font-semibold border-b-8 border-blue-900">
-                Movies in theathers
-              </p>
-            </div>
-            <div className="flex flex-row">
-              {movies.slice(0, 4).map((movie) => (
-                <FeaturedCard key={movie.id} movie={movie} type="movie" />
-              ))}
-            </div>
+        <div className="py-10 min-h-full">
+          <div className="flex flex-row ml-5 items-end">
+            <Image src="/assets/ticket.png" width={80} height={80} alt="" />
+            <p className="text-4xl sm:text-6xl text-slate-100 ml-5 font-semibold border-b-8 border-blue-900">
+              Movies in theathers
+            </p>
           </div>
-
-          <div className="py-10 min-h-full">
-            <div className="flex flex-row mr-5 items-end place-content-end mt-10">
-              <p className="text-4xl sm:text-6xl text-slate-100 mr-5 font-semibold text-right border-b-8 border-pink-900">
-                Popular on TV
-              </p>
-              <Image src="/assets/tvflix.png" width={80} height={80} alt="" />
-            </div>
-            <div className="flex flex-row">
-              {shows.slice(0, 4).map((movie) => (
-                <FeaturedCard key={movie.id} movie={movie} type="tv" />
-              ))}
-            </div>
+          <div className="flex flex-row">
+            {movies.slice(0, 4).map((movie) => (
+              <FeaturedCard key={movie.id} movie={movie} type="movie" />
+            ))}
           </div>
-
-          <Footer />
         </div>
-      </HomeLayout>
-    </div>
+
+        <div className="py-10 min-h-full">
+          <div className="flex flex-row mr-5 items-end place-content-end mt-10">
+            <p className="text-4xl sm:text-6xl text-slate-100 mr-5 font-semibold text-right border-b-8 border-pink-900">
+              Popular on TV
+            </p>
+            <Image src="/assets/tvflix.png" width={80} height={80} alt="" />
+          </div>
+          <div className="flex flex-row">
+            {shows.slice(0, 4).map((movie) => (
+              <FeaturedCard key={movie.id} movie={movie} type="tv" />
+            ))}
+          </div>
+        </div>
+      </div>
+    </HomeLayout>
   );
 }
 
