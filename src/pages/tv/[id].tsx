@@ -48,14 +48,15 @@ export async function getServerSideProps({ query }: ServerProps) {
   ).json();
 
   const { base64, img } = await getPlaiceholder(
-    'https://image.tmdb.org/t/p/original' + tvShow.poster_path
+    'https://image.tmdb.org/t/p/original' + tvShow.poster_path,
+    { size: 64 }
   );
 
   return {
     props: {
       tvShow,
       imageProps: {
-        ...img,
+        src: img.src,
         alt: '',
         blurDataURL: base64,
       },

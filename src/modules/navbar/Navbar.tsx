@@ -15,7 +15,13 @@ export function Navbar() {
       <div className="h-16 px-10 text-slate-100">
         <div className="flex place-content-between items-center">
           <Link href="/home">
-            <Image src="/assets/logo.png" height={50} width={210} alt="" />
+            <Image
+              src="/assets/logo.png"
+              height={50}
+              width={210}
+              alt=""
+              priority
+            />
           </Link>
 
           <div className="hidden md:flex flex-1 place-content-center">

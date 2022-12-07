@@ -20,6 +20,7 @@ export default function CardsCarousel({ data, type }: CarouselCardProps) {
             className="object-cover brightness-50 transition-all hover:transition-all hover:brightness-75"
             alt=""
             placeholder="blur"
+            priority
             blurDataURL="https://dummyimage.com/210x210/8289ed/8289ed.jpg"
           />
           <div className="mb-10">

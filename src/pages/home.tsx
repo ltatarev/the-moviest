@@ -28,6 +28,7 @@ export default function Home({ trendingMovies, trendingShows }: HomeProps) {
               width={80}
               height={80}
               alt=""
+              priority
             />
             <p className="text-4xl sm:text-6xl text-slate-100 ml-5 font-semibold border-b-8 border-blue-900">
               Trending now
@@ -45,7 +46,13 @@ export default function Home({ trendingMovies, trendingShows }: HomeProps) {
             <p className="text-4xl sm:text-6xl text-slate-100 mr-5 font-semibold text-right border-b-8 border-pink-900">
               Popular on TV
             </p>
-            <Image src="/assets/tv.png" width={70} height={70} alt="" />
+            <Image
+              src="/assets/tv.png"
+              width={70}
+              height={70}
+              alt=""
+              priority
+            />
           </div>
           <Carousel type="tv" data={featuredShows} />
           <div className="flex flex-row flex-wrap place-content-between -mx-1">

@@ -32,7 +32,7 @@ export default function Explore() {
           </Link>
         </h1>
       </div>
-      <Video autoPlay muted loop>
+      <Video autoPlay muted playsInline loop>
         <source src="/assets/bg.webm" type="video/webm" />
       </Video>
     </>

@@ -18,7 +18,13 @@ export default function Discover({ movies, shows }: HomeProps) {
 
         <div className="py-10 min-h-full">
           <div className="flex flex-row ml-5 items-end">
-            <Image src="/assets/ticket.png" width={80} height={80} alt="" />
+            <Image
+              src="/assets/ticket.png"
+              width={80}
+              height={80}
+              alt=""
+              priority
+            />
             <p className="text-4xl sm:text-6xl text-slate-100 ml-5 font-semibold border-b-8 border-blue-900">
               Movies in theathers
             </p>
@@ -35,7 +41,13 @@ export default function Discover({ movies, shows }: HomeProps) {
             <p className="text-4xl sm:text-6xl text-slate-100 mr-5 font-semibold text-right border-b-8 border-pink-900">
               Popular on TV
             </p>
-            <Image src="/assets/tvflix.png" width={80} height={80} alt="" />
+            <Image
+              src="/assets/tvflix.png"
+              width={80}
+              height={80}
+              alt=""
+              priority
+            />
           </div>
           <div className="flex flex-row">
             {shows.slice(0, 4).map((movie) => (
