@@ -42,10 +42,10 @@ export default function Home({ trendingMovies, trendingShows }: HomeProps) {
                 Trending now
               </p>
             </div>
-            <Carousel data={featuredMovies} />
+            <Carousel type="movie" data={featuredMovies} />
             <div className="flex flex-row flex-wrap place-content-between -mx-1">
               {otherMovies.map((movie) => (
-                <Card key={movie.id} {...movie} />
+                <Card type="movie" key={movie.id} movie={movie} />
               ))}
             </div>
           </div>
@@ -56,10 +56,10 @@ export default function Home({ trendingMovies, trendingShows }: HomeProps) {
               </p>
               <Image src="/assets/tv.png" width={70} height={70} alt="" />
             </div>
-            <Carousel data={featuredShows} />
+            <Carousel type="tv" data={featuredShows} />
             <div className="flex flex-row flex-wrap place-content-between -mx-1">
               {otherShows.map((movie) => (
-                <Card key={movie.id} {...movie} />
+                <Card type="tv" key={movie.id} movie={movie} />
               ))}
             </div>
           </div>

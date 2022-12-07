@@ -1,6 +1,7 @@
 import styled from '@emotion/styled';
-import { MovieType } from '@lib/types';
+import { ContentType, MovieType } from '@lib/types';
 import Image from 'next/image';
+import Link from 'next/link';
 
 // TODO: Please rework asap - legacy css
 const Box = styled.div`
@@ -43,22 +44,23 @@ const Box = styled.div`
   }
 `;
 
-export function FeaturedCard({
-  poster_path,
-  original_title,
-  original_name,
-}: MovieType) {
+type FeaturedCardProps = {
+  movie: MovieType;
+  type: ContentType;
+};
+
+export function FeaturedCard({ movie, type }: FeaturedCardProps) {
   return (
     <Box>
-      <a href="#">
+      <Link href={`${type}/${movie.id}`}>
         <Image
-          src={`https://image.tmdb.org/t/p/original${poster_path}`}
+          src={`https://image.tmdb.org/t/p/original${movie.poster_path}`}
           alt=""
           width={500}
           height={850}
         />
-        <p>{original_title || original_name}</p>
-      </a>
+        <p>{movie.original_title || movie.original_name}</p>
+      </Link>
     </Box>
   );
 }

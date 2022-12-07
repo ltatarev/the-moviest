@@ -48,3 +48,5 @@ export type MovieType = {
   tagline: string;
   genres: Array<{ id: number; name: Genres }>;
 };
+
+export type ContentType = 'movie' | 'tv';

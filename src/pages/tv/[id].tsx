@@ -6,10 +6,10 @@ import { Navbar } from '@modules/navbar';
 import { MovieType } from '@lib/types';
 
 interface MovieDetailsProps {
-  movie: MovieType;
+  tv: MovieType;
 }
 
-export default function MovieDetails({ movie }: MovieDetailsProps) {
+export default function TvDetails({ tv }: MovieDetailsProps) {
   return (
     <div>
       <Head>
@@ -22,7 +22,7 @@ export default function MovieDetails({ movie }: MovieDetailsProps) {
           <Navbar />
 
           <div className="container h-[65vh] flex justify-center">
-            <MovieCard {...movie} />
+            <MovieCard {...tv} />
           </div>
 
           <Footer />
@@ -41,9 +41,9 @@ type ServerProps = {
 };
 
 export async function getServerSideProps({ query }: ServerProps) {
-  const movie = await (
+  const tv = await (
     await fetch(
-      `https://api.themoviedb.org/3/movie/${query.id}?api_key=${getEnvString(
+      `https://api.themoviedb.org/3/tv/${query.id}?api_key=${getEnvString(
         'TMDB_KEY'
       )}&language=en-US`,
       {
@@ -57,7 +57,7 @@ export async function getServerSideProps({ query }: ServerProps) {
 
   return {
     props: {
-      movie,
+      tv,
     },
   };
 }

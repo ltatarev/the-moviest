@@ -1,16 +1,17 @@
-import { MovieType } from '@lib/types';
+import { ContentType, MovieType } from '@lib/types';
 import { Carousel } from '@mantine/carousel';
 import Image from 'next/image';
 import Link from 'next/link';
 
 type CarouselCardProps = {
   data: Array<MovieType>;
+  type: ContentType;
 };
 
-export default function CardsCarousel({ data }: CarouselCardProps) {
+export default function CardsCarousel({ data, type }: CarouselCardProps) {
   const slides = data.map((item: MovieType) => (
     <Carousel.Slide key={item.id}>
-      <Link href={`movie/${item.id}`}>
+      <Link href={`${type}/${item.id}`}>
         <div className="flex place-content-end flex-col align-text-bottom h-full">
           <Image
             src={`https://image.tmdb.org/t/p/original${item.backdrop_path}`}

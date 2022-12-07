@@ -1,14 +1,15 @@
-import { MovieType } from '@lib/types';
+import { ContentType, MovieType } from '@lib/types';
 import Image from 'next/image';
+import Link from 'next/link';
 import { ActionButton } from './ActionButton';
 import { GradientOverlay } from './GradientOverlay';
 
-export function Card({
-  poster_path,
-  original_title,
-  original_name,
-  overview,
-}: MovieType) {
+type CardProps = {
+  movie: MovieType;
+  type: ContentType;
+};
+
+export function Card({ movie, type }: CardProps) {
   return (
     <div className="p-2 h-[600px] w-full md:w-1/2 xl:w-1/5 my-10 ">
       <div className="w-full h-[600px] bg-slate-400 select-none hover:transition-all hover:duration-75 hover:ease-smooth rounded-lg rounded-tl-3xl rounded-br-3xl shadow-lg">
@@ -16,7 +17,7 @@ export function Card({
           <GradientOverlay>
             <Image
               className="object-cover mix-blend-screen rounded-tr-lg rounded-tl-3xl"
-              src={`https://image.tmdb.org/t/p/original${poster_path}`}
+              src={`https://image.tmdb.org/t/p/original${movie.poster_path}`}
               fill
               alt=""
             />
@@ -24,12 +25,14 @@ export function Card({
         </div>
         <div className="p-3 h-1/2 flex flex-col">
           <h2 className="text-2xl font-poppins uppercase font-semibold">
-            {original_title || original_name}
+            {movie.original_title || movie.original_name}
           </h2>
           <div className="flex flex-grow overflow-auto pr-3 my-1 scrollbar-thumb-neutral-300 scrollbar-thin">
-            <p className="italic">{overview}</p>
+            <p className="italic">{movie.overview}</p>
           </div>
-          <ActionButton title="learn more" />
+          <Link href={`${type}/${movie.id}`}>
+            <ActionButton title="learn more" />
+          </Link>
         </div>
       </div>
     </div>

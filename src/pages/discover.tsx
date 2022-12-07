@@ -33,7 +33,7 @@ export default function Discover({ movies, shows }: HomeProps) {
             </div>
             <div className="flex flex-row">
               {movies.slice(0, 4).map((movie) => (
-                <FeaturedCard key={movie.id} {...movie} />
+                <FeaturedCard key={movie.id} movie={movie} type="movie" />
               ))}
             </div>
           </div>
@@ -47,7 +47,7 @@ export default function Discover({ movies, shows }: HomeProps) {
             </div>
             <div className="flex flex-row">
               {shows.slice(0, 4).map((movie) => (
-                <FeaturedCard key={movie.id} {...movie} />
+                <FeaturedCard key={movie.id} movie={movie} type="tv" />
               ))}
             </div>
           </div>
