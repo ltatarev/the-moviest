@@ -23,18 +23,6 @@ const Box = styled.div`
     transition: 0.5s;
   }
 
-  & > a > p {
-    font-size: 1rem;
-    text-overflow: ellipsis;
-    padding-top: 20px;
-    font-weight: bold;
-    justify-content: center;
-    text-align: center;
-    height: 5vh;
-    color: white;
-    background-color: rgba(95, 73, 197, 0.3);
-  }
-
   &:hover {
     flex: 1 1 30%;
   }
@@ -63,7 +51,9 @@ export function FeaturedCard({ movie, type }: FeaturedCardProps) {
           priority
           blurDataURL="https://dummyimage.com/500x850/8289ed/8289ed.jpg"
         />
-        <p>{movie.original_title || movie.original_name}</p>
+        <p className="text-ellipsis text-xs sm:text-sm md:text-md lg:text-lg text-center flex items-center place-content-center h-[5vh] bg-purple-500 bg-opacity-20 text-white">
+          {movie.original_title || movie.original_name}
+        </p>
       </Link>
     </Box>
   );

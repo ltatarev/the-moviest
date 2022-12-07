@@ -1,8 +1,6 @@
-import mongoose from 'mongoose';
 import { Sort, WatchlistQuery, QueryParams } from './types';
-const ObjectId = mongoose.Types.ObjectId;
 
-export const DEFAULT_PER_PAGE = 25;
+export const DEFAULT_PER_PAGE = 30;
 
 export function formatPageQuery(query: QueryParams) {
   if (query.page) {
@@ -26,11 +24,11 @@ export function formatWatchlistQuery(reqQuery: QueryParams) {
   const query: WatchlistQuery = {};
 
   if (reqQuery.id) {
-    query['id'] = new ObjectId(reqQuery.id.toString());
+    query['id'] = reqQuery.id.toString();
   }
 
   if (reqQuery.authorId) {
-    query['author_id'] = new ObjectId(reqQuery.authorId.toString());
+    query['author_id'] = reqQuery.authorId.toString();
   }
 
   if (query.title) {

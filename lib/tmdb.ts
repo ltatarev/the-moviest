@@ -51,6 +51,48 @@ export const GENRE_EMOJIS = {
   Western: '🤠',
 };
 
+const emojis = [
+  '️🧡',
+  '💛',
+  '💚',
+  '💙',
+  '💜',
+  '🖤',
+  '🎵',
+  '🎶',
+  '📝',
+  '🔍',
+  '📼',
+  '📷',
+  '📸',
+  '📹',
+  '🎥',
+  '📽',
+  '🎞',
+  '💎',
+  '🔮',
+  '🎨',
+  '🎬',
+  '🎤',
+  '🎧',
+  '🎼',
+  '💫',
+  '⭐️',
+  '🌟',
+  '✨',
+  '🌺',
+  '🌸',
+  '🌙',
+  '🥰',
+];
+
+export function randomEmoji() {
+  const len = emojis.length;
+  const index = Math.floor(Math.random() * len);
+
+  return emojis[index];
+}
+
 export type Genres =
   | 'Action'
   | 'Adventure'

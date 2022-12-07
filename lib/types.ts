@@ -9,8 +9,8 @@ export type Sort = {
 };
 
 export type WatchlistQuery = {
-  author_id?: mongoose.Types.ObjectId;
-  id?: mongoose.Types.ObjectId;
+  author_id?: string;
+  id?: string;
   title?: object;
 };
 
@@ -33,7 +33,7 @@ export type WatchlistType = {
   likes: number;
   title: string;
   author_id: Author;
-  movies: Array<{ id: number; name: string }>;
+  movies: Array<{ _id: number; movieTitle: string; moviePosterPath: string }>;
   createdAt: Timestamp;
   updatedAt: Timestamp;
 };

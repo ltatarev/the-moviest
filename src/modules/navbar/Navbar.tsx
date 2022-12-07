@@ -1,6 +1,6 @@
-import { Group, Burger, Drawer } from '@mantine/core';
+import { Burger, Drawer } from '@mantine/core';
 import { useDisclosure } from '@mantine/hooks';
-import { Button } from '@modules/ui/Button';
+// import { Button } from '@modules/ui/Button';
 import Image from 'next/image';
 import Link from 'next/link';
 import { NavLink } from './NavLink';
@@ -24,12 +24,12 @@ export function Navbar() {
             />
           </Link>
 
-          <div className="hidden md:flex flex-1 place-content-center">
+          <div className="hidden md:flex place-content-center">
             <NavLink title="Discover" route="/discover" />
             <NavLink title="Reviews" route="/reviews" />
             <NavLink title="Watchlists" route="/watchlists" />
           </div>
-
+          {/* 
           <div className="hidden lg:flex">
             <div className="bg-accent-pink text-black rounded-2xl mx-5 px-5 py-2 h-fit self-center items-center flex hover:cursor-pointer hover:bg-violet-600 hover:text-white transition-all duration-200 ease-smooth">
               Log in
@@ -37,7 +37,7 @@ export function Navbar() {
             <div className="text-white font-poppins mx-5 px-5 py-2 hover:cursor-pointer">
               <Button title="Sign up" />
             </div>
-          </div>
+          </div> */}
 
           <Burger
             opened={drawerOpened}
@@ -77,12 +77,12 @@ export function Navbar() {
           <NavLink title="Reviews" route="/reviews" />
           <NavLink title="Watchlists" route="/watchlists" />
         </div>
-        <Group position="center" grow pb="xl" px="md">
+        {/*     <Group position="center" grow pb="xl" px="md">
           <div className="bg-accent-pink text-black rounded-lg mx-5 px-5 py-2 items-center flex hover:cursor-pointer hover:bg-violet-600">
             Log in
           </div>
           <Button title="Sign up" />
-        </Group>
+        </Group> */}
       </Drawer>
     </div>
   );

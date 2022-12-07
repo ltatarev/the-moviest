@@ -22,6 +22,14 @@ export default async function handler(
   if (req.method === 'GET') {
     const { query, page, sort } = formatWatchlistQuery(req.query);
 
+    if (query.id) {
+      const watchlist = await Watchlist.findById({ _id: query.id })
+        .populate('author_id', 'username')
+        .exec();
+
+      return res.json({ status: 200, data: watchlist });
+    }
+
     const allWatchlists = await Watchlist.find(query)
       .skip(page * DEFAULT_PER_PAGE)
       .limit(DEFAULT_PER_PAGE)
