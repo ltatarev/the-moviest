@@ -1,5 +1,6 @@
 import styled from '@emotion/styled';
 import { Button } from '@modules/ui/Button';
+import Head from 'next/head';
 import Link from 'next/link';
 
 const Video = styled.video`
@@ -24,7 +25,11 @@ const Video = styled.video`
 
 export default function Explore() {
   return (
-    <>
+    <div>
+      <Head>
+        <title>The Moviest</title>
+        <link rel="icon" href="/favicon.ico" />
+      </Head>
       <div className="flex justify-end mx-20">
         <h1 className="flex text-white font-poppins text-2xl lowercase my-20 pr-30">
           <Link href="/home">
@@ -35,6 +40,6 @@ export default function Explore() {
       <Video autoPlay muted playsInline loop>
         <source src="/assets/bg.webm" type="video/webm" />
       </Video>
-    </>
+    </div>
   );
 }

@@ -25,10 +25,10 @@ module.exports = {
         'text': '0 2px 10px rgba(0,0,0,0.75)', 
       },
       boxShadow: {
-        card: "0px 0px 30px white"
+        card: "0px 0px 20px white"
       },
       transitionTimingFunction: {
-        'smooth': ' cubic-bezier(0.65, 0, 0.076, 1)' 
+        'smooth': 'cubic-bezier(0.65, 0, 0.076, 1)' 
       },
       width: { 
         40: "40%"
