@@ -1,4 +1,5 @@
 import styled from '@emotion/styled';
+import { getImageSrc } from '@lib/tmdb';
 import { ContentType, MovieType } from '@lib/types';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -54,7 +55,7 @@ export function FeaturedCard({ movie, type }: FeaturedCardProps) {
     <Box>
       <Link href={`${type}/${movie.id}`}>
         <Image
-          src={`https://image.tmdb.org/t/p/original${movie.poster_path}`}
+          src={getImageSrc(movie.poster_path)}
           alt=""
           width={500}
           height={850}

@@ -10,7 +10,7 @@ interface MovieDetailsProps {
 
 export default function MovieDetails({ movie }: MovieDetailsProps) {
   return (
-    <HomeLayout>
+    <HomeLayout hideFooter>
       <div className="flex flex-col justify-between min-h-screen">
         <Navbar />
 

@@ -1,4 +1,4 @@
-import { GENRE_EMOJIS } from '@lib/tmdb';
+import { GENRE_EMOJIS, getImageSrc } from '@lib/tmdb';
 import { MovieType } from '@lib/types';
 import Image from 'next/image';
 
@@ -13,7 +13,7 @@ export function MovieCard({
   return (
     <div className="bg-neutral-200 bg-opacity-80 flex flex-col lg:flex-row w-full lg:w-7/12 self-center rounded-xl p-10">
       <Image
-        src={`https://image.tmdb.org/t/p/original${poster_path}`}
+        src={getImageSrc(poster_path)}
         width={270}
         height={600}
         className="object-cover shadow-xl lg:-ml-20 rounded-md"

@@ -1,3 +1,4 @@
+import { getImageSrc } from '@lib/tmdb';
 import { ContentType, MovieType } from '@lib/types';
 import { Carousel } from '@mantine/carousel';
 import Image from 'next/image';
@@ -14,7 +15,7 @@ export default function CardsCarousel({ data, type }: CarouselCardProps) {
       <Link href={`${type}/${item.id}`}>
         <div className="flex place-content-end flex-col align-text-bottom h-full">
           <Image
-            src={`https://image.tmdb.org/t/p/original${item.backdrop_path}`}
+            src={getImageSrc(item.backdrop_path)}
             fill
             className="object-cover brightness-50 transition-all hover:transition-all hover:brightness-75"
             alt=""

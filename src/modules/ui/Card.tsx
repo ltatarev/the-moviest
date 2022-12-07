@@ -1,3 +1,4 @@
+import { getImageSrc } from '@lib/tmdb';
 import { ContentType, MovieType } from '@lib/types';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -17,7 +18,7 @@ export function Card({ movie, type }: CardProps) {
           <GradientOverlay>
             <Image
               className="object-cover mix-blend-screen rounded-tr-lg rounded-tl-3xl"
-              src={`https://image.tmdb.org/t/p/original${movie.poster_path}`}
+              src={getImageSrc(movie.poster_path)}
               fill
               alt=""
             />
