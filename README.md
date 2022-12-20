@@ -14,3 +14,4 @@ Movie & TV show API is powered by [TMDb.org](https://www.themoviedb.org/).
 
 ![Screenshot 2022-12-15 163645](https://user-images.githubusercontent.com/38048916/207902682-7f56c581-0b6f-4729-bad8-9a021b557dd2.png)
 
+Legacy code was written in Angular, currently in process of rewritting to NextJS.
