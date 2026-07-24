@@ -1,9 +1,8 @@
-import { HomeLayout } from '@modules/layout';
 import { getEnvString } from '@lib/env';
-import { Carousel, Card } from '@modules/ui';
-import { Navbar } from '@modules/navbar';
-import Image from 'next/image';
 import { MovieType } from '@lib/types';
+import { HomeLayout } from '@modules/layout';
+import { Navbar } from '@modules/navbar';
+import { Hero, Rail, Reveal, SectionHeader } from '@modules/ui';
 
 interface HomeProps {
   trendingMovies: Array<MovieType>;
@@ -11,57 +10,67 @@ interface HomeProps {
 }
 
 export default function Home({ trendingMovies, trendingShows }: HomeProps) {
-  const featuredMovies = trendingMovies.slice(0, 3);
-  const otherMovies = trendingMovies.slice(3, 8);
-
-  const featuredShows = trendingShows.slice(0, 3);
-  const otherShows = trendingShows.slice(3, 8);
+  const featured = trendingMovies.slice(0, 5);
+  const movies = trendingMovies.slice(5, 15);
+  const shows = trendingShows.slice(0, 10);
 
   return (
     <HomeLayout>
-      <div className="container">
-        <Navbar />
-        <div className="container py-10 min-h-full">
-          <div className="flex flex-row items-end">
-            <Image
-              src="/assets/video-camera.png"
-              width={80}
-              height={80}
-              alt=""
-              priority
+      <Navbar />
+
+      <Hero items={featured} type="movie" eyebrow="Trending now" />
+
+      <section className="mt-20">
+        <Reveal>
+          <SectionHeader
+            eyebrow="This week"
+            title="Trending now"
+            moreHref="/discover"
+          />
+        </Reveal>
+        <Rail items={movies} type="movie" ranked />
+      </section>
+
+      <section className="mt-20">
+        <Reveal>
+          <SectionHeader
+            eyebrow="On the small screen"
+            title="Popular on TV"
+            moreHref="/discover"
+          />
+        </Reveal>
+        <Rail items={shows} type="tv" />
+      </section>
+
+      <section className="mt-20">
+        <Reveal>
+          <SectionHeader
+            eyebrow="From the community"
+            title="Watchlists worth stealing"
+            moreLabel="Browse all"
+            moreHref="/watchlists"
+          />
+        </Reveal>
+        <Reveal delay={80}>
+          <div className="relative overflow-hidden rounded-hero border border-white/10 bg-white/[.05] px-8 py-12 text-center backdrop-blur-md transition-colors duration-300 ease-silk hover:border-white/20 sm:px-14 sm:py-16">
+            <div
+              aria-hidden
+              className="pointer-events-none absolute -right-24 -top-24 h-64 w-64 rounded-full bg-iris/25 blur-[80px]"
             />
-            <p className="text-4xl sm:text-6xl text-slate-100 ml-5 font-semibold border-b-8 border-blue-900">
-              Trending now
+            <div
+              aria-hidden
+              className="pointer-events-none absolute -bottom-24 -left-24 h-64 w-64 rounded-full bg-accent/20 blur-[80px]"
+            />
+            <h3 className="relative font-display text-2xl font-semibold tracking-[-.02em] sm:text-3xl">
+              Lists made by people, not algorithms
+            </h3>
+            <p className="relative mx-auto mt-3 max-w-md text-[15px] leading-relaxed text-dim">
+              Cold autumn days, comfort rewatches, the best of the year —
+              curated by the community.
             </p>
           </div>
-          <Carousel type="movie" data={featuredMovies} />
-          <div className="flex flex-row flex-wrap place-content-between -mx-1">
-            {otherMovies.map((movie) => (
-              <Card type="movie" key={movie.id} movie={movie} />
-            ))}
-          </div>
-        </div>
-        <div className="py-10 h-full">
-          <div className="flex flex-row items-end place-content-end mt-10">
-            <p className="text-4xl sm:text-6xl text-slate-100 mr-5 font-semibold text-right border-b-8 border-pink-900">
-              Popular on TV
-            </p>
-            <Image
-              src="/assets/tv.png"
-              width={70}
-              height={70}
-              alt=""
-              priority
-            />
-          </div>
-          <Carousel type="tv" data={featuredShows} />
-          <div className="flex flex-row flex-wrap place-content-between -mx-1">
-            {otherShows.map((movie) => (
-              <Card type="tv" key={movie.id} movie={movie} />
-            ))}
-          </div>
-        </div>
-      </div>
+        </Reveal>
+      </section>
     </HomeLayout>
   );
 }
