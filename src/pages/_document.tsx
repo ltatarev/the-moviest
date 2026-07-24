@@ -1,10 +1,12 @@
+import { ColorSchemeScript, mantineHtmlProps } from '@mantine/core';
 import Document, { Head, Html, Main, NextScript } from 'next/document';
 
 export default class MyDocument extends Document {
   render() {
     return (
-      <Html>
+      <Html {...mantineHtmlProps}>
         <Head>
+          <ColorSchemeScript />
           <link
             rel="apple-touch-icon"
             sizes="180x180"

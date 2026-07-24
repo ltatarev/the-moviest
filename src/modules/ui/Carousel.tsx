@@ -3,6 +3,7 @@ import { ContentType, MovieType } from '@lib/types';
 import { Carousel } from '@mantine/carousel';
 import Image from 'next/image';
 import Link from 'next/link';
+import classes from './Carousel.module.css';
 
 type CarouselCardProps = {
   data: Array<MovieType>;
@@ -43,34 +44,12 @@ export default function CardsCarousel({ data, type }: CarouselCardProps) {
         slideGap="xl"
         controlsOffset="xs"
         controlSize={21}
-        align="center"
-        loop
         height="100%"
-        sx={{ height: '100%' }}
-        slidesToScroll={1}
+        emblaOptions={{ align: 'center', loop: true, slidesToScroll: 1 }}
         withIndicators
-        styles={{
-          indicator: {
-            width: 12,
-            height: 4,
-            backgroundColor: 'white !important',
-            transition: 'width 250ms ease',
-
-            '&[data-active]': {
-              width: 40,
-              backgroundColor: 'white',
-            },
-          },
-          control: {
-            backgroundColor: 'white !important',
-            opacity: 0.5,
-            borderColor: 'white !important',
-
-            '&[data-inactive]': {
-              opacity: 0,
-              cursor: 'default',
-            },
-          },
+        classNames={{
+          indicator: classes.indicator,
+          control: classes.control,
         }}
       >
         {slides}

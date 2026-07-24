@@ -58,19 +58,14 @@ export function Navbar() {
         styles={{
           body: {
             fontFamily: 'sans-serif',
-
-            'a:hover': {
-              fontWeight: 600,
-              backgroundColor: 'whitesmoke',
-              backgroundOpacity: '10',
-              borderRadius: 20,
-            },
           },
         }}
         zIndex={1000000}
-        transition="slide-right"
-        transitionDuration={250}
-        transitionTimingFunction="ease"
+        transitionProps={{
+          transition: 'slide-right',
+          duration: 250,
+          timingFunction: 'ease',
+        }}
       >
         <div className="flex flex-col mb-5">
           <NavLink title="Discover" route="/discover" />

@@ -1,6 +1,6 @@
 import { HomeLayout } from '@modules/layout';
 import { Navbar } from '@modules/navbar';
-import { getPlaiceholder } from 'plaiceholder';
+import { getBlurredImage } from '@lib/plaiceholder';
 import { Footer } from '@modules/ui';
 import { InferGetServerSidePropsType } from 'next';
 import { DetailsCard } from '@modules/ui/DetailsCard';
@@ -51,8 +51,8 @@ export async function getServerSideProps({ query }: ServerProps) {
   }
 
   try {
-    const res = await getPlaiceholder(posterPath);
-    img = res.img;
+    const res = await getBlurredImage(posterPath);
+    img = { src: res.src };
     base64 = res.base64;
   } catch {
     base64 = 'https://dummyimage.com/210x210/8289ed/8289ed.jpg';

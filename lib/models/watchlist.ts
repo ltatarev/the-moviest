@@ -24,7 +24,7 @@ const watchlistSchema = new mongoose.Schema(
     author_id: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
     likes: { type: Number, min: 0, default: 0 },
   },
-  { timestamps: true }
+  { timestamps: true },
 );
 
 watchlistSchema.plugin(mongooseUniqueValidator);

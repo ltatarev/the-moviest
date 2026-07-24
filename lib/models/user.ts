@@ -32,7 +32,7 @@ const userSchema = new mongoose.Schema(
       genre: { type: String, default: '' },
     },
   },
-  { timestamps: true }
+  { timestamps: true },
 );
 
 // plugin methods

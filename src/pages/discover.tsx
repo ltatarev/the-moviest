@@ -71,7 +71,7 @@ export async function getServerSideProps() {
         headers: {
           'Content-Type': 'application/json',
         },
-      }
+      },
     )
   ).json();
 
@@ -86,7 +86,7 @@ export async function getServerSideProps() {
         headers: {
           'Content-Type': 'application/json',
         },
-      }
+      },
     )
   ).json();
 

@@ -1,5 +1,5 @@
 import { getEnvString } from '@lib/env';
-import crypto from 'crypto';
+import crypto from 'node:crypto';
 import jwt from 'jsonwebtoken';
 import { Schema } from 'mongoose';
 
@@ -30,7 +30,7 @@ function userPlugin(userSchema: Schema) {
         avatarURL: this.avatarURL,
         exp: Math.trunc(expiry.getTime() / 1000),
       },
-      secret
+      secret,
     );
   };
 }

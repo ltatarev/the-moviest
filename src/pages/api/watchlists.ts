@@ -15,7 +15,7 @@ type Data = {
 
 export default async function handler(
   req: NextApiRequest,
-  res: NextApiResponse<Data>
+  res: NextApiResponse<Data>,
 ) {
   await dbConnect();
 
@@ -63,10 +63,10 @@ export default async function handler(
       const watchlist = await Watchlist.findByIdAndUpdate(
         { _id: watchlistId },
         { title: req.body.title, description: req.body.description },
-        { new: true, upsert: true }
+        { new: true, upsert: true },
       ).exec();
 
-      await watchlist.save();
+      await watchlist?.save();
 
       return watchlist;
     }
@@ -84,7 +84,7 @@ export default async function handler(
             },
           },
         },
-        { new: true, upsert: true }
+        { new: true, upsert: true },
       ).exec();
     }
 
@@ -92,10 +92,10 @@ export default async function handler(
     const watchlist = await Watchlist.findByIdAndUpdate(
       { _id: watchlistId },
       { $inc: { likes: 1 } },
-      { new: true, fields: 'likes' }
+      { new: true, fields: 'likes' },
     ).exec();
 
-    await watchlist.save();
+    await watchlist?.save();
     return watchlist;
   }
 
@@ -109,27 +109,13 @@ export default async function handler(
         { _id: watchlistId },
         { $pull: { movies: { _id: movieId } } },
         { new: true },
-        function (err, watchlist) {
-          if (err) {
-            return err;
-          } else {
-            return watchlist;
-          }
-        }
-      );
+      ).exec();
     }
 
     // Delete watchlist
     const watchlistId = new ObjectId(req.body.watchlistId.toString());
 
-    return await Watchlist.findByIdAndDelete(
-      { _id: watchlistId },
-      function (err: mongoose.CallbackError) {
-        if (err) {
-          return err;
-        }
-        return 'Succesfully deleted watchlist!';
-      }
-    ).exec();
+    await Watchlist.findByIdAndDelete({ _id: watchlistId }).exec();
+    return 'Succesfully deleted watchlist!';
   }
 }

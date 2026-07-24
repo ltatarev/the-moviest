@@ -27,7 +27,7 @@ export function NavLink({ title, route }: NavLinkProps) {
     'px-5 mx-3 py-2 decoration-none font-semibold rounded-lg hover:bg-slate-50 hover:bg-opacity-10',
     {
       'bg-slate-100 bg-opacity-10 hover:bg-opacity-20': isActive,
-    }
+    },
   );
 
   return (
