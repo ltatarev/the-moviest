@@ -1,9 +1,6 @@
 /**
- * Backdrop behind every page, in three layers:
- * 1. four slowly drifting blurred blobs, fixed to the viewport,
- * 2. the original photo banner, anchored to the top of the page and dissolving
- *    into the ambient field further down,
- * 3. a film-grain overlay.
+ * Backdrop behind every page: four slowly drifting blurred blobs fixed to the
+ * viewport, under a film-grain overlay.
  */
 export function AmbientBackground() {
   return (
@@ -26,14 +23,6 @@ export function AmbientBackground() {
           style={{ animationDelay: '-4s' }}
         />
       </div>
-
-      {/* <div
-        aria-hidden
-        className="pointer-events-none absolute inset-x-0 top-0 z-0 h-[1000px] overflow-hidden"
-      >
-        <div className="absolute inset-0 bg-homeBackground bg-cover bg-top bg-no-repeat opacity-10" />
-        <div className="absolute inset-0 bg-gradient-to-b from-ink/50 via-ink/75 to-ink" />
-      </div> */}
 
       <div
         aria-hidden
