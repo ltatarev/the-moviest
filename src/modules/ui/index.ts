@@ -1,13 +1,17 @@
+export { Avatar } from './Avatar';
+export { BackdropImage } from './BackdropImage';
+export { Breadcrumb } from './Breadcrumb';
 export { Footer } from './Footer';
 export { Github } from './Github';
 export { Hero } from './Hero';
+export { PageHeader } from './PageHeader';
 export { PosterCard } from './PosterCard';
+export { PosterImage } from './PosterImage';
+export { PosterMosaic } from './PosterMosaic';
 export { Rail } from './Rail';
 export { Reveal } from './Reveal';
+export { ReviewCard } from './ReviewCard';
+export { SavedTitleCard } from './SavedTitleCard';
 export { SectionHeader } from './SectionHeader';
-
-// Legacy components, still used by the pages that have not been redesigned yet.
-export { MovieCard } from './MovieCard';
-export { FeaturedCard } from './FeaturedCard';
-export { SmallCard } from './SmallCard';
+export { WatchlistButton } from './WatchlistButton';
 export { WatchlistCard } from './WatchlistCard';
