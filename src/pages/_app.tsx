@@ -1,4 +1,6 @@
-import '@mantine/core/styles.css';
+// Import order is load-bearing — see the comment in `layers.css`.
+import '../styles/layers.css';
+import '@mantine/core/styles.layer.css';
 import '../styles/globals.css';
 import { MantineProvider } from '@mantine/core';
 import { Outfit, Plus_Jakarta_Sans } from 'next/font/google';

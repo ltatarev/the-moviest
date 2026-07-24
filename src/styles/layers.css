@@ -1,0 +1,15 @@
+/* Cascade layer order. This file must be the FIRST stylesheet imported by
+   `_app.tsx` — layer precedence is fixed by whichever declaration the browser
+   sees first, so declaring it here decides the order for everything after.
+
+   Tailwind v4 emits all of its output into layers, while Mantine ships an
+   unlayered `styles.css`. Unlayered rules beat layered ones no matter their
+   specificity, so with that build Mantine wins every conflict and Tailwind
+   classes passed to a Mantine `classNames` prop silently do nothing. Pairing
+   Mantine's `styles.layer.css` with the order below fixes that:
+
+     - `base` before `mantine`  → Tailwind's preflight can't strip Mantine's
+       component styling, which is how the unlayered build already behaved.
+     - `mantine` before `utilities` → our Tailwind classes win, which is the
+       whole point. */
+@layer theme, base, mantine, components, utilities;
