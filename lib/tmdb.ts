@@ -9,11 +9,11 @@ type TV = 'tv';
 type MOVIE = 'movie';
 
 export function getDiscoverEndpoint(type: TV | MOVIE): string {
-  return `${DISCOVER_URL}/${type}/week?api_key=${getEnvString('TMDB_KEY')}`;
+  return `${DISCOVER_URL}/${type}?api_key=${getEnvString('TMDB_KEY')}`;
 }
 
 export function getTrendingEndpoint(type: TV | MOVIE): string {
-  return `${DISCOVER_URL}/${type}/week?api_key=${getEnvString('TMDB_KEY')}`;
+  return `${TRENDING_URL}/${type}/week?api_key=${getEnvString('TMDB_KEY')}`;
 }
 
 export const IMAGE_BASE_URL = 'https://image.tmdb.org/t/p/original';
