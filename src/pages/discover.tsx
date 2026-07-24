@@ -1,99 +1,71 @@
-import { HomeLayout } from '@modules/layout';
-import { getEnvString } from '@lib/env';
-import { FeaturedCard } from '@modules/ui';
-import { Navbar } from '@modules/navbar';
-import Image from 'next/image';
+import { fetchResults, getListEndpoint } from '@lib/tmdb';
 import { MovieType } from '@lib/types';
+import { HomeLayout } from '@modules/layout';
+import { Navbar } from '@modules/navbar';
+import { PageHeader, Rail, Reveal, SectionHeader } from '@modules/ui';
+import Head from 'next/head';
 
-interface HomeProps {
-  movies: Array<MovieType>;
-  shows: Array<MovieType>;
+interface DiscoverProps {
+  inCinemas: Array<MovieType>;
+  popularShows: Array<MovieType>;
+  topRated: Array<MovieType>;
 }
 
-export default function Discover({ movies, shows }: HomeProps) {
+export default function Discover({
+  inCinemas,
+  popularShows,
+  topRated,
+}: DiscoverProps) {
   return (
     <HomeLayout>
-      <div className="container">
-        <Navbar />
+      <Head>
+        <title>Discover — The Moviest</title>
+      </Head>
 
-        <div className="py-10 min-h-full">
-          <div className="flex flex-row ml-5 items-end">
-            <Image
-              src="/assets/ticket.png"
-              width={80}
-              height={80}
-              alt=""
-              priority
-            />
-            <p className="text-4xl sm:text-6xl text-slate-100 ml-5 font-semibold border-b-8 border-blue-900">
-              Movies in theathers
-            </p>
-          </div>
-          <div className="flex flex-row">
-            {movies.slice(0, 4).map((movie) => (
-              <FeaturedCard key={movie.id} movie={movie} type="movie" />
-            ))}
-          </div>
-        </div>
+      <Navbar />
 
-        <div className="py-10 min-h-full">
-          <div className="flex flex-row mr-5 items-end place-content-end mt-10">
-            <p className="text-4xl sm:text-6xl text-slate-100 mr-5 font-semibold text-right border-b-8 border-pink-900">
-              Popular on TV
-            </p>
-            <Image
-              src="/assets/tvflix.png"
-              width={80}
-              height={80}
-              alt=""
-              priority
-            />
-          </div>
-          <div className="flex flex-row">
-            {shows.slice(0, 4).map((movie) => (
-              <FeaturedCard key={movie.id} movie={movie} type="tv" />
-            ))}
-          </div>
-        </div>
-      </div>
+      <PageHeader
+        eyebrow="Discover"
+        title="What to watch next"
+        description="What is on in cinemas, what everyone is streaming, and the films that have held up the longest."
+      />
+
+      <section className="mt-14">
+        <Reveal>
+          <SectionHeader eyebrow="In cinemas" title="Playing near you" />
+        </Reveal>
+        <Rail items={inCinemas} type="movie" />
+      </section>
+
+      <section className="mt-20">
+        <Reveal>
+          <SectionHeader eyebrow="On the small screen" title="Popular on TV" />
+        </Reveal>
+        <Rail items={popularShows} type="tv" />
+      </section>
+
+      <section className="mt-20">
+        <Reveal>
+          <SectionHeader eyebrow="The canon" title="Top rated of all time" />
+        </Reveal>
+        <Rail items={topRated} type="movie" />
+      </section>
     </HomeLayout>
   );
 }
 
 export async function getServerSideProps() {
-  const movies = await (
-    await fetch(
-      'https://api.themoviedb.org/3/discover/movie?api_key=' +
-        getEnvString('TMDB_KEY') +
-        '&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=1&primary_release_year=2022',
-      {
-        method: 'GET',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      },
-    )
-  ).json();
-
-  const shows = await (
-    await fetch(
-      'https://api.themoviedb.org/3/discover/tv?api_key=' +
-        getEnvString('TMDB_KEY') +
-        '&language=en-US&sort_by=popularity.desc&first_air_date_year=2020&page=1&timezone=America%2FNew_York&include_null_first_air_dates=false&with_original_language=en',
-
-      {
-        method: 'GET',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      },
-    )
-  ).json();
+  const [inCinemas, popularShows, topRated] = await Promise.all([
+    fetchResults(getListEndpoint('movie', 'now_playing')),
+    fetchResults(getListEndpoint('tv', 'popular')),
+    fetchResults(getListEndpoint('movie', 'top_rated')),
+  ]);
 
   return {
     props: {
-      movies: movies.results,
-      shows: shows.results,
+      inCinemas: inCinemas.slice(0, 10),
+      popularShows: popularShows.slice(0, 10),
+      topRated: topRated.slice(0, 5),
     },
   };
 }

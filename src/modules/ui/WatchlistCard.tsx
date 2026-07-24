@@ -1,51 +1,45 @@
-import { randomEmoji } from '@lib/tmdb';
+import { pluralize } from '@lib/format';
 import { WatchlistType } from '@lib/types';
-import Image, { ImageProps } from 'next/image';
+import Link from 'next/link';
+import { Avatar } from './Avatar';
+import { PosterMosaic } from './PosterMosaic';
 
-type WatchlistCardProps = {
-  watchlist: WatchlistType;
-  imageProps: ImageProps;
-};
-
-export function WatchlistCard({ watchlist, imageProps }: WatchlistCardProps) {
-  const { title, description, author_id, movies } = watchlist;
+export function WatchlistCard({ watchlist }: { watchlist: WatchlistType }) {
+  const { _id, title, description, author_id, movies = [] } = watchlist;
+  const id = _id.toString();
 
   return (
-    <div className="bg-neutral-200 select-none bg-opacity-80 flex flex-col lg:flex-row w-full lg:w-7/12 self-center rounded-xl p-10">
-      <Image
-        sizes="100vw"
-        placeholder="blur"
-        width={300}
-        height={600}
-        priority
-        className="object-cover lg:-ml-40 self-center w-full md:w-2/3 lg:w-1/2 xl:w-40 h-auto rounded-md hover:-translate-y-2 transition-all duration-200 ease-smooth"
-        {...imageProps}
+    <Link
+      href={`/watchlists/${id}`}
+      className="group relative block aspect-[16/10] overflow-hidden rounded-card border border-white/10 transition-all duration-300 ease-silk hover:-translate-y-1.5 hover:border-white/20"
+    >
+      <PosterMosaic movies={movies} seed={id} />
+
+      <span
+        aria-hidden
+        className="absolute inset-0 bg-[linear-gradient(to_top,rgba(8,4,16,.94)_12%,rgba(8,4,16,.25)_70%)]"
       />
-      <div className="flex flex-col lg:ml-10 mt-5">
-        <div className="flex flex-col w-fit">
-          <h1 className="font-bold text-5xl md:text-6xl text-greyish z-10 flex-wrap">
-            {title}
-          </h1>
-          <span className="bg-gradient-to-r from-pink-500 via-purple-500 to-blue-500 h-2 z-0 -mt-2" />
-        </div>
-        <p className="py-5 italic text-lg text-greyish">{description}</p>
-        <div className="mt-5 flex flex-col">
-          <h3 className="font-bold text-greyish text-xl">Movies/TV shows</h3>
-          {movies?.length > 0 &&
-            movies.map((movie) => (
-              <div
-                key={movie.movieTitle}
-                className="mr-3 my-1 text-greyish text-lg py-1 px-2"
-              >
-                {randomEmoji()} {movie.movieTitle}
-              </div>
-            ))}
-        </div>
-        <div className="h-[0.03rem] my-5 bg-slate-700" />
-        <p className="opacity-75 mt-5 text-sm">
-          Created by: {author_id.username}
+
+      <div className="absolute inset-x-6 bottom-5">
+        <h3 className="font-display text-xl font-semibold tracking-[-.02em] transition-colors duration-200 group-hover:text-accent-soft">
+          {title}
+        </h3>
+
+        <p className="mt-1.5 line-clamp-2 text-[13px] text-dim">
+          {description || pluralize(movies.length, 'title')}
         </p>
+
+        <span className="mt-3 inline-flex items-center gap-2 text-xs text-dimmer">
+          <Avatar name={author_id?.username ?? 'Someone'} size={18} />
+          {author_id?.username ?? 'Someone'}
+          {description && (
+            <>
+              <span aria-hidden>·</span>
+              {pluralize(movies.length, 'title')}
+            </>
+          )}
+        </span>
       </div>
-    </div>
+    </Link>
   );
 }

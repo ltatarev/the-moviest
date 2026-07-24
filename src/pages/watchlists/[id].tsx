@@ -1,75 +1,113 @@
+import { formatDate, pluralize } from '@lib/format';
+import { WatchlistType } from '@lib/types';
 import { HomeLayout } from '@modules/layout';
 import { Navbar } from '@modules/navbar';
-import { getBlurredImage } from '@lib/plaiceholder';
-import { Footer, WatchlistCard } from '@modules/ui';
-import { InferGetServerSidePropsType } from 'next';
+import { Avatar, Breadcrumb, Reveal, SavedTitleCard } from '@modules/ui';
+import Head from 'next/head';
 
-export default function WatchlistDetails({
-  watchlist,
-  imageProps,
-}: InferGetServerSidePropsType<typeof getServerSideProps>) {
+type WatchlistDetailsProps = {
+  watchlist: WatchlistType;
+};
+
+export default function WatchlistDetails({ watchlist }: WatchlistDetailsProps) {
+  const { title, description, author_id, movies = [], createdAt } = watchlist;
+  const author = author_id?.username ?? 'Someone';
+
   return (
-    <HomeLayout hideFooter>
-      <div className="flex flex-col justify-between min-h-screen">
-        <Navbar />
-        <div className="flex justify-center">
-          <WatchlistCard watchlist={watchlist} imageProps={imageProps} />
-        </div>
-        <Footer />
+    <HomeLayout>
+      <Head>
+        <title>{`${title} — The Moviest`}</title>
+      </Head>
+
+      <Navbar />
+
+      <div className="pt-8">
+        <Breadcrumb
+          items={[
+            { label: 'Watchlists', href: '/watchlists' },
+            { label: title },
+          ]}
+        />
       </div>
+
+      <Reveal as="header" className="mt-6">
+        <p className="mb-3 flex items-center gap-2.5 text-[11px] font-semibold uppercase tracking-[.18em] text-accent-soft">
+          <span className="h-[7px] w-[7px] rounded-full bg-accent" />
+          Watchlist
+        </p>
+
+        <h1 className="font-display text-[34px] font-bold leading-[1.05] tracking-[-.035em] sm:text-5xl lg:text-[58px]">
+          {title}
+        </h1>
+
+        {description && (
+          <p className="mt-4 max-w-[600px] text-base leading-relaxed text-white/75">
+            {description}
+          </p>
+        )}
+
+        <div className="mt-6 flex flex-wrap items-center gap-3 text-[13px] text-dimmer">
+          <span className="inline-flex items-center gap-2">
+            <Avatar name={author} size={22} />
+            {author}
+          </span>
+          <span aria-hidden>·</span>
+          <span>{pluralize(movies.length, 'title')}</span>
+          {formatDate(createdAt) && (
+            <>
+              <span aria-hidden>·</span>
+              <span>{formatDate(createdAt)}</span>
+            </>
+          )}
+        </div>
+      </Reveal>
+
+      {movies.length > 0 ? (
+        <div className="mt-12 grid grid-cols-2 gap-x-5 gap-y-9 sm:grid-cols-3 lg:grid-cols-5">
+          {movies.map((movie, i) => (
+            <Reveal
+              key={movie._id ?? `${movie.movieTitle}-${i}`}
+              delay={(i % 5) * 70}
+            >
+              <SavedTitleCard movie={movie} />
+            </Reveal>
+          ))}
+        </div>
+      ) : (
+        <Reveal>
+          <p className="mt-12 rounded-card border border-white/10 bg-white/[.05] px-8 py-14 text-center text-[15px] text-dim">
+            This list is still empty.
+          </p>
+        </Reveal>
+      )}
     </HomeLayout>
   );
 }
 
-type Query = {
-  id: number;
-};
-
 type ServerProps = {
-  query: Query;
+  query: { id: string };
 };
 
 export async function getServerSideProps({ query }: ServerProps) {
-  const watchlist = await (
-    await fetch(`${process.env.API_BASE_URL}/api/watchlists?id=${query.id}`, {
+  const response = await fetch(
+    `${process.env.API_BASE_URL}/api/watchlists?id=${query.id}`,
+    {
       method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    })
-  ).json();
+      headers: { 'Content-Type': 'application/json' },
+    },
+  );
 
-  let img;
-  let base64;
-  let posterPath;
-
-  try {
-    posterPath = watchlist.data.movies[0].moviePosterPath;
-  } catch {
-    posterPath = null;
+  if (!response.ok) {
+    return { notFound: true };
   }
 
-  try {
-    const res = await getBlurredImage(posterPath);
-    img = { src: res.src };
-    base64 = res.base64;
-  } catch {
-    base64 = 'https://dummyimage.com/210x210/8289ed/8289ed.jpg';
+  const watchlist = (await response.json()).data;
 
-    img = {
-      src: '/assets/placeholder.png',
-      blurDataUrl: 'https://dummyimage.com/210x210/8289ed/8289ed.jpg',
-    };
+  if (!watchlist) {
+    return { notFound: true };
   }
 
   return {
-    props: {
-      watchlist: watchlist.data,
-      imageProps: {
-        src: img.src,
-        alt: '',
-        blurDataURL: base64,
-      },
-    },
+    props: { watchlist },
   };
 }
