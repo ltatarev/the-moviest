@@ -30,11 +30,11 @@ export default class MyDocument extends Document {
             href="favicon/safari-pinned-tab.svg"
             color="#5bbad5"
           />
-          <meta name="msapplication-TileColor" content="#2b5797" />
-          <meta name="theme-color" content="#2b5797" />
+          <meta name="msapplication-TileColor" content="#0B0716" />
+          <meta name="theme-color" content="#0B0716" />
         </Head>
 
-        <body>
+        <body className="bg-ink">
           <Main />
           <NextScript />
         </body>
