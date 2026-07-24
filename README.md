@@ -12,6 +12,8 @@ Web application for browsing movies & TV shows, creating watchlists and writing 
 
 Movie & TV show API is powered by [TMDb.org](https://www.themoviedb.org/).
 
+<img width="919" height="1095" alt="Screenshot 2026-07-24 at 16 27 11" src="https://github.com/user-attachments/assets/01ff2c54-2545-4857-9cf9-2da644f8b61e" />
+
 ![Screenshot 2022-12-15 163645](https://user-images.githubusercontent.com/38048916/207902682-7f56c581-0b6f-4729-bad8-9a021b557dd2.png)
 
-Legacy code was written in Angular, currently in process of rewritting to NextJS.
+Legacy code was written in Angular, currently using NextJS.
