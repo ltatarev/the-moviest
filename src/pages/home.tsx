@@ -1,4 +1,4 @@
-import { getEnvString } from '@lib/env';
+import { fetchResults, getTrendingEndpoint } from '@lib/tmdb';
 import { MovieType } from '@lib/types';
 import { HomeLayout } from '@modules/layout';
 import { Navbar } from '@modules/navbar';
@@ -75,34 +75,10 @@ export default function Home({ trendingMovies, trendingShows }: HomeProps) {
   );
 }
 
-async function getTrending(type: 'movie' | 'tv'): Promise<Array<MovieType>> {
-  const response = await fetch(
-    `https://api.themoviedb.org/3/trending/${type}/week?api_key=` +
-      getEnvString('TMDB_KEY'),
-    {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    },
-  );
-
-  if (!response.ok) {
-    console.error(
-      `TMDB trending/${type} failed: ${response.status} ${response.statusText}`,
-    );
-    return [];
-  }
-
-  const data = await response.json();
-
-  return data.results ?? [];
-}
-
 export async function getServerSideProps() {
   const [trendingMovies, trendingShows] = await Promise.all([
-    getTrending('movie'),
-    getTrending('tv'),
+    fetchResults(getTrendingEndpoint('movie')),
+    fetchResults(getTrendingEndpoint('tv')),
   ]);
 
   return {
