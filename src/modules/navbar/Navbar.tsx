@@ -97,27 +97,45 @@ export function Navbar() {
         opened={drawerOpened}
         onClose={closeDrawer}
         position="right"
-        size="82%"
+        size="20rem"
+        color="white"
+        offset={12}
+        radius={24}
         padding="lg"
-        title="themoviest"
         zIndex={1000000}
-        overlayProps={{ backgroundOpacity: 0.6, blur: 6 }}
+        overlayProps={{ backgroundOpacity: 0.5, blur: 2 }}
         transitionProps={{
           transition: 'slide-left',
           duration: 260,
           timingFunction: 'cubic-bezier(.2,.7,.3,1)',
         }}
+        title={
+          <Link
+            href="/home"
+            onClick={closeDrawer}
+            aria-label="The Moviest — home"
+            className="flex items-center"
+          >
+            <Image
+              src="/assets/logo.png"
+              height={90}
+              width={210}
+              alt="The Moviest"
+              className="h-8 w-auto"
+            />
+          </Link>
+        }
         classNames={{
-          content: 'bg-ink text-chalk',
-          header: 'bg-ink text-chalk',
-          title: 'font-display text-lg font-semibold tracking-tight',
+          content:
+            'border border-white/15 bg-white/[.09] text-chalk shadow-[0_30px_80px_-20px_rgba(0,0,0,.85)] backdrop-blur-2xl',
+          header: 'bg-transparent text-chalk',
+          close:
+            'rounded-full text-dim transition-colors duration-200 hover:bg-white/[.12] hover:text-chalk',
         }}
       >
-        <nav className="mt-4 flex flex-col">
+        <nav className="mt-6 flex flex-col gap-2">
           {ROUTES.map((item) => (
-            <div key={item.route} onClick={closeDrawer}>
-              <NavLink {...item} block />
-            </div>
+            <NavLink key={item.route} {...item} block onClick={closeDrawer} />
           ))}
         </nav>
       </Drawer>

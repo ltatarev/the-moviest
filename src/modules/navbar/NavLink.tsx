@@ -7,6 +7,7 @@ type NavLinkProps = {
   route: string;
   /** Stacked full-width links inside the mobile drawer. */
   block?: boolean;
+  onClick?: () => void;
 };
 
 type Route = {
@@ -21,23 +22,28 @@ function isRouteActive(link: string, router: Route) {
   return router.route.match(link);
 }
 
-export function NavLink({ title, route, block = false }: NavLinkProps) {
+export function NavLink({
+  title,
+  route,
+  block = false,
+  onClick,
+}: NavLinkProps) {
   const router = useRouter();
   const isActive = isRouteActive(route, router);
 
   const classNames = cn(
-    'group/link relative rounded-full text-sm transition-all duration-200 ease-silk',
+    'group/link relative text-sm transition-all duration-200 ease-silk',
     'hover:text-chalk',
     block
-      ? 'my-1 px-5 py-3 text-base font-medium'
-      : 'px-[18px] py-[9px] font-medium',
+      ? 'flex w-full items-center rounded-2xl border border-white/5 px-5 py-3.5 text-base font-medium'
+      : 'rounded-full px-[18px] py-[9px] font-medium',
     isActive
       ? 'bg-white/[.13] font-semibold text-chalk'
       : 'text-dim hover:bg-white/[.06]',
   );
 
   return (
-    <Link href={route} className={classNames}>
+    <Link href={route} className={classNames} onClick={onClick}>
       {title}
       {/* Underline that grows out from the centre on hover. */}
       {!isActive && (
