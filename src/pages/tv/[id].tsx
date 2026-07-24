@@ -1,64 +1,47 @@
+import { toTitleDetail } from '@lib/detail';
+import { getDetailEndpoint } from '@lib/tmdb';
+import { TitleDetailType, TitleResponseType } from '@lib/types';
+import { TitleDetail } from '@modules/detail';
 import { HomeLayout } from '@modules/layout';
-import { getEnvString } from '@lib/env';
-import { InferGetServerSidePropsType } from 'next';
-import { Footer, MovieCard } from '@modules/ui';
-import { getBlurredImage } from '@lib/plaiceholder';
 import { Navbar } from '@modules/navbar';
+import Head from 'next/head';
 
-export default function TvDetails({
-  tvShow,
-  imageProps,
-}: InferGetServerSidePropsType<typeof getServerSideProps>) {
+type TvDetailsProps = {
+  detail: TitleDetailType;
+};
+
+export default function TvDetails({ detail }: TvDetailsProps) {
   return (
-    <HomeLayout hideFooter>
-      <div className="flex flex-col justify-between min-h-screen">
-        <Navbar />
+    <HomeLayout>
+      <Head>
+        <title>{`${detail.title} — The Moviest`}</title>
+      </Head>
 
-        <div className="flex justify-center">
-          <MovieCard movie={tvShow} imageProps={imageProps} />
-        </div>
-
-        <Footer />
-      </div>
+      <Navbar />
+      <TitleDetail detail={detail} />
     </HomeLayout>
   );
 }
 
-type Query = {
-  id: number;
-};
-
 type ServerProps = {
-  query: Query;
+  query: { id: string };
 };
 
 export async function getServerSideProps({ query }: ServerProps) {
-  const tvShow = await (
-    await fetch(
-      `https://api.themoviedb.org/3/tv/${query.id}?api_key=${getEnvString(
-        'TMDB_KEY',
-      )}&language=en-US`,
-      {
-        method: 'GET',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      },
-    )
-  ).json();
+  const response = await fetch(getDetailEndpoint('tv', query.id), {
+    method: 'GET',
+    headers: { 'Content-Type': 'application/json' },
+  });
 
-  const { src, base64 } = await getBlurredImage(
-    'https://image.tmdb.org/t/p/original' + tvShow.poster_path,
-  );
+  if (!response.ok) {
+    return { notFound: true };
+  }
+
+  const show = (await response.json()) as TitleResponseType;
 
   return {
     props: {
-      tvShow,
-      imageProps: {
-        src,
-        alt: '',
-        blurDataURL: base64,
-      },
+      detail: toTitleDetail(show, 'tv'),
     },
   };
 }
