@@ -66,37 +66,40 @@ export default function Home({ trendingMovies, trendingShows }: HomeProps) {
   );
 }
 
-export async function getServerSideProps() {
-  const trendingMovies = await (
-    await fetch(
-      'https://api.themoviedb.org/3/trending/movie/week?api_key=' +
-        getEnvString('TMDB_KEY'),
-      {
-        method: 'GET',
-        headers: {
-          'Content-Type': 'application/json',
-        },
+async function getTrending(type: 'movie' | 'tv'): Promise<Array<MovieType>> {
+  const response = await fetch(
+    `https://api.themoviedb.org/3/trending/${type}/week?api_key=` +
+      getEnvString('TMDB_KEY'),
+    {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
       },
-    )
-  ).json();
+    },
+  );
 
-  const trendingShows = await (
-    await fetch(
-      'https://api.themoviedb.org/3/trending/tv/week?api_key=' +
-        getEnvString('TMDB_KEY'),
-      {
-        method: 'GET',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      },
-    )
-  ).json();
+  if (!response.ok) {
+    console.error(
+      `TMDB trending/${type} failed: ${response.status} ${response.statusText}`,
+    );
+    return [];
+  }
+
+  const data = await response.json();
+
+  return data.results ?? [];
+}
+
+export async function getServerSideProps() {
+  const [trendingMovies, trendingShows] = await Promise.all([
+    getTrending('movie'),
+    getTrending('tv'),
+  ]);
 
   return {
     props: {
-      trendingMovies: trendingMovies.results,
-      trendingShows: trendingShows.results,
+      trendingMovies,
+      trendingShows,
     },
   };
 }
