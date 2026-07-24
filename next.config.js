@@ -9,7 +9,7 @@ const nextConfig = {
       },
     ],
   },
-  // sharp (used by plaiceholder) ships native binaries and must not be bundled.
+  // sharp (Next's image optimiser) ships native binaries and must not be bundled.
   serverExternalPackages: ['sharp'],
 };
 
