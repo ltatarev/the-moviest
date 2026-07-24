@@ -1,11 +1,11 @@
 import { formatRating, getTitle, getYear } from '@lib/format';
-import { BLUR_DATA_URL, getGenreNames, getImageSrc } from '@lib/tmdb';
+import { getGenreNames, getImageSrc } from '@lib/tmdb';
 import { ContentType, MovieType } from '@lib/types';
 import cn from 'classnames';
-import Image from 'next/image';
 import Link from 'next/link';
 import { MouseEvent, useState } from 'react';
 import { Check, Plus, Star } from './Icons';
+import { PosterImage } from './PosterImage';
 
 type PosterCardProps = {
   movie: MovieType;
@@ -34,14 +34,12 @@ export function PosterCard({ movie, type, rank }: PosterCardProps) {
       className="group block transition-transform duration-300 ease-silk hover:-translate-y-1.5"
     >
       <div className="relative aspect-[2/3] overflow-hidden rounded-card border border-white/10 transition-all duration-300 ease-silk group-hover:border-accent/45 group-hover:shadow-lift">
-        <Image
+        <PosterImage
           src={getImageSrc(movie.poster_path, 'w500')}
-          alt=""
-          fill
+          title={title}
           sizes="(max-width: 680px) 50vw, (max-width: 1100px) 33vw, 20vw"
-          placeholder="blur"
-          blurDataURL={BLUR_DATA_URL}
-          className="object-cover transition-transform duration-500 ease-silk group-hover:scale-[1.06]"
+          label={false}
+          imageClassName="transition-transform duration-500 ease-silk group-hover:scale-[1.06]"
         />
 
         {/* Light sweep across the poster on hover. */}

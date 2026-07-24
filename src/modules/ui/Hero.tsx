@@ -1,8 +1,7 @@
 import { formatRating, getTitle, getYear, truncate } from '@lib/format';
-import { BLUR_DATA_URL, getGenreNames, getImageSrc } from '@lib/tmdb';
+import { getGenreNames, getImageSrc } from '@lib/tmdb';
 import { ContentType, MovieType } from '@lib/types';
 import cn from 'classnames';
-import Image from 'next/image';
 import Link from 'next/link';
 import {
   CSSProperties,
@@ -12,7 +11,9 @@ import {
   useRef,
   useState,
 } from 'react';
-import { ArrowRight, Check, ChevronLeft, ChevronRight, Plus } from './Icons';
+import { BackdropImage } from './BackdropImage';
+import { ArrowRight, ChevronLeft, ChevronRight } from './Icons';
+import { WatchlistButton } from './WatchlistButton';
 
 const INTERVAL = 7000;
 /** Horizontal travel, in px, that counts as a deliberate swipe. */
@@ -116,16 +117,12 @@ export function Hero({ items, type, eyebrow = 'Trending now' }: HeroProps) {
             i === index ? 'opacity-100' : 'opacity-0',
           )}
         >
-          <Image
+          <BackdropImage
             src={getImageSrc(item.backdrop_path, 'w1280')}
-            alt=""
-            fill
-            sizes="(max-width: 1360px) 100vw, 1360px"
+            title={getTitle(item)}
             priority={i === 0}
-            placeholder="blur"
-            blurDataURL={BLUR_DATA_URL}
             className={cn(
-              'object-cover object-top transition-transform duration-[9000ms] ease-out',
+              'transition-transform duration-[9000ms] ease-out',
               i === index ? 'scale-110' : 'scale-100',
             )}
           />
@@ -203,33 +200,15 @@ export function Hero({ items, type, eyebrow = 'Trending now' }: HeroProps) {
             <ArrowRight className="transition-transform duration-300 ease-silk group-hover/cta:translate-x-1" />
           </Link>
 
-          <button
-            type="button"
-            aria-pressed={isSaved}
-            onClick={() =>
+          <WatchlistButton
+            saved={isSaved}
+            onToggle={() =>
               setSaved((current) => ({
                 ...current,
                 [active.id]: !current[active.id],
               }))
             }
-            className="inline-flex items-center gap-2.5 rounded-full border border-white/20 bg-white/10 px-7 py-3.5 text-sm font-semibold text-chalk backdrop-blur-md transition-all duration-200 ease-silk hover:-translate-y-0.5 hover:bg-white/[.18]"
-          >
-            <span className="relative grid h-[18px] w-[18px] place-items-center">
-              <Plus
-                className={cn(
-                  'absolute transition-all duration-300 ease-silk',
-                  isSaved ? 'rotate-90 scale-0 opacity-0' : 'opacity-100',
-                )}
-              />
-              <Check
-                className={cn(
-                  'absolute text-accent-soft transition-all duration-300 ease-silk',
-                  isSaved ? 'opacity-100' : '-rotate-90 scale-0 opacity-0',
-                )}
-              />
-            </span>
-            {isSaved ? 'On your list' : 'Watchlist'}
-          </button>
+          />
         </div>
       </div>
 
