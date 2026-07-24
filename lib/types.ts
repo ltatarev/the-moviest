@@ -59,6 +59,11 @@ export type MovieType = {
   overview: string;
   tagline: string;
   genres: Array<{ id: number; name: Genres }>;
+  // Only present on list endpoints (trending, discover).
+  genre_ids?: Array<number>;
+  vote_average?: number;
+  release_date?: string;
+  first_air_date?: string;
 };
 
 export type ContentType = 'movie' | 'tv';
