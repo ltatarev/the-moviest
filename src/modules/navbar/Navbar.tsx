@@ -17,7 +17,7 @@ export function Navbar() {
           <Link href="/home">
             <Image
               src="/assets/logo.png"
-              height={50}
+              height={90}
               width={210}
               alt=""
               priority
