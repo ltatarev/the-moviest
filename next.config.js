@@ -2,12 +2,7 @@
 const nextConfig = {
   reactStrictMode: true,
   images: {
-    remotePatterns: [
-      {
-        protocol: 'https',
-        hostname: 'image.tmdb.org',
-      },
-    ],
+    unoptimized: true,
   },
   // sharp (Next's image optimiser) ships native binaries and must not be bundled.
   serverExternalPackages: ['sharp'],
