@@ -22,4 +22,12 @@ export default [
       'jsx-a11y/alt-text': 'off',
     },
   },
+  {
+    // Studio cards are exported to PNG from the DOM: they need plain <img>
+    // pointing at the same-origin image proxy, not next/image.
+    files: ['src/modules/studio/**'],
+    rules: {
+      '@next/next/no-img-element': 'off',
+    },
+  },
 ];
