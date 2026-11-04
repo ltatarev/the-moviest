@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import { APP_PAGE } from '@lib/site';
 import { Github } from './Github';
 
 export function Footer() {
@@ -9,6 +10,12 @@ export function Footer() {
           TMDB
         </span>
         <span>The Moviest — a hobby project. Data by The Movie Database.</span>
+        <Link
+          href={APP_PAGE}
+          className="text-accent-soft transition-colors duration-300 ease-silk hover:text-chalk"
+        >
+          Track films and shows with the iPhone and iPad app
+        </Link>
       </div>
 
       <div className="flex items-center gap-5">

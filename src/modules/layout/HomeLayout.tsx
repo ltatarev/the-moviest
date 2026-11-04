@@ -1,5 +1,6 @@
 import React from 'react';
 import Head from 'next/head';
+import { SITE_DESCRIPTION } from '@lib/site';
 import { Footer } from '@modules/ui';
 import { AmbientBackground } from './AmbientBackground';
 
@@ -14,7 +15,8 @@ export function HomeLayout({ children, hideFooter = false }: HomeLayoutProps) {
        splash — which dissolves into that same ink — has no seam in it. */
     <div className="animate-fade-in relative flex min-h-screen w-full flex-col overflow-x-clip bg-ink text-chalk">
       <Head>
-        <title>The Moviest</title>
+        <title>The Moviest — browse films and TV shows</title>
+        <meta name="description" content={SITE_DESCRIPTION} />
         <link rel="icon" href="/favicon.ico" />
       </Head>
 

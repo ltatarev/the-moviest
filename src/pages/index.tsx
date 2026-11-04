@@ -1,3 +1,4 @@
+import { SITE_DESCRIPTION } from '@lib/site';
 import { ArrowRight, ChevronDown } from '@modules/ui/Icons';
 import cn from 'classnames';
 import Head from 'next/head';
@@ -123,7 +124,8 @@ export default function Landing() {
       )}
     >
       <Head>
-        <title>The Moviest</title>
+        <title>The Moviest — browse films and TV shows</title>
+        <meta name="description" content={SITE_DESCRIPTION} />
         <link rel="icon" href="/favicon.ico" />
       </Head>
 

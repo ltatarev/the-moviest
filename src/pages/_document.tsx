@@ -1,4 +1,5 @@
 import { ColorSchemeScript, mantineHtmlProps } from '@mantine/core';
+import { APP_STORE_ID } from '@lib/site';
 import Document, { Head, Html, Main, NextScript } from 'next/document';
 
 export default class MyDocument extends Document {
@@ -32,6 +33,8 @@ export default class MyDocument extends Document {
           />
           <meta name="msapplication-TileColor" content="#0B0716" />
           <meta name="theme-color" content="#0B0716" />
+          {/* Safari on iOS shows a banner that opens or installs the app. */}
+          <meta name="apple-itunes-app" content={`app-id=${APP_STORE_ID}`} />
         </Head>
 
         <body className="bg-ink">
