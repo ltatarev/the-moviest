@@ -5,12 +5,23 @@ import {
   verifySession,
 } from '@lib/studio/session';
 
+import { isBlockedAgent } from '@lib/blockedAgents';
+
 /**
- * Gate for the private `/studio` section. The matcher below is the only place
- * this runs: the public site never passes through here.
+ * 1. Block AI agents and SEO crawlers on all pages (403).
+ * 2. Gate the private `/studio` section behind a session.
+ * The matcher skips static build files, so they do not pass through here.
  */
 
 const PUBLIC_PATHS = new Set(['/studio/login', '/api/studio/login']);
+
+function isStudioPath(pathname: string): boolean {
+  return (
+    pathname === '/studio' ||
+    pathname.startsWith('/studio/') ||
+    pathname.startsWith('/api/studio/')
+  );
+}
 
 function withNoIndex(response: NextResponse): NextResponse {
   response.headers.set('X-Robots-Tag', 'noindex, nofollow');
@@ -20,6 +31,21 @@ function withNoIndex(response: NextResponse): NextResponse {
 
 export function proxy(request: NextRequest) {
   const { pathname, search } = request.nextUrl;
+
+  if (
+    pathname !== '/robots.txt' &&
+    isBlockedAgent(request.headers.get('user-agent'))
+  ) {
+    return new NextResponse('Forbidden', {
+      status: 403,
+      headers: { 'Content-Type': 'text/plain' },
+    });
+  }
+
+  if (!isStudioPath(pathname)) {
+    return NextResponse.next();
+  }
+
   const isApi = pathname.startsWith('/api/');
   const config = getStudioConfig();
 
@@ -57,5 +83,5 @@ export function proxy(request: NextRequest) {
 }
 
 export const config = {
-  matcher: ['/studio', '/studio/:path*', '/api/studio/:path*'],
+  matcher: ['/((?!_next/static|_next/image|favicon).*)'],
 };
