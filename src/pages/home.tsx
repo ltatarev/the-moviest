@@ -1,3 +1,5 @@
+import type { GetServerSidePropsContext } from 'next';
+import { setPublicPageCache } from '@lib/cache';
 import { fetchResults, getTrendingEndpoint } from '@lib/tmdb';
 import { MovieType } from '@lib/types';
 import { HomeLayout } from '@modules/layout';
@@ -75,7 +77,8 @@ export default function Home({ trendingMovies, trendingShows }: HomeProps) {
   );
 }
 
-export async function getServerSideProps() {
+export async function getServerSideProps({ res }: GetServerSidePropsContext) {
+  setPublicPageCache(res);
   const [trendingMovies, trendingShows] = await Promise.all([
     fetchResults(getTrendingEndpoint('movie')),
     fetchResults(getTrendingEndpoint('tv')),

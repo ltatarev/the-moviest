@@ -1,3 +1,5 @@
+import type { GetServerSidePropsContext } from 'next';
+import { setPublicPageCache } from '@lib/cache';
 import { WatchlistType } from '@lib/types';
 import { HomeLayout } from '@modules/layout';
 import { Navbar } from '@modules/navbar';
@@ -48,7 +50,8 @@ function EmptyState() {
   );
 }
 
-export async function getServerSideProps() {
+export async function getServerSideProps({ res }: GetServerSidePropsContext) {
+  setPublicPageCache(res);
   const response = await fetch(`${process.env.API_BASE_URL}/api/watchlists`, {
     method: 'GET',
     headers: { 'Content-Type': 'application/json' },

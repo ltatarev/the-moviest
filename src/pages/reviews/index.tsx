@@ -1,3 +1,5 @@
+import type { GetServerSidePropsContext } from 'next';
+import { setPublicPageCache } from '@lib/cache';
 import { ReviewType } from '@lib/types';
 import { HomeLayout } from '@modules/layout';
 import { Navbar } from '@modules/navbar';
@@ -42,7 +44,8 @@ export default function Reviews({ reviews }: ReviewsProps) {
   );
 }
 
-export async function getServerSideProps() {
+export async function getServerSideProps({ res }: GetServerSidePropsContext) {
+  setPublicPageCache(res);
   const response = await fetch(`${process.env.API_BASE_URL}/api/reviews`, {
     method: 'GET',
     headers: { 'Content-Type': 'application/json' },

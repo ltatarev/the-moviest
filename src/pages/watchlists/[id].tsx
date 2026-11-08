@@ -1,3 +1,5 @@
+import type { ServerResponse } from 'node:http';
+import { setPublicPageCache } from '@lib/cache';
 import { formatDate, pluralize } from '@lib/format';
 import { WatchlistType } from '@lib/types';
 import { HomeLayout } from '@modules/layout';
@@ -86,9 +88,11 @@ export default function WatchlistDetails({ watchlist }: WatchlistDetailsProps) {
 
 type ServerProps = {
   query: { id: string };
+  res: ServerResponse;
 };
 
-export async function getServerSideProps({ query }: ServerProps) {
+export async function getServerSideProps({ query, res }: ServerProps) {
+  setPublicPageCache(res);
   const response = await fetch(
     `${process.env.API_BASE_URL}/api/watchlists?id=${query.id}`,
     {

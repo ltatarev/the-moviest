@@ -1,3 +1,5 @@
+import type { ServerResponse } from 'node:http';
+import { setPublicPageCache } from '@lib/cache';
 import { formatDate } from '@lib/format';
 import { getStoredImageSrc } from '@lib/tmdb';
 import { ReviewType } from '@lib/types';
@@ -95,9 +97,11 @@ export default function ReviewDetails({ review }: ReviewDetailsProps) {
 
 type ServerProps = {
   query: { id: string };
+  res: ServerResponse;
 };
 
-export async function getServerSideProps({ query }: ServerProps) {
+export async function getServerSideProps({ query, res }: ServerProps) {
+  setPublicPageCache(res);
   const response = await fetch(
     `${process.env.API_BASE_URL}/api/reviews?id=${query.id}`,
     {

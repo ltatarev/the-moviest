@@ -1,3 +1,5 @@
+import type { ServerResponse } from 'node:http';
+import { setPublicPageCache } from '@lib/cache';
 import { toTitleDetail } from '@lib/detail';
 import { getDetailEndpoint } from '@lib/tmdb';
 import { TitleDetailType, TitleResponseType } from '@lib/types';
@@ -25,9 +27,11 @@ export default function TvDetails({ detail }: TvDetailsProps) {
 
 type ServerProps = {
   query: { id: string };
+  res: ServerResponse;
 };
 
-export async function getServerSideProps({ query }: ServerProps) {
+export async function getServerSideProps({ query, res }: ServerProps) {
+  setPublicPageCache(res);
   const response = await fetch(getDetailEndpoint('tv', query.id), {
     method: 'GET',
     headers: { 'Content-Type': 'application/json' },

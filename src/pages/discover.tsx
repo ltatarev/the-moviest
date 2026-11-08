@@ -1,3 +1,5 @@
+import type { GetServerSidePropsContext } from 'next';
+import { setPublicPageCache } from '@lib/cache';
 import { fetchResults, getListEndpoint } from '@lib/tmdb';
 import { MovieType } from '@lib/types';
 import { HomeLayout } from '@modules/layout';
@@ -54,7 +56,8 @@ export default function Discover({
   );
 }
 
-export async function getServerSideProps() {
+export async function getServerSideProps({ res }: GetServerSidePropsContext) {
+  setPublicPageCache(res);
   const [inCinemas, popularShows, topRated] = await Promise.all([
     fetchResults(getListEndpoint('movie', 'now_playing')),
     fetchResults(getListEndpoint('tv', 'popular')),
