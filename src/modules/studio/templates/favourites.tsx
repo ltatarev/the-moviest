@@ -90,6 +90,17 @@ function Cover({ input, data }: { input: Input; data: Data }) {
             'linear-gradient(to bottom, rgba(11,7,22,0) 0%, rgba(11,7,22,0.55) 30%, rgba(11,7,22,0.92) 62%, #0B0716 100%)',
         }}
       />
+      <div
+        style={{
+          position: 'absolute',
+          left: 0,
+          right: 0,
+          top: 0,
+          height: 260,
+          background:
+            'linear-gradient(to bottom, rgba(11,7,22,0.82) 0%, rgba(11,7,22,0.5) 55%, rgba(11,7,22,0) 100%)',
+        }}
+      />
       <Grain opacity={0.16} blend="overlay" />
       <div style={{ position: 'absolute', left: 72, top: 64 }}>
         <Wordmark size={40} color={colors.text} weight={700} withIcon />
@@ -144,18 +155,54 @@ function Cover({ input, data }: { input: Input; data: Data }) {
   );
 }
 
+/**
+ * The whole list as small posters, with this slide's title lit. It replaces a
+ * "2 / 7" counter: the reader sees what is still to come, not only how much.
+ */
+function ListStrip({
+  details,
+  current,
+}: {
+  details: TitleDetails[];
+  current: number;
+}) {
+  return (
+    <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
+      {details.map((item, index) => {
+        const isCurrent = index === current;
+
+        return (
+          <Poster
+            key={`${item.media}-${item.id}`}
+            path={item.posterPath}
+            seed={item.id}
+            size="w185"
+            width={isCurrent ? 52 : 36}
+            height={isCurrent ? 78 : 54}
+            radius={isCurrent ? 8 : 6}
+            style={{
+              opacity: isCurrent ? 1 : index < current ? 0.3 : 0.55,
+              boxShadow: isCurrent
+                ? `0 0 0 3px ${colors.ground}, 0 0 0 6px ${colors.coral}, 0 10px 24px rgba(0,0,0,0.5)`
+                : undefined,
+            }}
+          />
+        );
+      })}
+    </div>
+  );
+}
+
 function TitleSlide({
   title,
   picked,
   index,
-  slideNumber,
-  slideCount,
+  details,
 }: {
   title: TitleDetails;
   picked?: PickedTitle;
   index: number;
-  slideNumber: number;
-  slideCount: number;
+  details: TitleDetails[];
 }) {
   const backdrop = studioImageUrl(title.backdropPath, 'w780');
   const meta = [
@@ -211,18 +258,7 @@ function TitleSlide({
         }}
       >
         <Wordmark size={36} color={colors.text} weight={700} />
-        <span
-          style={{
-            fontSize: 26,
-            fontWeight: 600,
-            color: colors.textSecondary,
-            padding: '12px 24px',
-            borderRadius: 999,
-            background: 'rgba(255,255,255,0.08)',
-          }}
-        >
-          {slideNumber} / {slideCount}
-        </span>
+        <ListStrip details={details} current={index} />
       </div>
       <div
         style={{
@@ -581,7 +617,6 @@ export const favourites: TemplateDef<Input, Data> = {
     ),
   }),
   slides: (input, data) => {
-    const slideCount = data.details.length + 2;
     const slides: SlideDef[] = [
       {
         key: 'cover',
@@ -599,8 +634,7 @@ export const favourites: TemplateDef<Input, Data> = {
                 picked.id === title.id && picked.media === title.media,
             )}
             index={index}
-            slideNumber={index + 2}
-            slideCount={slideCount}
+            details={data.details}
           />
         ),
       })),
