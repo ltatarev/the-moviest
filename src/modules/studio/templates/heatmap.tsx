@@ -86,6 +86,8 @@ function ExtremeRow({
           borderRadius: 10,
           background: cell.fill,
           color: cell.text,
+          // The same ring as the cell in the grid, so the two read as one.
+          boxShadow: `0 0 0 3px ${colors.ground}, 0 0 0 6px ${colors.text}`,
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
@@ -336,6 +338,13 @@ function HeatmapCard({
 
               const enough = episode.votes >= input.minVotes;
               const band = cellColours(episode.vote, input.palette);
+              const isExtreme =
+                extremes !== null &&
+                [extremes.best, extremes.worst].some(
+                  (pick) =>
+                    pick.season === season.number &&
+                    pick.episode === episodeNumber,
+                );
 
               return (
                 <div
@@ -349,6 +358,13 @@ function HeatmapCard({
                       ? 'none'
                       : `2px solid ${HEATMAP_NO_VOTES.border}`,
                     color: enough ? band.text : HEATMAP_NO_VOTES.text,
+                    // A ring in the ground colour, then one in the text
+                    // colour: it finds the best and worst cells in the grid.
+                    boxShadow: isExtreme
+                      ? `0 0 0 3px ${colors.ground}, 0 0 0 6px ${colors.text}`
+                      : undefined,
+                    position: 'relative',
+                    zIndex: isExtreme ? 1 : undefined,
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'center',
