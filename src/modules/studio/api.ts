@@ -22,6 +22,8 @@ async function getJson<T>(
   });
 
   if (response.status === 401) {
+    // A full page load is intentional: it drops all client state of the expired session.
+    // eslint-disable-next-line @next/next/no-location-assign-relative-destination
     window.location.assign(
       `/studio/login?next=${encodeURIComponent(window.location.pathname)}`,
     );
