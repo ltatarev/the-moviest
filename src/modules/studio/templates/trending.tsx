@@ -101,9 +101,7 @@ function TrendingCard({ input, data }: { input: Input; data: Data }) {
         }}
       >
         {items.map((item, index) => {
-          const service = [item.provider, item.isNew ? 'new' : null]
-            .filter(Boolean)
-            .join(' · ');
+          const service = item.provider;
 
           return (
             <div
@@ -159,9 +157,46 @@ function TrendingCard({ input, data }: { input: Input; data: Data }) {
                 >
                   {item.title}
                 </span>
-                {service && (
-                  <span style={{ fontSize: 24, color: colors.lavenderMuted }}>
-                    {service}
+                {(service || item.isNew) && (
+                  <span
+                    style={{
+                      display: 'flex',
+                      alignItems: 'center',
+                      gap: 10,
+                      fontSize: 24,
+                      color: colors.lavenderMuted,
+                      minWidth: 0,
+                    }}
+                  >
+                    {item.isNew && (
+                      <span
+                        style={{
+                          flexShrink: 0,
+                          padding: '3px 12px 4px',
+                          borderRadius: 999,
+                          background: colors.coral,
+                          color: colors.lavenderText,
+                          fontSize: 19,
+                          fontWeight: 700,
+                          letterSpacing: '0.08em',
+                          textTransform: 'uppercase',
+                          lineHeight: 1.2,
+                        }}
+                      >
+                        New
+                      </span>
+                    )}
+                    {service && (
+                      <span
+                        style={{
+                          whiteSpace: 'nowrap',
+                          overflow: 'hidden',
+                          textOverflow: 'ellipsis',
+                        }}
+                      >
+                        {service}
+                      </span>
+                    )}
                   </span>
                 )}
               </div>
