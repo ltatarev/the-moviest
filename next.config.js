@@ -6,6 +6,9 @@ const nextConfig = {
   },
   // sharp (Next's image optimiser) ships native binaries and must not be bundled.
   serverExternalPackages: ['sharp'],
+  experimental: {
+    agentUpgrade: 'security',
+  },
 };
 
 module.exports = nextConfig;
