@@ -1,3 +1,4 @@
+import type { RawWatchProviders, WatchRegions } from './watch';
 import mongoose, { SortOrder } from 'mongoose';
 import { Genres } from './tmdb';
 
@@ -108,6 +109,7 @@ export type TitleResponseType = MovieType & {
   vote_count?: number;
   credits?: { cast?: Array<PersonType>; crew?: Array<PersonType> };
   similar?: { results?: Array<MovieType> };
+  'watch/providers'?: RawWatchProviders;
 };
 
 export type CrewCreditType = { role: string; name: string };
@@ -141,4 +143,6 @@ export type TitleDetailType = {
   crew: Array<CrewCreditType>;
   facts: Array<FactType>;
   similar: Array<MovieType>;
+  /** Offers by region code. Only regions in WATCH_REGIONS that have offers. */
+  watch: WatchRegions;
 };

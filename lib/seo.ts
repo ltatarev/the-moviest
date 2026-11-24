@@ -1,5 +1,6 @@
 import { SITE_URL } from './site';
 import type { TitleDetailType } from './types';
+import { getDefaultStreamNames } from './watch';
 
 /** Search engines cut a meta description at about this many characters. */
 export const DESCRIPTION_LIMIT = 160;
@@ -63,6 +64,12 @@ export function getTitleDescription(detail: TitleDetailType): string {
 
   if (stars.length > 0) {
     parts.push(`With ${joinNames(stars)}.`);
+  }
+
+  const streams = getDefaultStreamNames(detail.watch).slice(0, 3);
+
+  if (streams.length > 0) {
+    parts.push(`Streaming on ${joinNames(streams)} in the US.`);
   }
 
   // Keep each fact whole: drop a fact that does not fit, cut only the overview.

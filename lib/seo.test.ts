@@ -34,6 +34,7 @@ const film: TitleDetailType = {
   crew: [{ role: 'Director', name: 'Denis Villeneuve' }],
   facts: [],
   similar: [],
+  watch: {},
 };
 
 describe('getTitleDescription', () => {

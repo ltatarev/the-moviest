@@ -14,6 +14,7 @@ import {
   TitleDetailType,
   TitleResponseType,
 } from './types';
+import { toWatchRegions } from './watch';
 
 const CAST_LIMIT = 12;
 const SIMILAR_LIMIT = 5;
@@ -146,5 +147,6 @@ export function toTitleDetail(
     crew: getCrew(title, type),
     facts: getFacts(title, type),
     similar: (title.similar?.results ?? []).slice(0, SIMILAR_LIMIT),
+    watch: toWatchRegions(title['watch/providers']),
   };
 }

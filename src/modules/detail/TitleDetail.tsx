@@ -16,6 +16,7 @@ import { CastGrid } from './CastGrid';
 import { FactsPanel } from './FactsPanel';
 import { ScoreRing } from './ScoreRing';
 import { TitleBackdrop } from './TitleBackdrop';
+import { WatchPanel } from './WatchPanel';
 
 /**
  * A movie or a show, rendered from the same view model. Every block below the
@@ -41,6 +42,7 @@ export function TitleDetail({ detail }: { detail: TitleDetailType }) {
     crew,
     facts,
     similar,
+    watch,
   } = detail;
 
   const director = crew[0];
@@ -164,6 +166,20 @@ export function TitleDetail({ detail }: { detail: TitleDetailType }) {
           )}
         </Reveal>
       </div>
+
+      {Object.keys(watch).length > 0 && (
+        <section className="mt-[72px]">
+          <Reveal>
+            <SectionHeader
+              eyebrow="Streaming, rent or buy"
+              title={`Where to watch ${title}`}
+            />
+          </Reveal>
+          <Reveal delay={80}>
+            <WatchPanel watch={watch} />
+          </Reveal>
+        </section>
+      )}
 
       {cast.length > 0 && (
         <section className="mt-[72px]">

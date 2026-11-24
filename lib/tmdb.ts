@@ -44,19 +44,19 @@ export async function fetchResults(url: string): Promise<Array<MovieType>> {
 }
 
 /**
- * A title's full record. `append_to_response` folds the cast, the crew and the
- * "more like this" rail into the same round trip.
+ * A title's full record. `append_to_response` adds the cast, the crew, the
+ * "more like this" rail and the watch providers to the same request.
  */
 export function getDetailEndpoint(type: TV | MOVIE, id: string | number) {
   return (
     `${API_BASE_URL}/${type}/${id}?api_key=${getEnvString('TMDB_KEY')}` +
-    '&language=en-US&append_to_response=credits,similar'
+    '&language=en-US&append_to_response=credits,similar,watch/providers'
   );
 }
 
 export const IMAGE_BASE_URL = 'https://image.tmdb.org/t/p';
 
-export type ImageSize = 'w342' | 'w500' | 'w780' | 'w1280' | 'original';
+export type ImageSize = 'w92' | 'w342' | 'w500' | 'w780' | 'w1280' | 'original';
 
 /** Tiny inline gradient used as the blur placeholder for every remote image. */
 export const BLUR_DATA_URL =
