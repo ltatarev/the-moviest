@@ -83,7 +83,13 @@ async function fetchTitles(): Promise<Array<Entry>> {
   const paths = new Set<string>();
 
   lists.forEach((list, i) =>
-    list.forEach((title) => paths.add(`/${kinds[i]}/${title.id}`)),
+    list.forEach((title) => {
+      paths.add(`/${kinds[i]}/${title.id}`);
+
+      if (kinds[i] === 'tv') {
+        paths.add(`/tv/${title.id}/episodes`);
+      }
+    }),
   );
 
   return [...paths].map((path) => ({ path }));

@@ -9,6 +9,8 @@ import {
   SectionHeader,
   WatchlistButton,
 } from '@modules/ui';
+import { ArrowRight } from '@modules/ui/Icons';
+import Link from 'next/link';
 import { useState } from 'react';
 import { CastGrid } from './CastGrid';
 import { FactsPanel } from './FactsPanel';
@@ -125,7 +127,7 @@ export function TitleDetail({ detail }: { detail: TitleDetailType }) {
             </p>
           )}
 
-          <div className="mt-7">
+          <div className="mt-7 flex flex-wrap items-center gap-x-6 gap-y-4">
             <WatchlistButton
               saved={saved}
               onToggle={() => setSaved((current) => !current)}
@@ -133,6 +135,19 @@ export function TitleDetail({ detail }: { detail: TitleDetailType }) {
               label="Add to watchlist"
               savedLabel="On your watchlist"
             />
+            {type === 'tv' && (
+              <Link
+                href={`/tv/${detail.id}/episodes`}
+                className="group inline-flex items-center gap-1.5 text-sm font-semibold text-accent-soft transition-colors duration-200 ease-silk hover:text-chalk"
+              >
+                Episode ratings
+                <ArrowRight
+                  width={15}
+                  height={15}
+                  className="transition-transform duration-300 ease-silk group-hover:translate-x-1"
+                />
+              </Link>
+            )}
           </div>
 
           {crew.length > 0 && (

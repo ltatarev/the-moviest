@@ -11,3 +11,15 @@ export const PUBLIC_PAGE_CACHE =
 export function setPublicPageCache(res: ServerResponse): void {
   res.setHeader('Cache-Control', PUBLIC_PAGE_CACHE);
 }
+
+/**
+ * Cache header for pages that are slow to build and change slowly, such as
+ * the episode ratings: one request to TMDB per season. The CDN keeps them for
+ * 6 hours.
+ */
+export const SLOW_PAGE_CACHE =
+  'public, max-age=0, s-maxage=21600, stale-while-revalidate=86400';
+
+export function setSlowPageCache(res: ServerResponse): void {
+  res.setHeader('Cache-Control', SLOW_PAGE_CACHE);
+}

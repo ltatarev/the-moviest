@@ -1,3 +1,4 @@
+import type { EpisodeSummary, Faq } from './episodes';
 import { absoluteUrl, truncate } from './seo';
 import { APP_PAGE, APP_STORE_ID, SITE_NAME, SITE_URL } from './site';
 import { getImageSrc, getStoredImageSrc } from './tmdb';
@@ -204,4 +205,59 @@ export function getSiteJsonLd(): JsonLdObject {
       },
     ],
   };
+}
+
+/**
+ * The episode ratings page: the best episodes as an ordered list, and the
+ * questions that the page answers. The series links to the detail page by @id.
+ */
+export function getEpisodesJsonLd(
+  summary: EpisodeSummary,
+  faq: Array<Faq>,
+): JsonLdObject {
+  const series = absoluteUrl(`/tv/${summary.showId}`);
+  const page = absoluteUrl(`/tv/${summary.showId}/episodes`);
+  const graph: Array<JsonLdObject> = [];
+
+  if (summary.top.length > 0) {
+    graph.push({
+      '@type': 'ItemList',
+      '@id': `${page}#best`,
+      name: `Best-rated episodes of ${summary.title}`,
+      itemListOrder: 'https://schema.org/ItemListOrderDescending',
+      numberOfItems: summary.top.length,
+      itemListElement: summary.top.map((episode, i) => ({
+        '@type': 'ListItem',
+        position: i + 1,
+        item: compact({
+          '@type': 'TVEpisode',
+          name: episode.name,
+          episodeNumber: episode.episode,
+          partOfSeason: {
+            '@type': 'TVSeason',
+            seasonNumber: episode.season,
+          },
+          partOfSeries: {
+            '@type': 'TVSeries',
+            '@id': series,
+            name: summary.title,
+          },
+        }),
+      })),
+    });
+  }
+
+  if (faq.length > 0) {
+    graph.push({
+      '@type': 'FAQPage',
+      '@id': `${page}#faq`,
+      mainEntity: faq.map((item) => ({
+        '@type': 'Question',
+        name: item.question,
+        acceptedAnswer: { '@type': 'Answer', text: item.answer },
+      })),
+    });
+  }
+
+  return { '@context': CONTEXT, '@graph': graph };
 }

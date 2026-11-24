@@ -1,7 +1,9 @@
 import { describe, expect, it } from 'vitest';
 import { serializeJsonLd } from '../src/modules/ui/JsonLd';
+import { getEpisodeFaq, summarizeEpisodes } from './episodes';
 import {
   getBreadcrumbJsonLd,
+  getEpisodesJsonLd,
   getReviewJsonLd,
   getTitleJsonLd,
   getWatchlistJsonLd,
@@ -174,6 +176,53 @@ describe('serializeJsonLd', () => {
     expect(json).not.toContain('</script>');
     expect(JSON.parse(json)).toEqual({
       reviewBody: '</script><script>alert(1)',
+    });
+  });
+});
+
+describe('getEpisodesJsonLd', () => {
+  it('links the best episodes to the series and adds the questions', () => {
+    const summary = summarizeEpisodes({
+      show: {
+        id: 1396,
+        title: 'Breaking Bad',
+        posterPath: null,
+        firstYear: '2008',
+        lastYear: '2013',
+        inProduction: false,
+      },
+      seasons: [
+        {
+          number: 5,
+          episodes: [{ number: 14, name: 'Ozymandias', vote: 9.9, votes: 812 }],
+        },
+      ],
+    });
+    const data = getEpisodesJsonLd(summary, getEpisodeFaq(summary));
+    const [list, faq] = data['@graph'] as Array<Record<string, unknown>>;
+
+    expect(list).toMatchObject({
+      '@type': 'ItemList',
+      itemListElement: [
+        {
+          position: 1,
+          item: {
+            '@type': 'TVEpisode',
+            name: 'Ozymandias',
+            episodeNumber: 14,
+            partOfSeason: { seasonNumber: 5 },
+            partOfSeries: { '@id': 'https://the-moviest.vercel.app/tv/1396' },
+          },
+        },
+      ],
+    });
+    expect(faq).toMatchObject({
+      '@type': 'FAQPage',
+      mainEntity: expect.arrayContaining([
+        expect.objectContaining({
+          name: 'What is the best episode of Breaking Bad?',
+        }),
+      ]),
     });
   });
 });
