@@ -15,9 +15,9 @@ export function HomeLayout({ children, hideFooter = false }: HomeLayoutProps) {
        splash — which dissolves into that same ink — has no seam in it. */
     <div className="animate-fade-in relative flex min-h-screen w-full flex-col overflow-x-clip bg-ink text-chalk">
       <Head>
-        <title>The Moviest — browse films and TV shows</title>
-        <meta name="description" content={SITE_DESCRIPTION} />
-        <link rel="icon" href="/favicon.ico" />
+        <title key="title">The Moviest — browse films and TV shows</title>
+        <meta key="description" name="description" content={SITE_DESCRIPTION} />
+        <link rel="icon" href="/favicon/favicon.ico" />
       </Head>
 
       <AmbientBackground />

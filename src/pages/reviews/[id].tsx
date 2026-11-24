@@ -5,9 +5,8 @@ import { getStoredImageSrc } from '@lib/tmdb';
 import { ReviewType } from '@lib/types';
 import { HomeLayout } from '@modules/layout';
 import { Navbar } from '@modules/navbar';
-import { Avatar, Breadcrumb, PosterImage, Reveal } from '@modules/ui';
+import { Avatar, Breadcrumb, PosterImage, Reveal, Seo } from '@modules/ui';
 import { Star } from '@modules/ui/Icons';
-import Head from 'next/head';
 import Link from 'next/link';
 
 type ReviewDetailsProps = {
@@ -21,9 +20,15 @@ export default function ReviewDetails({ review }: ReviewDetailsProps) {
 
   return (
     <HomeLayout>
-      <Head>
-        <title>{`${title} — The Moviest`}</title>
-      </Head>
+      <Seo
+        title={
+          movie?.movieTitle ? `${title} · review of ${movie.movieTitle}` : title
+        }
+        description={`${author} rates ${movie?.movieTitle ?? 'this title'} ${rating}/10. ${reviewText}`}
+        path={`/reviews/${review._id}`}
+        image={getStoredImageSrc(movie?.moviePosterPath, 'w780')}
+        type="article"
+      />
 
       <Navbar />
 

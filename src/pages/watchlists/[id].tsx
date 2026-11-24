@@ -4,8 +4,8 @@ import { formatDate, pluralize } from '@lib/format';
 import { WatchlistType } from '@lib/types';
 import { HomeLayout } from '@modules/layout';
 import { Navbar } from '@modules/navbar';
-import { Avatar, Breadcrumb, Reveal, SavedTitleCard } from '@modules/ui';
-import Head from 'next/head';
+import { getStoredImageSrc } from '@lib/tmdb';
+import { Avatar, Breadcrumb, Reveal, SavedTitleCard, Seo } from '@modules/ui';
 
 type WatchlistDetailsProps = {
   watchlist: WatchlistType;
@@ -17,9 +17,12 @@ export default function WatchlistDetails({ watchlist }: WatchlistDetailsProps) {
 
   return (
     <HomeLayout>
-      <Head>
-        <title>{`${title} — The Moviest`}</title>
-      </Head>
+      <Seo
+        title={title}
+        description={`A watchlist by ${author}: ${pluralize(movies.length, 'title')}. ${description ?? ''}`}
+        path={`/watchlists/${watchlist._id}`}
+        image={getStoredImageSrc(movies[0]?.moviePosterPath, 'w780')}
+      />
 
       <Navbar />
 

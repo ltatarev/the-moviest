@@ -3,8 +3,7 @@ import { setPublicPageCache } from '@lib/cache';
 import { ReviewType } from '@lib/types';
 import { HomeLayout } from '@modules/layout';
 import { Navbar } from '@modules/navbar';
-import { PageHeader, Reveal, ReviewCard } from '@modules/ui';
-import Head from 'next/head';
+import { PageHeader, Reveal, ReviewCard, Seo } from '@modules/ui';
 
 type ReviewsProps = {
   reviews: Array<ReviewType>;
@@ -13,9 +12,11 @@ type ReviewsProps = {
 export default function Reviews({ reviews }: ReviewsProps) {
   return (
     <HomeLayout>
-      <Head>
-        <title>Reviews — The Moviest</title>
-      </Head>
+      <Seo
+        title="Reviews"
+        path="/reviews"
+        description="Film and TV reviews with ratings, written by Moviest users."
+      />
 
       <Navbar />
 

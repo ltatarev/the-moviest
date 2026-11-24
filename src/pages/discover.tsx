@@ -4,8 +4,7 @@ import { fetchResults, getListEndpoint } from '@lib/tmdb';
 import { MovieType } from '@lib/types';
 import { HomeLayout } from '@modules/layout';
 import { Navbar } from '@modules/navbar';
-import { PageHeader, Rail, Reveal, SectionHeader } from '@modules/ui';
-import Head from 'next/head';
+import { PageHeader, Rail, Reveal, SectionHeader, Seo } from '@modules/ui';
 
 interface DiscoverProps {
   inCinemas: Array<MovieType>;
@@ -20,9 +19,11 @@ export default function Discover({
 }: DiscoverProps) {
   return (
     <HomeLayout>
-      <Head>
-        <title>Discover — The Moviest</title>
-      </Head>
+      <Seo
+        title="Discover"
+        path="/discover"
+        description="What to watch next: films in cinemas now, popular TV shows and the top-rated films of all time."
+      />
 
       <Navbar />
 

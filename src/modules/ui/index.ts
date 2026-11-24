@@ -15,3 +15,4 @@ export { SavedTitleCard } from './SavedTitleCard';
 export { SectionHeader } from './SectionHeader';
 export { WatchlistButton } from './WatchlistButton';
 export { WatchlistCard } from './WatchlistCard';
+export { Seo } from './Seo';

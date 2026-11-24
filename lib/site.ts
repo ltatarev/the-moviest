@@ -12,3 +12,16 @@ export const APP_PAGE = 'https://ltatarev.github.io/moviest/';
 
 export const SITE_DESCRIPTION =
   'Browse films and TV shows: search, cast, trailers and where to watch. The web companion of Moviest, the free film and TV tracker for iPhone and iPad.';
+
+export const SITE_NAME = 'The Moviest';
+
+/**
+ * The production origin, with no trailing slash. Canonical, Open Graph and
+ * sitemap URLs must be absolute. Set NEXT_PUBLIC_SITE_URL to change it.
+ */
+export const SITE_URL = (
+  process.env.NEXT_PUBLIC_SITE_URL ?? 'https://the-moviest.vercel.app'
+).replace(/\/+$/, '');
+
+/** Shared fallback image for link previews. */
+export const DEFAULT_OG_IMAGE = '/assets/logo.png';

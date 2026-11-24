@@ -3,8 +3,7 @@ import { setPublicPageCache } from '@lib/cache';
 import { WatchlistType } from '@lib/types';
 import { HomeLayout } from '@modules/layout';
 import { Navbar } from '@modules/navbar';
-import { PageHeader, Reveal, WatchlistCard } from '@modules/ui';
-import Head from 'next/head';
+import { PageHeader, Reveal, Seo, WatchlistCard } from '@modules/ui';
 
 type WatchlistsProps = {
   watchlists: Array<WatchlistType>;
@@ -13,9 +12,11 @@ type WatchlistsProps = {
 export default function Watchlists({ watchlists }: WatchlistsProps) {
   return (
     <HomeLayout>
-      <Head>
-        <title>Watchlists — The Moviest</title>
-      </Head>
+      <Seo
+        title="Watchlists"
+        path="/watchlists"
+        description="Watchlists of films and TV shows, made by people and not by algorithms."
+      />
 
       <Navbar />
 
