@@ -1,11 +1,19 @@
 import type { ServerResponse } from 'node:http';
 import { setPublicPageCache } from '@lib/cache';
+import { getReviewJsonLd } from '@lib/jsonLd';
 import { formatDate } from '@lib/format';
 import { getStoredImageSrc } from '@lib/tmdb';
 import { ReviewType } from '@lib/types';
 import { HomeLayout } from '@modules/layout';
 import { Navbar } from '@modules/navbar';
-import { Avatar, Breadcrumb, PosterImage, Reveal, Seo } from '@modules/ui';
+import {
+  Avatar,
+  Breadcrumb,
+  PosterImage,
+  Reveal,
+  JsonLd,
+  Seo,
+} from '@modules/ui';
 import { Star } from '@modules/ui/Icons';
 import Link from 'next/link';
 
@@ -29,6 +37,7 @@ export default function ReviewDetails({ review }: ReviewDetailsProps) {
         image={getStoredImageSrc(movie?.moviePosterPath, 'w780')}
         type="article"
       />
+      <JsonLd id="review" data={getReviewJsonLd(review)} />
 
       <Navbar />
 

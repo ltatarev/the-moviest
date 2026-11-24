@@ -1,5 +1,7 @@
+import { getBreadcrumbJsonLd } from '@lib/jsonLd';
 import Link from 'next/link';
 import { Fragment } from 'react';
+import { JsonLd } from './JsonLd';
 
 type Crumb = { label: string; href?: string };
 
@@ -7,6 +9,7 @@ type Crumb = { label: string; href?: string };
 export function Breadcrumb({ items }: { items: Array<Crumb> }) {
   return (
     <nav aria-label="Breadcrumb" className="text-[13px] text-white/60">
+      <JsonLd id="breadcrumb" data={getBreadcrumbJsonLd(items)} />
       {items.map((item, i) => (
         <Fragment key={item.label}>
           {i > 0 && <span className="mx-2.5 text-dimmer">/</span>}

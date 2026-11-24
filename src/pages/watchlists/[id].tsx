@@ -1,11 +1,19 @@
 import type { ServerResponse } from 'node:http';
 import { setPublicPageCache } from '@lib/cache';
+import { getWatchlistJsonLd } from '@lib/jsonLd';
 import { formatDate, pluralize } from '@lib/format';
 import { WatchlistType } from '@lib/types';
 import { HomeLayout } from '@modules/layout';
 import { Navbar } from '@modules/navbar';
 import { getStoredImageSrc } from '@lib/tmdb';
-import { Avatar, Breadcrumb, Reveal, SavedTitleCard, Seo } from '@modules/ui';
+import {
+  Avatar,
+  Breadcrumb,
+  Reveal,
+  SavedTitleCard,
+  JsonLd,
+  Seo,
+} from '@modules/ui';
 
 type WatchlistDetailsProps = {
   watchlist: WatchlistType;
@@ -23,6 +31,7 @@ export default function WatchlistDetails({ watchlist }: WatchlistDetailsProps) {
         path={`/watchlists/${watchlist._id}`}
         image={getStoredImageSrc(movies[0]?.moviePosterPath, 'w780')}
       />
+      <JsonLd id="watchlist" data={getWatchlistJsonLd(watchlist)} />
 
       <Navbar />
 

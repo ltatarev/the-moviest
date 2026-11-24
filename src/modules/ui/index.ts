@@ -16,3 +16,4 @@ export { SectionHeader } from './SectionHeader';
 export { WatchlistButton } from './WatchlistButton';
 export { WatchlistCard } from './WatchlistCard';
 export { Seo } from './Seo';
+export { JsonLd } from './JsonLd';

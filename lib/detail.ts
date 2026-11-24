@@ -128,6 +128,12 @@ export function toTitleDetail(
     backdropPath: title.backdrop_path ?? null,
     year: getYear(title),
     length,
+    releaseDate:
+      (type === 'tv' ? title.first_air_date : title.release_date) ?? '',
+    runtimeMinutes:
+      (type === 'tv' ? title.episode_run_time?.[0] : title.runtime) || null,
+    seasons: type === 'tv' ? (title.number_of_seasons ?? null) : null,
+    episodes: type === 'tv' ? (title.number_of_episodes ?? null) : null,
     genres: (title.genres ?? []).map((genre) => genre.name),
     score: title.vote_average ? Math.round(title.vote_average * 10) : null,
     votes: title.vote_count ?? 0,

@@ -1,10 +1,11 @@
 import type { GetServerSidePropsContext } from 'next';
 import { setPublicPageCache } from '@lib/cache';
+import { getSiteJsonLd } from '@lib/jsonLd';
 import { fetchResults, getTrendingEndpoint } from '@lib/tmdb';
 import { MovieType } from '@lib/types';
 import { HomeLayout } from '@modules/layout';
 import { Navbar } from '@modules/navbar';
-import { Hero, Rail, Reveal, SectionHeader, Seo } from '@modules/ui';
+import { Hero, Rail, Reveal, SectionHeader, JsonLd, Seo } from '@modules/ui';
 
 interface HomeProps {
   trendingMovies: Array<MovieType>;
@@ -19,6 +20,7 @@ export default function Home({ trendingMovies, trendingShows }: HomeProps) {
   return (
     <HomeLayout>
       <Seo path="/home" />
+      <JsonLd id="site" data={getSiteJsonLd()} />
       <Navbar />
 
       <Hero items={featured} type="movie" eyebrow="Trending now" />

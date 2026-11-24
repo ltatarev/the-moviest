@@ -125,6 +125,14 @@ export type TitleDetailType = {
   backdropPath: string | null;
   year: string;
   length: string;
+  /** ISO date of the release or the first air date. Empty when TMDB has none. */
+  releaseDate: string;
+  /** Film runtime or episode runtime, in minutes. */
+  runtimeMinutes: number | null;
+  /** TV only. */
+  seasons: number | null;
+  /** TV only. */
+  episodes: number | null;
   genres: Array<string>;
   /** Percentage, 0–100. Null when nobody has voted yet. */
   score: number | null;

@@ -1,13 +1,14 @@
 import type { ServerResponse } from 'node:http';
 import { setPublicPageCache } from '@lib/cache';
 import { toTitleDetail } from '@lib/detail';
+import { getTitleJsonLd } from '@lib/jsonLd';
 import { getTitleDescription } from '@lib/seo';
 import { getDetailEndpoint, getImageSrc } from '@lib/tmdb';
 import { TitleDetailType, TitleResponseType } from '@lib/types';
 import { TitleDetail } from '@modules/detail';
 import { HomeLayout } from '@modules/layout';
 import { Navbar } from '@modules/navbar';
-import { Seo } from '@modules/ui';
+import { JsonLd, Seo } from '@modules/ui';
 
 type TvDetailsProps = {
   detail: TitleDetailType;
@@ -23,6 +24,7 @@ export default function TvDetails({ detail }: TvDetailsProps) {
         image={getImageSrc(detail.backdropPath ?? detail.posterPath, 'w1280')}
         type="video.tv_show"
       />
+      <JsonLd id="title" data={getTitleJsonLd(detail)} />
 
       <Navbar />
       <TitleDetail detail={detail} />
