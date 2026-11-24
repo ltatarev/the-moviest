@@ -1,5 +1,10 @@
 import { absoluteUrl, truncate } from '@lib/seo';
-import { DEFAULT_OG_IMAGE, SITE_DESCRIPTION, SITE_NAME } from '@lib/site';
+import {
+  APP_STORE_ID,
+  DEFAULT_OG_IMAGE,
+  SITE_DESCRIPTION,
+  SITE_NAME,
+} from '@lib/site';
 import Head from 'next/head';
 
 type SeoProps = {
@@ -12,6 +17,12 @@ type SeoProps = {
   image?: string | null;
   type?: 'website' | 'video.movie' | 'video.tv_show' | 'article';
   noIndex?: boolean;
+  /**
+   * The app link that the Smart App Banner passes to the app, for example
+   * `moviest://media/movie%3A603`. iOS Safari then shows "Open" when the app
+   * is installed and opens that title.
+   */
+  appArgument?: string;
 };
 
 /**
@@ -25,6 +36,7 @@ export function Seo({
   image,
   type = 'website',
   noIndex = false,
+  appArgument,
 }: SeoProps) {
   const fullTitle = title
     ? `${title} — ${SITE_NAME}`
@@ -39,6 +51,16 @@ export function Seo({
       <meta key="description" name="description" content={text} />
       <link key="canonical" rel="canonical" href={url} />
       {noIndex && <meta key="robots" name="robots" content="noindex, follow" />}
+      {/* Safari on iOS shows a banner that opens or installs the app. */}
+      <meta
+        key="apple-itunes-app"
+        name="apple-itunes-app"
+        content={
+          appArgument
+            ? `app-id=${APP_STORE_ID}, app-argument=${appArgument}`
+            : `app-id=${APP_STORE_ID}`
+        }
+      />
 
       <meta key="og:site_name" property="og:site_name" content={SITE_NAME} />
       <meta key="og:type" property="og:type" content={type} />

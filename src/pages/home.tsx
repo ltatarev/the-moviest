@@ -5,14 +5,30 @@ import { fetchResults, getTrendingEndpoint } from '@lib/tmdb';
 import { MovieType } from '@lib/types';
 import { HomeLayout } from '@modules/layout';
 import { Navbar } from '@modules/navbar';
-import { Hero, Rail, Reveal, SectionHeader, JsonLd, Seo } from '@modules/ui';
+import { discoverMoods, type Mood } from '@lib/moods';
+import { MoodPills } from '@modules/moods';
+import {
+  AppPitch,
+  Hero,
+  JsonLd,
+  Rail,
+  Reveal,
+  SectionHeader,
+  Seo,
+} from '@modules/ui';
 
 interface HomeProps {
   trendingMovies: Array<MovieType>;
   trendingShows: Array<MovieType>;
+  /** Read on the server, so the season is the same in the browser. */
+  moods: Array<Mood>;
 }
 
-export default function Home({ trendingMovies, trendingShows }: HomeProps) {
+export default function Home({
+  trendingMovies,
+  trendingShows,
+  moods,
+}: HomeProps) {
   const featured = trendingMovies.slice(0, 5);
   const movies = trendingMovies.slice(5, 15);
   const shows = trendingShows.slice(0, 10);
@@ -50,30 +66,20 @@ export default function Home({ trendingMovies, trendingShows }: HomeProps) {
       <section className="mt-20">
         <Reveal>
           <SectionHeader
-            eyebrow="From the community"
-            title="Watchlists worth stealing"
-            moreLabel="Browse all"
-            moreHref="/watchlists"
+            eyebrow="No idea what to watch"
+            title="In the mood for…"
+            moreLabel="All moods"
+            moreHref="/moods"
           />
         </Reveal>
-        <Reveal delay={80}>
-          <div className="relative overflow-hidden rounded-hero border border-white/10 bg-white/[.05] px-8 py-12 text-center backdrop-blur-md transition-colors duration-300 ease-silk hover:border-white/20 sm:px-14 sm:py-16">
-            <div
-              aria-hidden
-              className="pointer-events-none absolute -right-24 -top-24 h-64 w-64 rounded-full bg-iris/25 blur-[80px]"
-            />
-            <div
-              aria-hidden
-              className="pointer-events-none absolute -bottom-24 -left-24 h-64 w-64 rounded-full bg-accent/20 blur-[80px]"
-            />
-            <h3 className="relative font-display text-2xl font-semibold tracking-[-.02em] sm:text-3xl">
-              Lists made by people, not algorithms
-            </h3>
-            <p className="relative mx-auto mt-3 max-w-md text-[15px] leading-relaxed text-dim">
-              Cold autumn days, comfort rewatches, the best of the year —
-              curated by the community.
-            </p>
-          </div>
+        <Reveal delay={60}>
+          <MoodPills moods={moods} />
+        </Reveal>
+      </section>
+
+      <section className="mt-20">
+        <Reveal>
+          <AppPitch />
         </Reveal>
       </section>
     </HomeLayout>
@@ -91,6 +97,7 @@ export async function getServerSideProps({ res }: GetServerSidePropsContext) {
     props: {
       trendingMovies,
       trendingShows,
+      moods: discoverMoods(new Date()),
     },
   };
 }

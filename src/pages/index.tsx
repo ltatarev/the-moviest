@@ -219,10 +219,10 @@ export default function Landing() {
             </Link>
 
             <Link
-              href="/watchlists"
+              href="/moods"
               className="inline-flex items-center rounded-full border border-white/20 bg-white/10 px-8 py-4 text-sm font-semibold text-chalk backdrop-blur-md transition-all duration-200 ease-silk hover:-translate-y-0.5 hover:bg-white/[.18]"
             >
-              Browse watchlists
+              Browse by mood
             </Link>
           </div>
         </main>

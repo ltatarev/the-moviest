@@ -7,6 +7,17 @@
 /** The Moviest app on the App Store. Same id as the landing page uses. */
 export const APP_STORE_ID = '6797281738';
 
+/** The app's page on the App Store. */
+export const APP_STORE_URL = `https://apps.apple.com/app/id${APP_STORE_ID}`;
+
+/**
+ * The link that opens a title in the app: `moviest://media/movie%3A603`.
+ * The same shape as `toMediaLink` in the app (`src/common/links`).
+ */
+export function toAppMediaLink(type: 'movie' | 'tv', id: string | number) {
+  return `moviest://media/${encodeURIComponent(`${type}:${id}`)}`;
+}
+
 /** The landing page of the iOS app. */
 export const APP_PAGE = 'https://ltatarev.github.io/moviest/';
 

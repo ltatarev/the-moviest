@@ -4,13 +4,11 @@ import { getEpisodeFaq, summarizeEpisodes } from './episodes';
 import {
   getBreadcrumbJsonLd,
   getEpisodesJsonLd,
-  getReviewJsonLd,
   getSiteJsonLd,
   getTitleJsonLd,
-  getWatchlistJsonLd,
   toIsoDuration,
 } from './jsonLd';
-import type { ReviewType, TitleDetailType, WatchlistType } from './types';
+import type { TitleDetailType } from './types';
 
 const film: TitleDetailType = {
   id: '693134',
@@ -88,96 +86,32 @@ describe('getTitleJsonLd', () => {
   });
 });
 
-describe('getReviewJsonLd', () => {
-  it('links the review to the film and gives the rating out of 10', () => {
-    const review = {
-      _id: 'abc',
-      title: 'Sand everywhere',
-      reviewText: 'Loved it.',
-      rating: 9,
-      likes: 0,
-      author_id: { username: 'ana' },
-      movie: { movieId: 693134, movieTitle: 'Dune: Part Two' },
-      createdAt: '2024-03-01T00:00:00.000Z',
-      updatedAt: '2024-03-01T00:00:00.000Z',
-    } as unknown as ReviewType;
-
-    expect(getReviewJsonLd(review)).toMatchObject({
-      '@type': 'Review',
-      author: { '@type': 'Person', name: 'ana' },
-      itemReviewed: {
-        '@type': 'Movie',
-        url: 'https://the-moviest.vercel.app/movie/693134',
-      },
-      reviewRating: { ratingValue: 9, bestRating: 10, worstRating: 1 },
-    });
-  });
-});
-
-describe('getWatchlistJsonLd', () => {
-  it('lists the titles in order and gives a URL only to titles with an id', () => {
-    const watchlist = {
-      _id: 'w1',
-      title: 'Autumn',
-      description: 'Cosy films',
-      likes: 0,
-      author_id: { username: 'ana' },
-      movies: [
-        { movieId: 1, movieTitle: 'One' },
-        { movieTitle: 'No id' },
-        {},
-        { movieId: 2, movieTitle: 'Two' },
-      ],
-      createdAt: '2024-03-01T00:00:00.000Z',
-    } as unknown as WatchlistType;
-
-    const data = getWatchlistJsonLd(watchlist);
-
-    expect(data.numberOfItems).toBe(3);
-    expect(data.itemListElement).toEqual([
-      {
-        '@type': 'ListItem',
-        position: 1,
-        name: 'One',
-        url: 'https://the-moviest.vercel.app/movie/1',
-      },
-      { '@type': 'ListItem', position: 2, name: 'No id' },
-      {
-        '@type': 'ListItem',
-        position: 3,
-        name: 'Two',
-        url: 'https://the-moviest.vercel.app/movie/2',
-      },
-    ]);
-  });
-});
-
 describe('getBreadcrumbJsonLd', () => {
   it('gives each linked crumb an absolute URL and leaves the last one bare', () => {
     expect(
       getBreadcrumbJsonLd([
-        { label: 'Reviews', href: '/reviews' },
-        { label: 'Sand everywhere' },
+        { label: 'Moods', href: '/moods' },
+        { label: 'Mind-bending' },
       ]).itemListElement,
     ).toEqual([
       {
         '@type': 'ListItem',
         position: 1,
-        name: 'Reviews',
-        item: 'https://the-moviest.vercel.app/reviews',
+        name: 'Moods',
+        item: 'https://the-moviest.vercel.app/moods',
       },
-      { '@type': 'ListItem', position: 2, name: 'Sand everywhere' },
+      { '@type': 'ListItem', position: 2, name: 'Mind-bending' },
     ]);
   });
 });
 
 describe('serializeJsonLd', () => {
   it('escapes user text that could close the script element', () => {
-    const json = serializeJsonLd({ reviewBody: '</script><script>alert(1)' });
+    const json = serializeJsonLd({ description: '</script><script>alert(1)' });
 
     expect(json).not.toContain('</script>');
     expect(JSON.parse(json)).toEqual({
-      reviewBody: '</script><script>alert(1)',
+      description: '</script><script>alert(1)',
     });
   });
 });

@@ -1,72 +1,16 @@
 import type { RawWatchProviders, WatchRegions } from './watch';
-import mongoose, { SortOrder } from 'mongoose';
 import { Genres } from './tmdb';
 
 export type EnvParam = string;
-
-export type Sort = {
-  [key: string]: SortOrder;
-};
-
-export type WatchlistQuery = {
-  author_id?: string;
-  id?: string;
-  title?: object;
-};
-
-export type QueryParams = {
-  authorId?: string;
-  id?: string;
-  title?: string;
-  page?: string;
-  sort?: 1 | -1;
-};
-
-type Author = {
-  _id: mongoose.Types.ObjectId;
-  username: string;
-};
-
-/**
- * A title as it was pinned to a watchlist or a review. `movieId` is the TMDB
- * id and is what links back to a detail page; `_id` is the subdocument's own
- * key. Older documents were written without either, hence the optionals.
- */
-export type ListedMovieType = {
-  _id?: string;
-  movieId?: number;
-  movieTitle?: string;
-  moviePosterPath?: string;
-};
-
-export type WatchlistType = {
-  _id: mongoose.Types.ObjectId;
-  description: string;
-  likes: number;
-  title: string;
-  author_id: Author;
-  movies: Array<ListedMovieType>;
-  // Serialised to an ISO string by the time a page sees it.
-  createdAt: string;
-  updatedAt: string;
-};
-
-export type ReviewType = {
-  _id: mongoose.Types.ObjectId;
-  reviewText: string;
-  likes: number;
-  title: string;
-  author_id: Author;
-  movie: ListedMovieType;
-  rating: number;
-  createdAt: string;
-  updatedAt: string;
-};
 
 export type MovieType = {
   id: string;
   backdrop_path: string;
   poster_path: string;
+  /** The English title of a film. */
+  title?: string;
+  /** The English name of a show. */
+  name?: string;
   original_title?: string;
   original_name?: string;
   overview: string;

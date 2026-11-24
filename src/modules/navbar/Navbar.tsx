@@ -10,8 +10,7 @@ import { NavLink } from './NavLink';
 
 const ROUTES = [
   { title: 'Discover', route: '/discover' },
-  { title: 'Reviews', route: '/reviews' },
-  { title: 'Watchlists', route: '/watchlists' },
+  { title: 'Moods', route: '/moods' },
 ];
 
 export function Navbar() {

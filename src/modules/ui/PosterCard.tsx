@@ -1,10 +1,8 @@
 import { formatRating, getTitle, getYear } from '@lib/format';
 import { getGenreNames, getImageSrc } from '@lib/tmdb';
 import { ContentType, MovieType } from '@lib/types';
-import cn from 'classnames';
 import Link from 'next/link';
-import { MouseEvent, useState } from 'react';
-import { Check, Plus, Star } from './Icons';
+import { Star } from './Icons';
 import { PosterImage } from './PosterImage';
 
 type PosterCardProps = {
@@ -15,18 +13,10 @@ type PosterCardProps = {
 };
 
 export function PosterCard({ movie, type, rank }: PosterCardProps) {
-  const [saved, setSaved] = useState(false);
-
   const title = getTitle(movie);
   const rating = formatRating(movie.vote_average);
   const year = getYear(movie);
   const genres = getGenreNames(movie.genre_ids, 2);
-
-  function toggleSaved(event: MouseEvent<HTMLButtonElement>) {
-    // The whole card is a link — keep the bookmark from navigating.
-    event.preventDefault();
-    setSaved((current) => !current);
-  }
 
   return (
     <Link
@@ -58,36 +48,6 @@ export function PosterCard({ movie, type, rank }: PosterCardProps) {
             {String(rank).padStart(2, '0')}
           </span>
         )}
-
-        <button
-          type="button"
-          onClick={toggleSaved}
-          aria-pressed={saved}
-          aria-label={saved ? `Remove ${title}` : `Save ${title}`}
-          className={cn(
-            'absolute right-3 top-3 grid h-8 w-8 place-items-center rounded-full border border-white/[.14] bg-[#080410]/50 backdrop-blur-md transition-all duration-300 ease-silk',
-            'hover:scale-110 hover:bg-accent hover:text-white active:scale-95',
-            'focus-visible:opacity-100 md:opacity-0 md:group-hover:opacity-100',
-            saved && 'border-accent/60 text-accent-soft md:opacity-100',
-          )}
-        >
-          <Plus
-            width={16}
-            height={16}
-            className={cn(
-              'absolute transition-all duration-300 ease-silk',
-              saved && 'rotate-90 scale-0 opacity-0',
-            )}
-          />
-          <Check
-            width={16}
-            height={16}
-            className={cn(
-              'absolute transition-all duration-300 ease-silk',
-              saved ? 'opacity-100' : '-rotate-90 scale-0 opacity-0',
-            )}
-          />
-        </button>
 
         <b className="absolute bottom-4 left-4 right-4 font-display text-lg font-bold leading-tight tracking-[-.02em] drop-shadow-text">
           {title}

@@ -1,7 +1,5 @@
 import type { GetServerSidePropsContext } from 'next';
-import Review from '@lib/models/review';
-import Watchlist from '@lib/models/watchlist';
-import dbConnect from '@lib/mongo';
+import { moodsInSeason } from '@lib/moods';
 import { absoluteUrl } from '@lib/seo';
 import { fetchResults, getListEndpoint, getTrendingEndpoint } from '@lib/tmdb';
 
@@ -9,10 +7,7 @@ import { fetchResults, getListEndpoint, getTrendingEndpoint } from '@lib/tmdb';
 const SITEMAP_CACHE =
   'public, max-age=0, s-maxage=3600, stale-while-revalidate=86400';
 
-/** A sitemap file can hold 50,000 URLs. This keeps it far below that. */
-const SAVED_LIMIT = 5000;
-
-const STATIC_PATHS = ['/home', '/discover', '/reviews', '/watchlists'];
+const STATIC_PATHS = ['/home', '/discover', '/moods'];
 
 type Entry = { path: string; lastModified?: string };
 
@@ -37,37 +32,6 @@ function buildSitemap(entries: Array<Entry>): string {
     .join('');
 
   return `<?xml version="1.0" encoding="UTF-8"?><urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">${urls}</urlset>`;
-}
-
-type SavedItem = { _id: unknown; updatedAt?: Date; createdAt?: Date };
-
-/**
- * Reads the saved pages from the database, not from the public API: the
- * Vercel firewall can challenge a server-to-server request to the domain.
- * A failed query gives an empty list, so the sitemap always renders.
- */
-async function fetchSaved(
-  resource: 'reviews' | 'watchlists',
-): Promise<Array<Entry>> {
-  try {
-    await dbConnect();
-    const model = resource === 'reviews' ? Review : Watchlist;
-    const items: Array<SavedItem> = await model
-      .find({}, { _id: 1, updatedAt: 1, createdAt: 1 })
-      .sort({ updatedAt: -1 })
-      .limit(SAVED_LIMIT)
-      .lean()
-      .exec();
-
-    return items.map((item) => ({
-      path: `/${resource}/${String(item._id)}`,
-      lastModified: (item.updatedAt ?? item.createdAt)?.toISOString(),
-    }));
-  } catch (error) {
-    console.error(`Sitemap: cannot load ${resource}`, error);
-
-    return [];
-  }
 }
 
 async function fetchTitles(): Promise<Array<Entry>> {
@@ -96,17 +60,15 @@ async function fetchTitles(): Promise<Array<Entry>> {
 }
 
 export async function getServerSideProps({ res }: GetServerSidePropsContext) {
-  const [titles, reviews, watchlists] = await Promise.all([
-    fetchTitles(),
-    fetchSaved('reviews'),
-    fetchSaved('watchlists'),
-  ]);
+  const titles = await fetchTitles();
+  const moods = moodsInSeason(new Date()).map((mood) => ({
+    path: `/moods/${mood.slug}`,
+  }));
 
   const entries = [
     ...STATIC_PATHS.map((path) => ({ path })),
+    ...moods,
     ...titles,
-    ...reviews,
-    ...watchlists,
   ];
 
   res.setHeader('Content-Type', 'application/xml; charset=utf-8');

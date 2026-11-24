@@ -1,8 +1,9 @@
 import type { EpisodeSummary, Faq } from './episodes';
-import { absoluteUrl, truncate } from './seo';
-import { APP_PAGE, APP_STORE_ID, SITE_NAME, SITE_URL } from './site';
-import { getImageSrc, getStoredImageSrc } from './tmdb';
-import type { ReviewType, TitleDetailType, WatchlistType } from './types';
+import { absoluteUrl } from './seo';
+import { APP_PAGE, APP_STORE_URL, SITE_NAME, SITE_URL } from './site';
+import { getImageSrc } from './tmdb';
+import { getTitle } from './format';
+import type { ContentType, MovieType, TitleDetailType } from './types';
 
 /**
  * Schema.org JSON-LD for each page type. Answer engines and search engines
@@ -16,8 +17,6 @@ export type JsonLdObject = Record<string, unknown>;
 
 const CONTEXT = 'https://schema.org';
 const CAST_LIMIT = 6;
-
-export const APP_STORE_URL = `https://apps.apple.com/app/id${APP_STORE_ID}`;
 
 /** Removes the keys that have no value, so no empty fact is published. */
 function compact(object: JsonLdObject): JsonLdObject {
@@ -85,64 +84,25 @@ export function getTitleJsonLd(detail: TitleDetailType): JsonLdObject {
   });
 }
 
-export function getReviewJsonLd(review: ReviewType): JsonLdObject {
-  const { movie } = review;
-
-  return compact({
-    '@context': CONTEXT,
-    '@type': 'Review',
-    url: absoluteUrl(`/reviews/${String(review._id)}`),
-    name: review.title,
-    reviewBody: truncate(review.reviewText ?? '', 5000),
-    datePublished: review.createdAt,
-    dateModified: review.updatedAt,
-    author: person(review.author_id?.username ?? 'A Moviest user'),
-    itemReviewed: movie?.movieTitle
-      ? compact({
-          '@type': 'Movie',
-          name: movie.movieTitle,
-          url: movie.movieId
-            ? absoluteUrl(`/movie/${movie.movieId}`)
-            : undefined,
-          image: getStoredImageSrc(movie.moviePosterPath, 'w500'),
-        })
-      : undefined,
-    reviewRating: review.rating
-      ? {
-          '@type': 'Rating',
-          ratingValue: review.rating,
-          bestRating: 10,
-          worstRating: 1,
-        }
-      : undefined,
-  });
-}
-
-export function getWatchlistJsonLd(watchlist: WatchlistType): JsonLdObject {
-  // Old lists saved some titles with a name but no TMDB id.
-  const titles = (watchlist.movies ?? []).filter(
-    (movie) => movie.movieId || movie.movieTitle,
-  );
-
+/** A mood page: the titles in the order the page shows them. */
+export function getMoodJsonLd(
+  mood: { slug: string; title: string; blurb: string },
+  titles: Array<MovieType>,
+  type: ContentType,
+): JsonLdObject {
   return compact({
     '@context': CONTEXT,
     '@type': 'ItemList',
-    url: absoluteUrl(`/watchlists/${String(watchlist._id)}`),
-    name: watchlist.title,
-    description: watchlist.description,
-    author: watchlist.author_id?.username
-      ? person(watchlist.author_id.username)
-      : undefined,
-    dateCreated: watchlist.createdAt,
+    url: absoluteUrl(`/moods/${mood.slug}`),
+    name: `In the mood for ${mood.title}`,
+    description: mood.blurb,
     numberOfItems: titles.length,
-    itemListElement: titles.map((movie, i) =>
-      compact({
-        '@type': 'ListItem',
-        position: i + 1,
-        url: movie.movieId ? absoluteUrl(`/movie/${movie.movieId}`) : undefined,
-        name: movie.movieTitle,
-      }),
-    ),
+    itemListElement: titles.map((title, i) => ({
+      '@type': 'ListItem',
+      position: i + 1,
+      url: absoluteUrl(`/${type}/${title.id}`),
+      name: getTitle(title),
+    })),
   });
 }
 
@@ -184,7 +144,7 @@ export function getSiteJsonLd(): JsonLdObject {
         url: absoluteUrl('/home'),
         name: SITE_NAME,
         description:
-          'Browse films and TV shows: cast, crew, trailers, reviews and watchlists. Film and TV data from TMDB.',
+          'Browse films and TV shows: moods, cast, crew, trailers and where to watch. Film and TV data from TMDB.',
         inLanguage: 'en',
         about: { '@id': app },
       },

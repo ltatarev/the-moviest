@@ -13,7 +13,7 @@ import {
 } from 'react';
 import { BackdropImage } from './BackdropImage';
 import { ArrowRight, ChevronLeft, ChevronRight } from './Icons';
-import { WatchlistButton } from './WatchlistButton';
+import { TrackInAppButton } from './TrackInAppButton';
 
 const INTERVAL = 7000;
 /** Horizontal travel, in px, that counts as a deliberate swipe. */
@@ -28,7 +28,6 @@ type HeroProps = {
 export function Hero({ items, type, eyebrow = 'Trending now' }: HeroProps) {
   const [index, setIndex] = useState(0);
   const [paused, setPaused] = useState(false);
-  const [saved, setSaved] = useState<Record<string, boolean>>({});
 
   const count = items.length;
   const swipeStart = useRef<{ x: number; y: number } | null>(null);
@@ -93,7 +92,6 @@ export function Hero({ items, type, eyebrow = 'Trending now' }: HeroProps) {
   const rating = formatRating(active.vote_average);
   const year = getYear(active);
   const genres = getGenreNames(active.genre_ids, 3);
-  const isSaved = Boolean(saved[active.id]);
 
   return (
     <section
@@ -200,15 +198,7 @@ export function Hero({ items, type, eyebrow = 'Trending now' }: HeroProps) {
             <ArrowRight className="transition-transform duration-300 ease-silk group-hover/cta:translate-x-1" />
           </Link>
 
-          <WatchlistButton
-            saved={isSaved}
-            onToggle={() =>
-              setSaved((current) => ({
-                ...current,
-                [active.id]: !current[active.id],
-              }))
-            }
-          />
+          <TrackInAppButton title={title} />
         </div>
       </div>
 

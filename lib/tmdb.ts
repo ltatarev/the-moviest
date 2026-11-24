@@ -43,6 +43,14 @@ export async function fetchResults(url: string): Promise<Array<MovieType>> {
   return data.results ?? [];
 }
 
+/** A TMDB discover request, for example the request behind a mood. */
+export function getDiscoverEndpoint(
+  type: TV | MOVIE,
+  params: URLSearchParams,
+): string {
+  return `${API_BASE_URL}/discover/${type}?api_key=${getEnvString('TMDB_KEY')}&${params}`;
+}
+
 /**
  * A title's full record. `append_to_response` adds the cast, the crew, the
  * "more like this" rail and the watch providers to the same request.
@@ -75,29 +83,6 @@ export function getImageSrc(
   }
 
   return `${IMAGE_BASE_URL}/${size}${imgPath}`;
-}
-
-/**
- * Poster paths saved alongside watchlists and reviews are inconsistent — some
- * are bare TMDB paths, some are absolute URLs at whatever size was current at
- * the time. Normalise both onto one size, and drop anything that is not TMDB:
- * next/image only has permission to optimise that host.
- */
-export function getStoredImageSrc(
-  imgPath?: string | null,
-  size: ImageSize = 'w500',
-): string | null {
-  if (!imgPath) {
-    return null;
-  }
-
-  if (!imgPath.startsWith('http')) {
-    return getImageSrc(imgPath, size);
-  }
-
-  const path = imgPath.match(/\/t\/p\/[^/]+(\/.+)$/)?.[1];
-
-  return path ? getImageSrc(path, size) : null;
 }
 
 /**

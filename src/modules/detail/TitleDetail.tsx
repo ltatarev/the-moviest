@@ -7,11 +7,10 @@ import {
   Rail,
   Reveal,
   SectionHeader,
-  WatchlistButton,
+  TrackInAppButton,
 } from '@modules/ui';
 import { ArrowRight } from '@modules/ui/Icons';
 import Link from 'next/link';
-import { useState } from 'react';
 import { CastGrid } from './CastGrid';
 import { FactsPanel } from './FactsPanel';
 import { ScoreRing } from './ScoreRing';
@@ -24,8 +23,6 @@ import { WatchPanel } from './WatchPanel';
  * section with nothing behind it is left out rather than shown empty.
  */
 export function TitleDetail({ detail }: { detail: TitleDetailType }) {
-  const [saved, setSaved] = useState(false);
-
   const {
     type,
     title,
@@ -130,13 +127,7 @@ export function TitleDetail({ detail }: { detail: TitleDetailType }) {
           )}
 
           <div className="mt-7 flex flex-wrap items-center gap-x-6 gap-y-4">
-            <WatchlistButton
-              saved={saved}
-              onToggle={() => setSaved((current) => !current)}
-              variant="primary"
-              label="Add to watchlist"
-              savedLabel="On your watchlist"
-            />
+            <TrackInAppButton variant="primary" title={title} />
             {type === 'tv' && (
               <Link
                 href={`/tv/${detail.id}/episodes`}

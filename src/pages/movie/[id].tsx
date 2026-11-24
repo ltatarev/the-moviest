@@ -3,6 +3,7 @@ import { setPublicPageCache } from '@lib/cache';
 import { toTitleDetail } from '@lib/detail';
 import { getTitleJsonLd } from '@lib/jsonLd';
 import { getTitleDescription } from '@lib/seo';
+import { toAppMediaLink } from '@lib/site';
 import { getDetailEndpoint, getImageSrc } from '@lib/tmdb';
 import { TitleDetailType, TitleResponseType } from '@lib/types';
 import { TitleDetail } from '@modules/detail';
@@ -23,6 +24,7 @@ export default function MovieDetails({ detail }: MovieDetailsProps) {
         path={`/movie/${detail.id}`}
         image={getImageSrc(detail.backdropPath ?? detail.posterPath, 'w1280')}
         type="video.movie"
+        appArgument={toAppMediaLink('movie', detail.id)}
       />
       <JsonLd id="title" data={getTitleJsonLd(detail)} />
 

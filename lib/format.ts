@@ -1,8 +1,17 @@
 import { MovieType } from './types';
 
-/** TMDB puts the display name under a different key for movies and shows. */
+/**
+ * TMDB puts the display name under a different key for movies and shows. The
+ * English name comes first: "Parasite", not "기생충".
+ */
 export function getTitle(item: MovieType): string {
-  return item.original_title || item.original_name || 'Untitled';
+  return (
+    item.title ||
+    item.name ||
+    item.original_title ||
+    item.original_name ||
+    'Untitled'
+  );
 }
 
 export function getYear(item: MovieType): string {
