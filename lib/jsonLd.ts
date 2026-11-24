@@ -171,7 +171,9 @@ export function getBreadcrumbJsonLd(items: Array<Crumb>): JsonLdObject {
  */
 export function getSiteJsonLd(): JsonLdObject {
   const site = `${SITE_URL}/#website`;
-  const app = `${SITE_URL}/#app`;
+  // The same @id as the app on its landing page, so search engines join the
+  // two descriptions into one app and do not see a second one.
+  const app = `${APP_PAGE}#app`;
 
   return {
     '@context': CONTEXT,
@@ -192,7 +194,7 @@ export function getSiteJsonLd(): JsonLdObject {
         name: 'Moviest: Film & TV Tracker',
         alternateName: 'Moviest',
         description: 'One watchlist for films and TV.',
-        operatingSystem: 'iOS, iPadOS',
+        operatingSystem: 'iOS 17.0 or later, iPadOS 17.0 or later',
         applicationCategory: 'EntertainmentApplication',
         url: APP_PAGE,
         installUrl: APP_STORE_URL,

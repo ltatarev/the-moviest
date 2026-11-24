@@ -5,6 +5,7 @@ import {
   getBreadcrumbJsonLd,
   getEpisodesJsonLd,
   getReviewJsonLd,
+  getSiteJsonLd,
   getTitleJsonLd,
   getWatchlistJsonLd,
   toIsoDuration,
@@ -225,5 +226,15 @@ describe('getEpisodesJsonLd', () => {
         }),
       ]),
     });
+  });
+});
+
+describe('getSiteJsonLd', () => {
+  it('uses the landing page id for the app, so both sites name one app', () => {
+    const graph = getSiteJsonLd()['@graph'] as Array<Record<string, unknown>>;
+    const app = graph.find((node) => node['@type'] === 'MobileApplication');
+
+    expect(app?.['@id']).toBe('https://ltatarev.github.io/moviest/#app');
+    expect(graph[0].about).toEqual({ '@id': app?.['@id'] });
   });
 });
