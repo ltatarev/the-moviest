@@ -8,7 +8,7 @@ import {
 import { isBlockedAgent } from '@lib/blockedAgents';
 
 /**
- * 1. Block AI agents and SEO crawlers on all pages (403).
+ * 1. Block AI training crawlers and SEO crawlers on all pages (403).
  * 2. Gate the private `/studio` section behind a session.
  * The matcher skips static build files, so they do not pass through here.
  */

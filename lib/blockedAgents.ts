@@ -1,20 +1,19 @@
 /**
- * User agents of AI crawlers, AI user-triggered fetchers and SEO crawlers.
+ * User agents of AI training crawlers and SEO crawlers.
  * The proxy returns 403 to a request whose User-Agent contains one of these names.
  * public/robots.txt lists the crawlers that obey robots.txt.
+ *
+ * AI search crawlers and user-triggered fetchers are not on this list. They let
+ * AI answers cite and link to the site: OAI-SearchBot, ChatGPT-User,
+ * Claude-SearchBot, Claude-User, PerplexityBot and Perplexity-User.
+ * The match is a substring match. Do not add a short name such as "Claude",
+ * because it also blocks Claude-User.
  */
 export const BLOCKED_AGENTS = [
-  // User-triggered fetchers
-  'ChatGPT-User',
-  'Claude-User',
-  'Perplexity-User',
-  // Training and search crawlers
+  // Training crawlers
   'GPTBot',
-  'OAI-SearchBot',
   'ClaudeBot',
-  'Claude-SearchBot',
   'anthropic-ai',
-  'PerplexityBot',
   'Google-Extended',
   'Applebot-Extended',
   'CCBot',

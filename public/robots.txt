@@ -1,12 +1,10 @@
+# AI training crawlers and SEO tools: blocked.
+# AI search crawlers and user-triggered fetchers (OAI-SearchBot, ChatGPT-User,
+# Claude-SearchBot, Claude-User, PerplexityBot, Perplexity-User) use the rules
+# under "*", so AI answers can cite and link to this site.
 User-agent: GPTBot
-User-agent: OAI-SearchBot
-User-agent: ChatGPT-User
 User-agent: ClaudeBot
-User-agent: Claude-SearchBot
-User-agent: Claude-User
 User-agent: anthropic-ai
-User-agent: PerplexityBot
-User-agent: Perplexity-User
 User-agent: Google-Extended
 User-agent: Applebot-Extended
 User-agent: CCBot
@@ -25,8 +23,9 @@ User-agent: DataForSeoBot
 User-agent: BLEXBot
 Disallow: /
 
-User-agent: bingbot
-Crawl-delay: 10
-
 User-agent: *
 Allow: /
+Disallow: /studio
+Disallow: /api/
+
+Sitemap: https://the-moviest.vercel.app/sitemap.xml
