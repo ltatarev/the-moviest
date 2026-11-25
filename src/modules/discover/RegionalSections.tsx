@@ -1,12 +1,8 @@
 import type { RegionalData } from '@lib/regional';
 import type { ContentType } from '@lib/types';
-import {
-  isWatchRegion,
-  regionInSentence,
-  regionName,
-  WATCH_REGIONS,
-} from '@lib/watch';
+import { isWatchRegion, regionInSentence, WATCH_REGIONS } from '@lib/watch';
 import { PosterCard, Rail, Reveal, SectionHeader } from '@modules/ui';
+import { RegionSelect } from '@modules/ui/RegionSelect';
 import {
   savePreferredRegion,
   usePreferredRegion,
@@ -37,31 +33,6 @@ async function load(
   }
 
   return response.json();
-}
-
-function RegionSelect({
-  value,
-  onChange,
-}: {
-  value: string;
-  onChange: (region: string) => void;
-}) {
-  return (
-    <label className="flex flex-none items-center gap-2 text-[13px] text-dim">
-      <span className="sr-only sm:not-sr-only">Region</span>
-      <select
-        value={value}
-        onChange={(event) => onChange(event.target.value)}
-        className="rounded-full border border-white/15 bg-ink px-3.5 py-2 text-[13px] font-semibold text-chalk focus:border-accent-soft focus:outline-none"
-      >
-        {WATCH_REGIONS.map((code) => (
-          <option key={code} value={code}>
-            {regionName(code)}
-          </option>
-        ))}
-      </select>
-    </label>
-  );
 }
 
 /**
@@ -141,7 +112,12 @@ export function RegionalSections({ initial }: RegionalSectionsProps) {
               title={`Playing now in ${where}`}
             />
             <div className="mb-7">
-              <RegionSelect value={data.region} onChange={chooseRegion} />
+              <RegionSelect
+                value={data.region}
+                regions={WATCH_REGIONS}
+                onChange={chooseRegion}
+                compactLabel
+              />
             </div>
           </Reveal>
           <Rail items={data.inCinemas} type="movie" />

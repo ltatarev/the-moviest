@@ -5,12 +5,12 @@ import {
   isWatchRegion,
   OFFER_KINDS,
   OFFER_LABELS,
-  regionName,
   WATCH_REGIONS,
   type WatchRegion,
   type WatchRegions,
 } from '@lib/watch';
 import { ArrowRight } from '@modules/ui/Icons';
+import { RegionSelect } from '@modules/ui/RegionSelect';
 import {
   savePreferredRegion,
   usePreferredRegion,
@@ -65,20 +65,7 @@ export function WatchPanel({ watch }: WatchPanelProps) {
         )}
 
         {available.length > 1 && (
-          <label className="flex items-center gap-2 text-[13px] text-dim">
-            Region
-            <select
-              value={region}
-              onChange={(event) => choose(event.target.value)}
-              className="rounded-lg border border-white/15 bg-ink px-3 py-2 text-[13px] font-semibold text-chalk focus:border-accent-soft focus:outline-none"
-            >
-              {available.map((code) => (
-                <option key={code} value={code}>
-                  {regionName(code)}
-                </option>
-              ))}
-            </select>
-          </label>
+          <RegionSelect value={region} regions={available} onChange={choose} />
         )}
       </div>
 
