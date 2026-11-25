@@ -74,6 +74,48 @@
   transform: none;
 }
 
+/*
+ * Episode heatmap. The cells sweep in season by season when the grid comes
+ * into view. A legend filter mutes the cells outside its band, and the
+ * pointed cell rises above its neighbours.
+ */
+.heatmap-cell {
+  position: relative;
+  transition:
+    opacity 0.25s cubic-bezier(0.16, 1, 0.3, 1),
+    filter 0.25s cubic-bezier(0.16, 1, 0.3, 1),
+    transform 0.2s cubic-bezier(0.16, 1, 0.3, 1),
+    box-shadow 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.reveal[data-visible='true'] .heatmap-cell {
+  animation: heatmap-sweep 0.55s cubic-bezier(0.16, 1, 0.3, 1) backwards;
+  animation-delay: var(--sweep-delay, 0ms);
+}
+
+.heatmap-cell.is-muted {
+  opacity: 0.14;
+  filter: saturate(0.3);
+}
+
+.heatmap-cell.is-pointed {
+  z-index: 1;
+  transform: scale(1.14);
+  box-shadow: 0 8px 20px -6px rgba(7, 4, 15, 0.9);
+}
+
+@keyframes heatmap-sweep {
+  from {
+    opacity: 0;
+    transform: translateY(6px) scale(0.85);
+  }
+
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
 /* The hero's active dot drains over the autoplay interval. */
 .dot-progress {
   transform-origin: left center;
@@ -98,6 +140,14 @@
     opacity: 1;
     transform: none;
     transition: none;
+  }
+
+  .reveal[data-visible='true'] .heatmap-cell {
+    animation: none;
+  }
+
+  .heatmap-cell.is-pointed {
+    transform: none;
   }
 
   *,
