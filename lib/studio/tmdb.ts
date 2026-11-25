@@ -282,6 +282,10 @@ export function monthRange(month: string): { from: string; to: string } | null {
   };
 }
 
+/**
+ * Gets the providers for `item` only when the caller does not give them. A
+ * caller that gets the show itself appends them to that request instead.
+ */
 async function toTrendingItem(
   item: {
     id: number;
@@ -290,10 +294,10 @@ async function toTrendingItem(
     poster_path?: string | null;
   },
   region: Region,
+  known?: RawProviders,
 ): Promise<TrendingItem> {
-  const providers = await tmdbGet<RawProviders>(
-    `/tv/${item.id}/watch/providers`,
-  );
+  const providers =
+    known ?? (await tmdbGet<RawProviders>(`/tv/${item.id}/watch/providers`));
 
   return {
     id: item.id,
@@ -342,13 +346,18 @@ export async function getTrending(
   return mapLimit(list.slice(0, 10), 4, (item) => toTrendingItem(item, region));
 }
 
-/** A hand-picked top 10 (ids in order) instead of a fetched one. */
+/**
+ * A hand-picked top 10 (ids in order) instead of a fetched one. Each show
+ * comes with its providers in one request, so 10 shows take 10 requests.
+ */
 export async function getTrendingByIds(
   ids: number[],
   region: Region,
 ): Promise<TrendingItem[]> {
   return mapLimit(ids.slice(0, 10), 4, async (id) => {
-    const raw = await tmdbGet<RawDetails>(`/tv/${id}`);
+    const raw = await tmdbGet<RawDetails>(`/tv/${id}`, {
+      append_to_response: 'watch/providers',
+    });
 
     return toTrendingItem(
       {
@@ -358,6 +367,7 @@ export async function getTrendingByIds(
         poster_path: raw.poster_path,
       },
       region,
+      raw['watch/providers'] ?? {},
     );
   });
 }
@@ -384,20 +394,85 @@ type RawSeason = {
   }>;
 };
 
-export async function getHeatmap(
-  id: number,
-  today: string = new Date().toISOString().slice(0, 10),
-): Promise<HeatmapData> {
-  const show = await tmdbGet<RawShow>(`/tv/${id}`);
-  const seasonNumbers = (show.seasons ?? [])
+/**
+ * TMDB refuses more than 20 `append_to_response` items in one request. Keep
+ * one below that limit.
+ */
+export const SEASONS_PER_REQUEST = 19;
+
+type ShowWithSeasons = RawShow & Record<`season/${number}`, RawSeason>;
+
+/** Splits `items` into groups of at most `size`, keeping order. */
+function chunk<T>(items: T[], size: number): T[][] {
+  const groups: T[][] = [];
+
+  for (let i = 0; i < items.length; i += size) {
+    groups.push(items.slice(i, i + size));
+  }
+
+  return groups;
+}
+
+function getShowWithSeasons(id: number, numbers: number[]) {
+  return tmdbGet<ShowWithSeasons>(`/tv/${id}`, {
+    append_to_response: numbers.map((number) => `season/${number}`).join(','),
+  });
+}
+
+/**
+ * Gets the show and all its seasons in as few requests as possible. The
+ * first request asks for seasons 1 to 19 before the season list is known:
+ * TMDB leaves out the seasons that do not exist. Then the seasons that are
+ * still missing (more than 19, or numbered by year) come in groups of 19.
+ * A 36-season show takes 2 requests, not 37. Cloudflare Workers Free allows
+ * only 50 outgoing requests for each incoming request.
+ */
+async function getShowAndSeasons(id: number) {
+  const guess = Array.from({ length: SEASONS_PER_REQUEST }, (_, i) => i + 1);
+  const show = await getShowWithSeasons(id, guess);
+  const numbers = (show.seasons ?? [])
     .filter(
       (season) => season.season_number > 0 && (season.episode_count ?? 0) > 0,
     )
     .map((season) => season.season_number)
     .sort((a, b) => a - b);
 
-  const seasons = await mapLimit(seasonNumbers, 4, async (number) => {
-    const raw = await tmdbGet<RawSeason>(`/tv/${id}/season/${number}`);
+  const raw = new Map<number, RawSeason>();
+
+  for (const number of numbers) {
+    const season = show[`season/${number}`];
+
+    if (season) {
+      raw.set(number, season);
+    }
+  }
+
+  const missing = numbers.filter((number) => !raw.has(number));
+  const batches = await mapLimit(
+    chunk(missing, SEASONS_PER_REQUEST),
+    4,
+    async (group) => ({ group, data: await getShowWithSeasons(id, group) }),
+  );
+
+  for (const { group, data } of batches) {
+    for (const number of group) {
+      raw.set(number, data[`season/${number}`] ?? {});
+    }
+  }
+
+  return {
+    show,
+    seasons: numbers.map((number) => ({ number, raw: raw.get(number) ?? {} })),
+  };
+}
+
+export async function getHeatmap(
+  id: number,
+  today: string = new Date().toISOString().slice(0, 10),
+): Promise<HeatmapData> {
+  const { show, seasons: rawSeasons } = await getShowAndSeasons(id);
+
+  const seasons = rawSeasons.map(({ number, raw }) => {
     const episodes = (raw.episodes ?? [])
       .filter((episode) => episode.air_date && episode.air_date <= today)
       .map((episode) => ({

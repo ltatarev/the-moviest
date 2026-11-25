@@ -2,11 +2,13 @@ import { afterEach, beforeEach, describe, expect, it } from 'vitest';
 import {
   getHeatmap,
   getTitleDetails,
+  getTrendingByIds,
   isRecentlyAired,
   mapLimit,
   monthRange,
   pickFlatrate,
   searchTitles,
+  SEASONS_PER_REQUEST,
   setFetcherForTests,
 } from './tmdb';
 
@@ -17,12 +19,25 @@ function mockTmdb(routes: Routes) {
 
   setFetcherForTests(async (input) => {
     const url = new URL(String(input));
-    calls.push(url.pathname);
-    const body = routes[url.pathname.replace('/3', '')];
+    const path = url.pathname.replace('/3', '');
+    const append = url.searchParams.get('append_to_response');
+    calls.push(append ? `${url.pathname}?append=${append}` : url.pathname);
+    const body = routes[path];
 
-    return body === undefined
-      ? new Response('{}', { status: 404 })
-      : new Response(JSON.stringify(body), { status: 200 });
+    if (body === undefined) {
+      return new Response('{}', { status: 404 });
+    }
+
+    // Like TMDB: each appended item that exists is added under its own key.
+    const appended = Object.fromEntries(
+      (append?.split(',') ?? [])
+        .filter((item) => routes[`${path}/${item}`] !== undefined)
+        .map((item) => [item, routes[`${path}/${item}`]]),
+    );
+
+    return new Response(JSON.stringify({ ...(body as object), ...appended }), {
+      status: 200,
+    });
   });
 
   return calls;
@@ -169,6 +184,33 @@ describe('title details', () => {
   });
 });
 
+describe('trending by ids', () => {
+  it('gets each show and its providers in one request', async () => {
+    const calls = mockTmdb({
+      '/tv/1': { id: 1, name: 'Severance', first_air_date: '2022-02-18' },
+      '/tv/1/watch/providers': {
+        results: {
+          DE: {
+            flatrate: [{ provider_id: 350, provider_name: 'Apple TV' }],
+          },
+        },
+      },
+      '/tv/2': { id: 2, name: 'Slow Horses', first_air_date: '2022-04-01' },
+    });
+
+    const items = await getTrendingByIds([1, 2], 'DE');
+
+    expect(calls).toEqual([
+      '/3/tv/1?append=watch/providers',
+      '/3/tv/2?append=watch/providers',
+    ]);
+    expect(items.map((item) => [item.title, item.provider])).toEqual([
+      ['Severance', 'Apple TV'],
+      ['Slow Horses', null],
+    ]);
+  });
+});
+
 describe('heatmap', () => {
   it('skips specials, unaired episodes and empty seasons', async () => {
     const calls = mockTmdb({
@@ -214,7 +256,8 @@ describe('heatmap', () => {
 
     const data = await getHeatmap(9, '2026-11-02');
 
-    expect(calls).not.toContain('/3/tv/9/season/0');
+    expect(calls).toHaveLength(1);
+    expect(calls[0]).not.toMatch(/season\/0\b/);
     expect(data.show).toMatchObject({ firstYear: '2020', inProduction: true });
     expect(data.seasons).toEqual([
       {
@@ -225,5 +268,89 @@ describe('heatmap', () => {
         ],
       },
     ]);
+  });
+
+  const aired = {
+    episodes: [
+      {
+        episode_number: 1,
+        air_date: '2020-01-01',
+        vote_average: 7,
+        vote_count: 5,
+      },
+    ],
+  };
+
+  it('gets a long show in groups of seasons, not one request each', async () => {
+    const count = 45;
+    const routes: Routes = {
+      '/tv/5': {
+        id: 5,
+        seasons: Array.from({ length: count }, (_, i) => ({
+          season_number: i + 1,
+          episode_count: 1,
+        })),
+      },
+    };
+
+    for (let n = 1; n <= count; n++) {
+      routes[`/tv/5/season/${n}`] = aired;
+    }
+
+    const calls = mockTmdb(routes);
+    const data = await getHeatmap(5, '2026-11-02');
+
+    // Seasons 1-19 with the show, then 20-38, then 39-45.
+    expect(calls).toHaveLength(3);
+    expect(calls.every((call) => call.startsWith('/3/tv/5?append='))).toBe(
+      true,
+    );
+    expect(
+      calls.every(
+        (call) => call.split('=')[1].split(',').length <= SEASONS_PER_REQUEST,
+      ),
+    ).toBe(true);
+    expect(data.seasons.map((season) => season.number)).toEqual(
+      Array.from({ length: count }, (_, i) => i + 1),
+    );
+  });
+
+  it('gets seasons numbered by year in a second request', async () => {
+    const calls = mockTmdb({
+      '/tv/6': {
+        id: 6,
+        seasons: [
+          { season_number: 2024, episode_count: 1 },
+          { season_number: 2025, episode_count: 1 },
+        ],
+      },
+      '/tv/6/season/2024': aired,
+      '/tv/6/season/2025': aired,
+    });
+
+    const data = await getHeatmap(6, '2026-11-02');
+
+    expect(calls).toEqual([
+      expect.stringContaining('season/19'),
+      '/3/tv/6?append=season/2024,season/2025',
+    ]);
+    expect(data.seasons.map((season) => season.number)).toEqual([2024, 2025]);
+  });
+
+  it('leaves out a season that TMDB does not return', async () => {
+    mockTmdb({
+      '/tv/7': {
+        id: 7,
+        seasons: [
+          { season_number: 1, episode_count: 1 },
+          { season_number: 2, episode_count: 1 },
+        ],
+      },
+      '/tv/7/season/1': aired,
+    });
+
+    const data = await getHeatmap(7, '2026-11-02');
+
+    expect(data.seasons.map((season) => season.number)).toEqual([1]);
   });
 });
