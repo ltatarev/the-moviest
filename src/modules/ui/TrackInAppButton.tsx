@@ -7,6 +7,8 @@ type TrackInAppButtonProps = {
   variant?: 'primary' | 'ghost';
   /** Names the title for screen readers, for example "Track Dune in Moviest". */
   title?: string;
+  /** Fills the width of its container on phones and centres its label. */
+  block?: boolean;
 };
 
 /**
@@ -17,6 +19,7 @@ type TrackInAppButtonProps = {
 export function TrackInAppButton({
   variant = 'ghost',
   title,
+  block = false,
 }: TrackInAppButtonProps) {
   return (
     <a
@@ -26,6 +29,7 @@ export function TrackInAppButton({
       aria-label={title ? `Track ${title} in Moviest` : 'Track in Moviest'}
       className={cn(
         'inline-flex items-center gap-2.5 rounded-full px-7 py-3.5 text-sm font-semibold transition-all duration-200 ease-silk hover:-translate-y-0.5',
+        block && 'justify-center',
         variant === 'primary'
           ? 'bg-accent text-white shadow-glow hover:shadow-glow-strong'
           : 'border border-white/20 bg-white/10 text-chalk backdrop-blur-md hover:bg-white/[.18]',

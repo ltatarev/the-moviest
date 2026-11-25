@@ -108,7 +108,7 @@ export function Hero({ items, type, eyebrow = 'Trending now' }: HeroProps) {
       onBlurCapture={() => setPaused(false)}
       onTouchStart={onTouchStart}
       onTouchEnd={onTouchEnd}
-      className="group/hero relative h-[520px] touch-pan-y overflow-hidden rounded-hero border border-white/10 sm:h-[580px] lg:h-[620px]"
+      className="group/hero relative h-[540px] touch-pan-y overflow-hidden rounded-hero border border-white/10 sm:h-[580px] lg:h-[620px]"
     >
       {/* Backdrops crossfade; the active one slowly pushes in (Ken Burns). */}
       {items.map((item, i) => (
@@ -135,7 +135,7 @@ export function Hero({ items, type, eyebrow = 'Trending now' }: HeroProps) {
       {/* Scrims: bottom-up for the copy, left-to-right for the text column. */}
       <div
         aria-hidden
-        className="absolute inset-0 bg-gradient-to-t from-ink via-ink/40 to-transparent"
+        className="absolute inset-0 bg-gradient-to-t from-ink via-ink/65 to-ink/10 sm:via-ink/40 sm:to-transparent"
       />
       <div
         aria-hidden
@@ -144,7 +144,7 @@ export function Hero({ items, type, eyebrow = 'Trending now' }: HeroProps) {
 
       <div
         key={active.id}
-        className="absolute bottom-16 left-6 z-10 max-w-[620px] pr-6 sm:bottom-20 sm:left-10 lg:left-14"
+        className="absolute bottom-16 left-6 right-6 z-10 max-w-[620px] sm:bottom-20 sm:right-auto sm:pr-6 sm:left-10 lg:left-14"
       >
         <p
           className="animate-fade-up mb-4 flex items-center gap-2.5 text-[11px] font-semibold uppercase tracking-[.18em] text-accent-soft"
@@ -155,7 +155,7 @@ export function Hero({ items, type, eyebrow = 'Trending now' }: HeroProps) {
         </p>
 
         <h1
-          className="animate-fade-up font-display text-[42px] font-bold leading-[1.03] tracking-[-.035em] sm:text-6xl lg:text-[72px]"
+          className="animate-fade-up line-clamp-3 text-balance font-display text-[34px] font-bold leading-[1.06] tracking-[-.03em] sm:line-clamp-none sm:text-6xl sm:leading-[1.03] sm:tracking-[-.035em] lg:text-[72px]"
           style={{ animationDelay: '120ms' }}
         >
           <Link
@@ -167,7 +167,7 @@ export function Hero({ items, type, eyebrow = 'Trending now' }: HeroProps) {
         </h1>
 
         <div
-          className="animate-fade-up mt-5 flex flex-wrap items-center gap-x-3 gap-y-2 text-sm text-chalk/80"
+          className="animate-fade-up mt-4 flex flex-wrap items-center gap-x-3 gap-y-2 text-sm sm:mt-5 text-chalk/80"
           style={{ animationDelay: '180ms' }}
         >
           {rating && (
@@ -178,32 +178,32 @@ export function Hero({ items, type, eyebrow = 'Trending now' }: HeroProps) {
           {year && <span>{year}</span>}
           {genres.length > 0 && (
             <>
-              <span className="text-dimmer">·</span>
-              <span>{genres.join(' · ')}</span>
+              <span className="hidden text-dimmer sm:inline">·</span>
+              <span className="w-full sm:w-auto">{genres.join(' · ')}</span>
             </>
           )}
         </div>
 
         <p
-          className="animate-fade-up mt-5 max-w-[560px] text-[15px] leading-relaxed text-white/70"
+          className="animate-fade-up mt-4 line-clamp-3 max-w-[560px] text-[15px] leading-relaxed text-white/75 sm:mt-5 sm:line-clamp-none sm:text-white/70"
           style={{ animationDelay: '240ms' }}
         >
           {truncate(active.overview, 260)}
         </p>
 
         <div
-          className="animate-fade-up mt-8 flex flex-wrap gap-3"
+          className="animate-fade-up mt-6 grid gap-2.5 sm:mt-8 sm:flex sm:flex-wrap sm:gap-3"
           style={{ animationDelay: '300ms' }}
         >
           <Link
             href={`/${activeType}/${active.id}`}
-            className="group/cta inline-flex items-center gap-2.5 rounded-full bg-accent px-7 py-3.5 text-sm font-semibold text-white shadow-glow transition-all duration-200 ease-silk hover:-translate-y-0.5 hover:shadow-glow-strong"
+            className="group/cta inline-flex items-center justify-center gap-2.5 rounded-full bg-accent px-7 py-3.5 text-sm font-semibold text-white shadow-glow transition-all duration-200 ease-silk hover:-translate-y-0.5 hover:shadow-glow-strong"
           >
             View details
             <ArrowRight className="transition-transform duration-300 ease-silk group-hover/cta:translate-x-1" />
           </Link>
 
-          <TrackInAppButton title={title} />
+          <TrackInAppButton title={title} block />
         </div>
       </div>
 
