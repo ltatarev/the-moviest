@@ -20,6 +20,8 @@ export type MovieType = {
   // Only present on list endpoints (trending, discover).
   genre_ids?: Array<number>;
   vote_average?: number;
+  /** Only on mixed lists, such as `trending/all`. */
+  media_type?: ContentType | 'person';
   release_date?: string;
   first_air_date?: string;
 };

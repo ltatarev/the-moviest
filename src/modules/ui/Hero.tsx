@@ -21,6 +21,7 @@ const SWIPE_THRESHOLD = 48;
 
 type HeroProps = {
   items: Array<MovieType>;
+  /** The type of every item. Items with a `media_type` use their own. */
   type: ContentType;
   eyebrow?: string;
 };
@@ -92,6 +93,10 @@ export function Hero({ items, type, eyebrow = 'Trending now' }: HeroProps) {
   const rating = formatRating(active.vote_average);
   const year = getYear(active);
   const genres = getGenreNames(active.genre_ids, 3);
+  const activeType =
+    active.media_type === 'tv' || active.media_type === 'movie'
+      ? active.media_type
+      : type;
 
   return (
     <section
@@ -154,7 +159,7 @@ export function Hero({ items, type, eyebrow = 'Trending now' }: HeroProps) {
           style={{ animationDelay: '120ms' }}
         >
           <Link
-            href={`/${type}/${active.id}`}
+            href={`/${activeType}/${active.id}`}
             className="transition-colors duration-300 hover:text-accent-soft"
           >
             {title}
@@ -191,7 +196,7 @@ export function Hero({ items, type, eyebrow = 'Trending now' }: HeroProps) {
           style={{ animationDelay: '300ms' }}
         >
           <Link
-            href={`/${type}/${active.id}`}
+            href={`/${activeType}/${active.id}`}
             className="group/cta inline-flex items-center gap-2.5 rounded-full bg-accent px-7 py-3.5 text-sm font-semibold text-white shadow-glow transition-all duration-200 ease-silk hover:-translate-y-0.5 hover:shadow-glow-strong"
           >
             View details

@@ -8,8 +8,11 @@ export const TRENDING_URL = `${API_BASE_URL}/trending`;
 type TV = 'tv';
 type MOVIE = 'movie';
 
-export function getTrendingEndpoint(type: TV | MOVIE): string {
-  return `${TRENDING_URL}/${type}/week?api_key=${getEnvString('TMDB_KEY')}`;
+export function getTrendingEndpoint(
+  type: TV | MOVIE | 'all',
+  window: 'day' | 'week' = 'week',
+): string {
+  return `${TRENDING_URL}/${type}/${window}?api_key=${getEnvString('TMDB_KEY')}`;
 }
 
 /** One of TMDB's curated lists, e.g. `movie/now_playing` or `tv/popular`. */
