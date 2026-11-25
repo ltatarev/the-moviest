@@ -11,38 +11,12 @@ import {
   type WatchRegions,
 } from '@lib/watch';
 import { ArrowRight } from '@modules/ui/Icons';
+import {
+  savePreferredRegion,
+  usePreferredRegion,
+} from '@modules/ui/watchRegion';
 import Image from 'next/image';
-import { useState, useSyncExternalStore } from 'react';
-
-const STORAGE_KEY = 'moviest.watchRegion';
-
-/** The saved region, else the region of the browser language, else null. */
-function preferredRegion(): WatchRegion | null {
-  try {
-    const saved = window.localStorage.getItem(STORAGE_KEY);
-
-    if (isWatchRegion(saved)) {
-      return saved;
-    }
-  } catch {
-    // Storage can be blocked. The browser language still works.
-  }
-
-  for (const language of navigator.languages ?? [navigator.language]) {
-    const region = language.split('-')[1]?.toUpperCase();
-
-    if (isWatchRegion(region)) {
-      return region;
-    }
-  }
-
-  return null;
-}
-
-/** The region preference does not change while the page is open. */
-function subscribeToNothing() {
-  return () => {};
-}
+import { useState } from 'react';
 
 type WatchPanelProps = {
   watch: WatchRegions;
@@ -60,11 +34,7 @@ export function WatchPanel({ watch }: WatchPanelProps) {
     : available[0];
   // The server and the first browser render use the fallback, so hydration
   // matches. Then the browser reads the saved or language region.
-  const preferred = useSyncExternalStore(
-    subscribeToNothing,
-    preferredRegion,
-    () => null,
-  );
+  const preferred = usePreferredRegion();
   const [chosen, setChosen] = useState<WatchRegion | null>(null);
   const region =
     chosen ?? (preferred && watch[preferred] ? preferred : fallback);
@@ -82,12 +52,7 @@ export function WatchPanel({ watch }: WatchPanelProps) {
     }
 
     setChosen(next);
-
-    try {
-      window.localStorage.setItem(STORAGE_KEY, next);
-    } catch {
-      // The choice then lasts for this page only.
-    }
+    savePreferredRegion(next);
   }
 
   return (

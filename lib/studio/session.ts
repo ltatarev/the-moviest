@@ -2,8 +2,8 @@ import crypto from 'node:crypto';
 import { promisify } from 'node:util';
 
 /**
- * Studio auth primitives. Deliberately separate from the site's user auth
- * (`JWT_SECRET`, `userPlugin.ts`): one password, one signed cookie, no users.
+ * Studio auth primitives: one password, one signed cookie, no users. The
+ * site has no other sign-in.
  *
  * Kept free of Next imports so `src/proxy.ts`, the API routes and the tests
  * can all share it.

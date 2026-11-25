@@ -1,16 +1,21 @@
 import type { GetServerSidePropsContext } from 'next';
+import { type Anniversary, fetchAnniversaries } from '@lib/anniversaries';
 import { setPublicPageCache } from '@lib/cache';
 import { discoverMoods, type Mood } from '@lib/moods';
+import { fetchRegionalData, type RegionalData } from '@lib/regional';
 import { fetchResults, getListEndpoint, getTrendingEndpoint } from '@lib/tmdb';
 import type { MovieType } from '@lib/types';
-import { AppCard, PopularSection, TrendingBoard } from '@modules/discover';
+import {
+  Anniversaries,
+  AppCard,
+  PopularSection,
+  RegionalSections,
+  TrendingBoard,
+} from '@modules/discover';
 import { HomeLayout } from '@modules/layout';
 import { MoodPills } from '@modules/moods';
 import { Navbar } from '@modules/navbar';
 import { Hero, Rail, Reveal, SectionHeader, Seo } from '@modules/ui';
-
-/** The region the server renders. See `DEFAULT_WATCH_REGION`. */
-const SERVER_REGION = 'US';
 
 interface DiscoverProps {
   featured: Array<MovieType>;
@@ -18,7 +23,8 @@ interface DiscoverProps {
   popularMovies: Array<MovieType>;
   popularShows: Array<MovieType>;
   moods: Array<Mood>;
-  inCinemas: Array<MovieType>;
+  regional: RegionalData;
+  anniversaries: Array<Anniversary>;
   topRated: Array<MovieType>;
 }
 
@@ -32,7 +38,8 @@ export default function Discover({
   popularMovies,
   popularShows,
   moods,
-  inCinemas,
+  regional,
+  anniversaries,
   topRated,
 }: DiscoverProps) {
   return (
@@ -80,16 +87,16 @@ export default function Discover({
         </Reveal>
       </div>
 
-      <section className="mt-20">
-        <Reveal>
-          <SectionHeader
-            eyebrow="In cinemas"
-            title="Playing now"
-            moreHref="/moods/in-cinemas"
-          />
-        </Reveal>
-        <Rail items={inCinemas} type="movie" />
-      </section>
+      <RegionalSections initial={regional} />
+
+      {anniversaries.length > 0 && (
+        <section className="mt-20">
+          <Reveal>
+            <SectionHeader eyebrow="This month" title="Birthdays" />
+          </Reveal>
+          <Anniversaries items={anniversaries} />
+        </section>
+      )}
 
       <section className="mt-20">
         <Reveal>
@@ -107,17 +114,24 @@ function isTitle(item: MovieType): boolean {
 
 export async function getServerSideProps({ res }: GetServerSidePropsContext) {
   setPublicPageCache(res);
-  const [today, week, popularMovies, popularShows, inCinemas, topRated] =
-    await Promise.all([
-      fetchResults(getTrendingEndpoint('all', 'day')),
-      fetchResults(getTrendingEndpoint('all')),
-      fetchResults(getListEndpoint('movie', 'popular')),
-      fetchResults(getListEndpoint('tv', 'popular')),
-      fetchResults(
-        `${getListEndpoint('movie', 'now_playing')}&region=${SERVER_REGION}`,
-      ),
-      fetchResults(getListEndpoint('movie', 'top_rated')),
-    ]);
+  const now = new Date();
+  const [
+    today,
+    week,
+    popularMovies,
+    popularShows,
+    regional,
+    anniversaries,
+    topRated,
+  ] = await Promise.all([
+    fetchResults(getTrendingEndpoint('all', 'day')),
+    fetchResults(getTrendingEndpoint('all')),
+    fetchResults(getListEndpoint('movie', 'popular')),
+    fetchResults(getListEndpoint('tv', 'popular')),
+    fetchRegionalData(),
+    fetchAnniversaries(now),
+    fetchResults(getListEndpoint('movie', 'top_rated')),
+  ]);
   const trending = week.filter(isTitle).slice(0, 5);
   const onBoard = new Set(trending.map((item) => item.id));
   // The hero is today's list without the titles the weekly board shows.
@@ -132,8 +146,9 @@ export async function getServerSideProps({ res }: GetServerSidePropsContext) {
       trending,
       popularMovies: popularMovies.slice(0, 6),
       popularShows: popularShows.slice(0, 6),
-      moods: discoverMoods(new Date()),
-      inCinemas: inCinemas.slice(0, 10),
+      moods: discoverMoods(now),
+      regional,
+      anniversaries,
       topRated: topRated.slice(0, 10),
     },
   };
